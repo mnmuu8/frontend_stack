@@ -4,7 +4,6 @@ import { UserProvider } from '@auth0/nextjs-auth0/client';
 import Header from '@/components/Header';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const { user } = pageProps;
 
   return (
     <UserProvider>

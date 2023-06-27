@@ -1,0 +1,210 @@
+openapi: 3.0.0
+info:
+  title: Skill Climbing
+  version: 1.0.0
+  description: スキルの積み上げアプリ
+
+servers:
+  - url: http://localhost:3000
+    description: Development server
+  - url: https://skill-climbing.onrender.com
+    description: Production server
+
+paths:
+  /api/v1/stacks:
+    get:
+      summary: 積み上げ一覧
+      operationId: api.v1.stacks.index
+      tags:
+        - Stack
+      security: []
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stacks_StackList'
+    post:
+      summary: 積み上げ作成
+      operationId: api.v1.stacks.create
+      tags:
+        - Stack
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StacksCreateRequestBody'
+      responses:
+        '201':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stacks_Stack'
+        '422':
+          description: バリデーションエラー
+
+  /api/v1/skills:
+    get:
+      summary: スキルマスタデータ取得
+      operationId: api.v1.skills.index
+      tags:
+        - Skill
+      security: []
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Skills_SkillList'
+
+components:
+  schemas:
+    Stacks_StackList:
+      type: array
+      items:
+        allOf:
+          - $ref: '#/components/schemas/Skills_Skill'
+
+    Stacks_Stack:
+      type: object
+      required:
+        - id
+        - title
+        - minutes
+        - skill
+        - description
+        - stacked_at
+        - created_at
+        - updated_at
+      properties:
+        id:
+          allOf:
+            - $ref: '#/components/schemas/Stacks_Stack_Id'
+          nullable: false
+        title:
+          allOf:
+            - $ref: '#/components/schemas/Stacks_Stack_Title'
+          nullable: false
+        minutes:
+          allOf:
+            - $ref: '#/components/schemas/Stacks_Stack_Minutes'
+          nullable: false
+        skill:
+          allOf:
+            - $ref: '#/components/schemas/Skills_Skill'
+          nullable: false
+        description:
+          allOf:
+            - $ref: '#/components/schemas/Stacks_Stack_Description'
+          nullable: true
+        stacked_at:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+          nullable: false
+        created_at:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+          nullable: false
+        updated_at:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+          nullable: false
+
+    Stacks_Stack_Id:
+      type: integer
+      description: 積み上げID
+      example: 1
+
+    Stacks_Stack_Title:
+      type: string
+      description: 積み上げタイトル
+      example: 積み上げタイトル
+
+    Stacks_Stack_Minutes:
+      type: integer
+      description: 積み上げ時間
+      example: 100
+
+    Stacks_Stack_Description:
+      type: string
+      description: 積み上げ内容
+      example: 積み上げ内容
+
+    Skills_SkillList:
+      type: array
+      items:
+        allOf:
+          - $ref: '#/components/schemas/Skills_Skill'
+
+    Skills_Skill:
+      type: object
+      required:
+        - id
+        - name
+        - created_at
+        - updated_at
+      properties:
+        id:
+          allOf:
+            - $ref: '#/components/schemas/Skills_Skill_Id'
+        name:
+          allOf:
+            - $ref: '#/components/schemas/Skills_Skill_Name'
+        created_at:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+          nullable: false
+        updated_at:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+          nullable: false
+
+    Skills_Skill_Id:
+      type: integer
+      description: スキルID
+      example: 1
+
+    Skills_Skill_Name:
+      type: string
+      description: スキル名
+      example: Ruby
+
+    DateTime:
+      type: string
+      format: date-time
+      example: '2023-01-01T00:00:00+09:00'
+
+    StacksCreateRequestBody:
+      type: object
+      required:
+        - title
+        - minutes
+        - skill_id
+        - description
+        - stacked_at
+      properties:
+        title:
+          allOf:
+            - $ref: '#/components/schemas/Stacks_Stack_Title'
+          nullable: false
+        minutes:
+          allOf:
+            - $ref: '#/components/schemas/Stacks_Stack_Minutes'
+          nullable: false
+        skill_id:
+          allOf:
+            - $ref: '#/components/schemas/Skills_Skill_Id'
+          nullable: false
+        description:
+          allOf:
+            - $ref: '#/components/schemas/Stacks_Stack_Description'
+          nullable: true
+        stacked_at:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+          nullable: false

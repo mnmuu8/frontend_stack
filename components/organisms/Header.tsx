@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import Link from 'next/link';
 import noProfile from '../../public/noprofile.png'
 import { useUser } from '@auth0/nextjs-auth0/client';
@@ -11,12 +11,16 @@ import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
+import MenuIcon from '@mui/icons-material/Menu';
+import AppContext from '@/context/AppContext';
 
 const Header: FC = () => {
   const { user, error, isLoading } = useUser();
+  const appContext = useContext(AppContext);
+  const { drawerOpen, handleDrawerOpen } = appContext;
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -27,15 +31,29 @@ const Header: FC = () => {
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
 
+  const headerStyle: React.CSSProperties = {
+    width: appContext.drawerOpen ? 'calc(100% - 240px)' : '',
+    left: appContext.drawerOpen ? 'auto' : 0,
+  }
+
   if (user) {
     return (
-      <header>
-        <div className='flex justify-between items-center py-4 px-8 shadow-md'>
+      <header className='fixed top-0 left-0 right-0' style={headerStyle} >
+        <div className='flex justify-between items-center h-20 px-8 shadow-md'>
           <div className='flex items-center'>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              sx={{ mr: 2, ...(drawerOpen && { display: 'none' }) }}
+            >
+              <MenuIcon />
+            </IconButton>
             <div className='font-mono font-bold text-2xl mr-8'>Skill_Climbing</div>
             <div className='flex items-center'>
-              <input type="text" value={"キーワードを入力"} className='h-8 bg-gray-100 mr-2 rounded p-2 text-xs' />
-              <IconButton className=''>
+              <input className='h-8 bg-gray-100 mr-2 rounded p-2 text-xs' type="text" placeholder='キーワードを入力' />
+              <IconButton>
                 <SearchIcon />
               </IconButton>
             </div>
@@ -108,8 +126,8 @@ const Header: FC = () => {
   }
 
   return (
-    <header>
-      <div className='flex justify-between items-center py-4 px-8 shadow-md'>
+    <header className='fixed top-0 left-0 right-0'>
+      <div className='flex justify-between items-center h-20 px-8 shadow-md'>
         <div className=''>
           <div className='font-mono font-bold text-2xl mr-8'>Skill_Climbing</div>
         </div>

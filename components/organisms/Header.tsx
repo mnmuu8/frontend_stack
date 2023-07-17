@@ -4,7 +4,6 @@ import noProfile from '../../public/noprofile.png'
 import { useUser } from '@auth0/nextjs-auth0/client';
 import ImageWrapper from '../atoms/ImageWrapper';
 import IconButton from '@mui/material/IconButton';
-import SearchIcon from '@mui/icons-material/Search';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -13,6 +12,7 @@ import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
 import AppContext from '@/context/AppContext';
+import SearchBox from '../molecules/SearchBox';
 
 const Header: FC = () => {
   const { user, error, isLoading } = useUser();
@@ -51,12 +51,7 @@ const Header: FC = () => {
               <MenuIcon />
             </IconButton>
             <div className='font-mono font-bold text-2xl mr-8'>Skill_Climbing</div>
-            <div className='flex items-center'>
-              <input className='h-8 bg-gray-100 mr-2 rounded p-2 text-xs' type="text" placeholder='キーワードを入力' />
-              <IconButton>
-                <SearchIcon />
-              </IconButton>
-            </div>
+            <SearchBox />
           </div>
           <div className='flex items-center'>
             {user.picture ? (

@@ -38,7 +38,7 @@ const Header: FC = () => {
 
   if (user) {
     return (
-      <header className='fixed top-0 left-0 right-0' style={headerStyle} >
+      <header className='fixed top-0 left-0 right-0 bg-white' style={headerStyle} >
         <div className='flex justify-between items-center h-20 px-8 shadow-md'>
           <div className='flex items-center'>
             <IconButton

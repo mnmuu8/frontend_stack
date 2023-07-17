@@ -17,3 +17,23 @@ export type sidebarMenus = {
   label: string;
   value: string;
 }
+
+type ChartData =  {
+  labels: string[];
+  datasets: any[];
+}
+
+type ChartOption = {
+  responsive: boolean;
+  plugins: {
+    title: {
+      display: boolean;
+      text: string;
+    };
+  };
+}
+
+export type BarChartData = ChartData;
+export type BarChartOption = ChartOption;
+export type ArcChartData = ChartData;
+export type ArcChartOption = ChartOption;

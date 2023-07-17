@@ -1,8 +1,6 @@
 import React, { FC, useContext } from 'react';
 import Link from 'next/link';
-import noProfile from '../../public/noprofile.png'
 import { useUser } from '@auth0/nextjs-auth0/client';
-import ImageWrapper from '../atoms/ImageWrapper';
 import IconButton from '@mui/material/IconButton';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Menu from '@mui/material/Menu';
@@ -13,6 +11,7 @@ import Logout from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
 import AppContext from '@/context/AppContext';
 import SearchBox from '../molecules/SearchBox';
+import UserProfile from '../molecules/UserProfile';
 
 const Header: FC = () => {
   const { user, error, isLoading } = useUser();
@@ -54,15 +53,7 @@ const Header: FC = () => {
             <SearchBox />
           </div>
           <div className='flex items-center'>
-            {user.picture ? (
-              <ImageWrapper src={user.picture!} height={50} width={50} alt={user.name!} className='rounded-full mr-4' />
-            ) : (
-              <ImageWrapper src={noProfile as any} height={50} width={50} alt={user.name!} className='rounded-full mr-4' />
-            )}
-            <div className='mr-2'>
-              <span className='block text-sm'>{user.name}</span>
-              <span className='block text-sm'>{user.email}</span>
-            </div>
+            <UserProfile user={user} />
             <IconButton onClick={handleClick}>
               <KeyboardArrowDownIcon />
             </IconButton>

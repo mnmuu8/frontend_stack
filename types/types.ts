@@ -18,12 +18,12 @@ export type sidebarMenus = {
   value: string;
 }
 
-type ChartData =  {
+export type ChartData =  {
   labels: string[];
   datasets: any[];
 }
 
-type ChartOption = {
+export type ChartOption = {
   responsive: boolean;
   plugins: {
     title: {
@@ -33,10 +33,16 @@ type ChartOption = {
   };
 }
 
-export type BarChartData = ChartData;
-export type BarChartOption = ChartOption;
-export type ArcChartData = ChartData;
-export type ArcChartOption = ChartOption;
+export type ChartProps =  {
+  labels: string[];
+  label: string;
+  data: number[];
+  bdColor: string[];
+  bgColor: string[];
+  bdwidth: number;
+  text: string;
+  type: "bar" | "pie";
+}
 
 export type UserProfileProps = {
   user: {

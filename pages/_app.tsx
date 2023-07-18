@@ -7,12 +7,20 @@ import AppContext from '@/context/AppContext';
 
 function MyApp({ Component, pageProps }: AppProps) {
 
-  const [drawerOpen, setDrawerOpen] = useState(true);
+  const [drawerOpen, setDrawerOpen] = React.useState<boolean>(true);
   const handleDrawerOpen: () => void = () => {
     setDrawerOpen(true);
   };
   const handleDrawerClose: () => void = () => {
     setDrawerOpen(false);
+  };
+
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleMenuClose: () => void = () => {
+    setAnchorEl(null);
   };
 
   return (
@@ -21,7 +29,11 @@ function MyApp({ Component, pageProps }: AppProps) {
         drawerOpen: drawerOpen,
         setDrawerOpen: setDrawerOpen,
         handleDrawerOpen: handleDrawerOpen,
-        handleDrawerClose: handleDrawerClose
+        handleDrawerClose: handleDrawerClose,
+        anchorEl: anchorEl,
+        setAnchorEl: setAnchorEl,
+        handleMenuOpen: handleMenuOpen,
+        handleMenuClose: handleMenuClose
       }}
     >
       <UserProvider>

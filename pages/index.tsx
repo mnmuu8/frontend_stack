@@ -1,8 +1,8 @@
 import { NextPage } from 'next'
 import Layout from '@/components/organisms/Layout'
-import BarChart from '@/components/util/BarChart'
-import ArcChart from '@/components/util/ArcChart'
-import RankTable from '@/components/util/RankTable'
+import BarChart from '@/components/uikit/BarChart'
+import ArcChart from '@/components/uikit/ArcChart'
+import RankTable from '@/components/uikit/RankTable'
 
 const Index: NextPage = () => {
   return (

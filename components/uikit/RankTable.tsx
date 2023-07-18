@@ -38,6 +38,7 @@ function createTableData(
   return { rank, name, stacked_time, score };
 }
 
+// TODO: APIデータ受け取り。後々実装
 const rows = [
   createTableData(1, 'user-a', 142.4, 82),
   createTableData(2, 'user-b', 142.4, 82),

@@ -9,6 +9,7 @@ const Index: NextPage = () => {
   const currentMonth = currentDate.getMonth() + 1;
   const daysInMonth = new Date(currentYear, currentMonth, 0).getDate();
 
+  // TODO: APIデータ受け取り。後々実装
   const generateStudyTimeData = (daysInMonth: number): number[] => {
     const studyTimeData: number[] = [];
     for (let i = 0; i < daysInMonth; i++) {

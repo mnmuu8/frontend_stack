@@ -2,6 +2,10 @@ import { NextPage } from 'next'
 import Layout from '@/components/organisms/Layout'
 import Chart from '@/components/uikit/Chart'
 import RankTable from '@/components/uikit/RankTable'
+import Button from '@mui/material/Button';
+import AddIcon from '@mui/icons-material/Add';
+import Link from 'next/link';
+import StackForm from '@/components/molecules/StackForm';
 
 const Index: NextPage = () => {
   const currentDate = new Date();
@@ -60,6 +64,7 @@ const Index: NextPage = () => {
           </div>
         </div>
       </div>
+      <StackForm />
     </Layout>
   )
 }

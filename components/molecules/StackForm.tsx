@@ -59,7 +59,6 @@ const StackForm: FC = () => {
                 <TextInput 
                   control={control}
                   name={"time"}
-                  defaultValue={0}
                   fullWidth={true}
                   multiline={false}
                   minRows={1}
@@ -73,7 +72,6 @@ const StackForm: FC = () => {
               <TextInput 
                 control={control}
                 name={"title"}
-                defaultValue={""}
                 fullWidth={true}
                 multiline={false}
                 minRows={1}

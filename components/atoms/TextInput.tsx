@@ -6,14 +6,13 @@ import TextField from '@mui/material/TextField';
 import { TextInputProps } from '@/types/types';
 
 const TextInput: FC<TextInputProps> = ( props ) => {
-  const { control, name, defaultValue, fullWidth, multiline, minRows, required, requiredMessage, label, placeholder, type } = props;
+  const { control, name, fullWidth, multiline, minRows, required, requiredMessage, label, placeholder, type } = props;
 
   return (
     <Box className="mt-4">
       <Controller
         name={name}
         control={control}
-        defaultValue={defaultValue}
         rules={{
           required: { value: required, message: requiredMessage }
         }}

@@ -82,7 +82,6 @@ export type CheckBoxProps = ControlProps & {
 
 export type TextInputProps = ControlProps & {
   name: "time" | "title";
-  defaultValue?: string | number | string[] | undefined
   fullWidth: boolean;
   multiline: boolean;
   minRows: number;

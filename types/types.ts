@@ -81,8 +81,7 @@ export type CheckBoxProps = ControlProps & {
 }
 
 export type TextInputProps = ControlProps & {
-  control: Control<StackFormData, any>
-  name: "time" | "title" | "description" | "skills" | `skills.${number}`
+  name: "time" | "title";
   defaultValue?: string | number | string[] | undefined
   fullWidth: boolean;
   multiline: boolean;

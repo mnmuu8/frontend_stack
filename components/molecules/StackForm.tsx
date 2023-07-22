@@ -31,7 +31,7 @@ const StackForm: FC = () => {
     const checkAleart = window.confirm('積み上げを登録しますか？');
     if (checkAleart) {
 
-      // TODO: 後で削除
+      // TODO: 後でAPIを叩く。その時削除する。
       console.log(data);
 
       setValue('title', '');

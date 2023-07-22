@@ -7,7 +7,7 @@ import Modal from '@mui/material/Modal';
 import AddIcon from '@mui/icons-material/Add';
 import CheckBox from './CheckBoxGroup';
 import TextInput from '../atoms/TextInput';
-
+import DateInput from '../atoms/DateInput';
 import { StackFormData, onSubmitType } from '@/types/types';
 
 const StackForm: FC = () => {
@@ -53,6 +53,22 @@ const StackForm: FC = () => {
             <div className='text-center text-2xl font-bold'>Create Stack</div>
             <div className='flex flex-col'>
               <CheckBox setValue={setValue} control={control} />
+              <div className='flex'>
+                <DateInput control={control} />
+                <TextInput 
+                  control={control}
+                  name={"time"}
+                  defaultValue={0}
+                  fullWidth={true}
+                  multiline={false}
+                  minRows={1}
+                  required={true}
+                  requiredMessage={"必須入力"}
+                  label={"Stacked Time"}
+                  placeholder={"8"}
+                  type='number'
+                />
+              </div>
               <TextInput 
                 control={control}
                 name={"title"}
@@ -65,19 +81,6 @@ const StackForm: FC = () => {
                 label={"Title"}
                 placeholder={"Reactの学習..."}
                 type='text'
-              />
-              <TextInput 
-                control={control}
-                name={"time"}
-                defaultValue={0}
-                fullWidth={true}
-                multiline={false}
-                minRows={1}
-                required={true}
-                requiredMessage={"必須入力"}
-                label={"Stacked Time"}
-                placeholder={"8"}
-                type='number'
               />
               <TextInput 
                 control={control}

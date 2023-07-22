@@ -1,41 +1,104 @@
 import React, { FC } from 'react'
+import { useForm } from 'react-hook-form';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import AddIcon from '@mui/icons-material/Add';
+import CheckBox from './CheckBoxGroup';
+import TextInput from '../atoms/TextInput';
 
+import { StackFormData, onSubmitType } from '@/types/types';
 
 const StackForm: FC = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+
+  const { control, handleSubmit, setValue } = useForm<StackFormData>();
+  const onCancel = () => {
+    const checkAleart = window.confirm('キャンセルすると入力した値が全て削除されますがよろしいでしょうか？');
+    if (checkAleart) {
+      setValue('title', '');
+      setValue('time', 0);
+      setValue('description', '');
+      setValue('skills', []);
+
+      setOpen(false);
+    }
+  }
+  const onSubmit: onSubmitType = (data: StackFormData) => {
+    const checkAleart = window.confirm('積み上げを登録しますか？');
+    if (checkAleart) {
+
+      // TODO: 後で削除
+      console.log(data);
+
+      setValue('title', '');
+      setValue('time', 0);
+      setValue('description', '');
+      setValue('skills', []);
+
+      setOpen(false);
+    }
+  }
 
   return (
     <>
       <Button onClick={handleOpen} className='fixed bottom-6 right-6 bg-blue-500 p-6 rounded-full hover:bg-blue-400'>
-        <AddIcon className='text-white' />
+        <AddIcon className='text-white'/>
       </Button>
-      <Modal
-        open={open}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-white w-[720px] h-[80vh] p-10 flex flex-col">
+      <Modal open={open}>
+        <Box className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-white w-[720px] h-[80vh] p-10 flex flex-col overflow-y-scroll">
           <div className='flex-1'>
-            <Typography id="modal-modal-title" variant="h6" component="h2" className='text-center font-bold'>
-              積み上げを登録
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              ここに入力フォームが入ります。
-            </Typography>
+            <div className='text-center text-2xl font-bold'>Create Stack</div>
+            <div className='flex flex-col'>
+              <CheckBox setValue={setValue} control={control} />
+              <TextInput 
+                control={control}
+                name={"title"}
+                defaultValue={""}
+                fullWidth={true}
+                multiline={false}
+                minRows={1}
+                required={true}
+                requiredMessage={"必須入力"}
+                label={"Title"}
+                placeholder={"Reactの学習..."}
+                type='text'
+              />
+              <TextInput 
+                control={control}
+                name={"time"}
+                defaultValue={0}
+                fullWidth={true}
+                multiline={false}
+                minRows={1}
+                required={true}
+                requiredMessage={"必須入力"}
+                label={"Stacked Time"}
+                placeholder={"8"}
+                type='number'
+              />
+              <TextInput 
+                control={control}
+                name={"description"}
+                defaultValue={""}
+                fullWidth={true}
+                multiline={true}
+                minRows={10}
+                required={false}
+                requiredMessage={""}
+                label={"Description"}
+                placeholder={"今日の積み上げ内容は..."}
+                type='text'
+              />
+            </div>
           </div>
-          <div className='flex justify-center'>
-            <Button  onClick={handleClose} className='text-white bg-red-500 hover:bg-red-400 mx-2'>
+          <div className='flex justify-center pt-6'>
+            <Button onClick={onCancel} className='text-white bg-red-500 hover:bg-red-400 mx-2'>
               キャンセル
             </Button>
-            <Button className='text-white bg-blue-500 hover:bg-blue-400 mx-2'>
+            <Button type='submit' onClick={handleSubmit(onSubmit)} className='text-white bg-blue-500 hover:bg-blue-400 mx-2'>
               積み上げを登録
             </Button>
           </div>

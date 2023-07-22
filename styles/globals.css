@@ -43,3 +43,6 @@ h3 {
 .react-datepicker-popper {
   @apply z-[2] !important;
 }
+.quill .ql-container {
+  @apply min-h-[300px];
+}

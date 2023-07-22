@@ -8,6 +8,7 @@ import AddIcon from '@mui/icons-material/Add';
 import CheckBox from './CheckBoxGroup';
 import TextInput from '../atoms/TextInput';
 import DateInput from '../atoms/DateInput';
+import RichTextEditor from '../atoms/RichTextEditor';
 import { StackFormData, onSubmitType } from '@/types/types';
 
 const StackForm: FC = () => {
@@ -20,7 +21,7 @@ const StackForm: FC = () => {
     if (checkAleart) {
       setValue('title', '');
       setValue('time', 0);
-      setValue('description', '');
+      setValue('editorContent', '');
       setValue('skills', []);
 
       setOpen(false);
@@ -35,7 +36,7 @@ const StackForm: FC = () => {
 
       setValue('title', '');
       setValue('time', 0);
-      setValue('description', '');
+      setValue('editorContent', '');
       setValue('skills', []);
 
       setOpen(false);
@@ -82,19 +83,7 @@ const StackForm: FC = () => {
                 placeholder={"Reactの学習..."}
                 type='text'
               />
-              <TextInput 
-                control={control}
-                name={"description"}
-                defaultValue={""}
-                fullWidth={true}
-                multiline={true}
-                minRows={10}
-                required={false}
-                requiredMessage={""}
-                label={"Description"}
-                placeholder={"今日の積み上げ内容は..."}
-                type='text'
-              />
+              <RichTextEditor control={control} />
             </div>
           </div>
           <div className='flex justify-center pt-6'>

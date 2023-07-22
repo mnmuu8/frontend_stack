@@ -63,7 +63,7 @@ export type UserProfileProps = {
 
 export type StackFormData = {
   title: string;
-  description?: string;
+  editorContent: string;
   skills: string[];
   time: number;
   date: Date | any;
@@ -74,12 +74,11 @@ export type onSubmitType = (data: StackFormData) => void;
 export type ControlProps = {
   control: Control<StackFormData, any>
 }
-
+export type DateInputProps = ControlProps;
+export type RichTextEditorProps = ControlProps;
 export type CheckBoxProps = ControlProps & {
   setValue: UseFormSetValue<StackFormData>
 }
-
-export type DateInputProps = ControlProps;
 
 export type TextInputProps = ControlProps & {
   control: Control<StackFormData, any>

@@ -6,9 +6,9 @@ import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import AddIcon from '@mui/icons-material/Add';
 import CheckBox from './CheckBoxGroup';
-import TextInput from '../atoms/TextInput';
-import DateInput from '../atoms/DateInput';
-import RichTextEditor from '../atoms/RichTextEditor';
+import TextInput from '../molecules/TextInput';
+import DateInput from '../molecules/DateInput';
+import RichTextEditor from '../molecules/RichTextEditor';
 import { StackFormData, onSubmitType } from '@/types/types';
 
 const StackForm: FC = () => {

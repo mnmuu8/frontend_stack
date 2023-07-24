@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { Controller } from 'react-hook-form';
 import { FormGroup } from '@mui/material';
 import Box from '@mui/material/Box';
-import CheckBoxLabel from '../atoms/CheckBoxLabel';
+import CheckBoxLabel from './CheckBoxLabel';
 
 import { CheckBoxProps, Skill } from '@/types/types';
 

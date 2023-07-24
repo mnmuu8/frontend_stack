@@ -1,5 +1,5 @@
 import { ReactNode } from "react"
-import { UseFormSetValue, Control, FieldErrors } from 'react-hook-form';
+import { UseFormSetValue, Control, ControllerRenderProps } from 'react-hook-form';
 
 export type LayoutProps = {
   children: ReactNode
@@ -61,10 +61,15 @@ export type UserProfileProps = {
   }
 }
 
+export type Skill = {
+  id: string;
+  name: string;
+};
+
 export type StackFormData = {
   title: string;
   editorContent: string;
-  skills: string[];
+  skills: Skill[];
   time: number;
   date: Date | any;
 }
@@ -78,6 +83,12 @@ export type DateInputProps = ControlProps;
 export type RichTextEditorProps = ControlProps;
 export type CheckBoxProps = ControlProps & {
   setValue: UseFormSetValue<StackFormData>
+}
+
+export type CheckBoxLabelProps = {
+  skill: Skill;
+  setValue: UseFormSetValue<StackFormData>
+  field: ControllerRenderProps<StackFormData, "skills">;
 }
 
 export type TextInputProps = ControlProps & {

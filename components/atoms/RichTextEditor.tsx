@@ -9,6 +9,30 @@ import { RichTextEditorProps } from '@/types/types';
 
 const RichTextEditor: FC<RichTextEditorProps> = ( props ) => {
   const { control } = props;
+  const quillModules = {
+    toolbar: [
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      ['bold', 'italic', 'underline'],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      ['link', 'image'],
+      [{ color: [] }],
+      [{ 'code-block': 'insertCode' }],
+      [{ 'blockquote': 'insertBlockquote' }],
+    ],
+  }
+  const quillFormats = [
+    'header',
+    'bold',
+    'italic',
+    'underline',
+    'list',
+    'bullet',
+    'link',
+    'image',
+    'color',
+    'code-block',
+    'blockquote',
+  ]
 
   return (
     <Box className="mt-4">
@@ -25,30 +49,8 @@ const RichTextEditor: FC<RichTextEditorProps> = ( props ) => {
                 value={field.value}
                 onChange={field.onChange}
                 placeholder="ここにテキストを入力してください"
-                modules={{
-                  toolbar: [
-                    [{ header: [1, 2, 3, 4, 5, 6, false] }],
-                    ['bold', 'italic', 'underline'],
-                    [{ list: 'ordered' }, { list: 'bullet' }],
-                    ['link', 'image'],
-                    [{ color: [] }],
-                    [{ 'code-block': 'insertCode' }],
-                    [{ 'blockquote': 'insertBlockquote' }],
-                  ],
-                }}
-                formats={[
-                  'header',
-                  'bold',
-                  'italic',
-                  'underline',
-                  'list',
-                  'bullet',
-                  'link',
-                  'image',
-                  'color',
-                  'code-block',
-                  'blockquote',
-                ]}
+                modules={quillModules}
+                formats={quillFormats}
               />
             )}
           </>

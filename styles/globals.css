@@ -17,3 +17,32 @@ h2 {
 h3 {
   @apply font-semibold leading-tight text-2xl;
 }
+
+.MuiFormGroup-root .MuiFormControlLabel-root  {
+  @apply relative ml-0 mr-2 mb-2;
+}
+.MuiFormGroup-root .MuiFormControlLabel-root .MuiCheckbox-root.Mui-checked svg,
+.MuiFormGroup-root .MuiFormControlLabel-root .MuiCheckbox-root svg path {
+  @apply hidden;
+}
+.MuiFormGroup-root .MuiFormControlLabel-root .MuiCheckbox-root {
+  @apply rounded-md transition-all duration-500 absolute top-0 left-0 w-full h-full bg-gray-100 z-[-1];
+}
+.MuiFormGroup-root .MuiFormControlLabel-root .MuiFormControlLabel-label {
+  @apply text-xs p-2 transition-all duration-500;
+}
+.MuiFormGroup-root .MuiFormControlLabel-root .MuiCheckbox-root.Mui-checked {
+  @apply transition-all duration-500 bg-pink-500;
+}
+.MuiFormGroup-root .MuiFormControlLabel-root .MuiCheckbox-root.Mui-checked + .MuiFormControlLabel-label {
+  @apply text-white transition-all duration-500;
+}
+.react-datepicker-wrapper .react-datepicker__input-container input {
+  @apply py-[15px] px-[14px] rounded-md box-content border-[1px] border-[#CCCCCC];
+}
+.react-datepicker-popper {
+  @apply z-[2] !important;
+}
+.quill .ql-container {
+  @apply min-h-[300px];
+}

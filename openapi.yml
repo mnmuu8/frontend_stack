@@ -47,6 +47,40 @@ paths:
         '422':
           description: バリデーションエラー
 
+  /api/v1/stacks/{stack_id}/introspections:
+    post:
+      summary: 積み上げの反省登録API
+      operationId: api.v1.stacks.introspections.create
+      tags:
+        - Stack
+        - Introspection
+      security: []
+      parameters:
+        - name: stack_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Stacks_Stack_Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Stacks_IntrospectionCreateRequestBody'
+      responses:
+        '201':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stacks_Introspections_Introspection'
+        '404':
+          description: 積み上げが存在しない
+        '409':
+          description: すでに反省が登録されている
+        '422':
+          description: バリデーションエラー
+
   /api/v1/skills:
     get:
       summary: スキルマスタデータ取得
@@ -68,7 +102,7 @@ components:
       type: array
       items:
         allOf:
-          - $ref: '#/components/schemas/Skills_Skill'
+          - $ref: '#/components/schemas/Stacks_Stack'
 
     Stacks_Stack:
       type: object
@@ -114,6 +148,171 @@ components:
           allOf:
             - $ref: '#/components/schemas/DateTime'
           nullable: false
+
+    Stacks_Introspections_Introspection:
+      type: object
+      required:
+        - id
+        - evaluation
+        - reason
+        - keeps
+        - problems
+        - tries
+        - created_at
+        - updated_at
+      properties:
+        id:
+          allOf:
+            - $ref: '#/components/schemas/Stacks_Introspections_Introspection_Id'
+          nullable: false
+        evaluation:
+          allOf:
+            - $ref: '#/components/schemas/Stacks_Introspections_Introspection_Evaluation'
+          nullable: false
+        reason:
+          allOf:
+            - $ref: '#/components/schemas/Stacks_Introspections_Introspection_Reason'
+          nullable: false
+        keeps:
+          type: array
+          items:
+            allOf:
+              - $ref: '#/components/schemas/Stacks_Introspections_Keeps_Keep'
+        problems:
+          type: array
+          items:
+            allOf:
+              - $ref: '#/components/schemas/Stacks_Introspections_Ploblems_Ploblem'
+        tries:
+          type: array
+          items:
+            allOf:
+              - $ref: '#/components/schemas/Stacks_Introspections_Tries_Try'
+        created_at:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+          nullable: false
+        updated_at:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+          nullable: false
+
+    Stacks_Introspections_Introspection_Id:
+      type: integer
+      description: 積み上げ反省ID
+      example: 1
+
+    Stacks_Introspections_Introspection_Evaluation:
+      type: integer
+      description: 積み上げの評価
+      example: 85
+
+    Stacks_Introspections_Introspection_Reason:
+      type: string
+      description: 積み上げの評価理由
+      example: 今回は計画通りに積み上げられて良かったです。
+
+    Stacks_Introspections_Keeps_Keep:
+      type: object
+      required:
+        - id
+        - item
+        - created_at
+        - updated_at
+      properties:
+        id:
+          allOf:
+            - $ref: '#/components/schemas/Stacks_Introspections_Keeps_Keep_Id'
+          nullable: false
+        item:
+          allOf:
+            - $ref: '#/components/schemas/Stacks_Introspections_Keeps_Keep_Item'
+          nullable: false
+        created_at:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+          nullable: false
+        updated_at:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+          nullable: false
+
+    Stacks_Introspections_Keeps_Keep_Id:
+      type: integer
+      description: 反省のKeepID
+      example: 1
+    Stacks_Introspections_Keeps_Keep_Item:
+      type: string
+      description: 反省のKeep項目
+      example: 計画通りに積み上げられた
+
+    Stacks_Introspections_Ploblems_Ploblem:
+      type: object
+      required:
+        - id
+        - item
+        - created_at
+        - updated_at
+      properties:
+        id:
+          allOf:
+            - $ref: '#/components/schemas/Stacks_Introspections_Ploblems_Ploblem_Id'
+          nullable: false
+        item:
+          allOf:
+            - $ref: '#/components/schemas/Stacks_Introspections_Ploblems_Ploblem_Item'
+          nullable: false
+        created_at:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+          nullable: false
+        updated_at:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+          nullable: false
+
+    Stacks_Introspections_Ploblems_Ploblem_Id:
+      type: integer
+      description: 反省のPloblemID
+      example: 1
+    Stacks_Introspections_Ploblems_Ploblem_Item:
+      type: string
+      description: 反省のPloblem項目
+      example: スマホを触る時間が多かった
+
+    Stacks_Introspections_Tries_Try:
+      type: object
+      required:
+        - id
+        - item
+        - created_at
+        - updated_at
+      properties:
+        id:
+          allOf:
+            - $ref: '#/components/schemas/Stacks_Introspections_Tries_Try_Id'
+          nullable: false
+        item:
+          allOf:
+            - $ref: '#/components/schemas/Stacks_Introspections_Tries_Try_Item'
+          nullable: false
+        created_at:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+          nullable: false
+        updated_at:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+          nullable: false
+
+    Stacks_Introspections_Tries_Try_Id:
+      type: integer
+      description: 反省のTryID
+      example: 1
+    Stacks_Introspections_Tries_Try_Item:
+      type: string
+      description: 反省のTry項目
+      example: 作業時はスマホを寝室に置いておく
 
     Stacks_Stack_Id:
       type: integer
@@ -208,3 +407,37 @@ components:
           allOf:
             - $ref: '#/components/schemas/DateTime'
           nullable: false
+
+    Stacks_IntrospectionCreateRequestBody:
+      type: object
+      required:
+        - evaluation
+        - reason
+        - keeps
+        - problems
+        - tries
+        - stack_id
+      properties:
+        evaluation:
+          allOf:
+            - $ref: '#/components/schemas/Stacks_Introspections_Introspection_Evaluation'
+          nullable: false
+        reason:
+          allOf:
+            - $ref: '#/components/schemas/Stacks_Introspections_Introspection_Reason'
+          nullable: false
+        keeps:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/Stacks_Introspections_Keeps_Keep_Item'
+        problems:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/Stacks_Introspections_Ploblems_Ploblem_Item'
+        tries:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/Stacks_Introspections_Tries_Try_Item'

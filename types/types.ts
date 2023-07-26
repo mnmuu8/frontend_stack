@@ -102,3 +102,16 @@ export type TextInputProps = ControlProps & {
   placeholder: string;
   type: string;
 }
+
+export type StackCardProps = {
+  stack: {
+    id: number;
+    title: string;
+    minutes: number;
+    skill: Array<{ id: number; name: string }>;
+    description: string;
+    stacked_at: string;
+    created_at: string;
+    updated_at: string;
+  }
+}

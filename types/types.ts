@@ -59,6 +59,10 @@ export type UserProfileProps = {
     sub?: string | null;
     updated_at?: string | null;
   }
+  height: number;
+  width: number;
+  isHeader: boolean;
+  created_at?: string;
 }
 
 export type Skill = {

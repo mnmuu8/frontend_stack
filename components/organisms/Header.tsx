@@ -40,7 +40,7 @@ const Header: FC = () => {
             <SearchBox />
           </div>
           <div className='flex items-center'>
-            <UserProfile user={user} />
+            <UserProfile user={user} height={50} width={50} isHeader={true} />
             <IconButton onClick={handleMenuOpen}>
               <KeyboardArrowDownIcon />
             </IconButton>

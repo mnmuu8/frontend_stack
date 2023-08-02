@@ -25,6 +25,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Stacks_StackList'
+        '401':
+          description: 認証エラー
     post:
       summary: 積み上げ作成
       operationId: api.v1.stacks.create
@@ -44,6 +46,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Stacks_Stack'
+        '401':
+          description: 認証エラー
         '422':
           description: バリデーションエラー
 
@@ -73,6 +77,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Stacks_Introspections_Introspection'
+        '401':
+          description: 認証エラー
         '404':
           description: 積み上げが存在しない/反省が存在しない
 
@@ -103,6 +109,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Stacks_Introspections_Introspection'
+        '401':
+          description: 認証エラー
         '404':
           description: 積み上げが存在しない
         '409':
@@ -124,6 +132,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Skills_SkillList'
+        '401':
+          description: 認証エラー
 
 components:
   schemas:

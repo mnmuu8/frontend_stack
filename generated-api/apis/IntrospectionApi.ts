@@ -30,6 +30,11 @@ export interface ApiV1StacksIntrospectionsCreateRequest {
     stacksIntrospectionCreateRequestBody: StacksIntrospectionCreateRequestBody;
 }
 
+export interface ApiV1StacksIntrospectionsShowRequest {
+    stackId: number;
+    introspectionId: number;
+}
+
 /**
  * 
  */
@@ -69,6 +74,40 @@ export class IntrospectionApi extends runtime.BaseAPI {
      */
     async apiV1StacksIntrospectionsCreate(requestParameters: ApiV1StacksIntrospectionsCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<StacksIntrospectionsIntrospection> {
         const response = await this.apiV1StacksIntrospectionsCreateRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * 積み上げの反省詳細API
+     */
+    async apiV1StacksIntrospectionsShowRaw(requestParameters: ApiV1StacksIntrospectionsShowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<StacksIntrospectionsIntrospection>> {
+        if (requestParameters.stackId === null || requestParameters.stackId === undefined) {
+            throw new runtime.RequiredError('stackId','Required parameter requestParameters.stackId was null or undefined when calling apiV1StacksIntrospectionsShow.');
+        }
+
+        if (requestParameters.introspectionId === null || requestParameters.introspectionId === undefined) {
+            throw new runtime.RequiredError('introspectionId','Required parameter requestParameters.introspectionId was null or undefined when calling apiV1StacksIntrospectionsShow.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/api/v1/stacks/{stack_id}/introspections/{introspection_id}`.replace(`{${"stack_id"}}`, encodeURIComponent(String(requestParameters.stackId))).replace(`{${"introspection_id"}}`, encodeURIComponent(String(requestParameters.introspectionId))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => StacksIntrospectionsIntrospectionFromJSON(jsonValue));
+    }
+
+    /**
+     * 積み上げの反省詳細API
+     */
+    async apiV1StacksIntrospectionsShow(requestParameters: ApiV1StacksIntrospectionsShowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<StacksIntrospectionsIntrospection> {
+        const response = await this.apiV1StacksIntrospectionsShowRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

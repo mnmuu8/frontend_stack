@@ -1,5 +1,6 @@
 import { ReactNode } from "react"
 import { UseFormSetValue, Control, ControllerRenderProps } from 'react-hook-form';
+import { SelectChangeEvent } from '@mui/material/Select';
 
 export type LayoutProps = {
   children: ReactNode
@@ -118,4 +119,9 @@ export type StackCardProps = {
     created_at: string;
     updated_at: string;
   }
+}
+
+export type SelectBoxProps = {
+  selectedOption: string;
+  handleOptionChange: (event: SelectChangeEvent<string>) => void;
 }

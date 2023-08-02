@@ -4,7 +4,7 @@ import Chart from '@/components/uikit/Chart'
 import RankTable from '@/components/uikit/RankTable'
 import StackForm from '@/components/molecules/StackForm';
 
-const Index: NextPage = () => {
+const index: NextPage = () => {
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear();
   const currentMonth = currentDate.getMonth() + 1;
@@ -66,4 +66,4 @@ const Index: NextPage = () => {
   )
 }
 
-export default Index
+export default index

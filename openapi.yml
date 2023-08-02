@@ -47,6 +47,35 @@ paths:
         '422':
           description: バリデーションエラー
 
+  /api/v1/stacks/{stack_id}/introspections/{introspection_id}:
+    get:
+      summary: 積み上げの反省詳細API
+      operationId: api.v1.stacks.introspections.show
+      tags:
+        - Stack
+        - Introspection
+      security: []
+      parameters:
+        - name: stack_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Stacks_Stack_Id'
+        - name: introspection_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Stacks_Introspections_Introspection_Id'
+      responses:
+        '201':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stacks_Introspections_Introspection'
+        '404':
+          description: 積み上げが存在しない/反省が存在しない
+
   /api/v1/stacks/{stack_id}/introspections:
     post:
       summary: 積み上げの反省登録API

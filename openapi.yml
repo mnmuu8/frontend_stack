@@ -216,7 +216,7 @@ components:
       type: object
       required:
         - id
-        - item
+        - content
         - created_at
         - updated_at
       properties:
@@ -224,9 +224,9 @@ components:
           allOf:
             - $ref: '#/components/schemas/Stacks_Introspections_Keeps_Keep_Id'
           nullable: false
-        item:
+        content:
           allOf:
-            - $ref: '#/components/schemas/Stacks_Introspections_Keeps_Keep_Item'
+            - $ref: '#/components/schemas/Stacks_Introspections_Keeps_Keep_Content'
           nullable: false
         created_at:
           allOf:
@@ -241,7 +241,7 @@ components:
       type: integer
       description: 反省のKeepID
       example: 1
-    Stacks_Introspections_Keeps_Keep_Item:
+    Stacks_Introspections_Keeps_Keep_Content:
       type: string
       description: 反省のKeep項目
       example: 計画通りに積み上げられた
@@ -250,7 +250,7 @@ components:
       type: object
       required:
         - id
-        - item
+        - content
         - created_at
         - updated_at
       properties:
@@ -258,9 +258,9 @@ components:
           allOf:
             - $ref: '#/components/schemas/Stacks_Introspections_Ploblems_Ploblem_Id'
           nullable: false
-        item:
+        content:
           allOf:
-            - $ref: '#/components/schemas/Stacks_Introspections_Ploblems_Ploblem_Item'
+            - $ref: '#/components/schemas/Stacks_Introspections_Ploblems_Ploblem_Content'
           nullable: false
         created_at:
           allOf:
@@ -275,7 +275,7 @@ components:
       type: integer
       description: 反省のPloblemID
       example: 1
-    Stacks_Introspections_Ploblems_Ploblem_Item:
+    Stacks_Introspections_Ploblems_Ploblem_Content:
       type: string
       description: 反省のPloblem項目
       example: スマホを触る時間が多かった
@@ -284,7 +284,7 @@ components:
       type: object
       required:
         - id
-        - item
+        - content
         - created_at
         - updated_at
       properties:
@@ -292,9 +292,9 @@ components:
           allOf:
             - $ref: '#/components/schemas/Stacks_Introspections_Tries_Try_Id'
           nullable: false
-        item:
+        content:
           allOf:
-            - $ref: '#/components/schemas/Stacks_Introspections_Tries_Try_Item'
+            - $ref: '#/components/schemas/Stacks_Introspections_Tries_Try_Content'
           nullable: false
         created_at:
           allOf:
@@ -309,7 +309,7 @@ components:
       type: integer
       description: 反省のTryID
       example: 1
-    Stacks_Introspections_Tries_Try_Item:
+    Stacks_Introspections_Tries_Try_Content:
       type: string
       description: 反省のTry項目
       example: 作業時はスマホを寝室に置いておく
@@ -413,9 +413,9 @@ components:
       required:
         - evaluation
         - reason
-        - keeps
-        - problems
-        - tries
+        - keep_contents
+        - problem_contents
+        - try_contents
         - stack_id
       properties:
         evaluation:
@@ -426,18 +426,18 @@ components:
           allOf:
             - $ref: '#/components/schemas/Stacks_Introspections_Introspection_Reason'
           nullable: false
-        keeps:
+        keep_contents:
           type: array
           items:
             allOf:
-            - $ref: '#/components/schemas/Stacks_Introspections_Keeps_Keep_Item'
-        problems:
+            - $ref: '#/components/schemas/Stacks_Introspections_Keeps_Keep_Content'
+        problem_contents:
           type: array
           items:
             allOf:
-            - $ref: '#/components/schemas/Stacks_Introspections_Ploblems_Ploblem_Item'
-        tries:
+            - $ref: '#/components/schemas/Stacks_Introspections_Ploblems_Ploblem_Content'
+        try_contents:
           type: array
           items:
             allOf:
-            - $ref: '#/components/schemas/Stacks_Introspections_Tries_Try_Item'
+            - $ref: '#/components/schemas/Stacks_Introspections_Tries_Try_Content'

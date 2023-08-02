@@ -30,7 +30,7 @@ export interface StacksIntrospectionsIntrospectionTriesInner {
      * @type {string}
      * @memberof StacksIntrospectionsIntrospectionTriesInner
      */
-    item: string;
+    content: string;
     /**
      * 
      * @type {Date}
@@ -51,7 +51,7 @@ export interface StacksIntrospectionsIntrospectionTriesInner {
 export function instanceOfStacksIntrospectionsIntrospectionTriesInner(value: object): boolean {
     let isInstance = true;
     isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "item" in value;
+    isInstance = isInstance && "content" in value;
     isInstance = isInstance && "createdAt" in value;
     isInstance = isInstance && "updatedAt" in value;
 
@@ -69,7 +69,7 @@ export function StacksIntrospectionsIntrospectionTriesInnerFromJSONTyped(json: a
     return {
         
         'id': json['id'],
-        'item': json['item'],
+        'content': json['content'],
         'createdAt': (new Date(json['created_at'])),
         'updatedAt': (new Date(json['updated_at'])),
     };
@@ -85,7 +85,7 @@ export function StacksIntrospectionsIntrospectionTriesInnerToJSON(value?: Stacks
     return {
         
         'id': value.id,
-        'item': value.item,
+        'content': value.content,
         'created_at': (value.createdAt.toISOString()),
         'updated_at': (value.updatedAt.toISOString()),
     };

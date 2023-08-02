@@ -36,19 +36,19 @@ export interface StacksIntrospectionCreateRequestBody {
      * @type {Array<string>}
      * @memberof StacksIntrospectionCreateRequestBody
      */
-    keeps: Array<string>;
+    keepContents: Array<string>;
     /**
      * 
      * @type {Array<string>}
      * @memberof StacksIntrospectionCreateRequestBody
      */
-    problems: Array<string>;
+    problemContents: Array<string>;
     /**
      * 
      * @type {Array<string>}
      * @memberof StacksIntrospectionCreateRequestBody
      */
-    tries: Array<string>;
+    tryContents: Array<string>;
 }
 
 /**
@@ -58,9 +58,9 @@ export function instanceOfStacksIntrospectionCreateRequestBody(value: object): b
     let isInstance = true;
     isInstance = isInstance && "evaluation" in value;
     isInstance = isInstance && "reason" in value;
-    isInstance = isInstance && "keeps" in value;
-    isInstance = isInstance && "problems" in value;
-    isInstance = isInstance && "tries" in value;
+    isInstance = isInstance && "keepContents" in value;
+    isInstance = isInstance && "problemContents" in value;
+    isInstance = isInstance && "tryContents" in value;
 
     return isInstance;
 }
@@ -77,9 +77,9 @@ export function StacksIntrospectionCreateRequestBodyFromJSONTyped(json: any, ign
         
         'evaluation': json['evaluation'],
         'reason': json['reason'],
-        'keeps': json['keeps'],
-        'problems': json['problems'],
-        'tries': json['tries'],
+        'keepContents': json['keep_contents'],
+        'problemContents': json['problem_contents'],
+        'tryContents': json['try_contents'],
     };
 }
 
@@ -94,9 +94,9 @@ export function StacksIntrospectionCreateRequestBodyToJSON(value?: StacksIntrosp
         
         'evaluation': value.evaluation,
         'reason': value.reason,
-        'keeps': value.keeps,
-        'problems': value.problems,
-        'tries': value.tries,
+        'keep_contents': value.keepContents,
+        'problem_contents': value.problemContents,
+        'try_contents': value.tryContents,
     };
 }
 

@@ -14,7 +14,7 @@ const StackCard: FC<StackCardProps> = ( props ) => {
   const { stack } = props;
 
   const stackCreatedAt = stack.created_at;
-  const formattedCreateDate = formatDate(stackCreatedAt);;
+  const formattedCreateDate = formatDate(stackCreatedAt);
 
   if (user) {
     return (

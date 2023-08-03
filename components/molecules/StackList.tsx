@@ -2,12 +2,12 @@ import React, { FC, useState, useEffect } from 'react'
 import StackCard from '@/components/molecules/StackCard';
 import SelectBox from './SelectBox';
 import { SelectChangeEvent } from '@mui/material/Select';
-import { stackLists } from '@/sample';
-import { StackListsProps } from '@/sample';
+import { stackList } from '@/sample';
+import { StackListProps } from '@/sample';
 
-const StackLists: FC = () => {
+const StackList: FC = () => {
   const [selectedOption, setSelectedOption] = useState<string>('all');
-  const [filteredStackLists, setFilteredStackLists] = useState<StackListsProps>([]);
+  const [filteredStackLists, setFilteredStackLists] = useState<StackListProps>([]);
   const handleOptionChange = (event: SelectChangeEvent<string>) => {
     setSelectedOption(event.target.value);
   };
@@ -16,11 +16,11 @@ const StackLists: FC = () => {
   useEffect(() => {
     const filterStackLists = () => {
       if (selectedOption === 'following') {
-        setFilteredStackLists(stackLists.filter((list) => list.id === 1));
+        setFilteredStackLists(stackList.filter((list) => list.id === 1));
       } else if (selectedOption === 'notFollowing') {
-        setFilteredStackLists(stackLists.filter((list) => list.id === 2));
+        setFilteredStackLists(stackList.filter((list) => list.id === 2));
       } else {
-        setFilteredStackLists(stackLists);
+        setFilteredStackLists(stackList);
       }
     };
 
@@ -42,4 +42,4 @@ const StackLists: FC = () => {
   )
 }
 
-export default StackLists
+export default StackList

@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { NextPage } from 'next'
 import Layout from '@/components/organisms/Layout'
-import StackLists from '@/components/molecules/StackLists'
+import StackList from '@/components/molecules/StackList'
 
 const index: NextPage = () => {
   return (
     <Layout>
-      <StackLists />
+      <StackList />
     </Layout>
   )
 }

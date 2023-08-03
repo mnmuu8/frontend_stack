@@ -6,8 +6,7 @@ import ReactDatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css"; 
 import { DateInputProps } from '@/types/types';
 
-const DateInput: FC<DateInputProps> = ( props: DateInputProps ) => {
-  const { control } = props;
+const DateInput: FC<DateInputProps> = ({ control }) => {
   const datepickerRef = useRef<ReactDatePicker>(null);
 
   useEffect(() => {

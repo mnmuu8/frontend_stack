@@ -2,9 +2,7 @@ import React, { FC } from 'react'
 import ImageWrapper from '../atoms/ImageWrapper';
 import { UserProfileProps } from '@/types/types';
 
-const UserProfile: FC<UserProfileProps> = ( props ) => {
-  const { user, height, width, isHeader, created_at } = props;
-
+const UserProfile: FC<UserProfileProps> = ({ user, height, width, isHeader, created_at }) => {
   return (
     <>
       {user.picture && <ImageWrapper src={user.picture!} height={height} width={width} alt={user.name!} className='rounded-full mr-4' />}

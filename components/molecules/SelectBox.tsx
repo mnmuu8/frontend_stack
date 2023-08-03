@@ -4,8 +4,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { SelectBoxProps } from '@/types/types';
 
-const SelectBox: FC<SelectBoxProps> = ( props ) => {
-  const { selectedOption, handleOptionChange } = props;
+const SelectBox: FC<SelectBoxProps> = ({ selectedOption, handleOptionChange }) => {
   return (
     <FormControl sx={{ minWidth: 300 }}>
       <Select

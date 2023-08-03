@@ -6,9 +6,7 @@ import CheckBoxLabel from './CheckBoxLabel';
 
 import { CheckBoxProps, Skill } from '@/types/types';
 
-const CheckBox: FC<CheckBoxProps> = ( props ) => {
-  const { control, setValue } = props;
-
+const CheckBox: FC<CheckBoxProps> = ({ control, setValue }) => {
   // TODO: APIデータ受け取り。後々実装
   const skills: Skill[] = [
     { id: '1', name: 'Ruby on Rails' },

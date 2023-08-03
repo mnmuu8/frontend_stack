@@ -2,9 +2,7 @@ import React, { FC } from 'react'
 import { Checkbox, FormControlLabel } from '@mui/material';
 import { CheckBoxLabelProps } from '@/types/types';
 
-const CheckBoxLabel: FC<CheckBoxLabelProps> = ( props ) => {
-  const { skill, field, setValue } = props;
-
+const CheckBoxLabel: FC<CheckBoxLabelProps> = ({ skill, field, setValue }) => {
   return (
     <FormControlLabel
       control={

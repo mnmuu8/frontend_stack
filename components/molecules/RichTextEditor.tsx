@@ -7,8 +7,7 @@ import { Controller } from 'react-hook-form';
 
 import { RichTextEditorProps } from '@/types/types';
 
-const RichTextEditor: FC<RichTextEditorProps> = ( props ) => {
-  const { control } = props;
+const RichTextEditor: FC<RichTextEditorProps> = ({ control }) => {
   const quillModules = {
     toolbar: [
       [{ header: [1, 2, 3, 4, 5, 6, false] }],

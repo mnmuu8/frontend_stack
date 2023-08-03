@@ -67,8 +67,10 @@ export type UserProfileProps = {
 }
 
 export type Skill = {
-  id: string;
+  id: number;
   name: string;
+  created_at?: string;
+  updated_at?: string;
 };
 
 export type StackFormData = {
@@ -113,7 +115,7 @@ export type StackCardProps = {
     id: number;
     title: string;
     minutes: number;
-    skill: Array<{ id: number; name: string }>;
+    skill: Skill[];
     description: string;
     stacked_at: string;
     created_at: string;

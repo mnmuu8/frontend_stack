@@ -7,11 +7,10 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import { formatDate } from '../uikit/dateUtils';
 import { StackCardProps } from '@/types/types';
 
-const StackCard: FC<StackCardProps> = ( props ) => {
+const StackCard: FC<StackCardProps> = ({ stack }) => {
   // const { user } = useUser();
   // TODO: Auth0が読み込めないため、後で切り戻す
   const user = {}
-  const { stack } = props;
 
   const stackCreatedAt = stack.created_at;
   const formattedCreateDate = formatDate(stackCreatedAt);

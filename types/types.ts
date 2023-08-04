@@ -1,5 +1,6 @@
 import { ReactNode } from "react"
 import { UseFormSetValue, Control, ControllerRenderProps } from 'react-hook-form';
+import { SelectChangeEvent } from '@mui/material/Select';
 
 export type LayoutProps = {
   children: ReactNode
@@ -59,17 +60,23 @@ export type UserProfileProps = {
     sub?: string | null;
     updated_at?: string | null;
   }
+  height: number;
+  width: number;
+  isHeader: boolean;
+  created_at?: string;
 }
 
 export type Skill = {
-  id: string;
+  id: number;
   name: string;
+  created_at?: string;
+  updated_at?: string;
 };
 
 export type StackFormData = {
   title: string;
   editorContent: string;
-  skills: Skill[];
+  skill: Skill | null;
   time: number;
   date: Date | any;
 }
@@ -81,14 +88,14 @@ export type ControlProps = {
 }
 export type DateInputProps = ControlProps;
 export type RichTextEditorProps = ControlProps;
-export type CheckBoxProps = ControlProps & {
+export type CheckBoxGroupProps = ControlProps & {
   setValue: UseFormSetValue<StackFormData>
 }
 
 export type CheckBoxLabelProps = {
   skill: Skill;
-  setValue: UseFormSetValue<StackFormData>
-  field: ControllerRenderProps<StackFormData, "skills">;
+  setValue: UseFormSetValue<StackFormData>;
+  field: ControllerRenderProps<StackFormData, "skill">;
 }
 
 export type TextInputProps = ControlProps & {
@@ -101,4 +108,22 @@ export type TextInputProps = ControlProps & {
   label: string;
   placeholder: string;
   type: string;
+}
+
+export type StackCardProps = {
+  stack: {
+    id: number;
+    title: string;
+    minutes: number;
+    skill: Skill[];
+    description: string;
+    stacked_at: string;
+    created_at: string;
+    updated_at: string;
+  }
+}
+
+export type SelectBoxProps = {
+  selectedOption: string;
+  handleOptionChange: (event: SelectChangeEvent<string>) => void;
 }

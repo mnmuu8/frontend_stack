@@ -5,9 +5,7 @@ import TextField from '@mui/material/TextField';
 
 import { TextInputProps } from '@/types/types';
 
-const TextInput: FC<TextInputProps> = ( props ) => {
-  const { control, name, fullWidth, multiline, minRows, required, requiredMessage, label, placeholder, type } = props;
-
+const TextInput: FC<TextInputProps> = ({ control, name, fullWidth, multiline, minRows, required, requiredMessage, label, placeholder, type }) => {
   return (
     <Box className="mt-4">
       <Controller

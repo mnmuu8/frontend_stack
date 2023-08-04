@@ -27,12 +27,10 @@ ChartJS.register(
   Legend
 );
 
-const Chart: FC<ChartProps> = (props) => {
+const Chart: FC<ChartProps> = ({ labels, label, data, bdColor, bgColor, bdwidth, text, type }) => {
   const [chartData, setChartData] = useState<ChartData | null>(null);
   const [chartOption, setChartOption] = useState<ChartOption | null>(null);
   const [chartType, setChartType] = useState<"bar" | "pie" | null>(null)
-
-  const { labels, label, data, bdColor, bgColor, bdwidth, text, type } = props;
 
   useEffect(() => {
     const formattedChartData: ChartData = {

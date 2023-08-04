@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import AddIcon from '@mui/icons-material/Add';
-import CheckBox from './CheckBoxGroup';
+import CheckBoxGroup from './CheckBoxGroup';
 import TextInput from '../molecules/TextInput';
 import DateInput from '../molecules/DateInput';
 import RichTextEditor from '../molecules/RichTextEditor';
@@ -22,7 +22,7 @@ const StackForm: FC = () => {
       setValue('title', '');
       setValue('time', 0);
       setValue('editorContent', '');
-      setValue('skills', []);
+      setValue('skill', null)
 
       setOpen(false);
     }
@@ -37,7 +37,7 @@ const StackForm: FC = () => {
       setValue('title', '');
       setValue('time', 0);
       setValue('editorContent', '');
-      setValue('skills', []);
+      setValue('skill', null);
 
       setOpen(false);
     }
@@ -53,7 +53,7 @@ const StackForm: FC = () => {
           <div className='flex-1'>
             <div className='text-center text-2xl font-bold'>Create Stack</div>
             <div className='flex flex-col'>
-              <CheckBox setValue={setValue} control={control} />
+              <CheckBoxGroup setValue={setValue} control={control} />
               <div className='flex'>
                 <DateInput control={control} />
                 <TextInput 

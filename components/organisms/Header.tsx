@@ -40,7 +40,7 @@ const Header: FC = () => {
             <SearchBox />
           </div>
           <div className='flex items-center'>
-            <UserProfile user={user} />
+            <UserProfile user={user} height={50} width={50} isHeader={true} />
             <IconButton onClick={handleMenuOpen}>
               <KeyboardArrowDownIcon />
             </IconButton>
@@ -52,7 +52,7 @@ const Header: FC = () => {
   }
 
   return (
-    <header className='fixed top-0 left-0 right-0'>
+    <header className='fixed top-0 left-0 right-0 bg-white'>
       <div className='flex justify-between items-center h-20 px-8 shadow-md'>
         <div className=''>
           <div className='font-mono font-bold text-2xl mr-8'>Skill_Climbing</div>

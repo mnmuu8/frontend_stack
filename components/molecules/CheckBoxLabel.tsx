@@ -2,21 +2,20 @@ import React, { FC } from 'react'
 import { Checkbox, FormControlLabel } from '@mui/material';
 import { CheckBoxLabelProps } from '@/types/types';
 
-const CheckBoxLabel: FC<CheckBoxLabelProps> = ( props ) => {
-  const { skill, field, setValue } = props;
+const CheckBoxLabel: FC<CheckBoxLabelProps> = ({ skill, field, setValue }) => {
+  const isChecked = field.value?.id === skill.id;
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const updatedValue = isChecked ? null : skill;
+    setValue('skill', updatedValue);
+  };
 
   return (
     <FormControlLabel
       control={
         <Checkbox
-          checked={field.value.some((v) => v.id === skill.id)}
-          onChange={(e) => {
-            const isChecked = e.target.checked;
-            const updatedValue = isChecked
-              ? [...field.value, skill]
-              : field.value.filter((v) => v.id !== skill.id);
-            setValue('skills', updatedValue);
-          }}
+          checked={isChecked}
+          onChange={handleChange}
           value={skill.id}
         />
       }

@@ -76,7 +76,7 @@ export type Skill = {
 export type StackFormData = {
   title: string;
   editorContent: string;
-  skills: Skill[];
+  skill: Skill | null;
   time: number;
   date: Date | any;
 }
@@ -88,14 +88,14 @@ export type ControlProps = {
 }
 export type DateInputProps = ControlProps;
 export type RichTextEditorProps = ControlProps;
-export type CheckBoxProps = ControlProps & {
+export type CheckBoxGroupProps = ControlProps & {
   setValue: UseFormSetValue<StackFormData>
 }
 
 export type CheckBoxLabelProps = {
   skill: Skill;
-  setValue: UseFormSetValue<StackFormData>
-  field: ControllerRenderProps<StackFormData, "skills">;
+  setValue: UseFormSetValue<StackFormData>;
+  field: ControllerRenderProps<StackFormData, "skill">;
 }
 
 export type TextInputProps = ControlProps & {

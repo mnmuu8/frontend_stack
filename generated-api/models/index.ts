@@ -4,6 +4,7 @@ export * from './SkillsSkill';
 export * from './SkillsSkillListInner';
 export * from './StacksCreateRequestBody';
 export * from './StacksIntrospectionCreateRequestBody';
+export * from './StacksIntrospectionUpdateRequestBody';
 export * from './StacksIntrospectionsIntrospection';
 export * from './StacksIntrospectionsIntrospectionKeepsInner';
 export * from './StacksIntrospectionsIntrospectionProblemsInner';

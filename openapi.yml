@@ -116,8 +116,6 @@ paths:
           description: 認証エラー
         '404':
           description: 積み上げが存在しない
-        '409':
-          description: すでに反省が登録されている
         '422':
           description: バリデーションエラー
 

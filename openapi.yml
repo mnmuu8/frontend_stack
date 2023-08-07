@@ -81,6 +81,45 @@ paths:
           description: 認証エラー
         '404':
           description: 積み上げが存在しない/反省が存在しない
+    patch:
+      summary: 積み上げの反省更新API
+      operationId: api.v1.stacks.introspections.update
+      tags:
+        - Stack
+        - Introspection
+      security: []
+      parameters:
+        - name: stack_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Stacks_Stack_Id'
+        - name: introspection_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Stacks_Introspections_Introspection_Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Stacks_IntrospectionUpdateRequestBody'
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stacks_Introspections_Introspection'
+        '401':
+          description: 認証エラー
+        '404':
+          description: 積み上げが存在しない
+        '409':
+          description: すでに反省が登録されている
+        '422':
+          description: バリデーションエラー
 
   /api/v1/stacks/{stack_id}/introspections:
     post:
@@ -455,7 +494,39 @@ components:
         - keep_contents
         - problem_contents
         - try_contents
-        - stack_id
+      properties:
+        evaluation:
+          allOf:
+            - $ref: '#/components/schemas/Stacks_Introspections_Introspection_Evaluation'
+          nullable: false
+        reason:
+          allOf:
+            - $ref: '#/components/schemas/Stacks_Introspections_Introspection_Reason'
+          nullable: false
+        keep_contents:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/Stacks_Introspections_Keeps_Keep_Content'
+        problem_contents:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/Stacks_Introspections_Ploblems_Ploblem_Content'
+        try_contents:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/Stacks_Introspections_Tries_Try_Content'
+
+    Stacks_IntrospectionUpdateRequestBody:
+      type: object
+      required:
+        - evaluation
+        - reason
+        - keep_contents
+        - problem_contents
+        - try_contents
       properties:
         evaluation:
           allOf:

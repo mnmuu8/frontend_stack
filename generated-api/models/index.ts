@@ -15,3 +15,5 @@ export * from './StacksIntrospectionsTriesTry';
 export * from './StacksStack';
 export * from './StacksStackListInner';
 export * from './StacksStackSkill';
+export * from './UserUpdateRequestBody';
+export * from './UsersUser';

@@ -17,6 +17,7 @@ import * as runtime from '../runtime';
 import type {
   StacksCreateRequestBody,
   StacksIntrospectionCreateRequestBody,
+  StacksIntrospectionUpdateRequestBody,
   StacksIntrospectionsIntrospection,
   StacksStack,
   StacksStackListInner,
@@ -26,6 +27,8 @@ import {
     StacksCreateRequestBodyToJSON,
     StacksIntrospectionCreateRequestBodyFromJSON,
     StacksIntrospectionCreateRequestBodyToJSON,
+    StacksIntrospectionUpdateRequestBodyFromJSON,
+    StacksIntrospectionUpdateRequestBodyToJSON,
     StacksIntrospectionsIntrospectionFromJSON,
     StacksIntrospectionsIntrospectionToJSON,
     StacksStackFromJSON,
@@ -46,6 +49,12 @@ export interface ApiV1StacksIntrospectionsCreateRequest {
 export interface ApiV1StacksIntrospectionsShowRequest {
     stackId: number;
     introspectionId: number;
+}
+
+export interface ApiV1StacksIntrospectionsUpdateRequest {
+    stackId: number;
+    introspectionId: number;
+    stacksIntrospectionUpdateRequestBody: StacksIntrospectionUpdateRequestBody;
 }
 
 /**
@@ -180,6 +189,47 @@ export class StackApi extends runtime.BaseAPI {
      */
     async apiV1StacksIntrospectionsShow(requestParameters: ApiV1StacksIntrospectionsShowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<StacksIntrospectionsIntrospection> {
         const response = await this.apiV1StacksIntrospectionsShowRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * 積み上げの反省更新API
+     */
+    async apiV1StacksIntrospectionsUpdateRaw(requestParameters: ApiV1StacksIntrospectionsUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<StacksIntrospectionsIntrospection>> {
+        if (requestParameters.stackId === null || requestParameters.stackId === undefined) {
+            throw new runtime.RequiredError('stackId','Required parameter requestParameters.stackId was null or undefined when calling apiV1StacksIntrospectionsUpdate.');
+        }
+
+        if (requestParameters.introspectionId === null || requestParameters.introspectionId === undefined) {
+            throw new runtime.RequiredError('introspectionId','Required parameter requestParameters.introspectionId was null or undefined when calling apiV1StacksIntrospectionsUpdate.');
+        }
+
+        if (requestParameters.stacksIntrospectionUpdateRequestBody === null || requestParameters.stacksIntrospectionUpdateRequestBody === undefined) {
+            throw new runtime.RequiredError('stacksIntrospectionUpdateRequestBody','Required parameter requestParameters.stacksIntrospectionUpdateRequestBody was null or undefined when calling apiV1StacksIntrospectionsUpdate.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/api/v1/stacks/{stack_id}/introspections/{introspection_id}`.replace(`{${"stack_id"}}`, encodeURIComponent(String(requestParameters.stackId))).replace(`{${"introspection_id"}}`, encodeURIComponent(String(requestParameters.introspectionId))),
+            method: 'PATCH',
+            headers: headerParameters,
+            query: queryParameters,
+            body: StacksIntrospectionUpdateRequestBodyToJSON(requestParameters.stacksIntrospectionUpdateRequestBody),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => StacksIntrospectionsIntrospectionFromJSON(jsonValue));
+    }
+
+    /**
+     * 積み上げの反省更新API
+     */
+    async apiV1StacksIntrospectionsUpdate(requestParameters: ApiV1StacksIntrospectionsUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<StacksIntrospectionsIntrospection> {
+        const response = await this.apiV1StacksIntrospectionsUpdateRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

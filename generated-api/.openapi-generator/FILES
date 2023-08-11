@@ -7,6 +7,7 @@ models/SkillsSkill.ts
 models/SkillsSkillListInner.ts
 models/StacksCreateRequestBody.ts
 models/StacksIntrospectionCreateRequestBody.ts
+models/StacksIntrospectionUpdateRequestBody.ts
 models/StacksIntrospectionsIntrospection.ts
 models/StacksIntrospectionsIntrospectionKeepsInner.ts
 models/StacksIntrospectionsIntrospectionProblemsInner.ts

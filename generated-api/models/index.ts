@@ -1,5 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
+export * from './GroupsGroup';
 export * from './SkillsSkill';
 export * from './SkillsSkillListInner';
 export * from './StacksCreateRequestBody';
@@ -17,3 +18,4 @@ export * from './StacksStackListInner';
 export * from './StacksStackSkill';
 export * from './UserUpdateRequestBody';
 export * from './UsersUser';
+export * from './UsersUserGroup';

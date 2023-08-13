@@ -13,6 +13,13 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { UsersUserGroup } from './UsersUserGroup';
+import {
+    UsersUserGroupFromJSON,
+    UsersUserGroupFromJSONTyped,
+    UsersUserGroupToJSON,
+} from './UsersUserGroup';
+
 /**
  * 
  * @export
@@ -44,11 +51,11 @@ export interface UsersUser {
      */
     profileContent: string | null;
     /**
-     * グループID
-     * @type {number}
+     * 
+     * @type {UsersUserGroup}
      * @memberof UsersUser
      */
-    groupId: number | null;
+    group: UsersUserGroup;
     /**
      * 
      * @type {Date}
@@ -72,7 +79,7 @@ export function instanceOfUsersUser(value: object): boolean {
     isInstance = isInstance && "name" in value;
     isInstance = isInstance && "email" in value;
     isInstance = isInstance && "profileContent" in value;
-    isInstance = isInstance && "groupId" in value;
+    isInstance = isInstance && "group" in value;
     isInstance = isInstance && "createdAt" in value;
     isInstance = isInstance && "updatedAt" in value;
 
@@ -93,7 +100,7 @@ export function UsersUserFromJSONTyped(json: any, ignoreDiscriminator: boolean):
         'name': json['name'],
         'email': json['email'],
         'profileContent': json['profile_content'],
-        'groupId': json['group_id'],
+        'group': UsersUserGroupFromJSON(json['group']),
         'createdAt': (new Date(json['created_at'])),
         'updatedAt': (new Date(json['updated_at'])),
     };
@@ -112,7 +119,7 @@ export function UsersUserToJSON(value?: UsersUser | null): any {
         'name': value.name,
         'email': value.email,
         'profile_content': value.profileContent,
-        'group_id': value.groupId,
+        'group': UsersUserGroupToJSON(value.group),
         'created_at': (value.createdAt.toISOString()),
         'updated_at': (value.updatedAt.toISOString()),
     };

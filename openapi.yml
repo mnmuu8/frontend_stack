@@ -493,7 +493,7 @@ components:
         - name
         - email
         - profile_content
-        - group_id
+        - group
         - created_at
         - updated_at
       properties:
@@ -513,10 +513,10 @@ components:
           allOf:
             - $ref: '#/components/schemas/Users_User_ProfileContent'
           nullable: true
-        group_id:
+        group:
           allOf:
-            - $ref: '#/components/schemas/Groups_Group_Id'
-          nullable: true
+            - $ref: '#/components/schemas/Groups_Group'
+          nullable: false
         created_at:
           allOf:
             - $ref: '#/components/schemas/DateTime'
@@ -546,10 +546,40 @@ components:
       description: ユーザーのプロフィール文
       example: よろしくお願いします。
 
+    Groups_Group:
+      type: object
+      required:
+        - id
+        - name
+        - created_at
+        - updated_at
+      properties:
+        id:
+          allOf:
+            - $ref: '#/components/schemas/Groups_Group_Id'
+          nullable: false
+        name:
+          allOf:
+            - $ref: '#/components/schemas/Groups_Group_Name'
+          nullable: false
+        created_at:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+          nullable: false
+        updated_at:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+          nullable: false
+
     Groups_Group_Id:
       type: integer
       description: グループID
       example: 1
+
+    Groups_Group_Name:
+      type: string
+      description: グループ名
+      example: グループA
 
     DateTime:
       type: string

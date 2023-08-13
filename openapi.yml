@@ -202,6 +202,8 @@ paths:
           description: 認証エラー
         '404':
           description: ユーザーが存在しない
+        '409':
+          description: すでに登録されているメールアドレスを入力している
         '422':
           description: バリデーションエラー
 

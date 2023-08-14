@@ -13,7 +13,21 @@ const Header: FC = () => {
   const appContext = useContext(AppContext);
   const { drawerOpen, handleDrawerOpen, handleMenuOpen } = appContext;
   
-  const { user, error, isLoading } = useUser();
+  // const { user, error, isLoading } = useUser();
+  const { error, isLoading } = useUser();
+  const user = {
+    "given_name": "裕也",
+    "family_name": "南",
+    "nickname": "mnm.uu8",
+    "name": "南裕也",
+    "picture": "https://lh3.googleusercontent.com/a/AAcHTtdkm-fb3SxuzwiRZIVuhQizQQLdYVhIgehAfQ3wyDL_ow=s96-c",
+    "locale": "ja",
+    "updated_at": "2023-08-13T06:27:09.196Z",
+    "email": "mnm.uu8@gmail.com",
+    "email_verified": true,
+    "sub": "google-oauth2|114610925753457562952",
+    "sid": "adsct_h4CW-x38wgXDXaDXrs4fTHYdRG"
+  }
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
 

@@ -172,6 +172,41 @@ paths:
         '401':
           description: 認証エラー
 
+  /api/v1/users/{user_id}:
+    patch:
+      summary: ユーザーデータ更新
+      operationId: api.v1.users.update
+      tags:
+        - User
+      security: []
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Users_User_Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdateRequestBody'
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users_User'
+        '401':
+          description: 認証エラー
+        '404':
+          description: ユーザーが存在しない
+        '409':
+          description: すでに登録されているメールアドレスを入力している
+        '422':
+          description: バリデーションエラー
+
 components:
   schemas:
     Stacks_StackList:
@@ -427,9 +462,11 @@ components:
         id:
           allOf:
             - $ref: '#/components/schemas/Skills_Skill_Id'
+          nullable: false
         name:
           allOf:
             - $ref: '#/components/schemas/Skills_Skill_Name'
+          nullable: false
         created_at:
           allOf:
             - $ref: '#/components/schemas/DateTime'
@@ -448,6 +485,101 @@ components:
       type: string
       description: スキル名
       example: Ruby
+
+    Users_User:
+      type: object
+      required:
+        - id
+        - name
+        - email
+        - profile_content
+        - group
+        - created_at
+        - updated_at
+      properties:
+        id:
+          allOf:
+            - $ref: '#/components/schemas/Users_User_Id'
+          nullable: false
+        name:
+          allOf:
+            - $ref: '#/components/schemas/Users_User_Name'
+          nullable: false
+        email:
+          allOf:
+            - $ref: '#/components/schemas/Users_User_Email'
+          nullable: false
+        profile_content:
+          allOf:
+            - $ref: '#/components/schemas/Users_User_ProfileContent'
+          nullable: true
+        group:
+          allOf:
+            - $ref: '#/components/schemas/Groups_Group'
+          nullable: false
+        created_at:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+          nullable: false
+        updated_at:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+          nullable: false
+
+    Users_User_Id:
+      type: integer
+      description: ユーザーID
+      example: 1
+
+    Users_User_Name:
+      type: string
+      description: ユーザー名
+      example: 田中太郎
+
+    Users_User_Email:
+      type: string
+      description: ユーザーのメールアドレス
+      example: example@example.com
+
+    Users_User_ProfileContent:
+      type: string
+      description: ユーザーのプロフィール文
+      example: よろしくお願いします。
+
+    Groups_Group:
+      type: object
+      required:
+        - id
+        - name
+        - created_at
+        - updated_at
+      properties:
+        id:
+          allOf:
+            - $ref: '#/components/schemas/Groups_Group_Id'
+          nullable: false
+        name:
+          allOf:
+            - $ref: '#/components/schemas/Groups_Group_Name'
+          nullable: false
+        created_at:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+          nullable: false
+        updated_at:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+          nullable: false
+
+    Groups_Group_Id:
+      type: integer
+      description: グループID
+      example: 1
+
+    Groups_Group_Name:
+      type: string
+      description: グループ名
+      example: グループA
 
     DateTime:
       type: string
@@ -549,3 +681,28 @@ components:
           items:
             allOf:
             - $ref: '#/components/schemas/Stacks_Introspections_Tries_Try_Content'
+
+    UserUpdateRequestBody:
+      type: object
+      required:
+        - name
+        - email
+        - profile_content
+        - group_id
+      properties:
+        name:
+          allOf:
+            - $ref: '#/components/schemas/Users_User_Name'
+          nullable: false
+        email:
+          allOf:
+            - $ref: '#/components/schemas/Users_User_Email'
+          nullable: false
+        profile_content:
+          allOf:
+            - $ref: '#/components/schemas/Users_User_ProfileContent'
+          nullable: true
+        group_id:
+          allOf:
+            - $ref: '#/components/schemas/Groups_Group_Id'
+          nullable: true

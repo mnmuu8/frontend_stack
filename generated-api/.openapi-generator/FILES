@@ -1,8 +1,10 @@
 apis/IntrospectionApi.ts
 apis/SkillApi.ts
 apis/StackApi.ts
+apis/UserApi.ts
 apis/index.ts
 index.ts
+models/GroupsGroup.ts
 models/SkillsSkill.ts
 models/SkillsSkillListInner.ts
 models/StacksCreateRequestBody.ts
@@ -18,5 +20,8 @@ models/StacksIntrospectionsTriesTry.ts
 models/StacksStack.ts
 models/StacksStackListInner.ts
 models/StacksStackSkill.ts
+models/UserUpdateRequestBody.ts
+models/UsersUser.ts
+models/UsersUserGroup.ts
 models/index.ts
 runtime.ts

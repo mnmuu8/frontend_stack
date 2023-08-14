@@ -2,12 +2,12 @@ import React, { FC, useState, useEffect } from 'react'
 import StackCard from '@/components/molecules/StackCard';
 import SelectBox from './SelectBox';
 import { SelectChangeEvent } from '@mui/material/Select';
-import { stackList } from '@/sample';
-import { StackListProps } from '@/sample';
+import { stackList } from '../../sample';
+import { StackListProps } from '../../sample';
 
 const StackList: FC = () => {
   const [selectedOption, setSelectedOption] = useState<string>('all');
-  const [filteredStackLists, setFilteredStackLists] = useState<StackListProps>([]);
+  const [filteredStackLists, setFilteredStackLists] = useState<StackListProps[]>([]);
   const handleOptionChange = (event: SelectChangeEvent<string>) => {
     setSelectedOption(event.target.value);
   };

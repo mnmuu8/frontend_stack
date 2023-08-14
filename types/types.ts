@@ -115,7 +115,7 @@ export type StackCardProps = {
     id: number;
     title: string;
     minutes: number;
-    skill: Skill[];
+    skill: Skill;
     description: string;
     stacked_at: string;
     created_at: string;

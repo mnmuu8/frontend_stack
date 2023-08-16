@@ -36,6 +36,7 @@ export type sidebarMenus = {
   id: string;
   label: string;
   value: string;
+  icon: React.JSX.Element;
 }
 
 export type ChartData =  {

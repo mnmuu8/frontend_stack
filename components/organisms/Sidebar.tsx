@@ -11,18 +11,22 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
+import FeedIcon from '@mui/icons-material/Feed';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import MessageIcon from '@mui/icons-material/Message';
+import CastForEducationIcon from '@mui/icons-material/CastForEducation';
 
 const Sidebar: FC = () => {
   const appContext = useContext(AppContext);
   const {drawerOpen, handleDrawerClose} = appContext;
 
   const sidebarMenus: sidebarMenus[] = [
-    {id: 'dashboard', label: 'Dashboard', value: '/'},
-    {id: 'profile', label: 'Profile', value: '/profile'},
-    {id: 'myacount', label: 'My Acount', value: '/acount'},
-    {id: 'portfolio', label: 'Portfolio', value: '/portfolio'},
-    {id: 'message', label: 'Message', value: '/message'},
+    {id: 'dashboard', label: 'Dashboard', value: '/', icon: <DashboardIcon />},
+    {id: 'timeline', label: 'Timeline', value: '/timeline', icon: <FeedIcon />},
+    {id: 'mypage', label: 'My Page', value: '/mypage', icon: <AccountCircleIcon />},
+    {id: 'portfolio', label: 'Portfolio', value: '/portfolio', icon: <CastForEducationIcon />},
+    {id: 'message', label: 'Message', value: '/message', icon: <MessageIcon />},
   ]
 
   return (
@@ -49,7 +53,7 @@ const Sidebar: FC = () => {
             <ListItem key={menu.id} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-                  <InboxIcon />
+                  {menu.icon}
                 </ListItemIcon>
                 <Link href={menu.value}>{menu.label}</Link>
               </ListItemButton>

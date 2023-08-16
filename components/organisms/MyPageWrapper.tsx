@@ -2,6 +2,7 @@ import React, { FC, useState } from 'react'
 import { stackList, tabInfo, skillData } from '../../sample';
 import StackCard from '../molecules/StackCard';
 import ProfileCard from '../molecules/ProfileCard';
+import UserAuthentication from '../atoms/UserAuthentication';
 
 const MyPageWrapper: FC = () => {
   const [activeTab, setActiveTab] = useState('all');
@@ -17,7 +18,9 @@ const MyPageWrapper: FC = () => {
 
   return (
     <div className='flex justify-between w-[80%] m-auto'>
-      <ProfileCard />
+      <UserAuthentication>
+        <ProfileCard/>
+      </UserAuthentication>
       <div className='w-[calc(100%-340px)]'>
         <div className='bg-gray-800 text-white rounded-md py-8 px-10 mb-8 shadow-md'>
           <div className='mb-6'>$ analyze @Yu-8chan</div>
@@ -67,9 +70,11 @@ const MyPageWrapper: FC = () => {
             ))}
           </div>
           <div className='MyPage-stacklist'>
-            {stackList.map((list) => (
-              <StackCard key={list.id} stack={list} />
-            ))}
+            <UserAuthentication>
+              {stackList.map((list) => (
+                <StackCard key={list.id} stack={list} />
+              ))}
+            </UserAuthentication>
           </div>
         </div>
         <div className='w-[280px] m-auto mt-10 rounded-md border-2 cursor-pointer border-gray-200 text-center text-sm py-3 duration-300 hover:bg-gray-50 hover:duration-300'>もっとみる</div>

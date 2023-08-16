@@ -4,6 +4,7 @@ import SelectBox from './SelectBox';
 import { SelectChangeEvent } from '@mui/material/Select';
 import { stackList } from '../../sample';
 import { StackListProps } from '../../sample';
+import UserAuthentication from '../atoms/UserAuthentication';
 
 const StackList: FC = () => {
   const [selectedOption, setSelectedOption] = useState<string>('all');
@@ -33,9 +34,11 @@ const StackList: FC = () => {
         <SelectBox selectedOption={selectedOption} handleOptionChange={handleOptionChange} />
       </div>
       <div>
-        {filteredStackLists.map((stackList) => (
-          <StackCard key={stackList.id} stack={stackList} />
-        ))}
+        <UserAuthentication>
+          {filteredStackLists.map((stackList) => (
+            <StackCard key={stackList.id} stack={stackList} />
+          ))}
+        </UserAuthentication>
       </div>
       <div className='w-[280px] m-auto mt-10 rounded-md border-2 cursor-pointer border-gray-200 text-center text-sm py-3 duration-300 hover:bg-gray-50 hover:duration-300'>もっとみる</div>
     </div>

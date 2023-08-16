@@ -46,3 +46,9 @@ h3 {
 .quill .ql-container {
   @apply min-h-[300px];
 }
+.MyPage-stacklist > div {
+  @apply mb-0 border-b-[1px] rounded-none
+}
+.MyPage-stacklist > div:last-of-type {
+  @apply border-none
+}

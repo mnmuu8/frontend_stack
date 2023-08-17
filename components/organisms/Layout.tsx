@@ -3,6 +3,7 @@ import Header from './Header'
 import Sidebar from './Sidebar'
 import { LayoutProps } from '@/types/types'
 import AppContext from '@/context/AppContext'
+import UserAuthentication from '../atoms/UserAuthentication'
 
 const Layout: FC<LayoutProps> = ({ children }) => {
 
@@ -16,7 +17,9 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
   return (
     <>
-      <Header />
+      <UserAuthentication>
+        <Header />
+      </UserAuthentication>
       <Sidebar />
       <main style={mainStyle}>{children}</main>
     </>

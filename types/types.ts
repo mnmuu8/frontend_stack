@@ -2,9 +2,27 @@ import { ReactNode } from "react"
 import { UseFormSetValue, Control, ControllerRenderProps } from 'react-hook-form';
 import { SelectChangeEvent } from '@mui/material/Select';
 
-export type LayoutProps = {
+export type UserProps = {
+  user?: {
+    email?: string | null;
+    email_verified?: boolean | null;
+    family_name?: string | null;
+    given_name?: string | null;
+    locale?: string | null;
+    name?: string | null;
+    nickname?: string | null;
+    picture?: string | null;
+    sid?: string | null;
+    sub?: string | null;
+    updated_at?: string | null;
+  }
+} 
+
+export type ChildrenProps = {
   children: ReactNode
 }
+export type LayoutProps = ChildrenProps
+export type UserAuthenticationProps = ChildrenProps
 
 export type ImageWrapperProps = {
   src: string
@@ -18,6 +36,7 @@ export type sidebarMenus = {
   id: string;
   label: string;
   value: string;
+  icon: React.JSX.Element;
 }
 
 export type ChartData =  {
@@ -46,20 +65,7 @@ export type ChartProps =  {
   type: "bar" | "pie";
 }
 
-export type UserProfileProps = {
-  user: {
-    email?: string | null;
-    email_verified?: boolean | null;
-    family_name?: string | null;
-    given_name?: string | null;
-    locale?: string | null;
-    name?: string | null;
-    nickname?: string | null;
-    picture?: string | null;
-    sid?: string | null;
-    sub?: string | null;
-    updated_at?: string | null;
-  }
+export type UserProfileProps = UserProps & {
   height: number;
   width: number;
   isHeader: boolean;
@@ -110,7 +116,7 @@ export type TextInputProps = ControlProps & {
   type: string;
 }
 
-export type StackCardProps = {
+export type StackCardProps = UserProps & {
   stack: {
     id: number;
     title: string;

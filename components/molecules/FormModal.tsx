@@ -1,5 +1,5 @@
 import React, { FC, ReactElement, useContext, useEffect } from 'react'
-import { set, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -14,11 +14,6 @@ const FormModal: FC = () => {
   const appContext = useContext(AppContext);
   const { formOpen, setFormOpen, formType, setFormType } = appContext;
   const { control, handleSubmit, setValue } = useForm<FormDataParams>();
-
-  // useEffect(() => {
-  //   setFormOpen(true)
-  //   setFormType('updateUser')
-  // }, []);
 
   const resetValueByFormType = (): void => {
     if (formType === 'createStack') {

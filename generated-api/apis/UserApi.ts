@@ -25,6 +25,10 @@ import {
     UsersUserToJSON,
 } from '../models';
 
+export interface ApiV1UsersShowRequest {
+    userId: number;
+}
+
 export interface ApiV1UsersUpdateRequest {
     userId: number;
     userUpdateRequestBody: UserUpdateRequestBody;
@@ -34,6 +38,36 @@ export interface ApiV1UsersUpdateRequest {
  * 
  */
 export class UserApi extends runtime.BaseAPI {
+
+    /**
+     * ユーザーデータ詳細
+     */
+    async apiV1UsersShowRaw(requestParameters: ApiV1UsersShowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UsersUser>> {
+        if (requestParameters.userId === null || requestParameters.userId === undefined) {
+            throw new runtime.RequiredError('userId','Required parameter requestParameters.userId was null or undefined when calling apiV1UsersShow.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/api/v1/users/{user_id}`.replace(`{${"user_id"}}`, encodeURIComponent(String(requestParameters.userId))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => UsersUserFromJSON(jsonValue));
+    }
+
+    /**
+     * ユーザーデータ詳細
+     */
+    async apiV1UsersShow(requestParameters: ApiV1UsersShowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UsersUser> {
+        const response = await this.apiV1UsersShowRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
 
     /**
      * ユーザーデータ更新

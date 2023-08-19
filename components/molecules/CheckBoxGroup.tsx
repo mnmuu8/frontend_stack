@@ -4,9 +4,9 @@ import { FormGroup } from '@mui/material';
 import Box from '@mui/material/Box';
 import CheckBoxLabel from './CheckBoxLabel';
 
-import { CheckBoxGroupProps, Skill } from '@/types/types';
+import { ControlAndSetValueProps, Skill } from '@/types/types';
 
-const CheckBoxGroup: FC<CheckBoxGroupProps> = ({ control, setValue }) => {
+const CheckBoxGroup: FC<ControlAndSetValueProps> = ({ control, setValue }) => {
   // TODO: APIデータ受け取り。後々実装
   const skills: Skill[] = [
     { id: 1, name: 'Ruby on Rails', created_at: "2023-01-01T00:00:00+09:00", updated_at: "2023-01-01T00:00:00+09:00" },

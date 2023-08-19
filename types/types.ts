@@ -79,33 +79,52 @@ export type Skill = {
   updated_at?: string;
 };
 
-export type StackFormData = {
+export type KeepAndProblemAndTryPoint = {
+  id: string;
+  content: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export type StacksCreateRequestBody = {
   title: string;
   editorContent: string;
   skill: Skill | null;
   time: number;
   date: Date | any;
 }
+export type StacksIntrospectionRequestBody = {
+  reason: string;
+  evaluation: number;
+  keeps: KeepAndProblemAndTryPoint[];
+  problems: KeepAndProblemAndTryPoint[];
+  tries: KeepAndProblemAndTryPoint[];
+}
 
-export type onSubmitType = (data: StackFormData) => void;
+export type FormDataParams = StacksCreateRequestBody & StacksIntrospectionRequestBody;
+
+export type onSubmitType = (data: FormDataParams) => void;
 
 export type ControlProps = {
-  control: Control<StackFormData, any>
+  control: Control<FormDataParams, any>
 }
 export type DateInputProps = ControlProps;
 export type RichTextEditorProps = ControlProps;
-export type CheckBoxGroupProps = ControlProps & {
-  setValue: UseFormSetValue<StackFormData>
+
+export type ControlAndSetValueProps =  ControlProps & {
+  setValue: UseFormSetValue<FormDataParams>
 }
 
 export type CheckBoxLabelProps = {
   skill: Skill;
-  setValue: UseFormSetValue<StackFormData>;
-  field: ControllerRenderProps<StackFormData, "skill">;
+  setValue: UseFormSetValue<FormDataParams>;
+  field: ControllerRenderProps<FormDataParams, "skill">;
 }
 
+type DynamicName = `keeps[${number}].content` | `problems[${number}].content` | `tries[${number}].content`;
+
 export type TextInputProps = ControlProps & {
-  name: "time" | "title";
+  name: "time" | "title" | "reason" | "evaluation" | ( DynamicName | any );
   fullWidth: boolean;
   multiline: boolean;
   minRows: number;

@@ -2,7 +2,8 @@ import { NextPage } from 'next'
 import Layout from '@/components/organisms/Layout'
 import Chart from '@/components/uikit/Chart'
 import RankTable from '@/components/uikit/RankTable'
-import StackForm from '@/components/molecules/StackForm';
+import FormModal from '@/components/molecules/FormModal'
+import FormOpenButton from '@/components/atoms/FormOpenButton'
 
 const index: NextPage = () => {
   const currentDate = new Date();
@@ -61,7 +62,8 @@ const index: NextPage = () => {
           </div>
         </div>
       </div>
-      <StackForm />
+      <FormModal />
+      <FormOpenButton formType={'stackCreate'} className={'fixed bottom-6 right-6 bg-blue-500 p-6 rounded-full hover:bg-blue-400 z-[100]'} />
     </Layout>
   )
 }

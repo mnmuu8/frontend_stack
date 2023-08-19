@@ -8,7 +8,11 @@ type AppContextProps = {
   anchorEl: HTMLElement | null;
   setAnchorEl: Dispatch<React.SetStateAction<HTMLElement | null>>;
   handleMenuOpen: (event: React.MouseEvent<HTMLElement>) => void;
-  handleMenuClose:  () => void;
+  handleMenuClose: () => void;
+  formType: string;
+  setFormType: Dispatch<React.SetStateAction<string>>;
+  formOpen: boolean;
+  setFormOpen: Dispatch<React.SetStateAction<boolean>>;
 }
 
 const AppContext = createContext<AppContextProps>({
@@ -20,6 +24,10 @@ const AppContext = createContext<AppContextProps>({
   setAnchorEl: () => {},
   handleMenuOpen: () => {},
   handleMenuClose: () => {},
+  formType: 'stackCreate',
+  setFormType: () => {},
+  formOpen: false,
+  setFormOpen: () => {}
 }) 
 
 export default AppContext

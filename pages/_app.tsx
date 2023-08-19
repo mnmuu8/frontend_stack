@@ -23,6 +23,9 @@ function MyApp({ Component, pageProps }: AppProps) {
     setAnchorEl(null);
   };
 
+  const [formOpen, setFormOpen] = React.useState<boolean>(false);
+  const [formType, setFormType] = React.useState<string>('stackCreate');
+
   return (
     <AppContext.Provider 
       value={{
@@ -33,7 +36,11 @@ function MyApp({ Component, pageProps }: AppProps) {
         anchorEl: anchorEl,
         setAnchorEl: setAnchorEl,
         handleMenuOpen: handleMenuOpen,
-        handleMenuClose: handleMenuClose
+        handleMenuClose: handleMenuClose,
+        formType: formType,
+        setFormType: setFormType,
+        formOpen: formOpen,
+        setFormOpen: setFormOpen
       }}
     >
       <UserProvider>

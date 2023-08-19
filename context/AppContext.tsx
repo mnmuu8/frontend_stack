@@ -1,4 +1,5 @@
 import { createContext, Dispatch, SetStateAction } from "react";
+import { FormType } from "@/types/types";
 
 type AppContextProps = {
   drawerOpen: boolean;
@@ -9,7 +10,7 @@ type AppContextProps = {
   setAnchorEl: Dispatch<React.SetStateAction<HTMLElement | null>>;
   handleMenuOpen: (event: React.MouseEvent<HTMLElement>) => void;
   handleMenuClose: () => void;
-  formType: string;
+  formType: FormType;
   setFormType: Dispatch<React.SetStateAction<string>>;
   formOpen: boolean;
   setFormOpen: Dispatch<React.SetStateAction<boolean>>;
@@ -24,7 +25,7 @@ const AppContext = createContext<AppContextProps>({
   setAnchorEl: () => {},
   handleMenuOpen: () => {},
   handleMenuClose: () => {},
-  formType: 'stackCreate',
+  formType: 'createStack',
   setFormType: () => {},
   formOpen: false,
   setFormOpen: () => {}

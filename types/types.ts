@@ -16,7 +16,7 @@ export type UserProps = {
     sub?: string | null;
     updated_at?: string | null;
   }
-} 
+}
 
 export type ChildrenProps = {
   children: ReactNode
@@ -100,8 +100,14 @@ export type StacksIntrospectionRequestBody = {
   problems: KeepAndProblemAndTryPoint[];
   tries: KeepAndProblemAndTryPoint[];
 }
+export type UserUpdateRequestBody = {
+  name: string;
+  email: string;
+  profile_content: string;
+  group: string;
+}
 
-export type FormDataParams = StacksCreateRequestBody & StacksIntrospectionRequestBody;
+export type FormDataParams = StacksCreateRequestBody & StacksIntrospectionRequestBody & UserUpdateRequestBody;
 
 export type onSubmitType = (data: FormDataParams) => void;
 
@@ -121,10 +127,8 @@ export type CheckBoxLabelProps = {
   field: ControllerRenderProps<FormDataParams, "skill">;
 }
 
-type DynamicName = `keeps[${number}].content` | `problems[${number}].content` | `tries[${number}].content`;
-
 export type TextInputProps = ControlProps & {
-  name: "time" | "title" | "reason" | "evaluation" | ( DynamicName | any );
+  name: string;
   fullWidth: boolean;
   multiline: boolean;
   minRows: number;
@@ -151,4 +155,15 @@ export type StackCardProps = UserProps & {
 export type SelectBoxProps = {
   selectedOption: string;
   handleOptionChange: (event: SelectChangeEvent<string>) => void;
+}
+
+export type FormType = 'updateUser' | 'createStack' | 'createStackIntrospection'
+
+export type FormTypeProps = ControlAndSetValueProps & {
+  formType: FormType;
+}
+
+export type setFormGroupProps = {
+  label: string;
+  component: React.JSX.Element;
 }

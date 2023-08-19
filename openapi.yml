@@ -173,6 +173,32 @@ paths:
           description: 認証エラー
 
   /api/v1/users/{user_id}:
+    get:
+      summary: ユーザーデータ詳細
+      operationId: api.v1.users.show
+      tags:
+        - User
+      security: []
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Users_User_Id'
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users_User'
+        '401':
+          description: 認証エラー
+        '404':
+          description: ユーザーが存在しない
+        '422':
+          description: バリデーションエラー
+      
     patch:
       summary: ユーザーデータ更新
       operationId: api.v1.users.update

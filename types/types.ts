@@ -139,6 +139,16 @@ export type TextInputProps = ControlProps & {
   type: string;
 }
 
+export type IntrospectionProps = {
+  id: number;
+  stack_id: number;
+  evaluation: number;
+  reason: string;
+  keep_contents: KeepAndProblemAndTryPoint[];
+  problem_contents: KeepAndProblemAndTryPoint[];
+  try_contents: KeepAndProblemAndTryPoint[];
+}
+
 export type StackCardProps = UserProps & {
   stack: {
     id: number;
@@ -146,6 +156,7 @@ export type StackCardProps = UserProps & {
     minutes: number;
     skill: Skill;
     description: string;
+    introspection?: IntrospectionProps[];
     stacked_at: string;
     created_at: string;
     updated_at: string;
@@ -157,7 +168,7 @@ export type SelectBoxProps = {
   handleOptionChange: (event: SelectChangeEvent<string>) => void;
 }
 
-export type FormType = 'updateUser' | 'createStack' | 'createStackIntrospection'
+export type FormType = 'updateUser' | 'createStack' | 'createStackIntrospection' | 'showStackIntrospection'
 
 export type FormTypeProps = ControlAndSetValueProps & {
   formType: FormType;

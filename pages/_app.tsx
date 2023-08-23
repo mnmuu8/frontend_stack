@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../styles/globals.css'
 import "tailwindcss/tailwind.css";
 import type { AppProps } from 'next/app'
 import { UserProvider } from '@auth0/nextjs-auth0/client';
 import AppContext from '@/context/AppContext';
+import { FormType, IntrospectionProps } from '@/types/types';
 
 function MyApp({ Component, pageProps }: AppProps) {
 
@@ -24,7 +25,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   };
 
   const [formOpen, setFormOpen] = React.useState<boolean>(false);
-  const [formType, setFormType] = React.useState<string>('stackCreate');
+  const [formType, setFormType] = React.useState<FormType>('createStack');
+
+  const [showStackIntrospection, setShowStackIntrospection] = React.useState<IntrospectionProps|undefined>(undefined)
 
   return (
     <AppContext.Provider 
@@ -40,7 +43,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         formType: formType,
         setFormType: setFormType,
         formOpen: formOpen,
-        setFormOpen: setFormOpen
+        setFormOpen: setFormOpen,
+        showStackIntrospection: showStackIntrospection,
+        setShowStackIntrospection: setShowStackIntrospection
       }}
     >
       <UserProvider>

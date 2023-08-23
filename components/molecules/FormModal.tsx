@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useContext, useEffect } from 'react'
+import React, { FC, useContext } from 'react'
 import { useForm } from 'react-hook-form';
 
 import Box from '@mui/material/Box';
@@ -7,12 +7,13 @@ import Modal from '@mui/material/Modal';
 import { FormDataParams, onSubmitType, FormTypeProps, setFormGroupProps } from '@/types/types';
 import AppContext from '@/context/AppContext';
 import StackInspectionFormGroup from './StackInspectionFormGroup';
+import StackIntrospectionShowGroup from './StackIntrospectionShowGroup';
 import StackFormGroup from './StackFormGroup';
 import UserFormGroup from './UserFormGroup';
 
 const FormModal: FC = () => {
   const appContext = useContext(AppContext);
-  const { formOpen, setFormOpen, formType, setFormType } = appContext;
+  const { formOpen, setFormOpen, formType } = appContext;
   const { control, handleSubmit, setValue } = useForm<FormDataParams>();
 
   const resetValueByFormType = (): void => {
@@ -83,8 +84,39 @@ const FormModal: FC = () => {
         component: <UserFormGroup setValue={setValue} control={control} />
       }
     }
+
+    if (formType === 'showStackIntrospection') {
+      return {
+        label: 'show Stack Introspection',
+        component: <StackIntrospectionShowGroup />
+      }
+    }
   }
 
+  const setButtonGroup = () => {
+    if (formType === 'showStackIntrospection') {
+      return {
+        cancel: <Button onClick={onCancel} className='bg-gray-300 hover:bg-gray-200 text-gray-800 mx-2 w-full py-4'>キャンセル</Button>,
+        modify: <Button onClick={handleSubmit(onSubmit)} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>編集</Button>,
+      }
+    }
+
+    if (formType === 'createStackIntrospection' || formType === 'createStack') {
+      return {
+        cancel: <Button onClick={onCancel} className='bg-gray-300 hover:bg-gray-200 text-gray-800 mx-2 w-full py-4'>キャンセル</Button>,
+        modify: <Button onClick={handleSubmit(onSubmit)} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>作成</Button>,
+      }
+    }
+
+    if (formType === 'updateUser') {
+      return {
+        cancel: <Button onClick={onCancel} className='bg-gray-300 hover:bg-gray-200 text-gray-800 mx-2 w-full py-4'>キャンセル</Button>,
+        modify: <Button onClick={handleSubmit(onSubmit)} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>更新</Button>,
+      }
+    }
+  }
+
+  const currentButtonGroup = setButtonGroup();
   const currentFormGroup = setFormGroup({ formType, setValue, control });
 
   return (
@@ -98,12 +130,8 @@ const FormModal: FC = () => {
             </div>
           </div>
           <div className='flex justify-center pt-6'>
-            <Button onClick={onCancel} className='bg-gray-200 text-gray-800 hover:bg-gray-300 mx-2 w-full py-4'>
-              Cancel
-            </Button>
-            <Button type='submit' onClick={handleSubmit(onSubmit)} className='text-white bg-blue-300 hover:bg-blue-400 mx-2 w-full'>
-              Create Stack
-            </Button>
+            {currentButtonGroup?.cancel}
+            {currentButtonGroup?.modify}
           </div>
         </Box>
       </Modal>

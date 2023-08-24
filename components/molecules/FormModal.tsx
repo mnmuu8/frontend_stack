@@ -13,7 +13,7 @@ import UserFormGroup from './UserFormGroup';
 
 const FormModal: FC = () => {
   const appContext = useContext(AppContext);
-  const { formOpen, setFormOpen, formType, setFormType, showStackIntrospection } = appContext;
+  const { formOpen, setFormOpen, formType, setFormType, showStackIntrospection, setShowStackIntrospection } = appContext;
   const { control, handleSubmit, setValue } = useForm<FormDataParams>();
 
   const resetValueByFormType = (): void => {
@@ -24,7 +24,7 @@ const FormModal: FC = () => {
       setValue('skill', null)
     }
 
-    if (formType === 'createStackIntrospection') {
+    if (formType === 'createStackIntrospection' || formType === 'updateStackIntrospection') {
       setValue('evaluation', 0)
       setValue('reason', '')
       setValue('keeps', [])
@@ -48,6 +48,8 @@ const FormModal: FC = () => {
     resetValueByFormType();
 
     setFormOpen(false);
+
+    setShowStackIntrospection(undefined);
   }
 
   const onCancel = () => {

@@ -128,7 +128,8 @@ export type CheckBoxLabelProps = {
 }
 
 export type TextInputProps = ControlProps & {
-  name: string;
+  // NOTE: 後ほどフォームを変更するため、一旦any型にしておく
+  name: any;
   fullWidth: boolean;
   multiline: boolean;
   minRows: number;
@@ -147,7 +148,7 @@ export type IntrospectionProps = {
   keep_contents: KeepAndProblemAndTryPoint[];
   problem_contents: KeepAndProblemAndTryPoint[];
   try_contents: KeepAndProblemAndTryPoint[];
-}
+} | undefined;
 
 export type StackCardProps = UserProps & {
   stack: {
@@ -168,7 +169,7 @@ export type SelectBoxProps = {
   handleOptionChange: (event: SelectChangeEvent<string>) => void;
 }
 
-export type FormType = 'updateUser' | 'createStack' | 'createStackIntrospection' | 'showStackIntrospection'
+export type FormType = 'updateUser' | 'createStack' | 'createStackIntrospection' | 'showStackIntrospection' | 'updateStackIntrospection'
 
 export type FormTypeProps = ControlAndSetValueProps & {
   formType: FormType;

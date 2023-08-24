@@ -14,8 +14,8 @@ type AppContextProps = {
   setFormType: Dispatch<React.SetStateAction<FormType>>;
   formOpen: boolean;
   setFormOpen: Dispatch<React.SetStateAction<boolean>>;
-  showStackIntrospection: IntrospectionProps | undefined;
-  setShowStackIntrospection: Dispatch<SetStateAction<IntrospectionProps | undefined>>;
+  showStackIntrospection: IntrospectionProps;
+  setShowStackIntrospection: Dispatch<SetStateAction<IntrospectionProps>>;
 }
 
 const AppContext = createContext<AppContextProps>({

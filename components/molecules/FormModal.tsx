@@ -13,7 +13,7 @@ import UserFormGroup from './UserFormGroup';
 
 const FormModal: FC = () => {
   const appContext = useContext(AppContext);
-  const { formOpen, setFormOpen, formType } = appContext;
+  const { formOpen, setFormOpen, formType, setFormType, showStackIntrospection } = appContext;
   const { control, handleSubmit, setValue } = useForm<FormDataParams>();
 
   const resetValueByFormType = (): void => {
@@ -63,6 +63,28 @@ const FormModal: FC = () => {
     resetValue(checkAlert);
   }
 
+  const upadateStackIntrospectionForm = () => {
+    setFormType('updateStackIntrospection');
+
+    if (showStackIntrospection) {
+      setValue('evaluation', showStackIntrospection.evaluation);
+      setValue('reason', showStackIntrospection.reason);
+      for (let i = 0; i < showStackIntrospection.keep_contents.length; i++) {
+        setValue(`keeps[${i}].content` as any, showStackIntrospection.keep_contents[i].content);
+      }
+      for (let i = 0; i < showStackIntrospection.problem_contents.length; i++) {
+        setValue(`problems[${i}].content` as any, showStackIntrospection.problem_contents[i].content);
+      }
+      for (let i = 0; i < showStackIntrospection.try_contents.length; i++) {
+        setValue(`tries[${i}].content` as any, showStackIntrospection.try_contents[i].content);
+      }
+    }
+
+    if (showStackIntrospection === undefined) {
+      return;
+    }
+  }
+
   const setFormGroup = ({formType, setValue, control}: FormTypeProps): setFormGroupProps | undefined  => {
     if (formType === 'createStack') {
       return {
@@ -74,6 +96,13 @@ const FormModal: FC = () => {
     if (formType === 'createStackIntrospection') {
       return {
         label: 'create Stack Inspection',
+        component: <StackInspectionFormGroup control={control} />
+      }
+    }
+
+    if (formType === 'updateStackIntrospection') {
+      return {
+        label: 'update Stack Inspection',
         component: <StackInspectionFormGroup control={control} />
       }
     }
@@ -97,7 +126,7 @@ const FormModal: FC = () => {
     if (formType === 'showStackIntrospection') {
       return {
         cancel: <Button onClick={onCancel} className='bg-gray-300 hover:bg-gray-200 text-gray-800 mx-2 w-full py-4'>キャンセル</Button>,
-        modify: <Button onClick={handleSubmit(onSubmit)} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>編集</Button>,
+        modify: <Button onClick={handleSubmit(upadateStackIntrospectionForm)} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>編集</Button>,
       }
     }
 
@@ -109,6 +138,13 @@ const FormModal: FC = () => {
     }
 
     if (formType === 'updateUser') {
+      return {
+        cancel: <Button onClick={onCancel} className='bg-gray-300 hover:bg-gray-200 text-gray-800 mx-2 w-full py-4'>キャンセル</Button>,
+        modify: <Button onClick={handleSubmit(onSubmit)} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>更新</Button>,
+      }
+    }
+
+    if (formType === 'updateStackIntrospection') {
       return {
         cancel: <Button onClick={onCancel} className='bg-gray-300 hover:bg-gray-200 text-gray-800 mx-2 w-full py-4'>キャンセル</Button>,
         modify: <Button onClick={handleSubmit(onSubmit)} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>更新</Button>,

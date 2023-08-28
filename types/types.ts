@@ -128,7 +128,7 @@ export type CheckBoxLabelProps = {
 }
 
 export type TextInputProps = ControlProps & {
-  name: string;
+  name: string | any;
   fullWidth: boolean;
   multiline: boolean;
   minRows: number;

@@ -11,7 +11,7 @@ type AppContextProps = {
   handleMenuOpen: (event: React.MouseEvent<HTMLElement>) => void;
   handleMenuClose: () => void;
   formType: FormType;
-  setFormType: Dispatch<React.SetStateAction<string>>;
+  setFormType: Dispatch<React.SetStateAction<FormType>>;
   formOpen: boolean;
   setFormOpen: Dispatch<React.SetStateAction<boolean>>;
 }

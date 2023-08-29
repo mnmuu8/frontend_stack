@@ -15,7 +15,7 @@ const StackCardMenu: FC = () => {
     setAnchorEl(event.currentTarget);
   };
   const handleFormOpenButton = () => {
-    setFormType('stackInspectionCreate');
+    setFormType('createStackIntrospection');
     setFormOpen(true);
     setAnchorEl(null);
   };

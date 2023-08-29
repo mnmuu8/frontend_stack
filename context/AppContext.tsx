@@ -1,5 +1,5 @@
 import { createContext, Dispatch, SetStateAction } from "react";
-import { FormType } from "@/types/types";
+import { FormType, IntrospectionProps } from "@/types/types";
 
 type AppContextProps = {
   drawerOpen: boolean;
@@ -11,9 +11,11 @@ type AppContextProps = {
   handleMenuOpen: (event: React.MouseEvent<HTMLElement>) => void;
   handleMenuClose: () => void;
   formType: FormType;
-  setFormType: Dispatch<React.SetStateAction<string>>;
+  setFormType: Dispatch<React.SetStateAction<FormType>>;
   formOpen: boolean;
   setFormOpen: Dispatch<React.SetStateAction<boolean>>;
+  showStackIntrospection: IntrospectionProps;
+  setShowStackIntrospection: Dispatch<SetStateAction<IntrospectionProps>>;
 }
 
 const AppContext = createContext<AppContextProps>({
@@ -28,7 +30,9 @@ const AppContext = createContext<AppContextProps>({
   formType: 'createStack',
   setFormType: () => {},
   formOpen: false,
-  setFormOpen: () => {}
+  setFormOpen: () => {},
+  showStackIntrospection: undefined,
+  setShowStackIntrospection: () => {}
 }) 
 
 export default AppContext

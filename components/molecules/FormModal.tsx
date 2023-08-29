@@ -81,10 +81,6 @@ const FormModal: FC = () => {
         setValue(`tries[${i}].content` as any, showStackIntrospection.try_contents[i].content);
       }
     }
-
-    if (showStackIntrospection === undefined) {
-      return;
-    }
   }
 
   const setFormGroup = ({formType, setValue, control}: FormTypeProps): setFormGroupProps | undefined  => {

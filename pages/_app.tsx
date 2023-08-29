@@ -26,7 +26,6 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   const [formOpen, setFormOpen] = React.useState<boolean>(false);
   const [formType, setFormType] = React.useState<FormType>('createStack');
-
   const [showStackIntrospection, setShowStackIntrospection] = React.useState<IntrospectionProps|undefined>(undefined)
 
   return (

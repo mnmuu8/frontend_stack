@@ -128,7 +128,6 @@ export type CheckBoxLabelProps = {
 }
 
 export type TextInputProps = ControlProps & {
-  // NOTE: 後ほどフォームを変更するため、一旦any型にしておく
   name: any;
   fullWidth: boolean;
   multiline: boolean;

@@ -128,7 +128,7 @@ export type CheckBoxLabelProps = {
 }
 
 export type TextInputProps = ControlProps & {
-  name: string | any;
+  name: any;
   fullWidth: boolean;
   multiline: boolean;
   minRows: number;
@@ -139,6 +139,16 @@ export type TextInputProps = ControlProps & {
   type: string;
 }
 
+export type IntrospectionProps = {
+  id: number;
+  stack_id: number;
+  evaluation: number;
+  reason: string;
+  keep_contents: KeepAndProblemAndTryPoint[];
+  problem_contents: KeepAndProblemAndTryPoint[];
+  try_contents: KeepAndProblemAndTryPoint[];
+} | undefined;
+
 export type StackCardProps = UserProps & {
   stack: {
     id: number;
@@ -146,6 +156,7 @@ export type StackCardProps = UserProps & {
     minutes: number;
     skill: Skill;
     description: string;
+    introspection?: IntrospectionProps[];
     stacked_at: string;
     created_at: string;
     updated_at: string;
@@ -157,7 +168,7 @@ export type SelectBoxProps = {
   handleOptionChange: (event: SelectChangeEvent<string>) => void;
 }
 
-export type FormType = 'updateUser' | 'createStack' | 'createStackIntrospection'
+export type FormType = 'updateUser' | 'createStack' | 'createStackIntrospection' | 'showStackIntrospection' | 'updateStackIntrospection'
 
 export type FormTypeProps = ControlAndSetValueProps & {
   formType: FormType;
@@ -166,4 +177,5 @@ export type FormTypeProps = ControlAndSetValueProps & {
 export type setFormGroupProps = {
   label: string;
   component: React.JSX.Element;
+  button: React.JSX.Element;
 }

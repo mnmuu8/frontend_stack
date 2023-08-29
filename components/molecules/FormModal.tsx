@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useContext, useEffect } from 'react'
+import React, { FC, useContext } from 'react'
 import { useForm } from 'react-hook-form';
 
 import Box from '@mui/material/Box';
@@ -7,12 +7,13 @@ import Modal from '@mui/material/Modal';
 import { FormDataParams, onSubmitType, FormTypeProps, setFormGroupProps } from '@/types/types';
 import AppContext from '@/context/AppContext';
 import StackInspectionFormGroup from './StackInspectionFormGroup';
+import StackIntrospectionShowGroup from './StackIntrospectionShowGroup';
 import StackFormGroup from './StackFormGroup';
 import UserFormGroup from './UserFormGroup';
 
 const FormModal: FC = () => {
   const appContext = useContext(AppContext);
-  const { formOpen, setFormOpen, formType, setFormType } = appContext;
+  const { formOpen, setFormOpen, formType, setFormType, showStackIntrospection, setShowStackIntrospection } = appContext;
   const { control, handleSubmit, setValue } = useForm<FormDataParams>();
 
   const resetValueByFormType = (): void => {
@@ -23,7 +24,7 @@ const FormModal: FC = () => {
       setValue('skill', null)
     }
 
-    if (formType === 'createStackIntrospection') {
+    if (formType === 'createStackIntrospection' || formType === 'updateStackIntrospection') {
       setValue('evaluation', 0)
       setValue('reason', '')
       setValue('keeps', [])
@@ -47,6 +48,8 @@ const FormModal: FC = () => {
     resetValueByFormType();
 
     setFormOpen(false);
+
+    setShowStackIntrospection(undefined);
   }
 
   const onCancel = () => {
@@ -62,29 +65,67 @@ const FormModal: FC = () => {
     resetValue(checkAlert);
   }
 
+  const upadateStackIntrospectionForm = () => {
+    setFormType('updateStackIntrospection');
+
+    if (showStackIntrospection) {
+      setValue('evaluation', showStackIntrospection.evaluation);
+      setValue('reason', showStackIntrospection.reason);
+      for (let i = 0; i < showStackIntrospection.keep_contents.length; i++) {
+        setValue(`keeps[${i}].content` as any, showStackIntrospection.keep_contents[i].content);
+      }
+      for (let i = 0; i < showStackIntrospection.problem_contents.length; i++) {
+        setValue(`problems[${i}].content` as any, showStackIntrospection.problem_contents[i].content);
+      }
+      for (let i = 0; i < showStackIntrospection.try_contents.length; i++) {
+        setValue(`tries[${i}].content` as any, showStackIntrospection.try_contents[i].content);
+      }
+    }
+  }
+
   const setFormGroup = ({formType, setValue, control}: FormTypeProps): setFormGroupProps | undefined  => {
     if (formType === 'createStack') {
       return {
         label: 'create Stack',
-        component: <StackFormGroup setValue={setValue} control={control} />
+        component: <StackFormGroup setValue={setValue} control={control} />,
+        button: <Button onClick={handleSubmit(onSubmit)} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>作成</Button>
       }
     }
 
     if (formType === 'createStackIntrospection') {
       return {
         label: 'create Stack Inspection',
-        component: <StackInspectionFormGroup control={control} />
+        component: <StackInspectionFormGroup control={control} />,
+        button: <Button onClick={handleSubmit(onSubmit)} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>作成</Button>
+      }
+    }
+
+    if (formType === 'updateStackIntrospection') {
+      return {
+        label: 'update Stack Inspection',
+        component: <StackInspectionFormGroup control={control} />,
+        button: <Button onClick={handleSubmit(onSubmit)} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>更新</Button>
       }
     }
 
     if (formType === 'updateUser') {
       return {
         label: 'update User',
-        component: <UserFormGroup setValue={setValue} control={control} />
+        component: <UserFormGroup setValue={setValue} control={control} />,
+        button: <Button onClick={handleSubmit(onSubmit)} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>更新</Button>
+      }
+    }
+
+    if (formType === 'showStackIntrospection') {
+      return {
+        label: 'show Stack Introspection',
+        component: <StackIntrospectionShowGroup />,
+        button: <Button onClick={handleSubmit(upadateStackIntrospectionForm)} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>編集</Button>
       }
     }
   }
 
+  const cancelButton = <Button onClick={onCancel} className='bg-gray-300 hover:bg-gray-200 text-gray-800 mx-2 w-full py-4'>キャンセル</Button>
   const currentFormGroup = setFormGroup({ formType, setValue, control });
 
   return (
@@ -98,12 +139,8 @@ const FormModal: FC = () => {
             </div>
           </div>
           <div className='flex justify-center pt-6'>
-            <Button onClick={onCancel} className='bg-gray-200 text-gray-800 hover:bg-gray-300 mx-2 w-full py-4'>
-              Cancel
-            </Button>
-            <Button type='submit' onClick={handleSubmit(onSubmit)} className='text-white bg-blue-300 hover:bg-blue-400 mx-2 w-full'>
-              Create Stack
-            </Button>
+            {cancelButton}
+            {currentFormGroup?.button}
           </div>
         </Box>
       </Modal>

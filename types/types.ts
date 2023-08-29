@@ -178,4 +178,5 @@ export type FormTypeProps = ControlAndSetValueProps & {
 export type setFormGroupProps = {
   label: string;
   component: React.JSX.Element;
+  button: React.JSX.Element;
 }

@@ -91,70 +91,45 @@ const FormModal: FC = () => {
     if (formType === 'createStack') {
       return {
         label: 'create Stack',
-        component: <StackFormGroup setValue={setValue} control={control} />
+        component: <StackFormGroup setValue={setValue} control={control} />,
+        button: <Button onClick={handleSubmit(onSubmit)} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>作成</Button>
       }
     }
 
     if (formType === 'createStackIntrospection') {
       return {
         label: 'create Stack Inspection',
-        component: <StackInspectionFormGroup control={control} />
+        component: <StackInspectionFormGroup control={control} />,
+        button: <Button onClick={handleSubmit(onSubmit)} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>作成</Button>
       }
     }
 
     if (formType === 'updateStackIntrospection') {
       return {
         label: 'update Stack Inspection',
-        component: <StackInspectionFormGroup control={control} />
+        component: <StackInspectionFormGroup control={control} />,
+        button: <Button onClick={handleSubmit(onSubmit)} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>更新</Button>
       }
     }
 
     if (formType === 'updateUser') {
       return {
         label: 'update User',
-        component: <UserFormGroup setValue={setValue} control={control} />
+        component: <UserFormGroup setValue={setValue} control={control} />,
+        button: <Button onClick={handleSubmit(onSubmit)} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>更新</Button>
       }
     }
 
     if (formType === 'showStackIntrospection') {
       return {
         label: 'show Stack Introspection',
-        component: <StackIntrospectionShowGroup />
+        component: <StackIntrospectionShowGroup />,
+        button: <Button onClick={handleSubmit(upadateStackIntrospectionForm)} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>編集</Button>
       }
     }
   }
 
-  const setButtonGroup = () => {
-    if (formType === 'showStackIntrospection') {
-      return {
-        cancel: <Button onClick={onCancel} className='bg-gray-300 hover:bg-gray-200 text-gray-800 mx-2 w-full py-4'>キャンセル</Button>,
-        modify: <Button onClick={handleSubmit(upadateStackIntrospectionForm)} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>編集</Button>,
-      }
-    }
-
-    if (formType === 'createStackIntrospection' || formType === 'createStack') {
-      return {
-        cancel: <Button onClick={onCancel} className='bg-gray-300 hover:bg-gray-200 text-gray-800 mx-2 w-full py-4'>キャンセル</Button>,
-        modify: <Button onClick={handleSubmit(onSubmit)} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>作成</Button>,
-      }
-    }
-
-    if (formType === 'updateUser') {
-      return {
-        cancel: <Button onClick={onCancel} className='bg-gray-300 hover:bg-gray-200 text-gray-800 mx-2 w-full py-4'>キャンセル</Button>,
-        modify: <Button onClick={handleSubmit(onSubmit)} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>更新</Button>,
-      }
-    }
-
-    if (formType === 'updateStackIntrospection') {
-      return {
-        cancel: <Button onClick={onCancel} className='bg-gray-300 hover:bg-gray-200 text-gray-800 mx-2 w-full py-4'>キャンセル</Button>,
-        modify: <Button onClick={handleSubmit(onSubmit)} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>更新</Button>,
-      }
-    }
-  }
-
-  const currentButtonGroup = setButtonGroup();
+  const cancelButton = <Button onClick={onCancel} className='bg-gray-300 hover:bg-gray-200 text-gray-800 mx-2 w-full py-4'>キャンセル</Button>
   const currentFormGroup = setFormGroup({ formType, setValue, control });
 
   return (
@@ -168,8 +143,8 @@ const FormModal: FC = () => {
             </div>
           </div>
           <div className='flex justify-center pt-6'>
-            {currentButtonGroup?.cancel}
-            {currentButtonGroup?.modify}
+            {cancelButton}
+            {currentFormGroup?.button}
           </div>
         </Box>
       </Modal>

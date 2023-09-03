@@ -1,9 +1,12 @@
+apis/AuthApi.ts
 apis/IntrospectionApi.ts
 apis/SkillApi.ts
 apis/StackApi.ts
 apis/UserApi.ts
 apis/index.ts
 index.ts
+models/AuthLogin.ts
+models/AuthLoginRequestBody.ts
 models/GroupsGroup.ts
 models/SkillsSkill.ts
 models/SkillsSkillListInner.ts

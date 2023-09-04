@@ -53,13 +53,13 @@ const HeaderMenu: FC = () => {
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
-          Settings
+          設定
         </MenuItem>
         <MenuItem onClick={handleMenuClose}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
-          <Link href="/api/auth/logout">Logout</Link>
+          <Link href="/api/auth/logout">ログアウト</Link>
         </MenuItem>
       </Menu>
     </div>

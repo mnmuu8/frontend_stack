@@ -23,10 +23,10 @@ type TableData = {
 }
 
 const columns: readonly Column[] = [
-  { id: 'rank', label: 'Rank', minWidth: 150 },
-  { id: 'name', label: 'Name', minWidth: 150 },
-  { id: 'stacked_time', label: 'StackedTime', minWidth: 150},
-  { id: 'score', label: 'Score', minWidth: 150},
+  { id: 'rank', label: 'ランク', minWidth: 150 },
+  { id: 'name', label: '名前', minWidth: 150 },
+  { id: 'stacked_time', label: '積み上げ時間', minWidth: 150},
+  { id: 'score', label: 'スコア', minWidth: 150},
 ];
 
 function createTableData(

@@ -13,7 +13,7 @@ const UserFormGroup: FC<ControlAndSetValueProps> = ({ control }) => {
         minRows={1}
         required={true}
         requiredMessage={"必須入力"}
-        label={"Name"}
+        label={"ユーザー名"}
         placeholder={"uyu_morning"}
         type='text'
       />
@@ -26,7 +26,7 @@ const UserFormGroup: FC<ControlAndSetValueProps> = ({ control }) => {
         minRows={1}
         required={true}
         requiredMessage={"必須入力"}
-        label={"Email"}
+        label={"メールアドレス"}
         placeholder={"example@example.com"}
         type='text'
       />
@@ -39,8 +39,8 @@ const UserFormGroup: FC<ControlAndSetValueProps> = ({ control }) => {
         minRows={10}
         required={true}
         requiredMessage={"必須入力"}
-        label={"ProfileContent"}
-        placeholder={"プロフィール文"}
+        label={"プロフィール内容"}
+        placeholder={"私はWebエンジニアでReactを得意としております..."}
         type='text'
       />
 
@@ -52,7 +52,7 @@ const UserFormGroup: FC<ControlAndSetValueProps> = ({ control }) => {
         minRows={1}
         required={true}
         requiredMessage={"必須入力"}
-        label={"Group"}
+        label={"グループ"}
         placeholder={"グループ1"}
         type='text'
       />

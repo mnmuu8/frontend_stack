@@ -39,7 +39,7 @@ const index: NextPage = () => {
   return (
     <Layout>
       <div className='dashboard-page'>
-        <div className='text-2xl text-blue-900 font-bold mb-6'>Stacked Graph</div>
+        <div className='text-2xl text-blue-900 font-bold mb-6'>積み上げ時間</div>
         <div className='bg-white shadow-md p-6 w-full mb-10'>
           <div className='w-8/12 m-auto flex justify-center'>
             <Chart labels={barLabels} label={"時間"} data={barData} bdColor={["rgb(39, 119, 169)"]} bgColor={["rgb(240, 248, 250)"]} bdwidth={1} text={currentMonth + "月の学習時間"} type={"bar"} />
@@ -47,7 +47,7 @@ const index: NextPage = () => {
         </div>
         <div className='flex justify-between'>
           <div className='w-[48%] flex flex-col'>
-            <div className='text-2xl text-blue-900 font-bold mb-6'>Skill Graph</div>
+            <div className='text-2xl text-blue-900 font-bold mb-6'>積み上げスキル</div>
             <div className='bg-white shadow-md p-6 flex-grow'>
               <div className='w-8/12 m-auto'>
               <Chart labels={arcLabels} label={"学習時間"} data={arcData} bdColor={arcBorderColor} bgColor={arcBackgroundColor} bdwidth={1} text={"積み上げスキル"} type={"pie"} />
@@ -55,7 +55,7 @@ const index: NextPage = () => {
             </div>
           </div>
           <div className='w-[48%] flex flex-col'>
-            <div className='text-2xl text-blue-900 font-bold mb-6'>Stacking Time Ranking</div>
+            <div className='text-2xl text-blue-900 font-bold mb-6'>積み上げランキング</div>
             <div className='bg-white shadow-md p-6 flex-grow'>
               <RankTable />
             </div>

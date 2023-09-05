@@ -9,8 +9,33 @@ servers:
     description: Development server
   - url: https://skill-climbing.onrender.com
     description: Production server
-
+    
 paths:
+  /api/login:
+    post:
+      summary: ログイン
+      operationId: api.auth.login
+      tags:
+        - Auth
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthLoginRequestBody'
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Auth_Login'
+        '401':
+          description: 認証エラー（ユーザーが存在しない/パスワードが合ってない）
+        '422':
+          description: バリデーションエラー
+
   /api/v1/stacks:
     get:
       summary: 積み上げ一覧
@@ -235,6 +260,31 @@ paths:
 
 components:
   schemas:
+    Auth_Login:
+      type: object
+      required:
+        - token_type
+        - access_token
+      properties:
+        token_type:
+          allOf:
+            - $ref: '#/components/schemas/Auth_Login_TokenType'
+          nullable: false
+        access_token:
+          allOf:
+            - $ref: '#/components/schemas/Auth_Login_AccessToken'
+          nullable: false
+          
+    Auth_Login_TokenType:
+      type: string
+      description: アクセストークンタイプ
+      example: Bearer
+      
+    Auth_Login_AccessToken:
+      type: string
+      description: アクセストークン
+      example: access_token
+
     Stacks_StackList:
       type: array
       items:
@@ -571,6 +621,11 @@ components:
       type: string
       description: ユーザーのプロフィール文
       example: よろしくお願いします。
+      
+    Users_User_Password:
+      type: string
+      description: ユーザーのパスワード
+      example: password
 
     Groups_Group:
       type: object
@@ -611,6 +666,21 @@ components:
       type: string
       format: date-time
       example: '2023-01-01T00:00:00+09:00'
+      
+    AuthLoginRequestBody:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          allOf:
+            - $ref: '#/components/schemas/Users_User_Email'
+          nullable: false
+        password:
+          allOf:
+            - $ref: '#/components/schemas/Users_User_Password'
+          nullable: false
 
     StacksCreateRequestBody:
       type: object

@@ -71,7 +71,7 @@ const StackInspectionFormGroup: FC<ControlProps> = ({ control }) => {
               minRows={2}
               required={true}
               requiredMessage={"必須入力"}
-              label={`継続項目 #${index + 1}`}
+              label={`Keep #${index + 1}`}
               placeholder={"目標の機能を全て実装できたため..."}
               type='text'
             />
@@ -79,7 +79,7 @@ const StackInspectionFormGroup: FC<ControlProps> = ({ control }) => {
           </div>
         ))}
         <Button onClick={handleAddKeepPoint} className='w-full border-indigo-200 border-2 text-white bg-[#000044] hover:bg-[#000066] mt-4 py-3'>
-          継続する項目を追加
+          Keepを追加
         </Button>
       </div>
       <div>
@@ -93,7 +93,7 @@ const StackInspectionFormGroup: FC<ControlProps> = ({ control }) => {
               minRows={2}
               required={true}
               requiredMessage={"必須入力"}
-              label={`反省項目 #${index + 1}`}
+              label={`Problem #${index + 1}`}
               placeholder={"予定よりも8時間ほど工数が超過したため..."}
               type='text'
             />
@@ -101,7 +101,7 @@ const StackInspectionFormGroup: FC<ControlProps> = ({ control }) => {
           </div>
         ))}
         <Button onClick={handleAddProblemPoint} className='w-full border-indigo-200 border-2 text-white bg-[#000044] hover:bg-[#000066] mt-4 py-3'>
-          反省する項目を追加
+          Problemを追加
         </Button>
       </div>
       <div>
@@ -115,7 +115,7 @@ const StackInspectionFormGroup: FC<ControlProps> = ({ control }) => {
               minRows={2}
               required={true}
               requiredMessage={"必須入力"}
-              label={`挑戦項目 #${index + 1}`}
+              label={`Try #${index + 1}`}
               placeholder={"今回のReactアプリをTypeScriptで実装する..."}
               type='text'
             />
@@ -123,7 +123,7 @@ const StackInspectionFormGroup: FC<ControlProps> = ({ control }) => {
           </div>
         ))}
         <Button onClick={handleAddTryPoint} className='w-full border-indigo-200 border-2 text-white bg-[#000044] hover:bg-[#000066] mt-4 py-3'>
-          挑戦する項目を追加
+          Tryを追加
         </Button>
       </div>
     </>

@@ -17,7 +17,11 @@ const StackCard: FC<StackCardProps> = ({ stack, user }) => {
   const { setFormOpen, setFormType, setShowStackIntrospection } = appContext;
 
   const currentShowStackIntrospection = (introspection_id: number) => {
-    return stack.introspection?.find((introspection) => introspection?.id === introspection_id)
+    if (!stack.introspection) {
+      return;
+    } else {
+      return stack.introspection.find((introspection) => introspection && introspection.id === introspection_id)
+    }
   }
 
   const handleFormOpen = (introspection_id: number) => {

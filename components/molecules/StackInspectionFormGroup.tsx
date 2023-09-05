@@ -44,7 +44,7 @@ const StackInspectionFormGroup: FC<ControlProps> = ({ control }) => {
         minRows={1}
         required={true}
         requiredMessage={"必須入力"}
-        label={"Evaluation"}
+        label={"評価"}
         placeholder={"80"}
         type='number'
       />
@@ -56,8 +56,8 @@ const StackInspectionFormGroup: FC<ControlProps> = ({ control }) => {
         minRows={5}
         required={true}
         requiredMessage={"必須入力"}
-        label={"Reason"}
-        placeholder={"Add Reason"}
+        label={"理由"}
+        placeholder={"Reactの教材を3冊読破したから..."}
         type='text'
       />
       <div>
@@ -71,15 +71,15 @@ const StackInspectionFormGroup: FC<ControlProps> = ({ control }) => {
               minRows={2}
               required={true}
               requiredMessage={"必須入力"}
-              label={`KeepPoint #${index + 1}`}
-              placeholder={"Add Keep Point"}
+              label={`Keep #${index + 1}`}
+              placeholder={"目標の機能を全て実装できたため..."}
               type='text'
             />
             <div onClick={() => removekeeps(index)} className='flex items-center justify-center absolute top-[-10px] right-[-10px] text-white bg-red-500 hover:bg-red-400 w-[30px] h-[30px] rounded-full cursor-pointer'>×</div>
           </div>
         ))}
         <Button onClick={handleAddKeepPoint} className='w-full border-indigo-200 border-2 text-white bg-[#000044] hover:bg-[#000066] mt-4 py-3'>
-          Add Keep Point
+          Keepを追加
         </Button>
       </div>
       <div>
@@ -93,15 +93,15 @@ const StackInspectionFormGroup: FC<ControlProps> = ({ control }) => {
               minRows={2}
               required={true}
               requiredMessage={"必須入力"}
-              label={`ProblemPoint #${index + 1}`}
-              placeholder={"Add Problem Point"}
+              label={`Problem #${index + 1}`}
+              placeholder={"予定よりも8時間ほど工数が超過したため..."}
               type='text'
             />
             <div onClick={() => removeproblems(index)} className='flex items-center justify-center absolute top-[-10px] right-[-10px] text-white bg-red-500 hover:bg-red-400 w-[30px] h-[30px] rounded-full cursor-pointer'>×</div>
           </div>
         ))}
         <Button onClick={handleAddProblemPoint} className='w-full border-indigo-200 border-2 text-white bg-[#000044] hover:bg-[#000066] mt-4 py-3'>
-          Add Problem Point
+          Problemを追加
         </Button>
       </div>
       <div>
@@ -115,15 +115,15 @@ const StackInspectionFormGroup: FC<ControlProps> = ({ control }) => {
               minRows={2}
               required={true}
               requiredMessage={"必須入力"}
-              label={`TryPoint #${index + 1}`}
-              placeholder={"Add Try Point"}
+              label={`Try #${index + 1}`}
+              placeholder={"今回のReactアプリをTypeScriptで実装する..."}
               type='text'
             />
             <div onClick={() => removetries(index)} className='flex items-center justify-center absolute top-[-10px] right-[-10px] text-white bg-red-500 hover:bg-red-400 w-[30px] h-[30px] rounded-full cursor-pointer'>×</div>
           </div>
         ))}
         <Button onClick={handleAddTryPoint} className='w-full border-indigo-200 border-2 text-white bg-[#000044] hover:bg-[#000066] mt-4 py-3'>
-          Add Try Point
+          Tryを追加
         </Button>
       </div>
     </>

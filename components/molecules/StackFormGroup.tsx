@@ -19,7 +19,7 @@ const StackFormGroup: FC<ControlAndSetValueProps> = ({ setValue, control }) => {
           minRows={1}
           required={true}
           requiredMessage={"必須入力"}
-          label={"Stacked Time"}
+          label={"積み上げ時間"}
           placeholder={"8"}
           type='number'
         />
@@ -32,7 +32,7 @@ const StackFormGroup: FC<ControlAndSetValueProps> = ({ setValue, control }) => {
         minRows={1}
         required={true}
         requiredMessage={"必須入力"}
-        label={"Title"}
+        label={"タイトル"}
         placeholder={"Reactの学習..."}
         type='text'
       />

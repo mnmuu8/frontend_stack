@@ -17,7 +17,9 @@ const StackCard: FC<StackCardProps> = ({ stack, user }) => {
   const { setFormOpen, setFormType, setShowStackIntrospection } = appContext;
 
   const currentShowStackIntrospection = (introspection_id: number) => {
-    return stack.introspection?.find((introspection) => introspection.id === introspection_id)
+    if (stack.introspection) {
+      return stack.introspection.find((introspection) => introspection && introspection.id === introspection_id)
+    }
   }
 
   const handleFormOpen = (introspection_id: number) => {
@@ -46,10 +48,12 @@ const StackCard: FC<StackCardProps> = ({ stack, user }) => {
           {stack.introspection && (
             <div className='mt-4'>
               {stack.introspection.map((introspection, index) => (
-                <div key={introspection.id} className='bg-blue-500 px-6 py-2 rounded-full flex justify-between items-center mt-2'>
-                  <span className='text-white text-sm font-bold'>反省ポイント #{index + 1}</span>
-                  <EditIcon className='text-[20px] text-white cursor-pointer' onClick={() => handleFormOpen(introspection.id)} />
-                </div>
+                introspection && (
+                  <div key={introspection.id} className='bg-blue-500 px-6 py-2 rounded-full flex justify-between items-center mt-2'>
+                    <span className='text-white text-sm font-bold'>反省ポイント #{index + 1}</span>
+                    <EditIcon className='text-[20px] text-white cursor-pointer' onClick={() => handleFormOpen(introspection.id)} />
+                  </div>
+                )
               ))}
             </div>
           )}

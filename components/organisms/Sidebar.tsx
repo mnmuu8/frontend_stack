@@ -22,11 +22,11 @@ const Sidebar: FC = () => {
   const {drawerOpen, handleDrawerClose} = appContext;
 
   const sidebarMenus: sidebarMenus[] = [
-    {id: 'dashboard', label: 'Dashboard', value: '/', icon: <DashboardIcon />},
-    {id: 'timeline', label: 'Timeline', value: '/timeline', icon: <FeedIcon />},
-    {id: 'mypage', label: 'My Page', value: '/mypage', icon: <AccountCircleIcon />},
-    {id: 'portfolio', label: 'Portfolio', value: '/portfolio', icon: <CastForEducationIcon />},
-    {id: 'message', label: 'Message', value: '/message', icon: <MessageIcon />},
+    {id: 'dashboard', label: 'ダッシュボード', value: '/', icon: <DashboardIcon />},
+    {id: 'timeline', label: 'タイムライン', value: '/timeline', icon: <FeedIcon />},
+    {id: 'mypage', label: 'マイページ', value: '/mypage', icon: <AccountCircleIcon />},
+    {id: 'portfolio', label: 'ポートフォリオ', value: '/portfolio', icon: <CastForEducationIcon />},
+    {id: 'message', label: 'メッセージ', value: '/message', icon: <MessageIcon />},
   ]
 
   return (

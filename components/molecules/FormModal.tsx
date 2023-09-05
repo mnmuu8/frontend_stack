@@ -86,7 +86,7 @@ const FormModal: FC = () => {
   const setFormGroup = ({formType, setValue, control}: FormTypeProps): setFormGroupProps | undefined  => {
     if (formType === 'createStack') {
       return {
-        label: 'create Stack',
+        label: '積み上げを作成',
         component: <StackFormGroup setValue={setValue} control={control} />,
         button: <Button onClick={handleSubmit(onSubmit)} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>作成</Button>
       }
@@ -94,7 +94,7 @@ const FormModal: FC = () => {
 
     if (formType === 'createStackIntrospection') {
       return {
-        label: 'create Stack Inspection',
+        label: '積み上げの反省を作成',
         component: <StackInspectionFormGroup control={control} />,
         button: <Button onClick={handleSubmit(onSubmit)} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>作成</Button>
       }
@@ -102,7 +102,7 @@ const FormModal: FC = () => {
 
     if (formType === 'updateStackIntrospection') {
       return {
-        label: 'update Stack Inspection',
+        label: '積み上げの反省を編集',
         component: <StackInspectionFormGroup control={control} />,
         button: <Button onClick={handleSubmit(onSubmit)} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>更新</Button>
       }
@@ -118,7 +118,7 @@ const FormModal: FC = () => {
 
     if (formType === 'showStackIntrospection') {
       return {
-        label: 'show Stack Introspection',
+        label: '積み上げの反省',
         component: <StackIntrospectionShowGroup />,
         button: <Button onClick={handleSubmit(upadateStackIntrospectionForm)} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>編集</Button>
       }

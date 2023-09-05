@@ -1,34 +1,52 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Skill Climbing
 
-## Getting Started
+## 1. 目次
+[1.目次](#1-目次)
+[2.改訂履歴](#2-改訂履歴)
+[3.前提条件](#3-前提条件)
+[4.環境構築手順](#4-環境構築手順)
+[5.環境別URL](#5-環境別url)
 
-First, run the development server:
+## 2. 改訂履歴
+- 1.0
+  - 作成日時
+    - 2023/09/04
+  - 更新内容
+    - 初版作成
+  - 更新者
+    - [@mnmuu8](https://github.com/mnmuu8)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## 3. 前提条件
+### React version
+18.2.0
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### NextJS version
+13.4.3
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### TypeScript version
+5.0.4
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## 4. 環境構築手順
+1. リポジトリをローカルにcloneする
+  - 以下コマンドを実行する。
+    - `git clone git@github.com:mnmuu8/skill-climbing-frontend.git`
+2. Dockerイメージの作成
+  - 以下コマンドを実行する。
+    - `make build`
+3. Dockerネットワークの作成
+  - 以下コマンドを実行する。
+    - `docker network create skill_climbing_shared_network`
+4. Dockerコンテナを立ち上げる
+  - 以下コマンドを実行する。
+    - `make up`
+5. NextJSが立ち上がっているか確認する
+  - 以下にアクセスする。
+    - http://localhost:9000
 
-## Learn More
+## 5. 環境別URL
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+|  環境  |  URL  |
+| ---- | ---- |
+|  開発環境  |  http://localhost:9000  |
+|  STG環境  |  なし  |
+|  本番環境  |  https://skill-climbing-frontend.vercel.app/  |

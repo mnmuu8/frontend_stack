@@ -258,6 +258,31 @@ paths:
         '422':
           description: バリデーションエラー
 
+  /api/v1/groups:
+    get:
+      summary: グループ一覧
+      operationId: api.v1.groups.index
+      tags:
+        - Group
+      security: []
+      parameters:
+        - name: name
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/Groups_Group_Name'
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Groups_GroupList'
+        '401':
+          description: 認証エラー
+        '422':
+          description: バリデーションエラー
+
 components:
   schemas:
     Auth_Login:
@@ -621,11 +646,17 @@ components:
       type: string
       description: ユーザーのプロフィール文
       example: よろしくお願いします。
-      
+
     Users_User_Password:
       type: string
       description: ユーザーのパスワード
       example: password
+
+    Groups_GroupList:
+      type: array
+      items:
+        allOf:
+          - $ref: '#/components/schemas/Groups_Group'
 
     Groups_Group:
       type: object

@@ -3,6 +3,7 @@
 export * from './AuthLogin';
 export * from './AuthLoginRequestBody';
 export * from './GroupsGroup';
+export * from './GroupsGroupListInner';
 export * from './SkillsSkill';
 export * from './SkillsSkillListInner';
 export * from './StacksCreateRequestBody';

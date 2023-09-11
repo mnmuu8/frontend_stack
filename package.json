@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint --dir src",
-    "format": "prettier --write './app/*.{js,jsx,ts,tsx,json,css}'"
+    "format": "prettier --write './{page,components,styles,context,types}/**/*.{js,jsx,ts,tsx,json,css}'"
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^2.6.2",

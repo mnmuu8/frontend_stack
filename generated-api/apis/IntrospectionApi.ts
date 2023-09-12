@@ -28,17 +28,17 @@ import {
     StacksIntrospectionsIntrospectionToJSON,
 } from '../models';
 
-export interface ApiV1StacksIntrospectionsCreateRequest {
+interface ApiV1StacksIntrospectionsCreateRequest {
     stackId: number;
     stacksIntrospectionCreateRequestBody: StacksIntrospectionCreateRequestBody;
 }
 
-export interface ApiV1StacksIntrospectionsShowRequest {
+interface ApiV1StacksIntrospectionsShowRequest {
     stackId: number;
     introspectionId: number;
 }
 
-export interface ApiV1StacksIntrospectionsUpdateRequest {
+interface ApiV1StacksIntrospectionsUpdateRequest {
     stackId: number;
     introspectionId: number;
     stacksIntrospectionUpdateRequestBody: StacksIntrospectionUpdateRequestBody;

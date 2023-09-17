@@ -1,12 +1,12 @@
 import React, { FC } from 'react'
 import { Controller } from 'react-hook-form';
-import { FormGroup } from '@mui/material';
+import { FormTeam } from '@mui/material';
 import Box from '@mui/material/Box';
 import CheckBoxLabel from './CheckBoxLabel';
 
 import { ControlAndSetValueProps, Skill } from '@/types/types';
 
-const CheckBoxGroup: FC<ControlAndSetValueProps> = ({ control, setValue }) => {
+const CheckBoxTeam: FC<ControlAndSetValueProps> = ({ control, setValue }) => {
   // TODO: APIデータ受け取り。後々実装
   const skills: Skill[] = [
     { id: 1, name: 'Ruby on Rails', created_at: "2023-01-01T00:00:00+09:00", updated_at: "2023-01-01T00:00:00+09:00" },
@@ -30,7 +30,7 @@ const CheckBoxGroup: FC<ControlAndSetValueProps> = ({ control, setValue }) => {
         control={control}
         defaultValue={null}
         render={({ field }) => (
-          <FormGroup sx={{ flexDirection: "inherit" }}>
+          <FormTeam sx={{ flexDirection: "inherit" }}>
             {skills.map((skill: Skill) => (
               <CheckBoxLabel 
                 key={skill.id}
@@ -39,11 +39,11 @@ const CheckBoxGroup: FC<ControlAndSetValueProps> = ({ control, setValue }) => {
                 field={field}
               />
             ))}
-          </FormGroup>
+          </FormTeam>
         )}
       />
     </Box>
   )
 }
 
-export default CheckBoxGroup 
+export default CheckBoxTeam 

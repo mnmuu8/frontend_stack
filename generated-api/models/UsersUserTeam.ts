@@ -16,39 +16,39 @@ import { exists, mapValues } from '../runtime';
 /**
  * 
  * @export
- * @interface GroupsGroupListInner
+ * @interface UsersUserTeam
  */
-export interface GroupsGroupListInner {
+export interface UsersUserTeam {
     /**
      * グループID
      * @type {number}
-     * @memberof GroupsGroupListInner
+     * @memberof UsersUserTeam
      */
     id: number;
     /**
      * グループ名
      * @type {string}
-     * @memberof GroupsGroupListInner
+     * @memberof UsersUserTeam
      */
     name: string;
     /**
      * 
      * @type {Date}
-     * @memberof GroupsGroupListInner
+     * @memberof UsersUserTeam
      */
     createdAt: Date;
     /**
      * 
      * @type {Date}
-     * @memberof GroupsGroupListInner
+     * @memberof UsersUserTeam
      */
     updatedAt: Date;
 }
 
 /**
- * Check if a given object implements the GroupsGroupListInner interface.
+ * Check if a given object implements the UsersUserTeam interface.
  */
-export function instanceOfGroupsGroupListInner(value: object): boolean {
+export function instanceOfUsersUserTeam(value: object): boolean {
     let isInstance = true;
     isInstance = isInstance && "id" in value;
     isInstance = isInstance && "name" in value;
@@ -58,11 +58,11 @@ export function instanceOfGroupsGroupListInner(value: object): boolean {
     return isInstance;
 }
 
-export function GroupsGroupListInnerFromJSON(json: any): GroupsGroupListInner {
-    return GroupsGroupListInnerFromJSONTyped(json, false);
+export function UsersUserTeamFromJSON(json: any): UsersUserTeam {
+    return UsersUserTeamFromJSONTyped(json, false);
 }
 
-export function GroupsGroupListInnerFromJSONTyped(json: any, ignoreDiscriminator: boolean): GroupsGroupListInner {
+export function UsersUserTeamFromJSONTyped(json: any, ignoreDiscriminator: boolean): UsersUserTeam {
     if ((json === undefined) || (json === null)) {
         return json;
     }
@@ -75,7 +75,7 @@ export function GroupsGroupListInnerFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function GroupsGroupListInnerToJSON(value?: GroupsGroupListInner | null): any {
+export function UsersUserTeamToJSON(value?: UsersUserTeam | null): any {
     if (value === undefined) {
         return undefined;
     }

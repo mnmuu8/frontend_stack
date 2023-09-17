@@ -4,7 +4,7 @@ import TextInput from './TextInput';
 import Button from '@mui/material/Button';
 import { ControlProps } from '../../types/types';
 
-const StackInspectionFormGroup: FC<ControlProps> = ({ control }) => {
+const StackInspectionFormTeam: FC<ControlProps> = ({ control }) => {
   const { fields: keepsFields, append: appendkeeps, remove: removekeeps } = useFieldArray({
     control,
     name: 'keeps',
@@ -130,4 +130,4 @@ const StackInspectionFormGroup: FC<ControlProps> = ({ control }) => {
   )
 }
 
-export default StackInspectionFormGroup
+export default StackInspectionFormTeam

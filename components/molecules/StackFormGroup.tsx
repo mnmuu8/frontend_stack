@@ -1,14 +1,14 @@
 import React, { FC } from 'react'
-import CheckBoxGroup from './CheckBoxGroup';
+import CheckBoxTeam from './CheckBoxTeam';
 import DateInput from '../molecules/DateInput';
 import RichTextEditor from '../molecules/RichTextEditor';
 import TextInput from './TextInput';
 import { ControlAndSetValueProps } from '../../types/types';
 
-const StackFormGroup: FC<ControlAndSetValueProps> = ({ setValue, control }) => {
+const StackFormTeam: FC<ControlAndSetValueProps> = ({ setValue, control }) => {
   return (
     <>
-      <CheckBoxGroup setValue={setValue} control={control} />
+      <CheckBoxTeam setValue={setValue} control={control} />
       <div className='flex'>
         <DateInput control={control} />
         <TextInput 
@@ -41,4 +41,4 @@ const StackFormGroup: FC<ControlAndSetValueProps> = ({ setValue, control }) => {
   )
 }
 
-export default StackFormGroup
+export default StackFormTeam

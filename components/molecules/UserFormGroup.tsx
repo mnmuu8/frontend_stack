@@ -2,7 +2,7 @@ import React, { FC, useEffect } from 'react'
 import TextInput from './TextInput';
 import { ControlAndSetValueProps } from '../../types/types';
 
-const UserFormGroup: FC<ControlAndSetValueProps> = ({ control }) => {
+const UserFormTeam: FC<ControlAndSetValueProps> = ({ control }) => {
   return (
     <>
       <TextInput
@@ -46,7 +46,7 @@ const UserFormGroup: FC<ControlAndSetValueProps> = ({ control }) => {
 
       <TextInput
         control={control}
-        name={"group"}
+        name={"team"}
         fullWidth={true}
         multiline={false}
         minRows={1}
@@ -60,4 +60,4 @@ const UserFormGroup: FC<ControlAndSetValueProps> = ({ control }) => {
   )
 }
 
-export default UserFormGroup
+export default UserFormTeam

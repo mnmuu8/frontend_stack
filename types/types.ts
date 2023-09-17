@@ -104,7 +104,7 @@ export type UserUpdateRequestBody = {
   name: string;
   email: string;
   profile_content: string;
-  group: string;
+  team: string;
 }
 
 export type FormDataParams = StacksCreateRequestBody & StacksIntrospectionRequestBody & UserUpdateRequestBody;
@@ -174,7 +174,7 @@ export type FormTypeProps = ControlAndSetValueProps & {
   formType: FormType;
 }
 
-export type setFormGroupProps = {
+export type setFormTeamProps = {
   label: string;
   component: React.JSX.Element;
   button: React.JSX.Element;

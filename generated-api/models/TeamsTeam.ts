@@ -16,39 +16,39 @@ import { exists, mapValues } from '../runtime';
 /**
  * 
  * @export
- * @interface UsersUserTeam
+ * @interface TeamsTeam
  */
-export interface UsersUserTeam {
+export interface TeamsTeam {
     /**
      * グループID
      * @type {number}
-     * @memberof UsersUserTeam
+     * @memberof TeamsTeam
      */
     id: number;
     /**
      * グループ名
      * @type {string}
-     * @memberof UsersUserTeam
+     * @memberof TeamsTeam
      */
     name: string;
     /**
      * 
      * @type {Date}
-     * @memberof UsersUserTeam
+     * @memberof TeamsTeam
      */
     createdAt: Date;
     /**
      * 
      * @type {Date}
-     * @memberof UsersUserTeam
+     * @memberof TeamsTeam
      */
     updatedAt: Date;
 }
 
 /**
- * Check if a given object implements the UsersUserTeam interface.
+ * Check if a given object implements the TeamsTeam interface.
  */
-export function instanceOfUsersUserTeam(value: object): boolean {
+export function instanceOfTeamsTeam(value: object): boolean {
     let isInstance = true;
     isInstance = isInstance && "id" in value;
     isInstance = isInstance && "name" in value;
@@ -58,11 +58,11 @@ export function instanceOfUsersUserTeam(value: object): boolean {
     return isInstance;
 }
 
-export function UsersUserTeamFromJSON(json: any): UsersUserTeam {
-    return UsersUserTeamFromJSONTyped(json, false);
+export function TeamsTeamFromJSON(json: any): TeamsTeam {
+    return TeamsTeamFromJSONTyped(json, false);
 }
 
-export function UsersUserTeamFromJSONTyped(json: any, ignoreDiscriminator: boolean): UsersUserTeam {
+export function TeamsTeamFromJSONTyped(json: any, ignoreDiscriminator: boolean): TeamsTeam {
     if ((json === undefined) || (json === null)) {
         return json;
     }
@@ -75,7 +75,7 @@ export function UsersUserTeamFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function UsersUserTeamToJSON(value?: UsersUserTeam | null): any {
+export function TeamsTeamToJSON(value?: TeamsTeam | null): any {
     if (value === undefined) {
         return undefined;
     }

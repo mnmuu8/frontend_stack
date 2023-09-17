@@ -16,39 +16,39 @@ import { exists, mapValues } from '../runtime';
 /**
  * 
  * @export
- * @interface GroupsGroup
+ * @interface TeamsTeamListInner
  */
-export interface GroupsGroup {
+export interface TeamsTeamListInner {
     /**
      * グループID
      * @type {number}
-     * @memberof GroupsGroup
+     * @memberof TeamsTeamListInner
      */
     id: number;
     /**
      * グループ名
      * @type {string}
-     * @memberof GroupsGroup
+     * @memberof TeamsTeamListInner
      */
     name: string;
     /**
      * 
      * @type {Date}
-     * @memberof GroupsGroup
+     * @memberof TeamsTeamListInner
      */
     createdAt: Date;
     /**
      * 
      * @type {Date}
-     * @memberof GroupsGroup
+     * @memberof TeamsTeamListInner
      */
     updatedAt: Date;
 }
 
 /**
- * Check if a given object implements the GroupsGroup interface.
+ * Check if a given object implements the TeamsTeamListInner interface.
  */
-export function instanceOfGroupsGroup(value: object): boolean {
+export function instanceOfTeamsTeamListInner(value: object): boolean {
     let isInstance = true;
     isInstance = isInstance && "id" in value;
     isInstance = isInstance && "name" in value;
@@ -58,11 +58,11 @@ export function instanceOfGroupsGroup(value: object): boolean {
     return isInstance;
 }
 
-export function GroupsGroupFromJSON(json: any): GroupsGroup {
-    return GroupsGroupFromJSONTyped(json, false);
+export function TeamsTeamListInnerFromJSON(json: any): TeamsTeamListInner {
+    return TeamsTeamListInnerFromJSONTyped(json, false);
 }
 
-export function GroupsGroupFromJSONTyped(json: any, ignoreDiscriminator: boolean): GroupsGroup {
+export function TeamsTeamListInnerFromJSONTyped(json: any, ignoreDiscriminator: boolean): TeamsTeamListInner {
     if ((json === undefined) || (json === null)) {
         return json;
     }
@@ -75,7 +75,7 @@ export function GroupsGroupFromJSONTyped(json: any, ignoreDiscriminator: boolean
     };
 }
 
-export function GroupsGroupToJSON(value?: GroupsGroup | null): any {
+export function TeamsTeamListInnerToJSON(value?: TeamsTeamListInner | null): any {
     if (value === undefined) {
         return undefined;
     }

@@ -1,7 +1,7 @@
 import React, { FC, useContext } from 'react'
 import AppContext from '@/context/AppContext';
 
-const StackIntrospectionShowGroup: FC = () => {
+const StackIntrospectionShowTeam: FC = () => {
   const appContext = useContext(AppContext);
   const { showStackIntrospection } = appContext;
 
@@ -48,4 +48,4 @@ const StackIntrospectionShowGroup: FC = () => {
   )
 }
 
-export default StackIntrospectionShowGroup
+export default StackIntrospectionShowTeam

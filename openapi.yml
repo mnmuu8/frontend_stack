@@ -9,7 +9,7 @@ servers:
     description: Development server
   - url: https://skill-climbing.onrender.com
     description: Production server
-    
+
 paths:
   /api/login:
     post:
@@ -223,7 +223,7 @@ paths:
           description: ユーザーが存在しない
         '422':
           description: バリデーションエラー
-      
+
     patch:
       summary: ユーザーデータ更新
       operationId: api.v1.users.update
@@ -299,16 +299,29 @@ components:
           allOf:
             - $ref: '#/components/schemas/Auth_Login_AccessToken'
           nullable: false
-          
+        user_id:
+          allOf:
+            - $ref: '#/components/schemas/Users_User_Id'
+          nullable: false
+        exp:
+          allOf:
+            - $ref: '#/components/schemas/Auth_Login_Exp'
+          nullable: false
+
     Auth_Login_TokenType:
       type: string
       description: アクセストークンタイプ
       example: Bearer
-      
+
     Auth_Login_AccessToken:
       type: string
       description: アクセストークン
       example: access_token
+
+    Auth_Login_Exp:
+      type: integer
+      description: 有効期限切れまでの秒数
+      example: 123456
 
     Stacks_StackList:
       type: array
@@ -697,7 +710,7 @@ components:
       type: string
       format: date-time
       example: '2023-01-01T00:00:00+09:00'
-      
+
     AuthLoginRequestBody:
       type: object
       required:

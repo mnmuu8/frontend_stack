@@ -2,8 +2,6 @@
 /* eslint-disable */
 export * from './AuthLogin';
 export * from './AuthLoginRequestBody';
-export * from './GroupsGroup';
-export * from './GroupsGroupListInner';
 export * from './SkillsSkill';
 export * from './SkillsSkillListInner';
 export * from './StacksCreateRequestBody';
@@ -19,6 +17,8 @@ export * from './StacksIntrospectionsTriesTry';
 export * from './StacksStack';
 export * from './StacksStackListInner';
 export * from './StacksStackSkill';
+export * from './TeamsTeam';
+export * from './TeamsTeamListInner';
 export * from './UserUpdateRequestBody';
 export * from './UsersUser';
-export * from './UsersUserGroup';
+export * from './UsersUserTeam';

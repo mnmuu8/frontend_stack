@@ -46,7 +46,7 @@ const UserFormGroup: FC<ControlAndSetValueProps> = ({ control }) => {
 
       <TextInput
         control={control}
-        name={"group"}
+        name={"team"}
         fullWidth={true}
         multiline={false}
         minRows={1}

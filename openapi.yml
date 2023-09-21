@@ -258,26 +258,26 @@ paths:
         '422':
           description: バリデーションエラー
 
-  /api/v1/groups:
+  /api/v1/teams:
     get:
       summary: グループ一覧
-      operationId: api.v1.groups.index
+      operationId: api.v1.teams.index
       tags:
-        - Group
+        - Team
       security: []
       parameters:
         - name: name
           in: query
           required: false
           schema:
-            $ref: '#/components/schemas/Groups_Group_Name'
+            $ref: '#/components/schemas/Teams_Team_Name'
       responses:
         '200':
           description: 成功
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Groups_GroupList'
+                $ref: '#/components/schemas/Teams_TeamList'
         '401':
           description: 認証エラー
         '422':
@@ -594,7 +594,7 @@ components:
         - name
         - email
         - profile_content
-        - group
+        - team
         - created_at
         - updated_at
       properties:
@@ -614,9 +614,9 @@ components:
           allOf:
             - $ref: '#/components/schemas/Users_User_ProfileContent'
           nullable: true
-        group:
+        team:
           allOf:
-            - $ref: '#/components/schemas/Groups_Group'
+            - $ref: '#/components/schemas/Teams_Team'
           nullable: false
         created_at:
           allOf:
@@ -652,13 +652,13 @@ components:
       description: ユーザーのパスワード
       example: password
 
-    Groups_GroupList:
+    Teams_TeamList:
       type: array
       items:
         allOf:
-          - $ref: '#/components/schemas/Groups_Group'
+          - $ref: '#/components/schemas/Teams_Team'
 
-    Groups_Group:
+    Teams_Team:
       type: object
       required:
         - id
@@ -668,11 +668,11 @@ components:
       properties:
         id:
           allOf:
-            - $ref: '#/components/schemas/Groups_Group_Id'
+            - $ref: '#/components/schemas/Teams_Team_Id'
           nullable: false
         name:
           allOf:
-            - $ref: '#/components/schemas/Groups_Group_Name'
+            - $ref: '#/components/schemas/Teams_Team_Name'
           nullable: false
         created_at:
           allOf:
@@ -683,12 +683,12 @@ components:
             - $ref: '#/components/schemas/DateTime'
           nullable: false
 
-    Groups_Group_Id:
+    Teams_Team_Id:
       type: integer
       description: グループID
       example: 1
 
-    Groups_Group_Name:
+    Teams_Team_Name:
       type: string
       description: グループ名
       example: グループA
@@ -815,7 +815,7 @@ components:
         - name
         - email
         - profile_content
-        - group_id
+        - team_id
       properties:
         name:
           allOf:
@@ -829,7 +829,7 @@ components:
           allOf:
             - $ref: '#/components/schemas/Users_User_ProfileContent'
           nullable: true
-        group_id:
+        team_id:
           allOf:
-            - $ref: '#/components/schemas/Groups_Group_Id'
+            - $ref: '#/components/schemas/Teams_Team_Id'
           nullable: true

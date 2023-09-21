@@ -36,7 +36,7 @@ const FormModal: FC = () => {
       setValue('name', '')
       setValue('email', '')
       setValue('profile_content', '')
-      setValue('group', '')
+      setValue('team', '')
     }
   }
 

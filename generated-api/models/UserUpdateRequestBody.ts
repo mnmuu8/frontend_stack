@@ -42,7 +42,7 @@ export interface UserUpdateRequestBody {
      * @type {number}
      * @memberof UserUpdateRequestBody
      */
-    groupId: number | null;
+    teamId: number | null;
 }
 
 /**
@@ -53,7 +53,7 @@ export function instanceOfUserUpdateRequestBody(value: object): boolean {
     isInstance = isInstance && "name" in value;
     isInstance = isInstance && "email" in value;
     isInstance = isInstance && "profileContent" in value;
-    isInstance = isInstance && "groupId" in value;
+    isInstance = isInstance && "teamId" in value;
 
     return isInstance;
 }
@@ -71,7 +71,7 @@ export function UserUpdateRequestBodyFromJSONTyped(json: any, ignoreDiscriminato
         'name': json['name'],
         'email': json['email'],
         'profileContent': json['profile_content'],
-        'groupId': json['group_id'],
+        'teamId': json['team_id'],
     };
 }
 
@@ -87,7 +87,7 @@ export function UserUpdateRequestBodyToJSON(value?: UserUpdateRequestBody | null
         'name': value.name,
         'email': value.email,
         'profile_content': value.profileContent,
-        'group_id': value.groupId,
+        'team_id': value.teamId,
     };
 }
 

@@ -104,7 +104,7 @@ export type UserUpdateRequestBody = {
   name: string;
   email: string;
   profile_content: string;
-  group: string;
+  team: string;
 }
 
 export type FormDataParams = StacksCreateRequestBody & StacksIntrospectionRequestBody & UserUpdateRequestBody;

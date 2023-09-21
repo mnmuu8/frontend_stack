@@ -15,26 +15,26 @@
 
 import * as runtime from '../runtime';
 import type {
-  GroupsGroupListInner,
+  TeamsTeamListInner,
 } from '../models';
 import {
-    GroupsGroupListInnerFromJSON,
-    GroupsGroupListInnerToJSON,
+    TeamsTeamListInnerFromJSON,
+    TeamsTeamListInnerToJSON,
 } from '../models';
 
-export interface ApiV1GroupsIndexRequest {
+export interface ApiV1TeamsIndexRequest {
     name?: string;
 }
 
 /**
  * 
  */
-export class GroupApi extends runtime.BaseAPI {
+export class TeamApi extends runtime.BaseAPI {
 
     /**
      * グループ一覧
      */
-    async apiV1GroupsIndexRaw(requestParameters: ApiV1GroupsIndexRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<GroupsGroupListInner>>> {
+    async apiV1TeamsIndexRaw(requestParameters: ApiV1TeamsIndexRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<TeamsTeamListInner>>> {
         const queryParameters: any = {};
 
         if (requestParameters.name !== undefined) {
@@ -44,20 +44,20 @@ export class GroupApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/v1/groups`,
+            path: `/api/v1/teams`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(GroupsGroupListInnerFromJSON));
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(TeamsTeamListInnerFromJSON));
     }
 
     /**
      * グループ一覧
      */
-    async apiV1GroupsIndex(requestParameters: ApiV1GroupsIndexRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<GroupsGroupListInner>> {
-        const response = await this.apiV1GroupsIndexRaw(requestParameters, initOverrides);
+    async apiV1TeamsIndex(requestParameters: ApiV1TeamsIndexRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<TeamsTeamListInner>> {
+        const response = await this.apiV1TeamsIndexRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

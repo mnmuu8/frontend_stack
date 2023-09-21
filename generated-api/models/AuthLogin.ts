@@ -31,6 +31,18 @@ export interface AuthLogin {
      * @memberof AuthLogin
      */
     accessToken: string;
+    /**
+     * ユーザーID
+     * @type {number}
+     * @memberof AuthLogin
+     */
+    userId?: number;
+    /**
+     * 有効期限切れまでの秒数
+     * @type {number}
+     * @memberof AuthLogin
+     */
+    exp?: number;
 }
 
 /**
@@ -56,6 +68,8 @@ export function AuthLoginFromJSONTyped(json: any, ignoreDiscriminator: boolean):
         
         'tokenType': json['token_type'],
         'accessToken': json['access_token'],
+        'userId': !exists(json, 'user_id') ? undefined : json['user_id'],
+        'exp': !exists(json, 'exp') ? undefined : json['exp'],
     };
 }
 
@@ -70,6 +84,8 @@ export function AuthLoginToJSON(value?: AuthLogin | null): any {
         
         'token_type': value.tokenType,
         'access_token': value.accessToken,
+        'user_id': value.userId,
+        'exp': value.exp,
     };
 }
 

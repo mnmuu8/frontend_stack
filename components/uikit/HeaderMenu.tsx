@@ -1,6 +1,5 @@
 import React, { FC, useContext } from 'react'
-import Link from 'next/link';
-
+import { useRouter } from 'next/router';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -10,8 +9,15 @@ import AppContext from '@/context/AppContext';
 
 const HeaderMenu: FC = () => {
   const appContext = useContext(AppContext);
-  const { anchorEl, handleMenuClose } = appContext;
+  const { anchorEl, handleMenuClose, setSessionUser } = appContext;
   const open = Boolean(anchorEl);
+  const router = useRouter();
+
+  const logoutUser = () => {
+    localStorage.removeItem('session');
+    setSessionUser(undefined);
+    router.push('/login');
+  }
 
   return (
     <div>
@@ -59,7 +65,7 @@ const HeaderMenu: FC = () => {
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
-          <Link href="/api/auth/logout">ログアウト</Link>
+          <div onClick={logoutUser}>ログアウト</div>
         </MenuItem>
       </Menu>
     </div>

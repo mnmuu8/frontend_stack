@@ -2,6 +2,7 @@ import React, { FC, useState } from 'react'
 import { useRouter } from 'next/router';
 import { Button } from '@mui/material';
 import axios from 'axios';
+import { siteTitle } from '@/config';
 
 const LoginForm: FC = () => {
   const [email, setEmail] = useState<string>('');
@@ -41,7 +42,7 @@ const LoginForm: FC = () => {
 
   return (
     <div>
-      <div className='font-mono text-white text-2xl text-center mb-4'>Skill Climbing</div>
+      <div className='font-mono text-white text-2xl text-center mb-4'>{siteTitle}</div>
       <input className='w-full p-2 mb-2' type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
       <input className='w-full p-2 mb-2' type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
       <Button className='bg-black text-white w-full' onClick={loginUser}>ログイン</Button>

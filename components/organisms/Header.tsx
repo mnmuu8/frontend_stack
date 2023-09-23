@@ -7,6 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import MenuIcon from '@mui/icons-material/Menu';
 import { UserProps } from '../../types/types';
+import { siteTitle } from '@/config';
 
 const Header: FC<UserProps> = ({ user }) => {
   const appContext = useContext(AppContext);
@@ -30,7 +31,7 @@ const Header: FC<UserProps> = ({ user }) => {
           >
             <MenuIcon />
           </IconButton>
-          <div className='font-mono font-bold text-2xl mr-8'>Skill_Climbing</div>
+          <div className='font-mono font-bold text-2xl mr-8'>{siteTitle}</div>
           <SearchBox />
         </div>
         <div className='flex items-center'>

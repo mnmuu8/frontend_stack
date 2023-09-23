@@ -1,0 +1,1 @@
+export const siteTitle: string = process.env.SITE_TITLE || 'Skill Climbing';

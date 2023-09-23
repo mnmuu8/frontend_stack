@@ -68,12 +68,13 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   useEffect(() => {
     const sessionData = getSession();
 
-    axios.get(`http://localhost:3000/api/v1/users/${sessionData.userId}`, {
+    const options = {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${sessionData.token}`
       }
-    })
+    }
+    axios.get(`http://localhost:3000/api/v1/users/${sessionData.userId}`, options)
     .then(response => {
       const { data } = response;
       setSessionUser(data);

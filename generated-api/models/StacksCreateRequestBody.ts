@@ -38,6 +38,12 @@ export interface StacksCreateRequestBody {
      */
     skillId: number;
     /**
+     * ユーザーID
+     * @type {number}
+     * @memberof StacksCreateRequestBody
+     */
+    userId: number;
+    /**
      * 積み上げ内容
      * @type {string}
      * @memberof StacksCreateRequestBody
@@ -59,6 +65,7 @@ export function instanceOfStacksCreateRequestBody(value: object): boolean {
     isInstance = isInstance && "title" in value;
     isInstance = isInstance && "minutes" in value;
     isInstance = isInstance && "skillId" in value;
+    isInstance = isInstance && "userId" in value;
     isInstance = isInstance && "description" in value;
     isInstance = isInstance && "stackedAt" in value;
 
@@ -78,6 +85,7 @@ export function StacksCreateRequestBodyFromJSONTyped(json: any, ignoreDiscrimina
         'title': json['title'],
         'minutes': json['minutes'],
         'skillId': json['skill_id'],
+        'userId': json['user_id'],
         'description': json['description'],
         'stackedAt': (new Date(json['stacked_at'])),
     };
@@ -95,6 +103,7 @@ export function StacksCreateRequestBodyToJSON(value?: StacksCreateRequestBody | 
         'title': value.title,
         'minutes': value.minutes,
         'skill_id': value.skillId,
+        'user_id': value.userId,
         'description': value.description,
         'stacked_at': (value.stackedAt.toISOString()),
     };

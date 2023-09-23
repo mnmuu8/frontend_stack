@@ -43,6 +43,12 @@ paths:
       tags:
         - Stack
       security: []
+      parameters:
+        - name: user_id
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/Users_User_Id'
       responses:
         '200':
           description: 成功

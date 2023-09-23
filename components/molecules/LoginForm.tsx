@@ -10,7 +10,7 @@ const LoginForm: FC = () => {
   const router = useRouter();
 
   const setSession = (token: string, userId: number, exp: number) => {
-    let lastActivity = new Date().getTime();
+    const lastActivity = new Date().getTime();
     const session = {
       token,
       userId,

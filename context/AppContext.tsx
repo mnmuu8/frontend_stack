@@ -1,5 +1,5 @@
 import { createContext, Dispatch, SetStateAction } from "react";
-import { FormType, IntrospectionProps } from "@/types/types";
+import { FormType, IntrospectionProps, sessionUser } from "@/types/types";
 
 type AppContextProps = {
   drawerOpen: boolean;
@@ -16,6 +16,8 @@ type AppContextProps = {
   setFormOpen: Dispatch<React.SetStateAction<boolean>>;
   showStackIntrospection: IntrospectionProps;
   setShowStackIntrospection: Dispatch<SetStateAction<IntrospectionProps>>;
+  sessionUser: sessionUser;
+  setSessionUser: React.Dispatch<React.SetStateAction<sessionUser>>
 }
 
 const AppContext = createContext<AppContextProps>({
@@ -32,7 +34,9 @@ const AppContext = createContext<AppContextProps>({
   formOpen: false,
   setFormOpen: () => {},
   showStackIntrospection: undefined,
-  setShowStackIntrospection: () => {}
+  setShowStackIntrospection: () => {},
+  sessionUser: undefined,
+  setSessionUser: () => {},
 }) 
 
 export default AppContext

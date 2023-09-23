@@ -179,3 +179,18 @@ export type setFormGroupProps = {
   component: React.JSX.Element;
   button: React.JSX.Element;
 }
+
+export type sessionUser = {
+  id: number;
+  name: string;
+  email: string;
+  profile_content: string;
+  created_at: string;
+  updated_at: string;
+  team:{
+    id: number;
+    name: string;
+    created_at: string;
+    updated_at: string;
+  }
+} | undefined

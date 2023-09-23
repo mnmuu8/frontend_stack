@@ -30,7 +30,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const checkActivity = () => {    
     const sessionData = getSession();
     const currentTime = new Date().getTime();
-    if (currentTime - sessionData.lastActivity >= sessionData.exp) {
+    if ((currentTime - sessionData.lastActivity) >= sessionData.exp) {
       localStorage.removeItem('session');
     }
   };

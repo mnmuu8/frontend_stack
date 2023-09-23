@@ -1,10 +1,11 @@
-import React, { FC, useContext, useEffect } from 'react'
+import React, { FC, useContext, useEffect, useState } from 'react'
 import Header from './Header'
 import Sidebar from './Sidebar'
 import { LayoutProps } from '@/types/types'
 import AppContext from '@/context/AppContext'
 import UserAuthentication from '../atoms/UserAuthentication'
 import { useRouter } from 'next/router';
+import axios from 'axios'
 
 const Layout: FC<LayoutProps> = ({ children }) => {
 
@@ -67,28 +68,25 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   useEffect(() => {
     const sessionData = getSession();
 
-    fetch(`http://localhost:3000/api/v1/users/${sessionData.userId}`, {
-      method: 'GET',
+    axios.get(`http://localhost:3000/api/v1/users/${sessionData.userId}`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${sessionData.token}`
       }
     })
     .then(response => {
-      if (!response.ok) {
-        return response.json().then(error => {
-          throw new Error(`${JSON.stringify(error)}`);
-        });
+      const { data } = response;
+      setSessionUser(data);
+    })
+    .catch(error => {
+      if (error.response) {
+        const { data } = error.response;
+        throw new Error(`${JSON.stringify(data)}`);
+      } else {
+        throw new Error(`${JSON.stringify(error)}`);
       }
-      return response.json();
-    })
-    .then(data => {
-      setSessionUser(data)
-    })
-    .catch((error) => {
-      throw new Error(`${JSON.stringify(error)}`);
     });
-  }, [])
+  }, []);
 
   return (
     <>

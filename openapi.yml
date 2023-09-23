@@ -46,7 +46,7 @@ paths:
       parameters:
         - name: user_id
           in: query
-          required: true
+          required: false
           schema:
             $ref: '#/components/schemas/Users_User_Id'
       responses:

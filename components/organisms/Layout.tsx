@@ -54,6 +54,9 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   }, []);
 
   useEffect(() => {
+    const sessionData = getSession();
+    if (!sessionData) return;
+
     updateActivity();
 
     router.events.on('routeChangeComplete', handleRouteChange);
@@ -67,6 +70,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
   useEffect(() => {
     const sessionData = getSession();
+    if (!sessionData) return;
 
     const options = {
       headers: {

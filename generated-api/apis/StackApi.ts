@@ -41,6 +41,10 @@ export interface ApiV1StacksCreateRequest {
     stacksCreateRequestBody: StacksCreateRequestBody;
 }
 
+export interface ApiV1StacksIndexRequest {
+    userId?: number;
+}
+
 export interface ApiV1StacksIntrospectionsCreateRequest {
     stackId: number;
     stacksIntrospectionCreateRequestBody: StacksIntrospectionCreateRequestBody;
@@ -98,8 +102,12 @@ export class StackApi extends runtime.BaseAPI {
     /**
      * 積み上げ一覧
      */
-    async apiV1StacksIndexRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<StacksStackListInner>>> {
+    async apiV1StacksIndexRaw(requestParameters: ApiV1StacksIndexRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<StacksStackListInner>>> {
         const queryParameters: any = {};
+
+        if (requestParameters.userId !== undefined) {
+            queryParameters['user_id'] = requestParameters.userId;
+        }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -116,8 +124,8 @@ export class StackApi extends runtime.BaseAPI {
     /**
      * 積み上げ一覧
      */
-    async apiV1StacksIndex(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<StacksStackListInner>> {
-        const response = await this.apiV1StacksIndexRaw(initOverrides);
+    async apiV1StacksIndex(requestParameters: ApiV1StacksIndexRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<StacksStackListInner>> {
+        const response = await this.apiV1StacksIndexRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

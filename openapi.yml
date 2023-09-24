@@ -43,6 +43,12 @@ paths:
       tags:
         - Stack
       security: []
+      parameters:
+        - name: user_id
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/Users_User_Id'
       responses:
         '200':
           description: 成功
@@ -732,6 +738,7 @@ components:
         - title
         - minutes
         - skill_id
+        - user_id
         - description
         - stacked_at
       properties:
@@ -746,6 +753,10 @@ components:
         skill_id:
           allOf:
             - $ref: '#/components/schemas/Skills_Skill_Id'
+          nullable: false
+        user_id:
+          allOf:
+            - $ref: '#/components/schemas/Users_User_Id'
           nullable: false
         description:
           allOf:

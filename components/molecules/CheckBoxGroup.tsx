@@ -1,27 +1,39 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { Controller } from 'react-hook-form';
 import { FormGroup } from '@mui/material';
 import Box from '@mui/material/Box';
 import CheckBoxLabel from './CheckBoxLabel';
-
 import { ControlAndSetValueProps, Skill } from '@/types/types';
+import axios from 'axios';
+import { getSession } from '@/utiliry/session';
 
 const CheckBoxGroup: FC<ControlAndSetValueProps> = ({ control, setValue }) => {
-  // TODO: APIデータ受け取り。後々実装
-  const skills: Skill[] = [
-    { id: 1, name: 'Ruby on Rails', created_at: "2023-01-01T00:00:00+09:00", updated_at: "2023-01-01T00:00:00+09:00" },
-    { id: 2, name: 'PHP', created_at: "2023-01-01T00:00:00+09:00", updated_at: "2023-01-01T00:00:00+09:00" },
-    { id: 3, name: 'React', created_at: "2023-01-01T00:00:00+09:00", updated_at: "2023-01-01T00:00:00+09:00" },
-    { id: 4, name: 'Next', created_at: "2023-01-01T00:00:00+09:00", updated_at: "2023-01-01T00:00:00+09:00" },
-    { id: 5, name: 'TypeScript', created_at: "2023-01-01T00:00:00+09:00", updated_at: "2023-01-01T00:00:00+09:00" },
-    { id: 6, name: 'WordPress', created_at: "2023-01-01T00:00:00+09:00", updated_at: "2023-01-01T00:00:00+09:00" },
-    { id: 7, name: 'Python', created_at: "2023-01-01T00:00:00+09:00", updated_at: "2023-01-01T00:00:00+09:00" },
-    { id: 8, name: 'Java', created_at: "2023-01-01T00:00:00+09:00", updated_at: "2023-01-01T00:00:00+09:00" },
-    { id: 9, name: 'jQuery', created_at: "2023-01-01T00:00:00+09:00", updated_at: "2023-01-01T00:00:00+09:00" },
-    { id: 10, name: 'Vue', created_at: "2023-01-01T00:00:00+09:00", updated_at: "2023-01-01T00:00:00+09:00" },
-    { id: 11, name: 'React Native', created_at: "2023-01-01T00:00:00+09:00", updated_at: "2023-01-01T00:00:00+09:00" },
-    { id: 12, name: 'Django', created_at: "2023-01-01T00:00:00+09:00", updated_at: "2023-01-01T00:00:00+09:00" },
-  ];
+  const [skills, setSkills] = useState<Skill[]>([])
+ 
+  useEffect(() => {
+    const sessionData = getSession();
+    if (!sessionData) return;
+ 
+    const options = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionData.token}`
+      }
+    }
+    axios.get('http://localhost:3000/api/v1/skills', options)
+    .then(response => {
+      const { data } = response;
+      setSkills(data.skills);
+    })
+    .catch(error => {
+      if (error.response) {
+        const { data } = error.response;
+        throw new Error(`${JSON.stringify(data)}`);
+      } else {
+        throw new Error(`${JSON.stringify(error)}`);
+      }
+    });
+  }, [])
 
   return (
     <Box className="mt-4">

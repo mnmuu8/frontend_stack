@@ -6,6 +6,7 @@ import AppContext from '@/context/AppContext'
 import UserAuthentication from '../atoms/UserAuthentication'
 import { useRouter } from 'next/router';
 import axios from 'axios'
+import { getSession } from '@/utiliry/session'
 
 const Layout: FC<LayoutProps> = ({ children }) => {
 
@@ -18,14 +19,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   }
 
   const router = useRouter();
-
-  const getSession = () => {
-    const session = localStorage.getItem('session');
-    if (!session) {
-      return false;
-    }
-    return JSON.parse(session);
-  }
 
   const checkActivity = () => {    
     const sessionData = getSession();

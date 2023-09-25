@@ -40,7 +40,7 @@ const CheckBoxGroup: FC<ControlAndSetValueProps> = ({ control, setValue }) => {
       <Controller
         name="skill"
         control={control}
-        defaultValue={null}
+        defaultValue={skills[0]}
         render={({ field }) => (
           <FormGroup sx={{ flexDirection: "inherit" }}>
             {skills.map((skill: Skill) => (

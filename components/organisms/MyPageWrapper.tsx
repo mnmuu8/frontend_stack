@@ -1,12 +1,16 @@
-import React, { FC, useState } from 'react'
-import { stackList, tabInfo, skillData } from '../../sample';
+import React, { FC, useEffect, useState } from 'react'
+import { tabInfo, skillData } from '../../sample';
 import StackCard from '../molecules/StackCard';
 import ProfileCard from '../molecules/ProfileCard';
 import UserAuthentication from '../atoms/UserAuthentication';
+import axios from 'axios';
+import { getSession } from '@/utiliry/session';
+import { StackProps } from '@/types/types';
 
 const MyPageWrapper: FC = () => {
   const [activeTab, setActiveTab] = useState('all');
   const [innerTab, setInnerTab] = useState('allStack');
+  const [stacks, setStacks] = useState<StackProps[]>([])
 
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
@@ -15,6 +19,34 @@ const MyPageWrapper: FC = () => {
   const handleInnerTabClick = (tab: string) => {
     setInnerTab(tab);
   };
+
+  useEffect(() => {
+    const sessionData = getSession();
+    if (!sessionData) return;
+ 
+    const options = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionData.token}`
+      },
+      params: {
+        user_id: sessionData.userId
+      }
+    }
+    axios.get('http://localhost:3000/api/v1/stacks', options)
+    .then(response => {
+      const { data } = response;
+      setStacks(data.stacks);
+    })
+    .catch(error => {
+      if (error.response) {
+        const { data } = error.response;
+        throw new Error(`${JSON.stringify(data)}`);
+      } else {
+        throw new Error(`${JSON.stringify(error)}`);
+      }
+    });
+  }, [])
 
   return (
     <div className='flex justify-between w-[80%] m-auto'>
@@ -71,8 +103,8 @@ const MyPageWrapper: FC = () => {
           </div>
           <div className='MyPage-stacklist'>
             <UserAuthentication>
-              {stackList.map((list) => (
-                <StackCard key={list.id} stack={list} />
+              {stacks.map((stack) => (
+                <StackCard key={stack.id} stack={stack} />
               ))}
             </UserAuthentication>
           </div>

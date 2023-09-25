@@ -2,31 +2,62 @@ import React, { FC, useState, useEffect } from 'react'
 import StackCard from '@/components/molecules/StackCard';
 import SelectBox from './SelectBox';
 import { SelectChangeEvent } from '@mui/material/Select';
-import { stackList } from '../../sample';
-import { StackListProps } from '../../sample';
 import UserAuthentication from '../atoms/UserAuthentication';
+import axios from 'axios';
+import { getSession } from '@/utiliry/session';
+import { StackProps } from '@/types/types';
 
 const StackList: FC = () => {
   const [selectedOption, setSelectedOption] = useState<string>('all');
-  const [filteredStackLists, setFilteredStackLists] = useState<StackListProps[]>([]);
+  const [filteredStackLists, setFilteredStackLists] = useState<StackProps[]>([]);
+  const [stacks, setStacks] = useState<StackProps[]>([])
+
   const handleOptionChange = (event: SelectChangeEvent<string>) => {
     setSelectedOption(event.target.value);
   };
+
+  useEffect(() => {
+    const sessionData = getSession();
+    if (!sessionData) return;
+ 
+    const options = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionData.token}`
+      },
+      params: {
+        user_id: sessionData.userId
+      }
+    }
+    axios.get('http://localhost:3000/api/v1/stacks', options)
+    .then(response => {
+      const { data } = response;
+      setStacks(data.stacks);
+    })
+    .catch(error => {
+      if (error.response) {
+        const { data } = error.response;
+        throw new Error(`${JSON.stringify(data)}`);
+      } else {
+        throw new Error(`${JSON.stringify(error)}`);
+      }
+    });
+  }, [])
 
   // TODO: 一旦仮で作成。後ほど項目増やしてフィルターかけて表示する
   useEffect(() => {
     const filterStackLists = () => {
       if (selectedOption === 'following') {
-        setFilteredStackLists(stackList.filter((list) => list.id === 1));
+        setFilteredStackLists(stacks.filter((list) => list.id === 1));
       } else if (selectedOption === 'notFollowing') {
-        setFilteredStackLists(stackList.filter((list) => list.id === 2));
+        setFilteredStackLists(stacks.filter((list) => list.id === 2));
       } else {
-        setFilteredStackLists(stackList);
+        setFilteredStackLists(stacks);
       }
     };
 
     filterStackLists();
-  }, [selectedOption]);
+  }, [stacks, selectedOption]);
 
   return (
     <div className='w-full max-w-[980px] m-auto pb-10'>
@@ -35,8 +66,8 @@ const StackList: FC = () => {
       </div>
       <div>
         <UserAuthentication>
-          {filteredStackLists.map((stackList) => (
-            <StackCard key={stackList.id} stack={stackList} />
+          {filteredStackLists.map((stack) => (
+            <StackCard key={stack.id} stack={stack} />
           ))}
         </UserAuthentication>
       </div>

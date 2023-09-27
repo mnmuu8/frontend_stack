@@ -35,12 +35,10 @@ export interface ApiV1StacksIntrospectionsCreateRequest {
 
 export interface ApiV1StacksIntrospectionsShowRequest {
     stackId: number;
-    introspectionId: number;
 }
 
 export interface ApiV1StacksIntrospectionsUpdateRequest {
     stackId: number;
-    introspectionId: number;
     stacksIntrospectionUpdateRequestBody: StacksIntrospectionUpdateRequestBody;
 }
 
@@ -94,16 +92,12 @@ export class IntrospectionApi extends runtime.BaseAPI {
             throw new runtime.RequiredError('stackId','Required parameter requestParameters.stackId was null or undefined when calling apiV1StacksIntrospectionsShow.');
         }
 
-        if (requestParameters.introspectionId === null || requestParameters.introspectionId === undefined) {
-            throw new runtime.RequiredError('introspectionId','Required parameter requestParameters.introspectionId was null or undefined when calling apiV1StacksIntrospectionsShow.');
-        }
-
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/v1/stacks/{stack_id}/introspections/{introspection_id}`.replace(`{${"stack_id"}}`, encodeURIComponent(String(requestParameters.stackId))).replace(`{${"introspection_id"}}`, encodeURIComponent(String(requestParameters.introspectionId))),
+            path: `/api/v1/stacks/{stack_id}/introspection`.replace(`{${"stack_id"}}`, encodeURIComponent(String(requestParameters.stackId))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -128,10 +122,6 @@ export class IntrospectionApi extends runtime.BaseAPI {
             throw new runtime.RequiredError('stackId','Required parameter requestParameters.stackId was null or undefined when calling apiV1StacksIntrospectionsUpdate.');
         }
 
-        if (requestParameters.introspectionId === null || requestParameters.introspectionId === undefined) {
-            throw new runtime.RequiredError('introspectionId','Required parameter requestParameters.introspectionId was null or undefined when calling apiV1StacksIntrospectionsUpdate.');
-        }
-
         if (requestParameters.stacksIntrospectionUpdateRequestBody === null || requestParameters.stacksIntrospectionUpdateRequestBody === undefined) {
             throw new runtime.RequiredError('stacksIntrospectionUpdateRequestBody','Required parameter requestParameters.stacksIntrospectionUpdateRequestBody was null or undefined when calling apiV1StacksIntrospectionsUpdate.');
         }
@@ -143,7 +133,7 @@ export class IntrospectionApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/v1/stacks/{stack_id}/introspections/{introspection_id}`.replace(`{${"stack_id"}}`, encodeURIComponent(String(requestParameters.stackId))).replace(`{${"introspection_id"}}`, encodeURIComponent(String(requestParameters.introspectionId))),
+            path: `/api/v1/stacks/{stack_id}/introspection`.replace(`{${"stack_id"}}`, encodeURIComponent(String(requestParameters.stackId))),
             method: 'PATCH',
             headers: headerParameters,
             query: queryParameters,

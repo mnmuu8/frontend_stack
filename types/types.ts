@@ -89,7 +89,7 @@ export type KeepAndProblemAndTryPoint = {
 export type StacksCreateRequestBody = {
   title: string;
   editorContent: string;
-  skill: Skill | null;
+  skill: Skill;
   time: number;
   date: Date | any;
 }
@@ -149,18 +149,21 @@ export type IntrospectionProps = {
   try_contents: KeepAndProblemAndTryPoint[];
 } | undefined;
 
+export type StackProps = {
+  id: number;
+  title: string;
+  minutes: number;
+  skill: Skill;
+  description: string;
+  user_id?: number
+  introspection?: IntrospectionProps[];
+  stacked_at: string;
+  created_at: string;
+  updated_at: string;
+}
+
 export type StackCardProps = UserProps & {
-  stack: {
-    id: number;
-    title: string;
-    minutes: number;
-    skill: Skill;
-    description: string;
-    introspection?: IntrospectionProps[];
-    stacked_at: string;
-    created_at: string;
-    updated_at: string;
-  }
+  stack: StackProps;
 }
 
 export type SelectBoxProps = {
@@ -194,3 +197,11 @@ export type sessionUser = {
     updated_at: string;
   }
 } | undefined
+
+export type ApiOptions<T extends Record<string, number> = {}> = {
+  headers: {
+    'Content-Type': string;
+    'Authorization': string;
+  };
+  params?: T;
+};

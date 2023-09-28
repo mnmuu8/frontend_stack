@@ -3,25 +3,15 @@ import { useRouter } from 'next/router';
 import { Button } from '@mui/material';
 import axios from 'axios';
 import { siteTitle } from '@/config';
+import { setSession } from '@/utiliry/session';
 
 const LoginForm: FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const router = useRouter();
 
-  const setSession = (token: string, userId: number, exp: number) => {
-    const lastActivity = new Date().getTime();
-    const session = {
-      token,
-      userId,
-      exp,
-      lastActivity,
-    };
-    localStorage.setItem('session', JSON.stringify(session));
-  };
-
   const loginUser = () => {
-    axios.post('http://localhost:3000/api/login', {
+    axios.post(`${process.env.API_ROOT_URL}/api/login`, {
       email,
       password
     })

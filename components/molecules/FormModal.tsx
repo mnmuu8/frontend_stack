@@ -4,24 +4,28 @@ import { useForm } from 'react-hook-form';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
-import { FormDataParams, onSubmitType, FormTypeProps, setFormGroupProps } from '@/types/types';
+import { FormDataParams, onSubmitType, FormTypeProps, setFormGroupProps, ApiOptions } from '@/types/types';
 import AppContext from '@/context/AppContext';
 import StackInspectionFormGroup from './StackInspectionFormGroup';
 import StackIntrospectionShowGroup from './StackIntrospectionShowGroup';
 import StackFormGroup from './StackFormGroup';
 import UserFormGroup from './UserFormGroup';
+import axios from 'axios';
+import { getSession } from '@/utiliry/session';
+import { useRouter } from 'next/router';
 
 const FormModal: FC = () => {
   const appContext = useContext(AppContext);
   const { formOpen, setFormOpen, formType, setFormType, showStackIntrospection, setShowStackIntrospection } = appContext;
   const { control, handleSubmit, setValue } = useForm<FormDataParams>();
+  const router = useRouter();
 
   const resetValueByFormType = (): void => {
     if (formType === 'createStack') {
       setValue('title', '');
       setValue('time', 0);
       setValue('editorContent', '');
-      setValue('skill', null)
+      setValue('skill', {id: 1, name: 'プログラミング'})
     }
 
     if (formType === 'createStackIntrospection' || formType === 'updateStackIntrospection') {
@@ -57,11 +61,38 @@ const FormModal: FC = () => {
     resetValue(checkAlert);
   }
   const onSubmit: onSubmitType = (data: FormDataParams) => {
-    // TODO: フォームによってアラート内容を変更する。
-    const checkAlert = window.confirm('積み上げを登録しますか？');
+    const sessionData = getSession();
+    if (!sessionData) return;
+    
+    const options: ApiOptions = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionData.token}`
+      }
+    }
 
-    // TODO: 後でAPIを叩く。その時削除する。
-    console.log(data);
+    let checkAlert = window.confirm();
+    let params = {}
+
+    if (formType === 'createStack') {
+      checkAlert = window.confirm('積み上げを登録しますか？');
+      params = {
+        title: data.title,
+        description: data.editorContent,
+        minutes: data.time,
+        skill_id: data.skill.id,
+        stacked_at: data.date,
+        user_id: sessionData.userId
+      }
+    }
+
+    axios.post(`${process.env.API_ROOT_URL}/api/v1/stacks`, params, options)
+    .then(response => {
+      router.push('/timeline')
+    })
+    .catch(error => {
+      throw new Error(`${JSON.stringify(error)}`);
+    });
     resetValue(checkAlert);
   }
 

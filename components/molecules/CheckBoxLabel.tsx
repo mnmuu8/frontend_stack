@@ -6,8 +6,7 @@ const CheckBoxLabel: FC<CheckBoxLabelProps> = ({ skill, field, setValue }) => {
   const isChecked = field.value?.id === skill.id;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const updatedValue = isChecked ? null : skill;
-    setValue('skill', updatedValue);
+    setValue('skill', skill);
   };
 
   return (

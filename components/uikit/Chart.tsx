@@ -58,7 +58,7 @@ const Chart: FC<ChartProps> = ({ labels, label, data, bdColor, bgColor, bdwidth,
     setChartType(type)
     setChartData(formattedChartData);
     setChartOption(formattedChartOptions);
-  }, [])
+  }, [data, labels])
   
   return (
     <>

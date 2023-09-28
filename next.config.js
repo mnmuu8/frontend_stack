@@ -6,6 +6,7 @@ const nextConfig = {
   },
   env: {
     SITE_TITLE: process.env.SITE_TITLE,
+    API_ROOT_URL: process.env.API_ROOT_URL,
   },
 }
 

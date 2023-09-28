@@ -1,7 +1,7 @@
 import React, { FC, useContext, useEffect, useState } from 'react'
 import Header from './Header'
 import Sidebar from './Sidebar'
-import { LayoutProps } from '@/types/types'
+import { ApiOptions, LayoutProps } from '@/types/types'
 import AppContext from '@/context/AppContext'
 import UserAuthentication from '../atoms/UserAuthentication'
 import { useRouter } from 'next/router';
@@ -65,13 +65,13 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     const sessionData = getSession();
     if (!sessionData) return;
 
-    const options = {
+    const options: ApiOptions = {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${sessionData.token}`
       }
     }
-    axios.get(`http://localhost:3000/api/v1/users/${sessionData.userId}`, options)
+    axios.get(`${process.env.API_ROOT_URL}/api/v1/users/${sessionData.userId}`, options)
     .then(response => {
       const { data } = response;
       setSessionUser(data);

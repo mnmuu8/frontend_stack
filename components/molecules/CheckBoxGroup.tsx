@@ -3,7 +3,7 @@ import { Controller } from 'react-hook-form';
 import { FormGroup } from '@mui/material';
 import Box from '@mui/material/Box';
 import CheckBoxLabel from './CheckBoxLabel';
-import { ControlAndSetValueProps, Skill } from '@/types/types';
+import { ControlAndSetValueProps, Skill, ApiOptions } from '@/types/types';
 import axios from 'axios';
 import { getSession } from '@/utiliry/session';
 
@@ -14,13 +14,13 @@ const CheckBoxGroup: FC<ControlAndSetValueProps> = ({ control, setValue }) => {
     const sessionData = getSession();
     if (!sessionData) return;
  
-    const options = {
+    const options: ApiOptions<{user_id: number}> = {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${sessionData.token}`
       }
     }
-    axios.get('http://localhost:3000/api/v1/skills', options)
+    axios.get(`${process.env.API_ROOT_URL}/api/v1/skills`, options)
     .then(response => {
       const { data } = response;
       setSkills(data.skills);

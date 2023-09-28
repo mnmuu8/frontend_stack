@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from 'react'
 import Chart from '@/components/uikit/Chart'
 import RankTable from '@/components/uikit/RankTable'
 import { getSession } from '@/utiliry/session'
-import { StackProps } from '@/types/types'
+import { ApiOptions, StackProps } from '@/types/types'
 import axios from 'axios'
 
 const DashboardWrapper: FC = () => {
@@ -30,7 +30,7 @@ const DashboardWrapper: FC = () => {
     const sessionData = getSession();
     if (!sessionData) return;
  
-    const options = {
+    const options: ApiOptions<{user_id: number}> = {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${sessionData.token}`
@@ -40,7 +40,7 @@ const DashboardWrapper: FC = () => {
       }
     }
 
-    axios.get('http://localhost:3000/api/v1/stacks', options)
+    axios.get(`${process.env.API_ROOT_URL}/api/v1/stacks`, options)
     .then(response => {
       const { data } = response;
       setStacks(data.stacks)

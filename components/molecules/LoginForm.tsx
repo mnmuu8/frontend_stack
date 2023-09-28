@@ -11,7 +11,7 @@ const LoginForm: FC = () => {
   const router = useRouter();
 
   const loginUser = () => {
-    axios.post('http://localhost:3000/api/login', {
+    axios.post(`${process.env.API_ROOT_URL}/api/login`, {
       email,
       password
     })

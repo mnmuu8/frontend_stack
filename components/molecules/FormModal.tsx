@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
-import { FormDataParams, onSubmitType, FormTypeProps, setFormGroupProps } from '@/types/types';
+import { FormDataParams, onSubmitType, FormTypeProps, setFormGroupProps, ApiOptions } from '@/types/types';
 import AppContext from '@/context/AppContext';
 import StackInspectionFormGroup from './StackInspectionFormGroup';
 import StackIntrospectionShowGroup from './StackIntrospectionShowGroup';
@@ -64,7 +64,7 @@ const FormModal: FC = () => {
     const sessionData = getSession();
     if (!sessionData) return;
     
-    const options = {
+    const options: ApiOptions = {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${sessionData.token}`
@@ -86,7 +86,7 @@ const FormModal: FC = () => {
       }
     }
 
-    axios.post('http://localhost:3000/api/v1/stacks', params, options)
+    axios.post(`${process.env.API_ROOT_URL}/api/v1/stacks`, params, options)
     .then(response => {
       router.push('/timeline')
     })

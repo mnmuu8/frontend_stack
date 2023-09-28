@@ -5,7 +5,7 @@ import { SelectChangeEvent } from '@mui/material/Select';
 import UserAuthentication from '../atoms/UserAuthentication';
 import axios from 'axios';
 import { getSession } from '@/utiliry/session';
-import { StackProps } from '@/types/types';
+import { ApiOptions, StackProps } from '@/types/types';
 
 const StackList: FC = () => {
   const [selectedOption, setSelectedOption] = useState<string>('all');
@@ -20,7 +20,7 @@ const StackList: FC = () => {
     const sessionData = getSession();
     if (!sessionData) return;
  
-    const options = {
+    const options: ApiOptions<{user_id: number}> = {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${sessionData.token}`
@@ -29,7 +29,7 @@ const StackList: FC = () => {
         user_id: sessionData.userId
       }
     }
-    axios.get('http://localhost:3000/api/v1/stacks', options)
+    axios.get(`${process.env.API_ROOT_URL}/api/v1/stacks`, options)
     .then(response => {
       const { data } = response;
       setStacks(data.stacks);

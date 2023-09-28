@@ -197,3 +197,11 @@ export type sessionUser = {
     updated_at: string;
   }
 } | undefined
+
+export type ApiOptions<T extends Record<string, number> = {}> = {
+  headers: {
+    'Content-Type': string;
+    'Authorization': string;
+  };
+  params?: T;
+};

@@ -68,7 +68,7 @@ const UserFormGroup: FC<ControlAndSetValueProps> = ({ control, setValue }) => {
       const sessionData = getSession();
       if (!sessionData) return;
 
-      const options: ApiOptions<{name: string}> = {
+      const options: ApiOptions = {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${sessionData.token}`

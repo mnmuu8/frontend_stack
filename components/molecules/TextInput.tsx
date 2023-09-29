@@ -5,9 +5,13 @@ import TextField from '@mui/material/TextField';
 
 import { TextInputProps } from '@/types/types';
 
-const TextInput: FC<TextInputProps> = ({ control, name, fullWidth, multiline, minRows, required, requiredMessage, label, placeholder, type }) => {
+const TextInput: FC<TextInputProps> = ({ control, name, fullWidth, multiline, minRows, required, requiredMessage, label, placeholder, type, onChange, onClick, value  }) => {
   return (
-    <Box className="mt-4">
+    <Box 
+      className="mt-4"
+      onChange={onChange}
+      onClick={onClick}
+    >
       <Controller
         name={name}
         control={control}
@@ -25,6 +29,7 @@ const TextInput: FC<TextInputProps> = ({ control, name, fullWidth, multiline, mi
             error={!!fieldState?.error}
             helperText={fieldState?.error?.message as string}
             type={type}
+            value={value}
           />
         )}
       />

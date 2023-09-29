@@ -104,7 +104,7 @@ export type UserUpdateRequestBody = {
   name: string;
   email: string;
   profile_content: string;
-  team: string;
+  team: number;
 }
 
 export type FormDataParams = StacksCreateRequestBody & StacksIntrospectionRequestBody & UserUpdateRequestBody;
@@ -137,6 +137,9 @@ export type TextInputProps = ControlProps & {
   label: string;
   placeholder: string;
   type: string;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>; 
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
+  value?: string | number
 }
 
 export type IntrospectionProps = {
@@ -190,18 +193,20 @@ export type sessionUser = {
   profile_content: string;
   created_at: string;
   updated_at: string;
-  team:{
-    id: number;
-    name: string;
-    created_at: string;
-    updated_at: string;
-  }
+  team: Team
 } | undefined
 
-export type ApiOptions<T extends Record<string, number> = {}> = {
+export type ApiOptions<T extends Record<string, string | number> = {}> = {
   headers: {
     'Content-Type': string;
     'Authorization': string;
   };
   params?: T;
 };
+
+export type Team = {
+  id: number;
+  name: string;
+  created_at: string;
+  updated_at: string;
+}

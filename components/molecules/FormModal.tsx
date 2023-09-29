@@ -40,7 +40,7 @@ const FormModal: FC = () => {
       setValue('name', '')
       setValue('email', '')
       setValue('profile_content', '')
-      setValue('team', '')
+      setValue('team', 0)
     }
   }
 
@@ -71,7 +71,7 @@ const FormModal: FC = () => {
       }
     }
 
-    let checkAlert = window.confirm();
+    let checkAlert = false;
     let params = {}
 
     if (formType === 'createStack') {
@@ -84,15 +84,22 @@ const FormModal: FC = () => {
         stacked_at: data.date,
         user_id: sessionData.userId
       }
+
+      axios.post(`${process.env.API_ROOT_URL}/api/v1/stacks`, params, options)
+      .then(response => {
+        router.push('/timeline')
+      })
+      .catch(error => {
+        throw new Error(`${JSON.stringify(error)}`);
+      });
     }
 
-    axios.post(`${process.env.API_ROOT_URL}/api/v1/stacks`, params, options)
-    .then(response => {
-      router.push('/timeline')
-    })
-    .catch(error => {
-      throw new Error(`${JSON.stringify(error)}`);
-    });
+    if (formType === 'updateUser') {
+      checkAlert = window.confirm('ユーザー情報を更新しますか？');
+      console.log(data)
+      // TODO: APIで更新処理
+    }
+
     resetValue(checkAlert);
   }
 

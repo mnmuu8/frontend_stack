@@ -35,7 +35,7 @@
     - `make build`
 3. Dockerネットワークの作成
   - 以下コマンドを実行する。
-    - `docker network create skill_climbing_shared_network`
+    - `docker network create skill-climbing-shared-network`
 4. Dockerコンテナを立ち上げる
   - 以下コマンドを実行する。
     - `make up`

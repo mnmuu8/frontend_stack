@@ -19,7 +19,7 @@ const StackList: FC = () => {
   useEffect(() => {
     const sessionData = getSession();
     if (!sessionData) return;
- 
+
     const options: ApiOptions<{user_id: number}> = {
       headers: {
         'Content-Type': 'application/json',

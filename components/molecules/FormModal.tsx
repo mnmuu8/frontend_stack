@@ -63,7 +63,7 @@ const FormModal: FC = () => {
   const onSubmit: onSubmitType = (data: FormDataParams) => {
     const sessionData = getSession();
     if (!sessionData) return;
-    
+
     const options: ApiOptions = {
       headers: {
         'Content-Type': 'application/json',
@@ -96,8 +96,25 @@ const FormModal: FC = () => {
 
     if (formType === 'updateUser') {
       checkAlert = window.confirm('ユーザー情報を更新しますか？');
-      console.log(data)
-      // TODO: APIで更新処理
+
+      const updateUser = async () => {
+        const params = {
+          name: data.name,
+          email: data.email,
+          profile_content: data.profile_content,
+          user_id: sessionData.userId,
+          team_id: data.team
+        }
+        const url: string = `${process.env.API_ROOT_URL}/api/v1/users/${sessionData.userId}`;
+        try {
+          const response = await axios.patch(url, params, options);
+          return response.data;
+        } catch (error) {
+          throw new Error(`${JSON.stringify(error)}`);
+        }
+      };
+
+      updateUser().then(res => router.push('/mypage'));
     }
 
     resetValue(checkAlert);

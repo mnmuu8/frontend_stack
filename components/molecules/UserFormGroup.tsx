@@ -9,9 +9,21 @@ const UserFormGroup: FC<ControlAndSetValueProps> = ({ control, setValue }) => {
   const [results, setResults] = useState<Team[]>([]);
   const [showResults, setShowResults] = useState<boolean>(false);
   const [teamValue, setTeamValue] = useState<string|number>("");
+  const [nameValue, setNameValue] = useState<string>("");
+  const [EmailValue, setEmailValue] = useState<string>("");
+  const [ProfileContentValue, setProfileContentValue] = useState<string>("");
 
   const handleTextInputClick = () => {
     setShowResults(true);
+  };
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNameValue(e.target.value)
+  };
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmailValue(e.target.value)
+  };
+  const handleProfileContentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setProfileContentValue(e.target.value)
   };
   const handleTeamChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value)
@@ -24,10 +36,38 @@ const UserFormGroup: FC<ControlAndSetValueProps> = ({ control, setValue }) => {
   }
 
   useEffect(() => {
+    const fetchUser = async () => {
+      const sessionData = getSession();
+      if (!sessionData) return;
+
+      const options: ApiOptions<{name: string}> = {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${sessionData.token}`
+        }
+      }
+
+      try {
+        const response = await axios.get(`${process.env.API_ROOT_URL}/api/v1/users/${sessionData.userId}`, options);
+        return response.data;
+      } catch (error) {
+        throw new Error(`${JSON.stringify(error)}`);
+      }
+    }
+
+    fetchUser().then(res => {
+      setNameValue(res.name);
+      setEmailValue(res.email);
+      setProfileContentValue(res.profile_content);
+      setTeamValue(res.team.name);
+    });
+  }, [])
+
+  useEffect(() => {
     const fetchTeams = async (query: string) => {
       const sessionData = getSession();
       if (!sessionData) return;
-  
+
       const options: ApiOptions<{name: string}> = {
         headers: {
           'Content-Type': 'application/json',
@@ -35,7 +75,7 @@ const UserFormGroup: FC<ControlAndSetValueProps> = ({ control, setValue }) => {
         },
         params: query ? { name: query } : undefined
       }
-  
+
       try {
         const response = await axios.get(`${process.env.API_ROOT_URL}/api/v1/teams`, options);
         return response.data.teams;
@@ -60,6 +100,8 @@ const UserFormGroup: FC<ControlAndSetValueProps> = ({ control, setValue }) => {
         label={"ユーザー名"}
         placeholder={"uyu_morning"}
         type='text'
+        onChange={(e) => handleNameChange(e)}
+        value={nameValue}
       />
 
       <TextInput
@@ -73,6 +115,8 @@ const UserFormGroup: FC<ControlAndSetValueProps> = ({ control, setValue }) => {
         label={"メールアドレス"}
         placeholder={"example@example.com"}
         type='text'
+        onChange={(e) => handleEmailChange(e)}
+        value={EmailValue}
       />
 
       <TextInput
@@ -81,11 +125,13 @@ const UserFormGroup: FC<ControlAndSetValueProps> = ({ control, setValue }) => {
         fullWidth={true}
         multiline={true}
         minRows={10}
-        required={true}
+        required={false}
         requiredMessage={"必須入力"}
         label={"プロフィール内容"}
         placeholder={"私はWebエンジニアでReactを得意としております..."}
         type='text'
+        onChange={(e) => handleProfileContentChange(e)}
+        value={ProfileContentValue}
       />
 
       <TextInput
@@ -103,6 +149,7 @@ const UserFormGroup: FC<ControlAndSetValueProps> = ({ control, setValue }) => {
         onClick={handleTextInputClick}
         value={teamValue}
       />
+
       {showResults && (
         <div className="max-h-[120px] overflow-y-auto">
           {results.map((team: Team) => (
@@ -112,7 +159,6 @@ const UserFormGroup: FC<ControlAndSetValueProps> = ({ control, setValue }) => {
           ))}
         </div>
       )}
-
     </>
   )
 }

@@ -118,6 +118,8 @@ const FormModal: FC = () => {
     }
 
     if (formType === 'updateStackIntrospection') {
+      if ( !showStackIntrospection ) return
+
       checkAlert = window.confirm('反省情報を更新しますか？');
 
       const updateIntrospection = async () => {

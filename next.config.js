@@ -8,6 +8,9 @@ const nextConfig = {
     SITE_TITLE: process.env.SITE_TITLE,
     API_ROOT_URL: process.env.API_ROOT_URL,
   },
+  typescript: {
+    tsconfigPath: 'tsconfig.build.json',
+  },
 }
 
 module.exports = nextConfig

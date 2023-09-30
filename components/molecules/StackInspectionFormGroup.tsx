@@ -1,10 +1,13 @@
-import React, { FC } from 'react'
+import React, { FC, useState, useEffect, useContext } from 'react'
+import AppContext from '@/context/AppContext';
 import { useFieldArray } from 'react-hook-form';
 import TextInput from './TextInput';
 import Button from '@mui/material/Button';
 import { ControlProps } from '../../types/types';
 
 const StackInspectionFormGroup: FC<ControlProps> = ({ control }) => {
+  const appContext = useContext(AppContext);
+  const { showStackIntrospection } = appContext;
   const { fields: keepsFields, append: appendkeeps, remove: removekeeps } = useFieldArray({
     control,
     name: 'keeps',
@@ -17,6 +20,8 @@ const StackInspectionFormGroup: FC<ControlProps> = ({ control }) => {
     control,
     name: 'tries',
   });
+  const [evalutionValue, setEvalutionValue] = useState<number>(0);
+  const [reasonValue, setReasonValue] = useState<string>("");
 
   const handleAddKeepPoint = () => {
     const id = String(keepsFields.length + 1);
@@ -34,9 +39,16 @@ const StackInspectionFormGroup: FC<ControlProps> = ({ control }) => {
     appendtries({ id, content: '', created_at: now, updated_at: now });
   };
 
+  useEffect(() => {
+    if (showStackIntrospection) {
+      setEvalutionValue(showStackIntrospection.evaluation);
+      setReasonValue(showStackIntrospection.reason);
+    }
+  }, [])
+
   return (
     <>
-      <TextInput 
+      <TextInput
         control={control}
         name={"evaluation"}
         fullWidth={true}
@@ -47,8 +59,10 @@ const StackInspectionFormGroup: FC<ControlProps> = ({ control }) => {
         label={"評価"}
         placeholder={"80"}
         type='number'
+        onChange={(e) => setEvalutionValue(Number(e.target.value))}
+        value={evalutionValue}
       />
-      <TextInput 
+      <TextInput
         control={control}
         name={"reason"}
         fullWidth={true}
@@ -59,6 +73,8 @@ const StackInspectionFormGroup: FC<ControlProps> = ({ control }) => {
         label={"理由"}
         placeholder={"Reactの教材を3冊読破したから..."}
         type='text'
+        onChange={(e) => setReasonValue(e.target.value)}
+        value={reasonValue}
       />
       <div>
         {keepsFields.map((field, index) => (

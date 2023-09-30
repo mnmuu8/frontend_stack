@@ -18,7 +18,7 @@ const StackIntrospectionShowGroup: FC = () => {
         </div>
         <div className='mb-6'>
           <div className='text-lg font-bold text-gray-500 border-b-4 mb-2 py-1 bg-blue-50'>Keep</div>
-          {showStackIntrospection?.keep_contents.map((keep_content, index) => (
+          {showStackIntrospection?.keeps.map((keep_content, index) => (
             <div key={keep_content.id} className='mb-3'>
               <div className='text-sm font-bold text-gray-400 mb-1'>Keep #{index + 1}</div>
               <div>・{keep_content.content}</div>
@@ -27,7 +27,7 @@ const StackIntrospectionShowGroup: FC = () => {
         </div>
         <div className='mb-6'>
           <div className='text-lg font-bold text-gray-500 border-b-4 mb-2 py-1 bg-blue-50'>Problem</div>
-          {showStackIntrospection?.problem_contents.map((problem_content, index) => (
+          {showStackIntrospection?.ploblems.map((problem_content, index) => (
             <div key={problem_content.id} className='mb-3'>
               <div className='text-sm font-bold text-gray-400 mb-1'>Problem #{index + 1}</div>
               <div>・{problem_content.content}</div>
@@ -36,7 +36,7 @@ const StackIntrospectionShowGroup: FC = () => {
         </div>
         <div className='mb-6'>
           <div className='text-lg font-bold text-gray-500 border-b-4 mb-2 py-1 bg-blue-50'>Try</div>
-          {showStackIntrospection?.try_contents.map((try_content, index) => (
+          {showStackIntrospection?.tries.map((try_content, index) => (
             <div key={try_content.id} className='mb-3'>
               <div className='text-sm font-bold text-gray-400 mb-1'>Try #{index + 1}</div>
               <div>・{try_content.content}</div>

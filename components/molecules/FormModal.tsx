@@ -117,25 +117,31 @@ const FormModal: FC = () => {
       updateUser().then(res => router.push('/mypage'));
     }
 
-    resetValue(checkAlert);
-  }
+    if (formType === 'updateStackIntrospection') {
+      checkAlert = window.confirm('反省情報を更新しますか？');
 
-  const upadateStackIntrospectionForm = () => {
-    setFormType('updateStackIntrospection');
+      const updateIntrospection = async () => {
+        const params = {
+          evaluation: data.evaluation,
+          reason: data.reason,
+          keep_contents: data.keeps.map((keep) => keep.content),
+          ploblem_contents: data.problems.map((problem) => problem.content),
+          try_contents: data.tries.map((tryContent) => tryContent.content)
+        }
+        const url: string = `${process.env.API_ROOT_URL}/api/v1/stacks/${showStackIntrospection.id}/introspection`;
 
-    if (showStackIntrospection) {
-      setValue('evaluation', showStackIntrospection.evaluation);
-      setValue('reason', showStackIntrospection.reason);
-      for (let i = 0; i < showStackIntrospection.keep_contents.length; i++) {
-        setValue(`keeps[${i}].content` as any, showStackIntrospection.keep_contents[i].content);
-      }
-      for (let i = 0; i < showStackIntrospection.problem_contents.length; i++) {
-        setValue(`problems[${i}].content` as any, showStackIntrospection.problem_contents[i].content);
-      }
-      for (let i = 0; i < showStackIntrospection.try_contents.length; i++) {
-        setValue(`tries[${i}].content` as any, showStackIntrospection.try_contents[i].content);
-      }
+        try {
+          const response = await axios.patch(url, params, options);
+          return response.data;
+        } catch (error) {
+          throw new Error(`${JSON.stringify(error)}`);
+        }
+      };
+
+      updateIntrospection().then(res => router.push('/timeline'));
     }
+
+    resetValue(checkAlert);
   }
 
   const setFormGroup = ({formType, setValue, control}: FormTypeProps): setFormGroupProps | undefined  => {
@@ -175,7 +181,7 @@ const FormModal: FC = () => {
       return {
         label: '積み上げの反省',
         component: <StackIntrospectionShowGroup />,
-        button: <Button onClick={handleSubmit(upadateStackIntrospectionForm)} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>編集</Button>
+        button: <Button onClick={handleSubmit(onSubmit)} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>更新</Button>
       }
     }
   }

@@ -4,7 +4,7 @@ import ImageWrapper from '../atoms/ImageWrapper'
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import AppContext from '@/context/AppContext';
-import NO_IMAGE_ICON from '../../public/no_image.png'
+import NO_IMAGE_ICON from 'public/no_image.png'
 
 const ProfileCard: FC = () => {
   const appContext = useContext(AppContext);

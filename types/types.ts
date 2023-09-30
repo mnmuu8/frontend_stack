@@ -1,31 +1,15 @@
 import { ReactNode } from "react"
 import { UseFormSetValue, Control, ControllerRenderProps } from 'react-hook-form';
 import { SelectChangeEvent } from '@mui/material/Select';
-
-export type UserProps = {
-  user?: {
-    email?: string | null;
-    email_verified?: boolean | null;
-    family_name?: string | null;
-    given_name?: string | null;
-    locale?: string | null;
-    name?: string | null;
-    nickname?: string | null;
-    picture?: string | null;
-    sid?: string | null;
-    sub?: string | null;
-    updated_at?: string | null;
-  }
-}
+import { StaticImageData } from "next/image";
 
 export type ChildrenProps = {
   children: ReactNode
 }
 export type LayoutProps = ChildrenProps
-export type UserAuthenticationProps = ChildrenProps
 
 export type ImageWrapperProps = {
-  src: string
+  src: string | StaticImageData;
   alt: string
   width: number
   height: number
@@ -65,7 +49,8 @@ export type ChartProps =  {
   type: "bar" | "pie";
 }
 
-export type UserProfileProps = UserProps & {
+export type UserProfileProps = {
+  user: sessionUser;
   height: number;
   width: number;
   isHeader: boolean;
@@ -165,7 +150,7 @@ export type StackProps = {
   updated_at: string;
 }
 
-export type StackCardProps = UserProps & {
+export type StackCardProps = {
   stack: StackProps;
 }
 

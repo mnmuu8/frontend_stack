@@ -6,10 +6,9 @@ import HeaderMenu from '../uikit/HeaderMenu';
 import IconButton from '@mui/material/IconButton';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import MenuIcon from '@mui/icons-material/Menu';
-import { UserProps } from '../../types/types';
 import { siteTitle } from '@/config';
 
-const Header: FC<UserProps> = ({ user }) => {
+const Header: FC = () => {
   const appContext = useContext(AppContext);
   const { drawerOpen, handleDrawerOpen, handleMenuOpen, sessionUser } = appContext;
 

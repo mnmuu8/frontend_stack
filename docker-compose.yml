@@ -8,12 +8,6 @@ services:
       - "9000:9000"
     volumes:
       - .:/app
-    environment:
-      - AUTH0_SECRET="7fdbe1e23e97e7b1a3d2bf35ab582a59ea6b41c2ac81958b35e83ce243e0515b"
-      - AUTH0_BASE_URL="http://localhost:9000"
-      - AUTH0_ISSUER_BASE_URL="https://skill-climbing.jp.auth0.com"
-      - AUTH0_CLIENT_ID="8lqbUwzQ4rYXtO0dfePDZgxAqrveoMsF"
-      - AUTH0_CLIENT_SECRET="uKwv76ou-1dYUsYu0awlPq63G8t1PSCRjfg_gYJbZ2IHUuNJ4vBLEdprtJOS4Oqd"
     networks:
       - skill-climbing-shared-network
 

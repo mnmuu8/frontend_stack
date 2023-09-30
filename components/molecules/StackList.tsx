@@ -2,10 +2,9 @@ import React, { FC, useState, useEffect } from 'react'
 import StackCard from '@/components/molecules/StackCard';
 import SelectBox from './SelectBox';
 import { SelectChangeEvent } from '@mui/material/Select';
-import UserAuthentication from '../atoms/UserAuthentication';
-import axios from 'axios';
 import { getSession } from '@/utiliry/session';
 import { ApiOptions, StackProps } from '@/types/types';
+import axios from 'axios';
 
 const StackList: FC = () => {
   const [selectedOption, setSelectedOption] = useState<string>('all');
@@ -65,11 +64,9 @@ const StackList: FC = () => {
         <SelectBox selectedOption={selectedOption} handleOptionChange={handleOptionChange} />
       </div>
       <div>
-        <UserAuthentication>
-          {filteredStackLists.map((stack) => (
-            <StackCard key={stack.id} stack={stack} />
-          ))}
-        </UserAuthentication>
+        {filteredStackLists.map((stack) => (
+          <StackCard key={stack.id} stack={stack} />
+        ))}
       </div>
       <div className='w-[280px] m-auto mt-10 rounded-md border-2 cursor-pointer border-gray-200 text-center text-sm py-3 duration-300 hover:bg-gray-50 hover:duration-300'>もっとみる</div>
     </div>

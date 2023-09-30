@@ -403,7 +403,7 @@ components:
           type: array
           items:
             allOf:
-              - $ref: '#/components/schemas/Stacks_Introspections_Ploblems_Ploblem'
+              - $ref: '#/components/schemas/Stacks_Introspections_Problems_Problem'
         tries:
           type: array
           items:
@@ -467,7 +467,7 @@ components:
       description: 反省のKeep項目
       example: 計画通りに積み上げられた
 
-    Stacks_Introspections_Ploblems_Ploblem:
+    Stacks_Introspections_Problems_Problem:
       type: object
       required:
         - id
@@ -477,11 +477,11 @@ components:
       properties:
         id:
           allOf:
-            - $ref: '#/components/schemas/Stacks_Introspections_Ploblems_Ploblem_Id'
+            - $ref: '#/components/schemas/Stacks_Introspections_Problems_Problem_Id'
           nullable: false
         content:
           allOf:
-            - $ref: '#/components/schemas/Stacks_Introspections_Ploblems_Ploblem_Content'
+            - $ref: '#/components/schemas/Stacks_Introspections_Problems_Problem_Content'
           nullable: false
         created_at:
           allOf:
@@ -492,13 +492,13 @@ components:
             - $ref: '#/components/schemas/DateTime'
           nullable: false
 
-    Stacks_Introspections_Ploblems_Ploblem_Id:
+    Stacks_Introspections_Problems_Problem_Id:
       type: integer
-      description: 反省のPloblemID
+      description: 反省のProblemID
       example: 1
-    Stacks_Introspections_Ploblems_Ploblem_Content:
+    Stacks_Introspections_Problems_Problem_Content:
       type: string
-      description: 反省のPloblem項目
+      description: 反省のProblem項目
       example: スマホを触る時間が多かった
 
     Stacks_Introspections_Tries_Try:
@@ -783,7 +783,7 @@ components:
           type: array
           items:
             allOf:
-            - $ref: '#/components/schemas/Stacks_Introspections_Ploblems_Ploblem_Content'
+            - $ref: '#/components/schemas/Stacks_Introspections_Problems_Problem_Content'
         try_contents:
           type: array
           items:
@@ -816,7 +816,7 @@ components:
           type: array
           items:
             allOf:
-            - $ref: '#/components/schemas/Stacks_Introspections_Ploblems_Ploblem_Content'
+            - $ref: '#/components/schemas/Stacks_Introspections_Problems_Problem_Content'
         try_contents:
           type: array
           items:

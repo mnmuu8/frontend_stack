@@ -125,7 +125,7 @@ const FormModal: FC = () => {
           evaluation: data.evaluation,
           reason: data.reason,
           keep_contents: data.keeps.map((keep) => keep.content),
-          ploblem_contents: data.problems.map((problem) => problem.content),
+          problem_contents: data.problems.map((problem) => problem.content),
           try_contents: data.tries.map((tryContent) => tryContent.content)
         }
         const url: string = `${process.env.API_ROOT_URL}/api/v1/stacks/${showStackIntrospection.id}/introspection`;

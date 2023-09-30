@@ -37,24 +37,24 @@ import {
     StacksStackListInnerToJSON,
 } from '../models';
 
-interface ApiV1StacksCreateRequest {
+export interface ApiV1StacksCreateRequest {
     stacksCreateRequestBody: StacksCreateRequestBody;
 }
 
-interface ApiV1StacksIndexRequest {
+export interface ApiV1StacksIndexRequest {
     userId?: number;
 }
 
-interface ApiV1StacksIntrospectionsCreateRequest {
+export interface ApiV1StacksIntrospectionsCreateRequest {
     stackId: number;
     stacksIntrospectionCreateRequestBody: StacksIntrospectionCreateRequestBody;
 }
 
-interface ApiV1StacksIntrospectionsShowRequest {
+export interface ApiV1StacksIntrospectionsShowRequest {
     stackId: number;
 }
 
-interface ApiV1StacksIntrospectionsUpdateRequest {
+export interface ApiV1StacksIntrospectionsUpdateRequest {
     stackId: number;
     stacksIntrospectionUpdateRequestBody: StacksIntrospectionUpdateRequestBody;
 }

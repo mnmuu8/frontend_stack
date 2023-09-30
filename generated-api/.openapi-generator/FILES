@@ -18,7 +18,7 @@ models/StacksIntrospectionsIntrospectionKeepsInner.ts
 models/StacksIntrospectionsIntrospectionProblemsInner.ts
 models/StacksIntrospectionsIntrospectionTriesInner.ts
 models/StacksIntrospectionsKeepsKeep.ts
-models/StacksIntrospectionsPloblemsPloblem.ts
+models/StacksIntrospectionsProblemsProblem.ts
 models/StacksIntrospectionsTriesTry.ts
 models/StacksStack.ts
 models/StacksStackListInner.ts

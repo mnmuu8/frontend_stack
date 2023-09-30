@@ -12,7 +12,7 @@ export * from './StacksIntrospectionsIntrospectionKeepsInner';
 export * from './StacksIntrospectionsIntrospectionProblemsInner';
 export * from './StacksIntrospectionsIntrospectionTriesInner';
 export * from './StacksIntrospectionsKeepsKeep';
-export * from './StacksIntrospectionsPloblemsPloblem';
+export * from './StacksIntrospectionsProblemsProblem';
 export * from './StacksIntrospectionsTriesTry';
 export * from './StacksStack';
 export * from './StacksStackListInner';

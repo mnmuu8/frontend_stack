@@ -4,7 +4,6 @@ import ImageWrapper from '../atoms/ImageWrapper'
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import AppContext from '@/context/AppContext';
-import NO_IMAGE_ICON from 'public/no_image.png'
 
 const ProfileCard: FC = () => {
   const appContext = useContext(AppContext);
@@ -18,7 +17,7 @@ const ProfileCard: FC = () => {
   if (sessionUser) {
     return (
       <div className='self-start w-[320px] bg-gray-50 px-4 py-8 rounded-md shadow-md'>
-        <ImageWrapper src={NO_IMAGE_ICON} height={80} width={80} alt={sessionUser.name} className='rounded-full m-auto' />
+        <ImageWrapper src={'/no_image.png'} height={80} width={80} alt={sessionUser.name} className='rounded-full m-auto' />
         <div className='text-center mt-2 font-bold'>{sessionUser.name}</div>
         <div className='flex justify-center mt-2'>
           <Link href=''><TwitterIcon className='text-gray-400 mx-1'/></Link>

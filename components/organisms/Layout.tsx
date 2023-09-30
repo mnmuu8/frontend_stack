@@ -3,10 +3,9 @@ import Header from './Header'
 import Sidebar from './Sidebar'
 import { ApiOptions, LayoutProps } from '@/types/types'
 import AppContext from '@/context/AppContext'
-import UserAuthentication from '../atoms/UserAuthentication'
 import { useRouter } from 'next/router';
-import axios from 'axios'
 import { getSession } from '@/utiliry/session'
+import axios from 'axios'
 
 const Layout: FC<LayoutProps> = ({ children }) => {
 
@@ -88,9 +87,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
   return (
     <>
-      <UserAuthentication>
-        <Header />
-      </UserAuthentication>
+      <Header />
       <Sidebar />
       <main style={mainStyle}>{children}</main>
     </>

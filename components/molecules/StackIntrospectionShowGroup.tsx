@@ -27,7 +27,7 @@ const StackIntrospectionShowGroup: FC = () => {
         </div>
         <div className='mb-6'>
           <div className='text-lg font-bold text-gray-500 border-b-4 mb-2 py-1 bg-blue-50'>Problem</div>
-          {showStackIntrospection?.ploblems.map((problem_content, index) => (
+          {showStackIntrospection?.problems.map((problem_content, index) => (
             <div key={problem_content.id} className='mb-3'>
               <div className='text-sm font-bold text-gray-400 mb-1'>Problem #{index + 1}</div>
               <div>・{problem_content.content}</div>

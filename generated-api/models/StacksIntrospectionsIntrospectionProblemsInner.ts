@@ -20,13 +20,13 @@ import { exists, mapValues } from '../runtime';
  */
 export interface StacksIntrospectionsIntrospectionProblemsInner {
     /**
-     * 反省のPloblemID
+     * 反省のProblemID
      * @type {number}
      * @memberof StacksIntrospectionsIntrospectionProblemsInner
      */
     id: number;
     /**
-     * 反省のPloblem項目
+     * 反省のProblem項目
      * @type {string}
      * @memberof StacksIntrospectionsIntrospectionProblemsInner
      */

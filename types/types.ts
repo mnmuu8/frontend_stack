@@ -132,9 +132,9 @@ export type IntrospectionProps = {
   stack_id: number;
   evaluation: number;
   reason: string;
-  keep_contents: KeepAndProblemAndTryPoint[];
-  problem_contents: KeepAndProblemAndTryPoint[];
-  try_contents: KeepAndProblemAndTryPoint[];
+  keeps: KeepAndProblemAndTryPoint[];
+  problems: KeepAndProblemAndTryPoint[];
+  tries: KeepAndProblemAndTryPoint[];
 } | undefined;
 
 export type StackProps = {

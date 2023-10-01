@@ -16,39 +16,39 @@ import { exists, mapValues } from '../runtime';
 /**
  * 
  * @export
- * @interface StacksIntrospectionsPloblemsPloblem
+ * @interface StacksIntrospectionsProblemsProblem
  */
-export interface StacksIntrospectionsPloblemsPloblem {
+export interface StacksIntrospectionsProblemsProblem {
     /**
-     * 反省のPloblemID
+     * 反省のProblemID
      * @type {number}
-     * @memberof StacksIntrospectionsPloblemsPloblem
+     * @memberof StacksIntrospectionsProblemsProblem
      */
     id: number;
     /**
-     * 反省のPloblem項目
+     * 反省のProblem項目
      * @type {string}
-     * @memberof StacksIntrospectionsPloblemsPloblem
+     * @memberof StacksIntrospectionsProblemsProblem
      */
     content: string;
     /**
      * 
      * @type {Date}
-     * @memberof StacksIntrospectionsPloblemsPloblem
+     * @memberof StacksIntrospectionsProblemsProblem
      */
     createdAt: Date;
     /**
      * 
      * @type {Date}
-     * @memberof StacksIntrospectionsPloblemsPloblem
+     * @memberof StacksIntrospectionsProblemsProblem
      */
     updatedAt: Date;
 }
 
 /**
- * Check if a given object implements the StacksIntrospectionsPloblemsPloblem interface.
+ * Check if a given object implements the StacksIntrospectionsProblemsProblem interface.
  */
-export function instanceOfStacksIntrospectionsPloblemsPloblem(value: object): boolean {
+export function instanceOfStacksIntrospectionsProblemsProblem(value: object): boolean {
     let isInstance = true;
     isInstance = isInstance && "id" in value;
     isInstance = isInstance && "content" in value;
@@ -58,11 +58,11 @@ export function instanceOfStacksIntrospectionsPloblemsPloblem(value: object): bo
     return isInstance;
 }
 
-export function StacksIntrospectionsPloblemsPloblemFromJSON(json: any): StacksIntrospectionsPloblemsPloblem {
-    return StacksIntrospectionsPloblemsPloblemFromJSONTyped(json, false);
+export function StacksIntrospectionsProblemsProblemFromJSON(json: any): StacksIntrospectionsProblemsProblem {
+    return StacksIntrospectionsProblemsProblemFromJSONTyped(json, false);
 }
 
-export function StacksIntrospectionsPloblemsPloblemFromJSONTyped(json: any, ignoreDiscriminator: boolean): StacksIntrospectionsPloblemsPloblem {
+export function StacksIntrospectionsProblemsProblemFromJSONTyped(json: any, ignoreDiscriminator: boolean): StacksIntrospectionsProblemsProblem {
     if ((json === undefined) || (json === null)) {
         return json;
     }
@@ -75,7 +75,7 @@ export function StacksIntrospectionsPloblemsPloblemFromJSONTyped(json: any, igno
     };
 }
 
-export function StacksIntrospectionsPloblemsPloblemToJSON(value?: StacksIntrospectionsPloblemsPloblem | null): any {
+export function StacksIntrospectionsProblemsProblemToJSON(value?: StacksIntrospectionsProblemsProblem | null): any {
     if (value === undefined) {
         return undefined;
     }

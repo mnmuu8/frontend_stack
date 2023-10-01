@@ -299,6 +299,8 @@ paths:
                 $ref: '#/components/schemas/Teams_Team'
         '401':
           description: 認証エラー
+        '409':
+          description: チーム名が重複している
         '422':
           description: バリデーションエラー
 

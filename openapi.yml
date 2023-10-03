@@ -261,12 +261,12 @@ paths:
       tags:
         - Team
       security: []
-      parameters:
-        - name: name
-          in: query
-          required: false
-          schema:
-            $ref: '#/components/schemas/Teams_Team_Name'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamCreateRequestBody'
       responses:
         '200':
           description: 成功
@@ -276,6 +276,31 @@ paths:
                 $ref: '#/components/schemas/Teams_TeamList'
         '401':
           description: 認証エラー
+        '422':
+          description: バリデーションエラー
+    post:
+      summary: グループ作成
+      operationId: api.v1.teams.create
+      tags:
+        - Team
+      security: []
+      parameters:
+        - name: name
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/Teams_Team_Name'
+      responses:
+        '201':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Teams_Team'
+        '401':
+          description: 認証エラー
+        '409':
+          description: チーム名が重複している
         '422':
           description: バリデーションエラー
 
@@ -847,3 +872,13 @@ components:
           allOf:
             - $ref: '#/components/schemas/Teams_Team_Id'
           nullable: true
+
+    TeamCreateRequestBody:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          allOf:
+            - $ref: '#/components/schemas/Teams_Team_Name'
+          nullable: false

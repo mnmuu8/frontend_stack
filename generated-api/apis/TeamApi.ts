@@ -15,15 +15,25 @@
 
 import * as runtime from '../runtime';
 import type {
+  TeamCreateRequestBody,
+  TeamsTeam,
   TeamsTeamListInner,
 } from '../models';
 import {
+    TeamCreateRequestBodyFromJSON,
+    TeamCreateRequestBodyToJSON,
+    TeamsTeamFromJSON,
+    TeamsTeamToJSON,
     TeamsTeamListInnerFromJSON,
     TeamsTeamListInnerToJSON,
 } from '../models';
 
-export interface ApiV1TeamsIndexRequest {
+export interface ApiV1TeamsCreateRequest {
     name?: string;
+}
+
+export interface ApiV1TeamsIndexRequest {
+    teamCreateRequestBody: TeamCreateRequestBody;
 }
 
 /**
@@ -32,9 +42,9 @@ export interface ApiV1TeamsIndexRequest {
 export class TeamApi extends runtime.BaseAPI {
 
     /**
-     * グループ一覧
+     * グループ作成
      */
-    async apiV1TeamsIndexRaw(requestParameters: ApiV1TeamsIndexRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<TeamsTeamListInner>>> {
+    async apiV1TeamsCreateRaw(requestParameters: ApiV1TeamsCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TeamsTeam>> {
         const queryParameters: any = {};
 
         if (requestParameters.name !== undefined) {
@@ -45,9 +55,42 @@ export class TeamApi extends runtime.BaseAPI {
 
         const response = await this.request({
             path: `/api/v1/teams`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TeamsTeamFromJSON(jsonValue));
+    }
+
+    /**
+     * グループ作成
+     */
+    async apiV1TeamsCreate(requestParameters: ApiV1TeamsCreateRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TeamsTeam> {
+        const response = await this.apiV1TeamsCreateRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * グループ一覧
+     */
+    async apiV1TeamsIndexRaw(requestParameters: ApiV1TeamsIndexRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<TeamsTeamListInner>>> {
+        if (requestParameters.teamCreateRequestBody === null || requestParameters.teamCreateRequestBody === undefined) {
+            throw new runtime.RequiredError('teamCreateRequestBody','Required parameter requestParameters.teamCreateRequestBody was null or undefined when calling apiV1TeamsIndex.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/api/v1/teams`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
+            body: TeamCreateRequestBodyToJSON(requestParameters.teamCreateRequestBody),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(TeamsTeamListInnerFromJSON));
@@ -56,7 +99,7 @@ export class TeamApi extends runtime.BaseAPI {
     /**
      * グループ一覧
      */
-    async apiV1TeamsIndex(requestParameters: ApiV1TeamsIndexRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<TeamsTeamListInner>> {
+    async apiV1TeamsIndex(requestParameters: ApiV1TeamsIndexRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<TeamsTeamListInner>> {
         const response = await this.apiV1TeamsIndexRaw(requestParameters, initOverrides);
         return await response.value();
     }

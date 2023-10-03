@@ -261,12 +261,12 @@ paths:
       tags:
         - Team
       security: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TeamCreateRequestBody'
+      parameters:
+        - name: name
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/Teams_Team_Name'
       responses:
         '200':
           description: 成功
@@ -284,12 +284,12 @@ paths:
       tags:
         - Team
       security: []
-      parameters:
-        - name: name
-          in: query
-          required: false
-          schema:
-            $ref: '#/components/schemas/Teams_Team_Name'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamCreateRequestBody'
       responses:
         '201':
           description: 成功
@@ -299,6 +299,40 @@ paths:
                 $ref: '#/components/schemas/Teams_Team'
         '401':
           description: 認証エラー
+        '409':
+          description: チーム名が重複している
+        '422':
+          description: バリデーションエラー
+  /api/v1/teams/{team_id}:
+    patch:
+      summary: グループ更新
+      operationId: api.v1.teams.update
+      tags:
+        - Team
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamUpdateRequestBody'
+      parameters:
+        - name: team_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Teams_Team_Id'
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Teams_Team'
+        '401':
+          description: 認証エラー
+        '404':
+          description: チームが存在しない
         '409':
           description: チーム名が重複している
         '422':
@@ -874,6 +908,16 @@ components:
           nullable: true
 
     TeamCreateRequestBody:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          allOf:
+            - $ref: '#/components/schemas/Teams_Team_Name'
+          nullable: false
+
+    TeamUpdateRequestBody:
       type: object
       required:
         - name

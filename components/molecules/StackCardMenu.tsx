@@ -5,16 +5,17 @@ import LinearScaleIcon from '@mui/icons-material/LinearScale';
 import Button from '@mui/material/Button';
 import AppContext from '@/context/AppContext';
 
-const StackCardMenu: FC = () => {
+const StackCardMenu: FC<{stack_id: number}> = ({ stack_id }) => {
   const appContext = useContext(AppContext);
-  const { setFormType, setFormOpen } = appContext;
+  const { setFormType, setFormOpen, setIntrospectionFormData } = appContext;
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleFormOpenButton = () => {
+  const handleFormOpenButton = (stack_id: number) => {
+    setIntrospectionFormData({evaluation: 0, reason: "", keeps: [], problems: [], tries: [], stack_id: stack_id})
     setFormType('createStackIntrospection');
     setFormOpen(true);
     setAnchorEl(null);
@@ -50,7 +51,7 @@ const StackCardMenu: FC = () => {
           horizontal: 'left',
         }}
       >
-        <MenuItem onClick={handleFormOpenButton}>反省を追加</MenuItem>
+        <MenuItem onClick={() => handleFormOpenButton(stack_id)}>反省を追加</MenuItem>
       </Menu>
     </>
   )

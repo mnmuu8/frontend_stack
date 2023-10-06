@@ -1,48 +1,70 @@
-import React, { FC, useState, useEffect, useContext } from 'react'
+import React, { FC, useEffect, useContext } from 'react'
 import AppContext from '@/context/AppContext';
-import { useFieldArray } from 'react-hook-form';
 import TextInput from './TextInput';
 import Button from '@mui/material/Button';
-import { ControlProps } from '../../types/types';
+import { ControlProps, IntrospectionFormDataParams } from '../../types/types';
 
 const StackInspectionFormGroup: FC<ControlProps> = ({ control }) => {
   const appContext = useContext(AppContext);
-  const { showStackIntrospection } = appContext;
-  const { fields: keepsFields, append: appendkeeps, remove: removekeeps } = useFieldArray({
-    control,
-    name: 'keeps',
-  });
-  const { fields: problemsFields, append: appendproblems, remove: removeproblems } = useFieldArray({
-    control,
-    name: 'problems',
-  });
-  const { fields: triesFields, append: appendtries, remove: removetries } = useFieldArray({
-    control,
-    name: 'tries',
-  });
-  const [evalutionValue, setEvalutionValue] = useState<number>(0);
-  const [reasonValue, setReasonValue] = useState<string>("");
+  const { showStackIntrospection, introspectionFormData, setIntrospectionFormData } = appContext;
 
-  const handleAddKeepPoint = () => {
-    const id = String(keepsFields.length + 1);
-    const now = new Date().toISOString();
-    appendkeeps({ id, content: '', created_at: now, updated_at: now });
+  const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    
+    setIntrospectionFormData({
+      ...introspectionFormData,
+      [name]: value,
+    });
   };
-  const handleAddProblemPoint = () => {
-    const id = String(keepsFields.length + 1);
-    const now = new Date().toISOString();
-    appendproblems({ id, content: '', created_at: now, updated_at: now });
+
+  const handleArrayFieldChange = (fieldName: "keeps" | "tries" | "problems", value: string, index: number) => {
+    setIntrospectionFormData((prevData: IntrospectionFormDataParams) => {
+      const updatedField = [...prevData[fieldName]];
+      updatedField[index].content = value;
+      return {
+        ...prevData,
+        [fieldName]: updatedField,
+      };
+    });
   };
-  const handleAddTryPoint = () => {
-    const id = String(keepsFields.length + 1);
-    const now = new Date().toISOString();
-    appendtries({ id, content: '', created_at: now, updated_at: now });
+
+  const handleAddPoint = (fieldName: "keeps" | "problems" | "tries") => {
+    const index = introspectionFormData[fieldName].length + 1;
+    const nowDate = new Date();
+    const newKeep = {
+      id: index,
+      content: '',
+      created_at: nowDate,
+      updated_at: nowDate
+    };
+  
+    setIntrospectionFormData((prevData: IntrospectionFormDataParams) => ({
+      ...prevData,
+      [fieldName]: [...prevData[fieldName], newKeep],
+    }));
+  };
+
+  const handleRemovePoint = (fieldName: "keeps" | "problems" | "tries", indexToRemove: number) => {
+    setIntrospectionFormData((prevData: IntrospectionFormDataParams) => {
+      const updatedField = [...prevData[fieldName]];
+      updatedField.splice(indexToRemove, 1);
+      return {
+        ...prevData,
+        [fieldName]: updatedField,
+      };
+    });
   };
 
   useEffect(() => {
     if (showStackIntrospection) {
-      setEvalutionValue(showStackIntrospection.evaluation);
-      setReasonValue(showStackIntrospection.reason);
+      setIntrospectionFormData({
+        evaluation: showStackIntrospection.evaluation,
+        reason: showStackIntrospection.reason,
+        keeps: showStackIntrospection.keeps,
+        problems: showStackIntrospection.problems,
+        tries: showStackIntrospection.tries,
+        stack_id: showStackIntrospection.stack_id
+      });
     }
   }, [])
 
@@ -59,8 +81,8 @@ const StackInspectionFormGroup: FC<ControlProps> = ({ control }) => {
         label={"評価"}
         placeholder={"80"}
         type='number'
-        onChange={(e) => setEvalutionValue(Number(e.target.value))}
-        value={evalutionValue}
+        onChange={handleFieldChange}
+        value={introspectionFormData.evaluation}
       />
       <TextInput
         control={control}
@@ -73,15 +95,15 @@ const StackInspectionFormGroup: FC<ControlProps> = ({ control }) => {
         label={"理由"}
         placeholder={"Reactの教材を3冊読破したから..."}
         type='text'
-        onChange={(e) => setReasonValue(e.target.value)}
-        value={reasonValue}
+        onChange={handleFieldChange}
+        value={introspectionFormData.reason}
       />
       <div>
-        {keepsFields.map((field, index) => (
-          <div key={field.id} className='relative'>
+        {introspectionFormData.keeps.map((keep, index) => (
+          <div key={keep.id} className='relative'>
             <TextInput 
               control={control}
-              name={`keeps[${index}].content`}
+              name={`keep[${index}]_content`}
               fullWidth={true}
               multiline={true}
               minRows={2}
@@ -90,20 +112,22 @@ const StackInspectionFormGroup: FC<ControlProps> = ({ control }) => {
               label={`Keep #${index + 1}`}
               placeholder={"目標の機能を全て実装できたため..."}
               type='text'
+              onChange={(e) => handleArrayFieldChange("keeps", e.target.value, index)}
+              value={introspectionFormData.keeps[index].content}
             />
-            <div onClick={() => removekeeps(index)} className='flex items-center justify-center absolute top-[-10px] right-[-10px] text-white bg-red-500 hover:bg-red-400 w-[30px] h-[30px] rounded-full cursor-pointer'>×</div>
+            <div onClick={() => handleRemovePoint("keeps", index)} className='flex items-center justify-center absolute top-[-10px] right-[-10px] text-white bg-red-500 hover:bg-red-400 w-[30px] h-[30px] rounded-full cursor-pointer'>×</div>
           </div>
         ))}
-        <Button onClick={handleAddKeepPoint} className='w-full border-indigo-200 border-2 text-white bg-[#000044] hover:bg-[#000066] mt-4 py-3'>
+        <Button onClick={() => handleAddPoint("keeps")} className='w-full border-indigo-200 border-2 text-white bg-[#000044] hover:bg-[#000066] mt-4 py-3'>
           Keepを追加
         </Button>
       </div>
       <div>
-        {problemsFields.map((field, index) => (
-          <div key={field.id} className='relative'>
+        {introspectionFormData.problems.map((problem, index) => (
+          <div key={problem.id} className='relative'>
             <TextInput 
               control={control}
-              name={`problems[${index}].content`}  // 正しいプロパティを指定
+              name={`problem[${index}]_content`}
               fullWidth={true}
               multiline={true}
               minRows={2}
@@ -112,20 +136,22 @@ const StackInspectionFormGroup: FC<ControlProps> = ({ control }) => {
               label={`Problem #${index + 1}`}
               placeholder={"予定よりも8時間ほど工数が超過したため..."}
               type='text'
+              onChange={(e) => handleArrayFieldChange("problems", e.target.value, index)}
+              value={introspectionFormData.problems[index].content}
             />
-            <div onClick={() => removeproblems(index)} className='flex items-center justify-center absolute top-[-10px] right-[-10px] text-white bg-red-500 hover:bg-red-400 w-[30px] h-[30px] rounded-full cursor-pointer'>×</div>
+            <div onClick={() => handleRemovePoint("problems", index)} className='flex items-center justify-center absolute top-[-10px] right-[-10px] text-white bg-red-500 hover:bg-red-400 w-[30px] h-[30px] rounded-full cursor-pointer'>×</div>
           </div>
         ))}
-        <Button onClick={handleAddProblemPoint} className='w-full border-indigo-200 border-2 text-white bg-[#000044] hover:bg-[#000066] mt-4 py-3'>
+        <Button onClick={() => handleAddPoint("problems")} className='w-full border-indigo-200 border-2 text-white bg-[#000044] hover:bg-[#000066] mt-4 py-3'>
           Problemを追加
         </Button>
       </div>
       <div>
-        {triesFields.map((field, index) => (
-          <div key={field.id} className='relative'>
+        {introspectionFormData.tries.map((tries, index) => (
+          <div key={tries.id} className='relative'>
             <TextInput 
               control={control}
-              name={`tries[${index}].content`}  // 正しいプロパティを指定
+              name={`try[${index}]_content`}  // 正しいプロパティを指定
               fullWidth={true}
               multiline={true}
               minRows={2}
@@ -134,11 +160,13 @@ const StackInspectionFormGroup: FC<ControlProps> = ({ control }) => {
               label={`Try #${index + 1}`}
               placeholder={"今回のReactアプリをTypeScriptで実装する..."}
               type='text'
+              onChange={(e) => handleArrayFieldChange("tries", e.target.value, index)}
+              value={introspectionFormData.tries[index].content}
             />
-            <div onClick={() => removetries(index)} className='flex items-center justify-center absolute top-[-10px] right-[-10px] text-white bg-red-500 hover:bg-red-400 w-[30px] h-[30px] rounded-full cursor-pointer'>×</div>
+            <div onClick={() => handleRemovePoint("tries", index)} className='flex items-center justify-center absolute top-[-10px] right-[-10px] text-white bg-red-500 hover:bg-red-400 w-[30px] h-[30px] rounded-full cursor-pointer'>×</div>
           </div>
         ))}
-        <Button onClick={handleAddTryPoint} className='w-full border-indigo-200 border-2 text-white bg-[#000044] hover:bg-[#000066] mt-4 py-3'>
+        <Button onClick={() => handleAddPoint("tries")} className='w-full border-indigo-200 border-2 text-white bg-[#000044] hover:bg-[#000066] mt-4 py-3'>
           Tryを追加
         </Button>
       </div>

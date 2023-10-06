@@ -16,7 +16,7 @@ import { useRouter } from 'next/router';
 
 const FormModal: FC = () => {
   const appContext = useContext(AppContext);
-  const { formOpen, setFormOpen, formType, setFormType, showStackIntrospection, setShowStackIntrospection } = appContext;
+  const { formOpen, setFormOpen, formType, showStackIntrospection, setShowStackIntrospection, introspectionFormData } = appContext;
   const { control, handleSubmit, setValue } = useForm<FormDataParams>();
   const router = useRouter();
 
@@ -26,14 +26,6 @@ const FormModal: FC = () => {
       setValue('time', 0);
       setValue('editorContent', '');
       setValue('skill', {id: 1, name: 'プログラミング'})
-    }
-
-    if (formType === 'createStackIntrospection' || formType === 'updateStackIntrospection') {
-      setValue('evaluation', 0)
-      setValue('reason', '')
-      setValue('keeps', [])
-      setValue('problems', [])
-      setValue('tries', [])
     }
 
     if (formType === 'updateUser') {
@@ -60,6 +52,73 @@ const FormModal: FC = () => {
     const checkAlert = window.confirm('キャンセルすると入力した値が全て削除されますがよろしいでしょうか？');
     resetValue(checkAlert);
   }
+
+  const FormSubmit = () => {
+    const sessionData = getSession();
+    if (!sessionData) return;
+
+    const options: ApiOptions = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionData.token}`
+      }
+    }
+
+    let checkAlert = false;
+
+    if (formType === 'updateStackIntrospection') {
+      if ( !showStackIntrospection ) return
+
+      checkAlert = window.confirm('反省情報を更新しますか？');
+
+      const updateIntrospection = async () => {
+        const params = {
+          evaluation: introspectionFormData.evaluation,
+          reason: introspectionFormData.reason,
+          keep_contents: introspectionFormData.keeps.map((keep) => keep.content),
+          problem_contents: introspectionFormData.problems.map((problem) => problem.content),
+          try_contents: introspectionFormData.tries.map((tries) => tries.content),
+        }
+        const url: string = `${process.env.API_ROOT_URL}/api/v1/stacks/${showStackIntrospection.id}/introspection`;
+
+        try {
+          const response = await axios.patch(url, params, options);
+          return response.data;
+        } catch (error) {
+          throw new Error(`${JSON.stringify(error)}`);
+        }
+      };
+
+      updateIntrospection().then(res => router.push('/timeline'));
+    }
+
+    if (formType === 'createStackIntrospection') {
+      checkAlert = window.confirm('反省を作成しますか？');
+
+      const createIntrospection = async () => {
+        const params = {
+          evaluation: introspectionFormData.evaluation,
+          reason: introspectionFormData.reason,
+          keep_contents: introspectionFormData.keeps.map((keep) => keep.content),
+          problem_contents: introspectionFormData.problems.map((problem) => problem.content),
+          try_contents: introspectionFormData.tries.map((tries) => tries.content),
+        }
+        const url: string = `${process.env.API_ROOT_URL}/api/v1/stacks/${introspectionFormData.stack_id}/introspection`;
+
+        try {
+          const response = await axios.post(url, params, options);
+          return response.data;
+        } catch (error) {
+          throw new Error(`${JSON.stringify(error)}`);
+        }
+      };
+
+      createIntrospection().then(res => router.push('/timeline'));
+    }
+
+    resetValue(checkAlert);
+  }
+
   const onSubmit: onSubmitType = (data: FormDataParams) => {
     const sessionData = getSession();
     if (!sessionData) return;
@@ -117,32 +176,6 @@ const FormModal: FC = () => {
       updateUser().then(res => router.push('/mypage'));
     }
 
-    if (formType === 'updateStackIntrospection') {
-      if ( !showStackIntrospection ) return
-
-      checkAlert = window.confirm('反省情報を更新しますか？');
-
-      const updateIntrospection = async () => {
-        const params = {
-          evaluation: data.evaluation,
-          reason: data.reason,
-          keep_contents: data.keeps.map((keep) => keep.content),
-          problem_contents: data.problems.map((problem) => problem.content),
-          try_contents: data.tries.map((tryContent) => tryContent.content)
-        }
-        const url: string = `${process.env.API_ROOT_URL}/api/v1/stacks/${showStackIntrospection.id}/introspection`;
-
-        try {
-          const response = await axios.patch(url, params, options);
-          return response.data;
-        } catch (error) {
-          throw new Error(`${JSON.stringify(error)}`);
-        }
-      };
-
-      updateIntrospection().then(res => router.push('/timeline'));
-    }
-
     resetValue(checkAlert);
   }
 
@@ -159,7 +192,7 @@ const FormModal: FC = () => {
       return {
         label: '積み上げの反省を作成',
         component: <StackInspectionFormGroup control={control} />,
-        button: <Button onClick={handleSubmit(onSubmit)} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>作成</Button>
+        button: <Button onClick={FormSubmit} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>作成</Button>
       }
     }
 
@@ -167,7 +200,7 @@ const FormModal: FC = () => {
       return {
         label: '積み上げの反省を編集',
         component: <StackInspectionFormGroup control={control} />,
-        button: <Button onClick={handleSubmit(onSubmit)} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>更新</Button>
+        button: <Button onClick={FormSubmit} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>更新</Button>
       }
     }
 

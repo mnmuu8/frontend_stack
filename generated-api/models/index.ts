@@ -18,6 +18,7 @@ export * from './StacksStack';
 export * from './StacksStackListInner';
 export * from './StacksStackSkill';
 export * from './TeamCreateRequestBody';
+export * from './TeamUpdateRequestBody';
 export * from './TeamsTeam';
 export * from './TeamsTeamListInner';
 export * from './UserUpdateRequestBody';

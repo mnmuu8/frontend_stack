@@ -662,6 +662,7 @@ components:
         - name
         - email
         - profile_content
+        - role
         - team
         - created_at
         - updated_at
@@ -682,6 +683,10 @@ components:
           allOf:
             - $ref: '#/components/schemas/Users_User_ProfileContent'
           nullable: true
+        role:
+          allOf:
+            - $ref: '#/components/schemas/Users_User_Role'
+          nullable: false
         team:
           allOf:
             - $ref: '#/components/schemas/Teams_Team'
@@ -714,6 +719,14 @@ components:
       type: string
       description: ユーザーのプロフィール文
       example: よろしくお願いします。
+
+    Users_User_Role:
+      type: string
+      description: ユーザー役割
+      example: admin
+      enum:
+        - admin
+        - general
 
     Users_User_Password:
       type: string
@@ -888,6 +901,7 @@ components:
         - name
         - email
         - profile_content
+        - role
         - team_id
       properties:
         name:
@@ -902,6 +916,10 @@ components:
           allOf:
             - $ref: '#/components/schemas/Users_User_ProfileContent'
           nullable: true
+        role:
+          allOf:
+            - $ref: '#/components/schemas/Users_User_Role'
+          nullable: false
         team_id:
           allOf:
             - $ref: '#/components/schemas/Teams_Team_Id'

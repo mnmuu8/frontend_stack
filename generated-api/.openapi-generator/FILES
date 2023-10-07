@@ -29,6 +29,7 @@ models/TeamsTeam.ts
 models/TeamsTeamListInner.ts
 models/UserUpdateRequestBody.ts
 models/UsersUser.ts
+models/UsersUserRole.ts
 models/UsersUserTeam.ts
 models/index.ts
 runtime.ts

@@ -23,4 +23,5 @@ export * from './TeamsTeam';
 export * from './TeamsTeamListInner';
 export * from './UserUpdateRequestBody';
 export * from './UsersUser';
+export * from './UsersUserRole';
 export * from './UsersUserTeam';

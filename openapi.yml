@@ -345,6 +345,9 @@ components:
       required:
         - token_type
         - access_token
+        - user_id
+        - exp
+        - role
       properties:
         token_type:
           allOf:
@@ -361,6 +364,10 @@ components:
         exp:
           allOf:
             - $ref: '#/components/schemas/Auth_Login_Exp'
+          nullable: false
+        role:
+          allOf:
+            - $ref: '#/components/schemas/Users_User_Role'
           nullable: false
 
     Auth_Login_TokenType:

@@ -300,7 +300,7 @@ paths:
         '401':
           description: 認証エラー
         '409':
-          description: チーム名が重複している
+          description: チーム名が重複している/管理者ではない
         '422':
           description: バリデーションエラー
   /api/v1/teams/{team_id}:
@@ -334,7 +334,7 @@ paths:
         '404':
           description: チームが存在しない
         '409':
-          description: チーム名が重複している
+          description: チーム名が重複している/管理者ではない
         '422':
           description: バリデーションエラー
 

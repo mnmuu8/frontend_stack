@@ -16,7 +16,7 @@ import { useRouter } from 'next/router';
 
 const FormModal: FC = () => {
   const appContext = useContext(AppContext);
-  const { formOpen, setFormOpen, formType, showStackIntrospection, setShowStackIntrospection, introspectionFormData } = appContext;
+  const { formOpen, setFormOpen, formType, showStackIntrospection, setShowStackIntrospection, introspectionFormData, setIsRegisterEvent } = appContext;
   const { control, handleSubmit, setValue } = useForm<FormDataParams>();
   const router = useRouter();
 
@@ -46,6 +46,7 @@ const FormModal: FC = () => {
     setFormOpen(false);
 
     setShowStackIntrospection(undefined);
+    setIsRegisterEvent(false)
   }
 
   const onCancel = () => {
@@ -89,7 +90,10 @@ const FormModal: FC = () => {
         }
       };
 
-      updateIntrospection().then(res => router.push('/timeline'));
+      updateIntrospection().then(res => {
+        setIsRegisterEvent(true);
+        router.push('/timeline');
+      });
     }
 
     if (formType === 'createStackIntrospection') {
@@ -113,7 +117,10 @@ const FormModal: FC = () => {
         }
       };
 
-      createIntrospection().then(res => router.push('/timeline'));
+      createIntrospection().then(res => {
+        setIsRegisterEvent(true);
+        router.push('/timeline');
+      });
     }
 
     resetValue(checkAlert);

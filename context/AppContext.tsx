@@ -20,6 +20,8 @@ type AppContextProps = {
   setSessionUser: React.Dispatch<React.SetStateAction<sessionUser>>;
   introspectionFormData: IntrospectionFormDataParams;
   setIntrospectionFormData: Dispatch<SetStateAction<IntrospectionFormDataParams>>,
+  isRegisterEvent: boolean;
+  setIsRegisterEvent: Dispatch<React.SetStateAction<boolean>>;
 }
 
 const AppContext = createContext<AppContextProps>({
@@ -40,7 +42,9 @@ const AppContext = createContext<AppContextProps>({
   sessionUser: undefined,
   setSessionUser: () => {},
   introspectionFormData: {evaluation: 0, reason: "", keeps: [], problems: [], tries: []},
-  setIntrospectionFormData: () => {}
+  setIntrospectionFormData: () => {},
+  isRegisterEvent: false,
+  setIsRegisterEvent: () => {},
 }) 
 
 export default AppContext

@@ -30,6 +30,8 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   const [introspectionFormData, setIntrospectionFormData] = React.useState<IntrospectionFormDataParams>({evaluation: 0, reason: "", keeps: [], problems: [], tries: []})
 
+  const [isRegisterEvent, setIsRegisterEvent] = React.useState<boolean>(false);
+
   return (
     <AppContext.Provider 
       value={{
@@ -51,6 +53,8 @@ function MyApp({ Component, pageProps }: AppProps) {
         setSessionUser: setSessionUser,
         introspectionFormData: introspectionFormData,
         setIntrospectionFormData: setIntrospectionFormData,
+        isRegisterEvent: isRegisterEvent,
+        setIsRegisterEvent: setIsRegisterEvent,
       }}
     >
       <Component {...pageProps} />

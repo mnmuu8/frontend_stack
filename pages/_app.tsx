@@ -3,7 +3,7 @@ import '../styles/globals.css'
 import "tailwindcss/tailwind.css";
 import type { AppProps } from 'next/app'
 import AppContext from '@/context/AppContext';
-import { FormType, IntrospectionProps, sessionUser } from '@/types/types';
+import { FormType, IntrospectionFormDataParams, IntrospectionProps, sessionUser } from '@/types/types';
 
 function MyApp({ Component, pageProps }: AppProps) {
 
@@ -28,6 +28,10 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [showStackIntrospection, setShowStackIntrospection] = React.useState<IntrospectionProps|undefined>(undefined)
   const [sessionUser, setSessionUser] = React.useState<sessionUser>(undefined);
 
+  const [introspectionFormData, setIntrospectionFormData] = React.useState<IntrospectionFormDataParams>({evaluation: 0, reason: "", keeps: [], problems: [], tries: []})
+
+  const [isRegisterEvent, setIsRegisterEvent] = React.useState<boolean>(false);
+
   return (
     <AppContext.Provider 
       value={{
@@ -47,6 +51,10 @@ function MyApp({ Component, pageProps }: AppProps) {
         setShowStackIntrospection: setShowStackIntrospection,
         sessionUser: sessionUser,
         setSessionUser: setSessionUser,
+        introspectionFormData: introspectionFormData,
+        setIntrospectionFormData: setIntrospectionFormData,
+        isRegisterEvent: isRegisterEvent,
+        setIsRegisterEvent: setIsRegisterEvent,
       }}
     >
       <Component {...pageProps} />

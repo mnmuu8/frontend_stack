@@ -127,14 +127,9 @@ export type TextInputProps = ControlProps & {
   value?: string | number
 }
 
-export type IntrospectionProps = {
+export type IntrospectionProps = StacksIntrospectionRequestBody & {
   id: number;
   stack_id: number;
-  evaluation: number;
-  reason: string;
-  keeps: KeepAndProblemAndTryPoint[];
-  problems: KeepAndProblemAndTryPoint[];
-  tries: KeepAndProblemAndTryPoint[];
 } | undefined;
 
 export type StackProps = {
@@ -194,4 +189,8 @@ export type Team = {
   name: string;
   created_at: string;
   updated_at: string;
+}
+
+export type IntrospectionFormDataParams = StacksIntrospectionRequestBody & {
+  stack_id?: number
 }

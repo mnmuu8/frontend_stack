@@ -1,5 +1,5 @@
 import { createContext, Dispatch, SetStateAction } from "react";
-import { FormType, IntrospectionProps, sessionUser } from "@/types/types";
+import { FormType, IntrospectionFormDataParams, IntrospectionProps, sessionUser } from "@/types/types";
 
 type AppContextProps = {
   drawerOpen: boolean;
@@ -17,7 +17,11 @@ type AppContextProps = {
   showStackIntrospection: IntrospectionProps;
   setShowStackIntrospection: Dispatch<SetStateAction<IntrospectionProps>>;
   sessionUser: sessionUser;
-  setSessionUser: React.Dispatch<React.SetStateAction<sessionUser>>
+  setSessionUser: React.Dispatch<React.SetStateAction<sessionUser>>;
+  introspectionFormData: IntrospectionFormDataParams;
+  setIntrospectionFormData: Dispatch<SetStateAction<IntrospectionFormDataParams>>,
+  isRegisterEvent: boolean;
+  setIsRegisterEvent: Dispatch<React.SetStateAction<boolean>>;
 }
 
 const AppContext = createContext<AppContextProps>({
@@ -37,6 +41,10 @@ const AppContext = createContext<AppContextProps>({
   setShowStackIntrospection: () => {},
   sessionUser: undefined,
   setSessionUser: () => {},
+  introspectionFormData: {evaluation: 0, reason: "", keeps: [], problems: [], tries: []},
+  setIntrospectionFormData: () => {},
+  isRegisterEvent: false,
+  setIsRegisterEvent: () => {},
 }) 
 
 export default AppContext

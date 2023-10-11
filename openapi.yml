@@ -354,8 +354,6 @@ paths:
                 $ref: '#/components/schemas/Outputs_OutputList'
         '401':
           description: 認証エラー
-        '422':
-          description: バリデーションエラー
     post:
       summary: アウトプット作成
       operationId: api.v1.outputs.create

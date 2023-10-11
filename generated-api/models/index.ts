@@ -2,6 +2,8 @@
 /* eslint-disable */
 export * from './AuthLogin';
 export * from './AuthLoginRequestBody';
+export * from './OutputCreateRequestBody';
+export * from './OutputsOutput';
 export * from './SkillsSkill';
 export * from './SkillsSkillListInner';
 export * from './StacksCreateRequestBody';

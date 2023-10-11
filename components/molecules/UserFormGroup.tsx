@@ -1,12 +1,12 @@
 import React, { FC, useState, useEffect } from 'react'
 import TextInput from './TextInput';
-import { ControlAndSetValueProps, ApiOptions, Team } from '../../types/types';
+import { ControlAndSetValueProps, ApiOptions, TeamProps } from '../../types/types';
 import { getSession } from '@/utiliry/session';
 import axios from 'axios';
 
 const UserFormGroup: FC<ControlAndSetValueProps> = ({ control, setValue }) => {
   const [query, setQuery] = useState<string>('');
-  const [results, setResults] = useState<Team[]>([]);
+  const [results, setResults] = useState<TeamProps[]>([]);
   const [showResults, setShowResults] = useState<boolean>(false);
   const [teamValue, setTeamValue] = useState<string|number>("");
   const [nameValue, setNameValue] = useState<string>("");
@@ -29,7 +29,7 @@ const UserFormGroup: FC<ControlAndSetValueProps> = ({ control, setValue }) => {
     setQuery(e.target.value)
     setTeamValue(e.target.value);
   };
-  const handleTeamClick = (team: Team) => {
+  const handleTeamClick = (team: TeamProps) => {
     setValue('team', team.id);
     setTeamValue(team.name);
     setShowResults(false);
@@ -152,7 +152,7 @@ const UserFormGroup: FC<ControlAndSetValueProps> = ({ control, setValue }) => {
 
       {showResults && (
         <div className="max-h-[120px] overflow-y-auto">
-          {results.map((team: Team) => (
+          {results.map((team: TeamProps) => (
             <div key={team.id} onClick={() => handleTeamClick(team)} className='cursor-pointer hover:bg-gray-100 py-2 px-2 bg-gray-50'>
               {team.name}
             </div>

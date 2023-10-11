@@ -173,7 +173,7 @@ export type sessionUser = {
   profile_content: string;
   created_at: string;
   updated_at: string;
-  team: Team
+  team: TeamProps
 } | undefined
 
 export type ApiOptions<T extends Record<string, string | number> = {}> = {
@@ -184,7 +184,7 @@ export type ApiOptions<T extends Record<string, string | number> = {}> = {
   params?: T;
 };
 
-export type Team = {
+export type TeamProps = {
   id: number;
   name: string;
   created_at: string;

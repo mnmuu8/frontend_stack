@@ -2,6 +2,7 @@
 /* eslint-disable */
 export * from './AuthApi';
 export * from './IntrospectionApi';
+export * from './OutputApi';
 export * from './SkillApi';
 export * from './StackApi';
 export * from './TeamApi';

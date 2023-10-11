@@ -338,6 +338,31 @@ paths:
         '422':
           description: バリデーションエラー
 
+  /api/v1/outputs/:
+    post:
+      summary: アウトプット作成
+      operationId: api.v1.outputs.create
+      tags:
+        - Output
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OutputCreateRequestBody'
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Outputs_Output'
+        '401':
+          description: 認証エラー
+        '422':
+          description: バリデーションエラー
+
 components:
   schemas:
     Auth_Login:
@@ -761,6 +786,41 @@ components:
       description: グループ名
       example: グループA
 
+    Outputs_Output:
+      type: object
+      required:
+        - id
+        - content
+        - created_at
+        - updated_at
+      properties:
+        id:
+          allOf:
+            - $ref: '#/components/schemas/Outputs_Output_Id'
+          nullable: false
+        content:
+          allOf:
+            - $ref: '#/components/schemas/Outputs_Output_Content'
+          nullable: false
+        created_at:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+          nullable: false
+        updated_at:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+          nullable: false
+
+    Outputs_Output_Id:
+      type: integer
+      description: アウトプットID
+      example: 1
+
+    Outputs_Output_Content:
+      type: string
+      description: アウトプット内容
+      example: アウトプットします
+
     DateTime:
       type: string
       format: date-time
@@ -925,4 +985,14 @@ components:
         name:
           allOf:
             - $ref: '#/components/schemas/Teams_Team_Name'
+          nullable: false
+
+    OutputCreateRequestBody:
+      type: object
+      required:
+        - content
+      properties:
+        content:
+          allOf:
+            - $ref: '#/components/schemas/Outputs_Output_Content'
           nullable: false

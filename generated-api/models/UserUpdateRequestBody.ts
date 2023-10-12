@@ -13,6 +13,13 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { UsersUserRole } from './UsersUserRole';
+import {
+    UsersUserRoleFromJSON,
+    UsersUserRoleFromJSONTyped,
+    UsersUserRoleToJSON,
+} from './UsersUserRole';
+
 /**
  * 
  * @export
@@ -38,6 +45,12 @@ export interface UserUpdateRequestBody {
      */
     profileContent: string | null;
     /**
+     * 
+     * @type {UsersUserRole}
+     * @memberof UserUpdateRequestBody
+     */
+    role: UsersUserRole;
+    /**
      * グループID
      * @type {number}
      * @memberof UserUpdateRequestBody
@@ -53,6 +66,7 @@ export function instanceOfUserUpdateRequestBody(value: object): boolean {
     isInstance = isInstance && "name" in value;
     isInstance = isInstance && "email" in value;
     isInstance = isInstance && "profileContent" in value;
+    isInstance = isInstance && "role" in value;
     isInstance = isInstance && "teamId" in value;
 
     return isInstance;
@@ -71,6 +85,7 @@ export function UserUpdateRequestBodyFromJSONTyped(json: any, ignoreDiscriminato
         'name': json['name'],
         'email': json['email'],
         'profileContent': json['profile_content'],
+        'role': UsersUserRoleFromJSON(json['role']),
         'teamId': json['team_id'],
     };
 }
@@ -87,6 +102,7 @@ export function UserUpdateRequestBodyToJSON(value?: UserUpdateRequestBody | null
         'name': value.name,
         'email': value.email,
         'profile_content': value.profileContent,
+        'role': UsersUserRoleToJSON(value.role),
         'team_id': value.teamId,
     };
 }

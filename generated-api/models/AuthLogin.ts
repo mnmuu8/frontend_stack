@@ -13,6 +13,13 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { UsersUserRole } from './UsersUserRole';
+import {
+    UsersUserRoleFromJSON,
+    UsersUserRoleFromJSONTyped,
+    UsersUserRoleToJSON,
+} from './UsersUserRole';
+
 /**
  * 
  * @export
@@ -36,13 +43,19 @@ export interface AuthLogin {
      * @type {number}
      * @memberof AuthLogin
      */
-    userId?: number;
+    userId: number;
     /**
      * 有効期限切れまでの秒数
      * @type {number}
      * @memberof AuthLogin
      */
-    exp?: number;
+    exp: number;
+    /**
+     * 
+     * @type {UsersUserRole}
+     * @memberof AuthLogin
+     */
+    role: UsersUserRole;
 }
 
 /**
@@ -52,6 +65,9 @@ export function instanceOfAuthLogin(value: object): boolean {
     let isInstance = true;
     isInstance = isInstance && "tokenType" in value;
     isInstance = isInstance && "accessToken" in value;
+    isInstance = isInstance && "userId" in value;
+    isInstance = isInstance && "exp" in value;
+    isInstance = isInstance && "role" in value;
 
     return isInstance;
 }
@@ -68,8 +84,9 @@ export function AuthLoginFromJSONTyped(json: any, ignoreDiscriminator: boolean):
         
         'tokenType': json['token_type'],
         'accessToken': json['access_token'],
-        'userId': !exists(json, 'user_id') ? undefined : json['user_id'],
-        'exp': !exists(json, 'exp') ? undefined : json['exp'],
+        'userId': json['user_id'],
+        'exp': json['exp'],
+        'role': UsersUserRoleFromJSON(json['role']),
     };
 }
 
@@ -86,6 +103,7 @@ export function AuthLoginToJSON(value?: AuthLogin | null): any {
         'access_token': value.accessToken,
         'user_id': value.userId,
         'exp': value.exp,
+        'role': UsersUserRoleToJSON(value.role),
     };
 }
 

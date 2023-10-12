@@ -13,6 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { UsersUserRole } from './UsersUserRole';
+import {
+    UsersUserRoleFromJSON,
+    UsersUserRoleFromJSONTyped,
+    UsersUserRoleToJSON,
+} from './UsersUserRole';
 import type { UsersUserTeam } from './UsersUserTeam';
 import {
     UsersUserTeamFromJSON,
@@ -52,6 +58,12 @@ export interface UsersUser {
     profileContent: string | null;
     /**
      * 
+     * @type {UsersUserRole}
+     * @memberof UsersUser
+     */
+    role: UsersUserRole;
+    /**
+     * 
      * @type {UsersUserTeam}
      * @memberof UsersUser
      */
@@ -79,6 +91,7 @@ export function instanceOfUsersUser(value: object): boolean {
     isInstance = isInstance && "name" in value;
     isInstance = isInstance && "email" in value;
     isInstance = isInstance && "profileContent" in value;
+    isInstance = isInstance && "role" in value;
     isInstance = isInstance && "team" in value;
     isInstance = isInstance && "createdAt" in value;
     isInstance = isInstance && "updatedAt" in value;
@@ -100,6 +113,7 @@ export function UsersUserFromJSONTyped(json: any, ignoreDiscriminator: boolean):
         'name': json['name'],
         'email': json['email'],
         'profileContent': json['profile_content'],
+        'role': UsersUserRoleFromJSON(json['role']),
         'team': UsersUserTeamFromJSON(json['team']),
         'createdAt': (new Date(json['created_at'])),
         'updatedAt': (new Date(json['updated_at'])),
@@ -119,6 +133,7 @@ export function UsersUserToJSON(value?: UsersUser | null): any {
         'name': value.name,
         'email': value.email,
         'profile_content': value.profileContent,
+        'role': UsersUserRoleToJSON(value.role),
         'team': UsersUserTeamToJSON(value.team),
         'created_at': (value.createdAt.toISOString()),
         'updated_at': (value.updatedAt.toISOString()),

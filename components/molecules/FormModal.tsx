@@ -13,10 +13,11 @@ import UserFormGroup from './UserFormGroup';
 import axios from 'axios';
 import { getSession } from '@/utiliry/session';
 import { useRouter } from 'next/router';
+import TeamFormGroup from './TeamFormGroup';
 
 const FormModal: FC = () => {
   const appContext = useContext(AppContext);
-  const { formOpen, setFormOpen, formType, showStackIntrospection, setShowStackIntrospection, introspectionFormData, setIsRegisterEvent } = appContext;
+  const { formOpen, setFormOpen, formType, showStackIntrospection, setShowStackIntrospection, introspectionFormData, setIsRegisterEvent, teamFormData } = appContext;
   const { control, handleSubmit, setValue } = useForm<FormDataParams>();
   const router = useRouter();
 
@@ -123,6 +124,28 @@ const FormModal: FC = () => {
       });
     }
 
+    if (formType === 'createTeam') {
+      checkAlert = window.confirm('チームを作成しますか？');
+
+      const createTeam = async () => {
+        const params = {
+          name: teamFormData
+        }
+        const url: string = `${process.env.API_ROOT_URL}/api/v1/teams`;
+
+        try {
+          const response = await axios.post(url, params, options);
+          return response.data;
+        } catch (error) {
+          throw new Error(`${JSON.stringify(error)}`);
+        }
+      };
+
+      createTeam().then(res => {
+        setIsRegisterEvent(true);
+      });
+    }
+
     resetValue(checkAlert);
   }
 
@@ -226,6 +249,14 @@ const FormModal: FC = () => {
         button: <Button onClick={handleSubmit(onSubmit)} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>更新</Button>
       }
     }
+
+    if (formType === 'createTeam') {
+      return {
+        label: 'チームを作成',
+        component: <TeamFormGroup control={control} />,
+        button: <Button onClick={FormSubmit} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>更新</Button>
+      }
+    }
   }
 
   const cancelButton = <Button onClick={onCancel} className='bg-gray-300 hover:bg-gray-200 text-gray-800 mx-2 w-full py-4'>キャンセル</Button>
@@ -234,7 +265,7 @@ const FormModal: FC = () => {
   return (
     <>
       <Modal open={formOpen}>
-        <Box className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-white w-[720px] h-[80vh] p-10 flex flex-col overflow-y-scroll">
+        <Box className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-white w-[720px] h-auto max-h-[80vh] p-10 flex flex-col overflow-y-scroll">
           <div className='flex-1'>
             <div className='text-center text-2xl font-bold'>{currentFormGroup?.label}</div>
             <div className='flex flex-col'>

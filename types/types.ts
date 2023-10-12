@@ -154,7 +154,7 @@ export type SelectBoxProps = {
   handleOptionChange: (event: SelectChangeEvent<string>) => void;
 }
 
-export type FormType = 'updateUser' | 'createStack' | 'createStackIntrospection' | 'showStackIntrospection' | 'updateStackIntrospection'
+export type FormType = 'updateUser' | 'createStack' | 'createStackIntrospection' | 'showStackIntrospection' | 'updateStackIntrospection' | 'createTeam'
 
 export type FormTypeProps = ControlAndSetValueProps & {
   formType: FormType;

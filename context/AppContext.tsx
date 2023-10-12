@@ -22,6 +22,8 @@ type AppContextProps = {
   setIntrospectionFormData: Dispatch<SetStateAction<IntrospectionFormDataParams>>,
   isRegisterEvent: boolean;
   setIsRegisterEvent: Dispatch<React.SetStateAction<boolean>>;
+  teamFormData: string;
+  setTeamFormData: Dispatch<React.SetStateAction<string>>
 }
 
 const AppContext = createContext<AppContextProps>({
@@ -45,6 +47,8 @@ const AppContext = createContext<AppContextProps>({
   setIntrospectionFormData: () => {},
   isRegisterEvent: false,
   setIsRegisterEvent: () => {},
+  teamFormData: '',
+  setTeamFormData: () => {},
 }) 
 
 export default AppContext

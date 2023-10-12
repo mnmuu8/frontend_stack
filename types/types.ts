@@ -154,7 +154,7 @@ export type SelectBoxProps = {
   handleOptionChange: (event: SelectChangeEvent<string>) => void;
 }
 
-export type FormType = 'updateUser' | 'createStack' | 'createStackIntrospection' | 'showStackIntrospection' | 'updateStackIntrospection'
+export type FormType = 'updateUser' | 'createStack' | 'createStackIntrospection' | 'showStackIntrospection' | 'updateStackIntrospection' | 'createTeam' | 'updateTeam'
 
 export type FormTypeProps = ControlAndSetValueProps & {
   formType: FormType;
@@ -173,7 +173,7 @@ export type sessionUser = {
   profile_content: string;
   created_at: string;
   updated_at: string;
-  team: Team
+  team: TeamProps
 } | undefined
 
 export type ApiOptions<T extends Record<string, string | number> = {}> = {
@@ -184,7 +184,7 @@ export type ApiOptions<T extends Record<string, string | number> = {}> = {
   params?: T;
 };
 
-export type Team = {
+export type TeamProps = {
   id: number;
   name: string;
   created_at: string;
@@ -193,4 +193,17 @@ export type Team = {
 
 export type IntrospectionFormDataParams = StacksIntrospectionRequestBody & {
   stack_id?: number
+}
+
+export type TeamFormDataParams = {
+  id?: number,
+  name: string
+}
+
+export type UserFormDataParams = {
+  role: string;
+  name: string;
+  email: string;
+  profile_content: string;
+  team: TeamFormDataParams;
 }

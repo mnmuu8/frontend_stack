@@ -1,10 +1,11 @@
-export const setSession = (token: string, userId: number, exp: number) => {
+export const setSession = (token: string, userId: number, exp: number, role: string) => {
   const lastActivity = new Date().getTime();
   const session = {
     token,
     userId,
     exp,
     lastActivity,
+    role,
   };
   localStorage.setItem('session', JSON.stringify(session));
 };

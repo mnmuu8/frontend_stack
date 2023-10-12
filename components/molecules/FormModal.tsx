@@ -13,10 +13,22 @@ import UserFormGroup from './UserFormGroup';
 import axios from 'axios';
 import { getSession } from '@/utiliry/session';
 import { useRouter } from 'next/router';
+import TeamFormGroup from './TeamFormGroup';
 
 const FormModal: FC = () => {
   const appContext = useContext(AppContext);
-  const { formOpen, setFormOpen, formType, showStackIntrospection, setShowStackIntrospection, introspectionFormData, setIsRegisterEvent } = appContext;
+  const { 
+    formOpen, 
+    setFormOpen, 
+    formType, 
+    showStackIntrospection, 
+    setShowStackIntrospection, 
+    introspectionFormData, 
+    setIsRegisterEvent, 
+    teamFormData, 
+    setTeamFormData, 
+    userFormData,
+  } = appContext;
   const { control, handleSubmit, setValue } = useForm<FormDataParams>();
   const router = useRouter();
 
@@ -46,7 +58,10 @@ const FormModal: FC = () => {
     setFormOpen(false);
 
     setShowStackIntrospection(undefined);
+
     setIsRegisterEvent(false)
+
+    setTeamFormData({name: ""})
   }
 
   const onCancel = () => {
@@ -123,6 +138,74 @@ const FormModal: FC = () => {
       });
     }
 
+    if (formType === 'createTeam') {
+      checkAlert = window.confirm('チームを作成しますか？');
+
+      const createTeam = async () => {
+        const params = {
+          name: teamFormData.name
+        }
+        const url: string = `${process.env.API_ROOT_URL}/api/v1/teams`;
+
+        try {
+          const response = await axios.post(url, params, options);
+          return response.data;
+        } catch (error) {
+          throw new Error(`${JSON.stringify(error)}`);
+        }
+      };
+
+      createTeam().then(res => {
+        setIsRegisterEvent(true);
+      });
+    }
+
+    if (formType === 'updateTeam') {
+      checkAlert = window.confirm('チームを更新しますか？');
+
+      const createTeam = async () => {
+        const params = {
+          name: teamFormData.name
+        }
+        const url: string = `${process.env.API_ROOT_URL}/api/v1/teams/${teamFormData.id}`;
+
+        try {
+          const response = await axios.patch(url, params, options);
+          return response.data;
+        } catch (error) {
+          throw new Error(`${JSON.stringify(error)}`);
+        }
+      };
+
+      createTeam().then(res => {
+        setIsRegisterEvent(true);
+      });
+    }
+
+    if (formType === 'updateUser') {
+      checkAlert = window.confirm('ユーザー情報を更新しますか？');
+
+      const updateUser = async () => {
+        const params = {
+          role: userFormData.role,
+          name: userFormData.name,
+          email: userFormData.email,
+          profile_content: userFormData.profile_content,
+          user_id: sessionData.userId,
+          team_id: userFormData.team.id,
+        }
+        const url: string = `${process.env.API_ROOT_URL}/api/v1/users/${sessionData.userId}`;
+        try {
+          const response = await axios.patch(url, params, options);
+          return response.data;
+        } catch (error) {
+          throw new Error(`${JSON.stringify(error)}`);
+        }
+      };
+
+      updateUser().then(res => router.push('/mypage'));
+    }
+
     resetValue(checkAlert);
   }
 
@@ -160,29 +243,6 @@ const FormModal: FC = () => {
       });
     }
 
-    if (formType === 'updateUser') {
-      checkAlert = window.confirm('ユーザー情報を更新しますか？');
-
-      const updateUser = async () => {
-        const params = {
-          name: data.name,
-          email: data.email,
-          profile_content: data.profile_content,
-          user_id: sessionData.userId,
-          team_id: data.team
-        }
-        const url: string = `${process.env.API_ROOT_URL}/api/v1/users/${sessionData.userId}`;
-        try {
-          const response = await axios.patch(url, params, options);
-          return response.data;
-        } catch (error) {
-          throw new Error(`${JSON.stringify(error)}`);
-        }
-      };
-
-      updateUser().then(res => router.push('/mypage'));
-    }
-
     resetValue(checkAlert);
   }
 
@@ -215,7 +275,7 @@ const FormModal: FC = () => {
       return {
         label: 'update User',
         component: <UserFormGroup setValue={setValue} control={control} />,
-        button: <Button onClick={handleSubmit(onSubmit)} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>更新</Button>
+        button: <Button onClick={FormSubmit} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>更新</Button>
       }
     }
 
@@ -226,6 +286,22 @@ const FormModal: FC = () => {
         button: <Button onClick={handleSubmit(onSubmit)} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>更新</Button>
       }
     }
+
+    if (formType === 'createTeam') {
+      return {
+        label: 'チームを作成',
+        component: <TeamFormGroup control={control} />,
+        button: <Button onClick={FormSubmit} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>作成</Button>
+      }
+    }
+
+    if (formType === 'updateTeam') {
+      return {
+        label: 'チームを更新',
+        component: <TeamFormGroup control={control} />,
+        button: <Button onClick={FormSubmit} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>更新</Button>
+      }
+    }
   }
 
   const cancelButton = <Button onClick={onCancel} className='bg-gray-300 hover:bg-gray-200 text-gray-800 mx-2 w-full py-4'>キャンセル</Button>
@@ -234,7 +310,7 @@ const FormModal: FC = () => {
   return (
     <>
       <Modal open={formOpen}>
-        <Box className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-white w-[720px] h-[80vh] p-10 flex flex-col overflow-y-scroll">
+        <Box className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-white w-[720px] h-auto max-h-[80vh] p-10 flex flex-col overflow-y-scroll">
           <div className='flex-1'>
             <div className='text-center text-2xl font-bold'>{currentFormGroup?.label}</div>
             <div className='flex flex-col'>

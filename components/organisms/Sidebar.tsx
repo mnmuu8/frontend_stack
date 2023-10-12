@@ -16,6 +16,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MessageIcon from '@mui/icons-material/Message';
 import CastForEducationIcon from '@mui/icons-material/CastForEducation';
+import TeamList from '../molecules/TeamList';
 
 const Sidebar: FC = () => {
   const appContext = useContext(AppContext);
@@ -47,19 +48,22 @@ const Sidebar: FC = () => {
             <ChevronLeftIcon />
           </IconButton>
         </div>
-        <Divider />
-        <List className='bg-gray-50 flex-grow'>
-          {sidebarMenus.map((menu) => (
-            <ListItem key={menu.id} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {menu.icon}
-                </ListItemIcon>
-                <Link href={menu.value}>{menu.label}</Link>
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
+        <div className='bg-gray-50 flex-grow'>
+          <List>
+            {sidebarMenus.map((menu) => (
+              <ListItem key={menu.id} disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    {menu.icon}
+                  </ListItemIcon>
+                  <Link href={menu.value}>{menu.label}</Link>
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+          <Divider />
+          <TeamList />
+        </div>
       </Drawer>
     </aside>
   )

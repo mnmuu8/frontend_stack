@@ -36,7 +36,7 @@ const CheckBoxGroup: FC<ControlAndSetValueProps> = ({ control, setValue }) => {
   }, [])
 
   return (
-    <Box className="mt-4">
+    <Box className="StackForm-Checkbox mt-4">
       <Controller
         name="skill"
         control={control}

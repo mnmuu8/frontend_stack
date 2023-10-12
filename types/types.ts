@@ -199,3 +199,11 @@ export type TeamFormDataParams = {
   id?: number,
   name: string
 }
+
+export type UserFormDataParams = {
+  role: string;
+  name: string;
+  email: string;
+  profile_content: string;
+  team: TeamFormDataParams;
+}

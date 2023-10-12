@@ -17,7 +17,18 @@ import TeamFormGroup from './TeamFormGroup';
 
 const FormModal: FC = () => {
   const appContext = useContext(AppContext);
-  const { formOpen, setFormOpen, formType, showStackIntrospection, setShowStackIntrospection, introspectionFormData, setIsRegisterEvent, teamFormData, setTeamFormData } = appContext;
+  const { 
+    formOpen, 
+    setFormOpen, 
+    formType, 
+    showStackIntrospection, 
+    setShowStackIntrospection, 
+    introspectionFormData, 
+    setIsRegisterEvent, 
+    teamFormData, 
+    setTeamFormData, 
+    userFormData,
+  } = appContext;
   const { control, handleSubmit, setValue } = useForm<FormDataParams>();
   const router = useRouter();
 
@@ -171,6 +182,30 @@ const FormModal: FC = () => {
       });
     }
 
+    if (formType === 'updateUser') {
+      checkAlert = window.confirm('ユーザー情報を更新しますか？');
+
+      const updateUser = async () => {
+        const params = {
+          role: userFormData.role,
+          name: userFormData.name,
+          email: userFormData.email,
+          profile_content: userFormData.profile_content,
+          user_id: sessionData.userId,
+          team_id: userFormData.team.id,
+        }
+        const url: string = `${process.env.API_ROOT_URL}/api/v1/users/${sessionData.userId}`;
+        try {
+          const response = await axios.patch(url, params, options);
+          return response.data;
+        } catch (error) {
+          throw new Error(`${JSON.stringify(error)}`);
+        }
+      };
+
+      updateUser().then(res => router.push('/mypage'));
+    }
+
     resetValue(checkAlert);
   }
 
@@ -208,29 +243,6 @@ const FormModal: FC = () => {
       });
     }
 
-    if (formType === 'updateUser') {
-      checkAlert = window.confirm('ユーザー情報を更新しますか？');
-
-      const updateUser = async () => {
-        const params = {
-          name: data.name,
-          email: data.email,
-          profile_content: data.profile_content,
-          user_id: sessionData.userId,
-          team_id: data.team
-        }
-        const url: string = `${process.env.API_ROOT_URL}/api/v1/users/${sessionData.userId}`;
-        try {
-          const response = await axios.patch(url, params, options);
-          return response.data;
-        } catch (error) {
-          throw new Error(`${JSON.stringify(error)}`);
-        }
-      };
-
-      updateUser().then(res => router.push('/mypage'));
-    }
-
     resetValue(checkAlert);
   }
 
@@ -263,7 +275,7 @@ const FormModal: FC = () => {
       return {
         label: 'update User',
         component: <UserFormGroup setValue={setValue} control={control} />,
-        button: <Button onClick={handleSubmit(onSubmit)} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>更新</Button>
+        button: <Button onClick={FormSubmit} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>更新</Button>
       }
     }
 

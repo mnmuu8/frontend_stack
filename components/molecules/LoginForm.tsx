@@ -17,7 +17,7 @@ const LoginForm: FC = () => {
     })
     .then(response => {
       const { data } = response;
-      setSession(data.access_token, data.user_id, data.exp);
+      setSession(data.access_token, data.user_id, data.exp, data.role);
       router.push('/');
     })
     .catch(error => {

@@ -1,5 +1,5 @@
 import { createContext, Dispatch, SetStateAction } from "react";
-import { FormType, IntrospectionFormDataParams, IntrospectionProps, sessionUser, TeamFormDataParams } from "@/types/types";
+import { FormType, IntrospectionFormDataParams, IntrospectionProps, sessionUser, TeamFormDataParams, UserFormDataParams } from "@/types/types";
 
 type AppContextProps = {
   drawerOpen: boolean;
@@ -24,6 +24,8 @@ type AppContextProps = {
   setIsRegisterEvent: Dispatch<React.SetStateAction<boolean>>;
   teamFormData: TeamFormDataParams;
   setTeamFormData: Dispatch<React.SetStateAction<TeamFormDataParams>>
+  userFormData: UserFormDataParams;
+  setUserFormData: Dispatch<React.SetStateAction<UserFormDataParams>>
 }
 
 const AppContext = createContext<AppContextProps>({
@@ -49,6 +51,8 @@ const AppContext = createContext<AppContextProps>({
   setIsRegisterEvent: () => {},
   teamFormData: {name: ""},
   setTeamFormData: () => {},
+  userFormData: {role: "", name: "", email: "", profile_content: "",team: {name: ""}},
+  setUserFormData: () => {},
 }) 
 
 export default AppContext

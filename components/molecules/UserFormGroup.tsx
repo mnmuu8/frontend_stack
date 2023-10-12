@@ -1,37 +1,51 @@
-import React, { FC, useState, useEffect } from 'react'
+import React, { FC, useState, useEffect, useContext } from 'react'
 import TextInput from './TextInput';
 import { ControlAndSetValueProps, ApiOptions, TeamProps } from '../../types/types';
 import { getSession } from '@/utiliry/session';
+import AppContext from '@/context/AppContext';
 import axios from 'axios';
+
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
 
 const UserFormGroup: FC<ControlAndSetValueProps> = ({ control, setValue }) => {
   const [query, setQuery] = useState<string>('');
   const [results, setResults] = useState<TeamProps[]>([]);
   const [showResults, setShowResults] = useState<boolean>(false);
-  const [teamValue, setTeamValue] = useState<string|number>("");
-  const [nameValue, setNameValue] = useState<string>("");
-  const [EmailValue, setEmailValue] = useState<string>("");
-  const [ProfileContentValue, setProfileContentValue] = useState<string>("");
+
+  const appContext = useContext(AppContext);
+  const { userFormData, setUserFormData } = appContext
+
+  const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    
+    setUserFormData({
+      ...userFormData,
+      [name]: value,
+    });
+  };
 
   const handleTextInputClick = () => {
     setShowResults(true);
   };
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNameValue(e.target.value)
-  };
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmailValue(e.target.value)
-  };
-  const handleProfileContentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setProfileContentValue(e.target.value)
-  };
+
   const handleTeamChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value)
-    setTeamValue(e.target.value);
+    setUserFormData({
+      ...userFormData,
+      team: {
+        name: e.target.value,
+      }
+    });
   };
+
   const handleTeamClick = (team: TeamProps) => {
-    setValue('team', team.id);
-    setTeamValue(team.name);
+    setUserFormData({
+      ...userFormData,
+      team: team
+    });
     setShowResults(false);
   }
 
@@ -56,10 +70,13 @@ const UserFormGroup: FC<ControlAndSetValueProps> = ({ control, setValue }) => {
     }
 
     fetchUser().then(res => {
-      setNameValue(res.name);
-      setEmailValue(res.email);
-      setProfileContentValue(res.profile_content);
-      setTeamValue(res.team.name);
+      setUserFormData({
+        role: res.role,
+        name: res.name,
+        email: res.email,
+        profile_content: res.profile_content,
+        team: res.team
+      });
     });
   }, [])
 
@@ -89,6 +106,18 @@ const UserFormGroup: FC<ControlAndSetValueProps> = ({ control, setValue }) => {
 
   return (
     <>
+      <FormControl>
+        <RadioGroup
+          row
+          name="role"
+          value={userFormData.role}
+          onChange={handleFieldChange}
+        >
+          <FormControlLabel value="admin" control={<Radio />} label="管理者" />
+          <FormControlLabel value="general" control={<Radio />} label="一般" />
+        </RadioGroup>
+      </FormControl>
+
       <TextInput
         control={control}
         name={"name"}
@@ -100,8 +129,8 @@ const UserFormGroup: FC<ControlAndSetValueProps> = ({ control, setValue }) => {
         label={"ユーザー名"}
         placeholder={"uyu_morning"}
         type='text'
-        onChange={(e) => handleNameChange(e)}
-        value={nameValue}
+        onChange={handleFieldChange}
+        value={userFormData.name}
       />
 
       <TextInput
@@ -115,8 +144,8 @@ const UserFormGroup: FC<ControlAndSetValueProps> = ({ control, setValue }) => {
         label={"メールアドレス"}
         placeholder={"example@example.com"}
         type='text'
-        onChange={(e) => handleEmailChange(e)}
-        value={EmailValue}
+        onChange={handleFieldChange}
+        value={userFormData.email}
       />
 
       <TextInput
@@ -130,8 +159,8 @@ const UserFormGroup: FC<ControlAndSetValueProps> = ({ control, setValue }) => {
         label={"プロフィール内容"}
         placeholder={"私はWebエンジニアでReactを得意としております..."}
         type='text'
-        onChange={(e) => handleProfileContentChange(e)}
-        value={ProfileContentValue}
+        onChange={handleFieldChange}
+        value={userFormData.profile_content}
       />
 
       <TextInput
@@ -147,7 +176,7 @@ const UserFormGroup: FC<ControlAndSetValueProps> = ({ control, setValue }) => {
         type='text'
         onChange={(e) => handleTeamChange(e)}
         onClick={handleTextInputClick}
-        value={teamValue}
+        value={userFormData.team.name}
       />
 
       {showResults && (

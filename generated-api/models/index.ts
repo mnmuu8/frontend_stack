@@ -4,6 +4,7 @@ export * from './AuthLogin';
 export * from './AuthLoginRequestBody';
 export * from './OutputCreateRequestBody';
 export * from './OutputsOutput';
+export * from './OutputsOutputListInner';
 export * from './SkillsSkill';
 export * from './SkillsSkillListInner';
 export * from './StacksCreateRequestBody';

@@ -339,6 +339,21 @@ paths:
           description: バリデーションエラー
 
   /api/v1/outputs/:
+    get:
+      summary: アウトプット一覧
+      operationId: api.v1.outputs.index
+      tags:
+        - Output
+      security: []
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Outputs_OutputList'
+        '401':
+          description: 認証エラー
     post:
       summary: アウトプット作成
       operationId: api.v1.outputs.create
@@ -805,6 +820,12 @@ components:
       type: string
       description: グループ名
       example: グループA
+
+    Outputs_OutputList:
+      type: array
+      items:
+        allOf:
+          - $ref: '#/components/schemas/Outputs_Output'
 
     Outputs_Output:
       type: object

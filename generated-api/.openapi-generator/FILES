@@ -11,6 +11,7 @@ models/AuthLogin.ts
 models/AuthLoginRequestBody.ts
 models/OutputCreateRequestBody.ts
 models/OutputsOutput.ts
+models/OutputsOutputListInner.ts
 models/SkillsSkill.ts
 models/SkillsSkillListInner.ts
 models/StacksCreateRequestBody.ts

@@ -17,12 +17,15 @@ import * as runtime from '../runtime';
 import type {
   OutputCreateRequestBody,
   OutputsOutput,
+  OutputsOutputListInner,
 } from '../models';
 import {
     OutputCreateRequestBodyFromJSON,
     OutputCreateRequestBodyToJSON,
     OutputsOutputFromJSON,
     OutputsOutputToJSON,
+    OutputsOutputListInnerFromJSON,
+    OutputsOutputListInnerToJSON,
 } from '../models';
 
 export interface ApiV1OutputsCreateRequest {
@@ -64,6 +67,32 @@ export class OutputApi extends runtime.BaseAPI {
      */
     async apiV1OutputsCreate(requestParameters: ApiV1OutputsCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OutputsOutput> {
         const response = await this.apiV1OutputsCreateRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * アウトプット一覧
+     */
+    async apiV1OutputsIndexRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<OutputsOutputListInner>>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/api/v1/outputs/`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(OutputsOutputListInnerFromJSON));
+    }
+
+    /**
+     * アウトプット一覧
+     */
+    async apiV1OutputsIndex(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<OutputsOutputListInner>> {
+        const response = await this.apiV1OutputsIndexRaw(initOverrides);
         return await response.value();
     }
 

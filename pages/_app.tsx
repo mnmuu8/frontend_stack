@@ -3,7 +3,7 @@ import '../styles/globals.css'
 import "tailwindcss/tailwind.css";
 import type { AppProps } from 'next/app'
 import AppContext from '@/context/AppContext';
-import { FormType, IntrospectionFormDataParams, IntrospectionProps, sessionUser } from '@/types/types';
+import { FormType, IntrospectionFormDataParams, IntrospectionProps, TeamFormDataParams, sessionUser } from '@/types/types';
 
 function MyApp({ Component, pageProps }: AppProps) {
 
@@ -29,7 +29,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [sessionUser, setSessionUser] = React.useState<sessionUser>(undefined);
 
   const [introspectionFormData, setIntrospectionFormData] = React.useState<IntrospectionFormDataParams>({evaluation: 0, reason: "", keeps: [], problems: [], tries: []})
-  const [teamFormData, setTeamFormData] = React.useState<string>("")
+  const [teamFormData, setTeamFormData] = React.useState<TeamFormDataParams>({name: ""})
 
   const [isRegisterEvent, setIsRegisterEvent] = React.useState<boolean>(false);
 

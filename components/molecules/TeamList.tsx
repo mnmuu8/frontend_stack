@@ -48,7 +48,7 @@ const TeamList: FC = () => {
       <div>
         {teams &&
           teams.map((team: TeamProps) => (
-            <TeamListItem key={team.id} name={team.name} />
+            <TeamListItem key={team.id} id={team.id} name={team.name} />
           ))
         }
       </div>

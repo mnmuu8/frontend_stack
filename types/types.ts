@@ -154,7 +154,7 @@ export type SelectBoxProps = {
   handleOptionChange: (event: SelectChangeEvent<string>) => void;
 }
 
-export type FormType = 'updateUser' | 'createStack' | 'createStackIntrospection' | 'showStackIntrospection' | 'updateStackIntrospection' | 'createTeam'
+export type FormType = 'updateUser' | 'createStack' | 'createStackIntrospection' | 'showStackIntrospection' | 'updateStackIntrospection' | 'createTeam' | 'updateTeam'
 
 export type FormTypeProps = ControlAndSetValueProps & {
   formType: FormType;
@@ -193,4 +193,9 @@ export type TeamProps = {
 
 export type IntrospectionFormDataParams = StacksIntrospectionRequestBody & {
   stack_id?: number
+}
+
+export type TeamFormDataParams = {
+  id?: number,
+  name: string
 }

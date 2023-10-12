@@ -17,7 +17,7 @@ import TeamFormGroup from './TeamFormGroup';
 
 const FormModal: FC = () => {
   const appContext = useContext(AppContext);
-  const { formOpen, setFormOpen, formType, showStackIntrospection, setShowStackIntrospection, introspectionFormData, setIsRegisterEvent, teamFormData } = appContext;
+  const { formOpen, setFormOpen, formType, showStackIntrospection, setShowStackIntrospection, introspectionFormData, setIsRegisterEvent, teamFormData, setTeamFormData } = appContext;
   const { control, handleSubmit, setValue } = useForm<FormDataParams>();
   const router = useRouter();
 
@@ -47,7 +47,10 @@ const FormModal: FC = () => {
     setFormOpen(false);
 
     setShowStackIntrospection(undefined);
+
     setIsRegisterEvent(false)
+
+    setTeamFormData({name: ""})
   }
 
   const onCancel = () => {
@@ -129,12 +132,34 @@ const FormModal: FC = () => {
 
       const createTeam = async () => {
         const params = {
-          name: teamFormData
+          name: teamFormData.name
         }
         const url: string = `${process.env.API_ROOT_URL}/api/v1/teams`;
 
         try {
           const response = await axios.post(url, params, options);
+          return response.data;
+        } catch (error) {
+          throw new Error(`${JSON.stringify(error)}`);
+        }
+      };
+
+      createTeam().then(res => {
+        setIsRegisterEvent(true);
+      });
+    }
+
+    if (formType === 'updateTeam') {
+      checkAlert = window.confirm('チームを更新しますか？');
+
+      const createTeam = async () => {
+        const params = {
+          name: teamFormData.name
+        }
+        const url: string = `${process.env.API_ROOT_URL}/api/v1/teams/${teamFormData.id}`;
+
+        try {
+          const response = await axios.patch(url, params, options);
           return response.data;
         } catch (error) {
           throw new Error(`${JSON.stringify(error)}`);
@@ -253,6 +278,14 @@ const FormModal: FC = () => {
     if (formType === 'createTeam') {
       return {
         label: 'チームを作成',
+        component: <TeamFormGroup control={control} />,
+        button: <Button onClick={FormSubmit} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>作成</Button>
+      }
+    }
+
+    if (formType === 'updateTeam') {
+      return {
+        label: 'チームを更新',
         component: <TeamFormGroup control={control} />,
         button: <Button onClick={FormSubmit} className='bg-blue-400 hover:bg-blue-300 text-white mx-2 w-full' type='submit'>更新</Button>
       }

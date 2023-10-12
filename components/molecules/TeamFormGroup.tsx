@@ -1,4 +1,4 @@
-import React, { FC, useContext, useState } from 'react'
+import React, { FC, useContext } from 'react'
 import TextInput from './TextInput';
 import { ControlProps } from '@/types/types';
 import AppContext from '@/context/AppContext';
@@ -7,7 +7,12 @@ const TeamFormGroup: FC<ControlProps> = ({ control }) => {
   const appContext = useContext(AppContext);
   const { teamFormData, setTeamFormData } = appContext;
 
-  console.log(teamFormData);
+  const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {    
+    setTeamFormData({
+      ...teamFormData,
+      name: e.target.value,
+    });
+  };
 
   return (
     <>
@@ -22,8 +27,8 @@ const TeamFormGroup: FC<ControlProps> = ({ control }) => {
         label={"チーム名"}
         placeholder={"エンジニア第７世代"}
         type='text'
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTeamFormData(e.target.value)}
-        value={teamFormData}
+        onChange={handleFieldChange}
+        value={teamFormData.name}
       />
     </>
   )

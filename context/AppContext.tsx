@@ -1,5 +1,5 @@
 import { createContext, Dispatch, SetStateAction } from "react";
-import { FormType, IntrospectionFormDataParams, IntrospectionProps, sessionUser } from "@/types/types";
+import { FormType, IntrospectionFormDataParams, IntrospectionProps, sessionUser, TeamFormDataParams } from "@/types/types";
 
 type AppContextProps = {
   drawerOpen: boolean;
@@ -22,8 +22,8 @@ type AppContextProps = {
   setIntrospectionFormData: Dispatch<SetStateAction<IntrospectionFormDataParams>>,
   isRegisterEvent: boolean;
   setIsRegisterEvent: Dispatch<React.SetStateAction<boolean>>;
-  teamFormData: string;
-  setTeamFormData: Dispatch<React.SetStateAction<string>>
+  teamFormData: TeamFormDataParams;
+  setTeamFormData: Dispatch<React.SetStateAction<TeamFormDataParams>>
 }
 
 const AppContext = createContext<AppContextProps>({
@@ -47,7 +47,7 @@ const AppContext = createContext<AppContextProps>({
   setIntrospectionFormData: () => {},
   isRegisterEvent: false,
   setIsRegisterEvent: () => {},
-  teamFormData: '',
+  teamFormData: {name: ""},
   setTeamFormData: () => {},
 }) 
 

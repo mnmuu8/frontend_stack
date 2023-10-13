@@ -32,6 +32,10 @@ export interface ApiV1OutputsCreateRequest {
     outputCreateRequestBody: OutputCreateRequestBody;
 }
 
+export interface ApiV1OutputsShowRequest {
+    outputId: number;
+}
+
 /**
  * 
  */
@@ -93,6 +97,36 @@ export class OutputApi extends runtime.BaseAPI {
      */
     async apiV1OutputsIndex(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<OutputsOutputListInner>> {
         const response = await this.apiV1OutputsIndexRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * アウトプット詳細
+     */
+    async apiV1OutputsShowRaw(requestParameters: ApiV1OutputsShowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OutputsOutput>> {
+        if (requestParameters.outputId === null || requestParameters.outputId === undefined) {
+            throw new runtime.RequiredError('outputId','Required parameter requestParameters.outputId was null or undefined when calling apiV1OutputsShow.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/api/v1/outputs/{output_id}`.replace(`{${"output_id"}}`, encodeURIComponent(String(requestParameters.outputId))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => OutputsOutputFromJSON(jsonValue));
+    }
+
+    /**
+     * アウトプット詳細
+     */
+    async apiV1OutputsShow(requestParameters: ApiV1OutputsShowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OutputsOutput> {
+        const response = await this.apiV1OutputsShowRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

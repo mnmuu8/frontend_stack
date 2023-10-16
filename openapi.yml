@@ -377,6 +377,32 @@ paths:
           description: 認証エラー
         '422':
           description: バリデーションエラー
+  /api/v1/outputs/{output_id}:
+    get:
+      summary: アウトプット詳細
+      operationId: api.v1.outputs.show
+      tags:
+        - Output
+      security: []
+      parameters:
+        - name: output_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Outputs_Output_Id'
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Outputs_Output'
+        '401':
+          description: 認証エラー
+        '404':
+          description: アウトプットが存在しない
+        '422':
+          description: バリデーションエラー
 
 components:
   schemas:

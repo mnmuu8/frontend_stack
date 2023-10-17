@@ -51,7 +51,7 @@ export interface UserUpdateRequestBody {
      */
     role: UsersUserRole;
     /**
-     * グループID
+     * チームID
      * @type {number}
      * @memberof UserUpdateRequestBody
      */

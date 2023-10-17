@@ -3,7 +3,7 @@ import '../styles/globals.css'
 import "tailwindcss/tailwind.css";
 import type { AppProps } from 'next/app'
 import AppContext from '@/context/AppContext';
-import { FormType, IntrospectionFormDataParams, IntrospectionProps, TeamFormDataParams, UserFormDataParams, sessionUser } from '@/types/types';
+import { FormType, IntrospectionFormDataParams, IntrospectionProps, StackFormDataParams, TeamFormDataParams, UserFormDataParams, sessionUser } from '@/types/types';
 
 function MyApp({ Component, pageProps }: AppProps) {
 
@@ -31,6 +31,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [introspectionFormData, setIntrospectionFormData] = React.useState<IntrospectionFormDataParams>({evaluation: 0, reason: "", keeps: [], problems: [], tries: []})
   const [teamFormData, setTeamFormData] = React.useState<TeamFormDataParams>({name: ""})
   const [userFormData, setUserFormData] = React.useState<UserFormDataParams>({role: "", name: "", email: "", profile_content: "", team: {name: ""}})
+  const [stackFormData, setStackFormData] = React.useState<StackFormDataParams>({skill: "", stacked_at: null, minutes: 0, title: "", description: ""})
 
   const [isRegisterEvent, setIsRegisterEvent] = React.useState<boolean>(false);
 
@@ -61,6 +62,8 @@ function MyApp({ Component, pageProps }: AppProps) {
         setTeamFormData: setTeamFormData,
         userFormData: userFormData,
         setUserFormData: setUserFormData,
+        stackFormData: stackFormData,
+        setStackFormData: setStackFormData,
       }}
     >
       <Component {...pageProps} />

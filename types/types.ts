@@ -1,5 +1,4 @@
 import { ReactNode } from "react"
-import { UseFormSetValue, Control, ControllerRenderProps } from 'react-hook-form';
 import { SelectChangeEvent } from '@mui/material/Select';
 import { StaticImageData } from "next/image";
 
@@ -92,33 +91,13 @@ export type UserUpdateRequestBody = {
   team: number;
 }
 
-export type FormDataParams = StacksCreateRequestBody & StacksIntrospectionRequestBody & UserUpdateRequestBody;
-
-export type onSubmitType = (data: FormDataParams) => void;
-
-export type ControlProps = {
-  control: Control<FormDataParams, any>
-}
-export type DateInputProps = ControlProps;
-export type RichTextEditorProps = ControlProps;
-
-export type ControlAndSetValueProps =  ControlProps & {
-  setValue: UseFormSetValue<FormDataParams>
-}
-
-export type CheckBoxLabelProps = {
-  skill: Skill;
-  setValue: UseFormSetValue<FormDataParams>;
-  field: ControllerRenderProps<FormDataParams, "skill">;
-}
-
-export type TextInputProps = ControlProps & {
-  name: any;
+export type TextInputProps = {
+  name: string;
   fullWidth: boolean;
   multiline: boolean;
   minRows: number;
-  required: boolean;
-  requiredMessage: string;
+  required?: boolean;
+  requiredMessage?: string;
   label: string;
   placeholder: string;
   type: string;
@@ -156,7 +135,7 @@ export type SelectBoxProps = {
 
 export type FormType = 'updateUser' | 'createStack' | 'createStackIntrospection' | 'showStackIntrospection' | 'updateStackIntrospection' | 'createTeam' | 'updateTeam'
 
-export type FormTypeProps = ControlAndSetValueProps & {
+export type FormTypeProps = {
   formType: FormType;
 }
 
@@ -206,4 +185,12 @@ export type UserFormDataParams = {
   email: string;
   profile_content: string;
   team: TeamFormDataParams;
+}
+
+export type StackFormDataParams = {
+  skill: string;
+  stacked_at: Date | null;
+  minutes: number;
+  title: string;
+  description: string;
 }

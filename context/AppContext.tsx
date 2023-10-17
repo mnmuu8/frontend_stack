@@ -1,5 +1,5 @@
 import { createContext, Dispatch, SetStateAction } from "react";
-import { FormType, IntrospectionFormDataParams, IntrospectionProps, sessionUser, TeamFormDataParams, UserFormDataParams } from "@/types/types";
+import { FormType, IntrospectionFormDataParams, IntrospectionProps, sessionUser, StackFormDataParams, TeamFormDataParams, UserFormDataParams } from "@/types/types";
 
 type AppContextProps = {
   drawerOpen: boolean;
@@ -19,13 +19,15 @@ type AppContextProps = {
   sessionUser: sessionUser;
   setSessionUser: React.Dispatch<React.SetStateAction<sessionUser>>;
   introspectionFormData: IntrospectionFormDataParams;
-  setIntrospectionFormData: Dispatch<SetStateAction<IntrospectionFormDataParams>>,
+  setIntrospectionFormData: Dispatch<SetStateAction<IntrospectionFormDataParams>>;
   isRegisterEvent: boolean;
   setIsRegisterEvent: Dispatch<React.SetStateAction<boolean>>;
   teamFormData: TeamFormDataParams;
-  setTeamFormData: Dispatch<React.SetStateAction<TeamFormDataParams>>
+  setTeamFormData: Dispatch<React.SetStateAction<TeamFormDataParams>>;
   userFormData: UserFormDataParams;
-  setUserFormData: Dispatch<React.SetStateAction<UserFormDataParams>>
+  setUserFormData: Dispatch<React.SetStateAction<UserFormDataParams>>;
+  stackFormData: StackFormDataParams;
+  setStackFormData: Dispatch<React.SetStateAction<StackFormDataParams>>;
 }
 
 const AppContext = createContext<AppContextProps>({
@@ -53,6 +55,8 @@ const AppContext = createContext<AppContextProps>({
   setTeamFormData: () => {},
   userFormData: {role: "", name: "", email: "", profile_content: "",team: {name: ""}},
   setUserFormData: () => {},
+  stackFormData: {skill: "", stacked_at: null, minutes: 0, title: "", description: ""},
+  setStackFormData: () => {},
 }) 
 
 export default AppContext

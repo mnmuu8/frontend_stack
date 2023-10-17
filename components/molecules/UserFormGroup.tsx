@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect, useContext } from 'react'
 import TextInput from './TextInput';
-import { ControlAndSetValueProps, ApiOptions, TeamProps } from '../../types/types';
+import { ApiOptions, TeamProps } from '../../types/types';
 import { getSession } from '@/utiliry/session';
 import AppContext from '@/context/AppContext';
 import axios from 'axios';
@@ -10,7 +10,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 
-const UserFormGroup: FC<ControlAndSetValueProps> = ({ control, setValue }) => {
+const UserFormGroup: FC = () => {
   const [query, setQuery] = useState<string>('');
   const [results, setResults] = useState<TeamProps[]>([]);
   const [showResults, setShowResults] = useState<boolean>(false);
@@ -119,7 +119,6 @@ const UserFormGroup: FC<ControlAndSetValueProps> = ({ control, setValue }) => {
       </FormControl>
 
       <TextInput
-        control={control}
         name={"name"}
         fullWidth={true}
         multiline={false}
@@ -134,7 +133,6 @@ const UserFormGroup: FC<ControlAndSetValueProps> = ({ control, setValue }) => {
       />
 
       <TextInput
-        control={control}
         name={"email"}
         fullWidth={true}
         multiline={false}
@@ -149,7 +147,6 @@ const UserFormGroup: FC<ControlAndSetValueProps> = ({ control, setValue }) => {
       />
 
       <TextInput
-        control={control}
         name={"profile_content"}
         fullWidth={true}
         multiline={true}
@@ -164,7 +161,6 @@ const UserFormGroup: FC<ControlAndSetValueProps> = ({ control, setValue }) => {
       />
 
       <TextInput
-        control={control}
         name={"team"}
         fullWidth={true}
         multiline={false}

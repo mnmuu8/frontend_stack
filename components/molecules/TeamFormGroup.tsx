@@ -1,9 +1,8 @@
 import React, { FC, useContext } from 'react'
 import TextInput from './TextInput';
-import { ControlProps } from '@/types/types';
 import AppContext from '@/context/AppContext';
 
-const TeamFormGroup: FC<ControlProps> = ({ control }) => {
+const TeamFormGroup: FC = () => {
   const appContext = useContext(AppContext);
   const { teamFormData, setTeamFormData } = appContext;
 
@@ -17,7 +16,6 @@ const TeamFormGroup: FC<ControlProps> = ({ control }) => {
   return (
     <>
       <TextInput 
-        control={control}
         name={"name"}
         fullWidth={true}
         multiline={false}

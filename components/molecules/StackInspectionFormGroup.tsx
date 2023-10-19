@@ -2,9 +2,9 @@ import React, { FC, useEffect, useContext } from 'react'
 import AppContext from '@/context/AppContext';
 import TextInput from './TextInput';
 import Button from '@mui/material/Button';
-import { ControlProps, IntrospectionFormDataParams } from '../../types/types';
+import { IntrospectionFormDataParams } from '../../types/types';
 
-const StackInspectionFormGroup: FC<ControlProps> = ({ control }) => {
+const StackInspectionFormGroup: FC = () => {
   const appContext = useContext(AppContext);
   const { showStackIntrospection, introspectionFormData, setIntrospectionFormData } = appContext;
 
@@ -71,7 +71,6 @@ const StackInspectionFormGroup: FC<ControlProps> = ({ control }) => {
   return (
     <>
       <TextInput
-        control={control}
         name={"evaluation"}
         fullWidth={true}
         multiline={false}
@@ -85,7 +84,6 @@ const StackInspectionFormGroup: FC<ControlProps> = ({ control }) => {
         value={introspectionFormData.evaluation}
       />
       <TextInput
-        control={control}
         name={"reason"}
         fullWidth={true}
         multiline={true}
@@ -102,7 +100,6 @@ const StackInspectionFormGroup: FC<ControlProps> = ({ control }) => {
         {introspectionFormData.keeps.map((keep, index) => (
           <div key={keep.id} className='relative'>
             <TextInput 
-              control={control}
               name={`keep[${index}]_content`}
               fullWidth={true}
               multiline={true}
@@ -126,7 +123,6 @@ const StackInspectionFormGroup: FC<ControlProps> = ({ control }) => {
         {introspectionFormData.problems.map((problem, index) => (
           <div key={problem.id} className='relative'>
             <TextInput 
-              control={control}
               name={`problem[${index}]_content`}
               fullWidth={true}
               multiline={true}
@@ -150,7 +146,6 @@ const StackInspectionFormGroup: FC<ControlProps> = ({ control }) => {
         {introspectionFormData.tries.map((tries, index) => (
           <div key={tries.id} className='relative'>
             <TextInput 
-              control={control}
               name={`try[${index}]_content`}  // 正しいプロパティを指定
               fullWidth={true}
               multiline={true}

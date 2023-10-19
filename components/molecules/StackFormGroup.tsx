@@ -1,19 +1,30 @@
-import React, { FC } from 'react'
-import CheckBoxGroup from './CheckBoxGroup';
-import DateInput from '../molecules/DateInput';
-import RichTextEditor from '../molecules/RichTextEditor';
-import TextInput from './TextInput';
-import { ControlAndSetValueProps } from '../../types/types';
+import React, { FC, useContext } from 'react'
 
-const StackFormGroup: FC<ControlAndSetValueProps> = ({ setValue, control }) => {
+import DateInput from './DateInput';
+import TextInput from './TextInput';
+import SkillInput from './SkillInput';
+import AppContext from '@/context/AppContext';
+
+const StackFormGroup: FC = () => {
+  const appContext = useContext(AppContext);
+  const { stackFormData, setStackFormData } = appContext;
+
+  const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    
+    setStackFormData({
+      ...stackFormData,
+      [name]: value,
+    });
+  };
+
   return (
     <>
-      <CheckBoxGroup setValue={setValue} control={control} />
+      <SkillInput />
       <div className='flex'>
-        <DateInput control={control} />
+        <DateInput />
         <TextInput 
-          control={control}
-          name={"time"}
+          name={"minutes"}
           fullWidth={true}
           multiline={false}
           minRows={1}
@@ -22,10 +33,11 @@ const StackFormGroup: FC<ControlAndSetValueProps> = ({ setValue, control }) => {
           label={"積み上げ時間"}
           placeholder={"8"}
           type='number'
+          value={stackFormData.minutes}
+          onChange={handleFieldChange}
         />
       </div>
       <TextInput 
-        control={control}
         name={"title"}
         fullWidth={true}
         multiline={false}
@@ -35,8 +47,22 @@ const StackFormGroup: FC<ControlAndSetValueProps> = ({ setValue, control }) => {
         label={"タイトル"}
         placeholder={"Reactの学習..."}
         type='text'
+        value={stackFormData.title}
+        onChange={handleFieldChange}
       />
-      <RichTextEditor control={control} />
+      <TextInput 
+        name={"description"}
+        fullWidth={true}
+        multiline={true}
+        minRows={5}
+        required={true}
+        requiredMessage={"必須入力"}
+        label={"積み上げ内容"}
+        placeholder={"ReactHooksを学習しました。useStateについて..."}
+        type='text'
+        value={stackFormData.description}
+        onChange={handleFieldChange}
+      />
     </>
   )
 }

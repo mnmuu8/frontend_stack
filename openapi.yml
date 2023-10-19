@@ -256,7 +256,7 @@ paths:
 
   /api/v1/teams:
     get:
-      summary: グループ一覧
+      summary: チーム一覧
       operationId: api.v1.teams.index
       tags:
         - Team
@@ -279,7 +279,7 @@ paths:
         '422':
           description: バリデーションエラー
     post:
-      summary: グループ作成
+      summary: チーム作成
       operationId: api.v1.teams.create
       tags:
         - Team
@@ -305,7 +305,7 @@ paths:
           description: バリデーションエラー
   /api/v1/teams/{team_id}:
     patch:
-      summary: グループ更新
+      summary: チーム更新
       operationId: api.v1.teams.update
       tags:
         - Team
@@ -335,6 +335,32 @@ paths:
           description: チームが存在しない
         '409':
           description: チーム名が重複している/管理者ではない
+        '422':
+          description: バリデーションエラー
+  /api/v1/teams/{team_id}/stack_ranking:
+    get:
+      summary: チーム内積み上げ時間ランキング
+      operationId: api.v1.teams.stack_ranking
+      tags:
+        - Team
+      security: []
+      parameters:
+        - name: team_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Teams_Team_Id'
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Teams_StackRankingList'
+        '401':
+          description: 認証エラー
+        '404':
+          description: チームが存在しない
         '422':
           description: バリデーションエラー
 
@@ -837,15 +863,46 @@ components:
             - $ref: '#/components/schemas/DateTime'
           nullable: false
 
+    Teams_StackRankingList:
+      type: object
+      required:
+        - stack_rankings
+      properties:
+        stack_rankings:
+          type: array
+          items:
+            allOf:
+              - $ref: '#/components/schemas/Teams_StackRanking'
+
     Teams_Team_Id:
       type: integer
-      description: グループID
+      description: チームID
       example: 1
 
     Teams_Team_Name:
       type: string
-      description: グループ名
-      example: グループA
+      description: チーム名
+      example: チームA
+
+    Teams_StackRanking:
+      type: object
+      required:
+        - order
+        - user_name
+      properties:
+        order:
+          allOf:
+            - $ref: '#/components/schemas/Teams_StackRanking_Order'
+          nullable: false
+        user_name:
+          allOf:
+            - $ref: '#/components/schemas/Users_User_Name'
+          nullable: false
+
+    Teams_StackRanking_Order:
+      type: integer
+      description: 積み上げランキング順位
+      example: 1
 
     Outputs_OutputList:
       type: array

@@ -20,13 +20,13 @@ import { exists, mapValues } from '../runtime';
  */
 export interface TeamsTeam {
     /**
-     * グループID
+     * チームID
      * @type {number}
      * @memberof TeamsTeam
      */
     id: number;
     /**
-     * グループ名
+     * チーム名
      * @type {string}
      * @memberof TeamsTeam
      */

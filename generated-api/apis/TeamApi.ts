@@ -17,6 +17,7 @@ import * as runtime from '../runtime';
 import type {
   TeamCreateRequestBody,
   TeamUpdateRequestBody,
+  TeamsStackRankingList,
   TeamsTeam,
   TeamsTeamListInner,
 } from '../models';
@@ -25,6 +26,8 @@ import {
     TeamCreateRequestBodyToJSON,
     TeamUpdateRequestBodyFromJSON,
     TeamUpdateRequestBodyToJSON,
+    TeamsStackRankingListFromJSON,
+    TeamsStackRankingListToJSON,
     TeamsTeamFromJSON,
     TeamsTeamToJSON,
     TeamsTeamListInnerFromJSON,
@@ -39,6 +42,10 @@ export interface ApiV1TeamsIndexRequest {
     name?: string;
 }
 
+export interface ApiV1TeamsStackRankingRequest {
+    teamId: number;
+}
+
 export interface ApiV1TeamsUpdateRequest {
     teamId: number;
     teamUpdateRequestBody: TeamUpdateRequestBody;
@@ -50,7 +57,7 @@ export interface ApiV1TeamsUpdateRequest {
 export class TeamApi extends runtime.BaseAPI {
 
     /**
-     * グループ作成
+     * チーム作成
      */
     async apiV1TeamsCreateRaw(requestParameters: ApiV1TeamsCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TeamsTeam>> {
         if (requestParameters.teamCreateRequestBody === null || requestParameters.teamCreateRequestBody === undefined) {
@@ -75,7 +82,7 @@ export class TeamApi extends runtime.BaseAPI {
     }
 
     /**
-     * グループ作成
+     * チーム作成
      */
     async apiV1TeamsCreate(requestParameters: ApiV1TeamsCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TeamsTeam> {
         const response = await this.apiV1TeamsCreateRaw(requestParameters, initOverrides);
@@ -83,7 +90,7 @@ export class TeamApi extends runtime.BaseAPI {
     }
 
     /**
-     * グループ一覧
+     * チーム一覧
      */
     async apiV1TeamsIndexRaw(requestParameters: ApiV1TeamsIndexRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<TeamsTeamListInner>>> {
         const queryParameters: any = {};
@@ -105,7 +112,7 @@ export class TeamApi extends runtime.BaseAPI {
     }
 
     /**
-     * グループ一覧
+     * チーム一覧
      */
     async apiV1TeamsIndex(requestParameters: ApiV1TeamsIndexRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<TeamsTeamListInner>> {
         const response = await this.apiV1TeamsIndexRaw(requestParameters, initOverrides);
@@ -113,7 +120,37 @@ export class TeamApi extends runtime.BaseAPI {
     }
 
     /**
-     * グループ更新
+     * チーム内積み上げ時間ランキング
+     */
+    async apiV1TeamsStackRankingRaw(requestParameters: ApiV1TeamsStackRankingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TeamsStackRankingList>> {
+        if (requestParameters.teamId === null || requestParameters.teamId === undefined) {
+            throw new runtime.RequiredError('teamId','Required parameter requestParameters.teamId was null or undefined when calling apiV1TeamsStackRanking.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/api/v1/teams/{team_id}/stack_ranking`.replace(`{${"team_id"}}`, encodeURIComponent(String(requestParameters.teamId))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TeamsStackRankingListFromJSON(jsonValue));
+    }
+
+    /**
+     * チーム内積み上げ時間ランキング
+     */
+    async apiV1TeamsStackRanking(requestParameters: ApiV1TeamsStackRankingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TeamsStackRankingList> {
+        const response = await this.apiV1TeamsStackRankingRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * チーム更新
      */
     async apiV1TeamsUpdateRaw(requestParameters: ApiV1TeamsUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TeamsTeam>> {
         if (requestParameters.teamId === null || requestParameters.teamId === undefined) {
@@ -142,7 +179,7 @@ export class TeamApi extends runtime.BaseAPI {
     }
 
     /**
-     * グループ更新
+     * チーム更新
      */
     async apiV1TeamsUpdate(requestParameters: ApiV1TeamsUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TeamsTeam> {
         const response = await this.apiV1TeamsUpdateRaw(requestParameters, initOverrides);

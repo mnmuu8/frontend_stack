@@ -1,16 +1,21 @@
 import React, { FC, useContext, useEffect, useState } from 'react'
 import Header from './Header'
 import Sidebar from './Sidebar'
-import { ApiOptions, LayoutProps } from '@/types/types'
-import AppContext from '@/context/AppContext'
+import { ApiOptions } from '@/types/api'
+import { LayoutProps } from '@/types/utils'
+import { AppContext } from '@/context/AppContext'
 import { useRouter } from 'next/router';
 import { getSession } from '@/utiliry/session'
 import axios from 'axios'
+import { SessionContext } from '@/context/SessionContext'
 
 const Layout: FC<LayoutProps> = ({ children }) => {
 
   const appContext = useContext(AppContext);
-  const {drawerOpen, setSessionUser} = appContext;
+  const {drawerOpen} = appContext;
+  
+  const sessionContext = useContext(SessionContext)
+  const { setSessionUser } = sessionContext;
 
   const mainStyle: React.CSSProperties = {
     width: drawerOpen ? 'calc(100% - 240px)' : '',

@@ -3,11 +3,15 @@ import Link from 'next/link';
 import ImageWrapper from '../atoms/ImageWrapper'
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
-import AppContext from '@/context/AppContext';
+import { FormContext } from '@/context/FormContext';
+import { SessionContext } from '@/context/SessionContext';
 
 const ProfileCard: FC = () => {
-  const appContext = useContext(AppContext);
-  const { setFormOpen, setFormType, sessionUser } = appContext;
+  const sessionContext = useContext(SessionContext)
+  const { sessionUser } = sessionContext;
+  
+  const formContext = useContext(FormContext);
+  const { setFormOpen, setFormType } = formContext;
 
   const handleFormOpen = () => {
     setFormType('updateUser');

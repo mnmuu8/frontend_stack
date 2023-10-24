@@ -2,8 +2,8 @@ import React, { FC, useContext } from 'react'
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
-import { FormTypeProps, setFormGroupProps, ApiOptions } from '@/types/types';
-import AppContext from '@/context/AppContext';
+import { FormTypeProps, setFormGroupProps } from '@/types/form';
+import { ApiOptions } from '@/types/api';
 import StackInspectionFormGroup from './StackInspectionFormGroup';
 import StackFormGroup from './StackFormGroup';
 import UserFormGroup from './UserFormGroup';
@@ -11,22 +11,15 @@ import axios from 'axios';
 import { getSession } from '@/utiliry/session';
 import { useRouter } from 'next/router';
 import TeamFormGroup from './TeamFormGroup';
+import { FormContext } from '@/context/FormContext';
+import { FormDataContext } from '@/context/FormDataContext';
 
 const FormModal: FC = () => {
-  const appContext = useContext(AppContext);
-  const { 
-    formOpen, 
-    setFormOpen, 
-    formType, 
-    showStackIntrospection, 
-    setShowStackIntrospection, 
-    introspectionFormData, 
-    setIsRegisterEvent, 
-    teamFormData, 
-    setTeamFormData, 
-    userFormData,
-    stackFormData,
-  } = appContext;
+  const formContext = useContext(FormContext);
+  const { formOpen, setFormOpen, formType, setIsRegisterEvent } = formContext;
+  
+  const formDataContext = useContext(FormDataContext);
+  const { teamFormData, setTeamFormData, userFormData, stackFormData, showStackIntrospection, setShowStackIntrospection, introspectionFormData } = formDataContext;
 
   const router = useRouter();
 

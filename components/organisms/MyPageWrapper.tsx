@@ -4,7 +4,8 @@ import StackCard from '../molecules/StackCard';
 import ProfileCard from '../molecules/ProfileCard';
 import axios from 'axios';
 import { getSession } from '@/utiliry/session';
-import { ApiOptions, StackProps } from '@/types/types';
+import { ApiOptions } from '@/types/api'
+import { StackProps } from '@/types/stack';
 
 const MyPageWrapper: FC = () => {
   const [activeTab, setActiveTab] = useState('all');

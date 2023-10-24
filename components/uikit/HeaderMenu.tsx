@@ -5,11 +5,16 @@ import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
-import AppContext from '@/context/AppContext';
+import { AppContext } from '@/context/AppContext';
+import { SessionContext } from '@/context/SessionContext';
 
 const HeaderMenu: FC = () => {
   const appContext = useContext(AppContext);
-  const { anchorEl, handleMenuClose, setSessionUser } = appContext;
+  const { anchorEl, handleMenuClose } = appContext;
+
+  const sessionContext = useContext(SessionContext)
+  const { setSessionUser } = sessionContext;
+
   const open = Boolean(anchorEl);
   const router = useRouter();
 

@@ -1,10 +1,10 @@
 import React, { FC, useContext } from 'react'
 import TextInput from './TextInput';
-import AppContext from '@/context/AppContext';
+import { FormDataContext } from '@/context/FormDataContext';
 
 const TeamFormGroup: FC = () => {
-  const appContext = useContext(AppContext);
-  const { teamFormData, setTeamFormData } = appContext;
+  const formDataContext = useContext(FormDataContext);
+  const { teamFormData, setTeamFormData } = formDataContext;
 
   const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {    
     setTeamFormData({

@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { SelectBoxProps } from '@/types/types';
+import { SelectBoxProps } from '@/types/form';
 
 const SelectBox: FC<SelectBoxProps> = ({ selectedOption, handleOptionChange }) => {
   return (

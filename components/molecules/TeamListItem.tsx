@@ -1,11 +1,15 @@
 import React, { FC, useContext } from 'react'
 import EditIcon from '@mui/icons-material/Edit';
-import AppContext from '@/context/AppContext';
-import { TeamFormDataParams } from '@/types/types';
+import { FormContext } from '@/context/FormContext';
+import { FormDataContext } from '@/context/FormDataContext';
+import { TeamFormDataParams } from '@/types/form';
 
 const TeamListItem: FC<TeamFormDataParams> = ({ id, name }) => {
-  const appContext = useContext(AppContext);
-  const { setFormOpen, setFormType, setTeamFormData } = appContext;
+  const formContext = useContext(FormContext);
+  const { setFormOpen, setFormType } = formContext;
+
+  const formDataContext = useContext(FormDataContext);
+  const { setTeamFormData } = formDataContext;
 
   const handleFormOpen = () => {
     setFormOpen(true);

@@ -3,11 +3,11 @@ import React, { FC, useContext } from 'react'
 import DateInput from './DateInput';
 import TextInput from './TextInput';
 import SkillInput from './SkillInput';
-import AppContext from '@/context/AppContext';
+import { FormDataContext } from '@/context/FormDataContext';
 
 const StackFormGroup: FC = () => {
-  const appContext = useContext(AppContext);
-  const { stackFormData, setStackFormData } = appContext;
+  const formDataContext = useContext(FormDataContext);
+  const { stackFormData, setStackFormData } = formDataContext;
 
   const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

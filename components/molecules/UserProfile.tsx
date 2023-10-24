@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import ImageWrapper from '../atoms/ImageWrapper';
-import { UserProfileProps } from '@/types/types';
+import { UserProfileProps } from '@/types/user';
 
 const UserProfile: FC<UserProfileProps> = ({ user, height, width, isHeader, created_at }) => {
   return (

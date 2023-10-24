@@ -3,11 +3,15 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import LinearScaleIcon from '@mui/icons-material/LinearScale';
 import Button from '@mui/material/Button';
-import AppContext from '@/context/AppContext';
+import { FormContext } from '@/context/FormContext';
+import { FormDataContext } from '@/context/FormDataContext';
 
 const StackCardMenu: FC<{stack_id: number}> = ({ stack_id }) => {
-  const appContext = useContext(AppContext);
-  const { setFormType, setFormOpen, setIntrospectionFormData } = appContext;
+  const formContext = useContext(FormContext);
+  const { setFormType, setFormOpen } = formContext;
+  
+  const formDataContext = useContext(FormDataContext);
+  const { setIntrospectionFormData } = formDataContext;
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);

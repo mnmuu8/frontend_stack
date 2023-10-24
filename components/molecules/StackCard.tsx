@@ -4,18 +4,29 @@ import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import { formatDate } from '../uikit/dateUtils';
-import { StackCardProps, ApiOptions, IntrospectionProps } from '@/types/types';
+import { ApiOptions } from '@/types/api';
+import { IntrospectionProps } from '@/types/introspection';
+import { StackCardProps } from '@/types/stack';
 import StackCardMenu from './StackCardMenu';
 import EditIcon from '@mui/icons-material/Edit';
-import AppContext from '@/context/AppContext';
 import { getSession } from '@/utiliry/session';
 import axios from 'axios';
+import { FormContext } from '@/context/FormContext';
+import { SessionContext } from '@/context/SessionContext';
+import { FormDataContext } from '@/context/FormDataContext';
 
 const StackCard: FC<StackCardProps> = ({ stack }) => {
   const stackCreatedAt = stack.created_at;
   const formattedCreateDate = formatDate(stackCreatedAt);
-  const appContext = useContext(AppContext);
-  const { setFormOpen, setFormType, setShowStackIntrospection, sessionUser, isRegisterEvent } = appContext;
+  
+  const sessionContext = useContext(SessionContext)
+  const { sessionUser } = sessionContext;
+  
+  const formContext = useContext(FormContext);
+  const { setFormOpen, setFormType, isRegisterEvent } = formContext;
+  
+  const formDataContext = useContext(FormDataContext);
+  const { setShowStackIntrospection } = formDataContext;
 
   const handleFormOpen = () => {
     introspectionValue && setShowStackIntrospection(introspectionValue);

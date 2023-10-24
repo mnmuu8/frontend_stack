@@ -1,12 +1,12 @@
 import React, { FC, useContext } from 'react'
 import ReactDatePicker from 'react-datepicker';
-import "react-datepicker/dist/react-datepicker.css"; 
-import AppContext from '@/context/AppContext';
+import "react-datepicker/dist/react-datepicker.css";
 import Box from '@mui/material/Box';
+import { FormDataContext } from '@/context/FormDataContext';
 
 const DateInput: FC = () => {
-  const appContext = useContext(AppContext);
-  const { stackFormData, setStackFormData } = appContext;
+  const formDataContext = useContext(FormDataContext);
+  const { stackFormData, setStackFormData } = formDataContext;
 
   const handleDateChange = (stacked_at: Date | null) => {
     setStackFormData({

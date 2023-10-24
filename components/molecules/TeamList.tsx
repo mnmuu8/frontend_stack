@@ -1,15 +1,16 @@
 import React, { FC, useContext, useEffect, useState } from 'react'
 import { getSession } from '@/utiliry/session';
-import { ApiOptions, TeamProps } from '@/types/types';
+import { ApiOptions } from '@/types/api';
+import { TeamProps } from '@/types/team';
 import axios from 'axios';
 import TeamListItem from './TeamListItem';
 import AddIcon from '@mui/icons-material/Add';
-import AppContext from '@/context/AppContext';
+import { FormContext } from '@/context/FormContext';
 
 const TeamList: FC = () => {
   const [teams, setTeams] = useState<TeamProps[]>([])
-  const appContext = useContext(AppContext);
-  const { setFormOpen, setFormType, isRegisterEvent } = appContext
+  const formContext = useContext(FormContext);
+  const { setFormOpen, setFormType, isRegisterEvent } = formContext
 
   useEffect(() => {
     const fetchTeams = async () => {

@@ -2,8 +2,8 @@ import React, { FC, useContext } from 'react'
 
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
-import AppContext from '@/context/AppContext';
-import { FormType } from '@/types/types';
+import { FormType } from '@/types/form';
+import { FormContext } from '@/context/FormContext';
 
 type FormTypeProps = {
   formType: FormType;
@@ -11,8 +11,8 @@ type FormTypeProps = {
 }
 
 const FormOpenButton: FC<FormTypeProps> = ({ formType, className }) => {
-  const appContext = useContext(AppContext);
-  const { setFormOpen, setFormType } = appContext;
+  const formContext = useContext(FormContext);
+  const { setFormOpen, setFormType } = formContext;
 
   const handleFormOpen = (formType: FormType) => {
     setFormOpen(true);

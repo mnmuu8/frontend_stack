@@ -1,12 +1,12 @@
 import React, { FC, useEffect, useContext } from 'react'
-import AppContext from '@/context/AppContext';
 import TextInput from './TextInput';
 import Button from '@mui/material/Button';
-import { IntrospectionFormDataParams } from '../../types/types';
+import { IntrospectionFormDataParams } from '@/types/form';
+import { FormDataContext } from '@/context/FormDataContext';
 
 const StackInspectionFormGroup: FC = () => {
-  const appContext = useContext(AppContext);
-  const { showStackIntrospection, introspectionFormData, setIntrospectionFormData } = appContext;
+  const formDataContext = useContext(FormDataContext);
+  const { showStackIntrospection, introspectionFormData, setIntrospectionFormData } = formDataContext;
 
   const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

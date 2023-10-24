@@ -2,7 +2,8 @@ import React, { FC, useEffect, useState } from 'react'
 import Chart from '@/components/uikit/Chart'
 import RankTable from '@/components/uikit/RankTable'
 import { getSession } from '@/utiliry/session'
-import { ApiOptions, StackProps } from '@/types/types'
+import { ApiOptions } from '@/types/api'
+import { StackProps } from '@/types/stack'
 import axios from 'axios'
 
 const DashboardWrapper: FC = () => {

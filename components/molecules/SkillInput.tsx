@@ -5,15 +5,17 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 
-import AppContext from '@/context/AppContext';
 import { getSession } from '@/utiliry/session';
-import { ApiOptions, Skill } from '@/types/types';
+import { ApiOptions } from '@/types/api';
+import { SkillProps } from '@/types/skill';
 import axios from 'axios';
+import { FormDataContext } from '@/context/FormDataContext';
 
 const SkillInput: FC = () => {
-  const [skills, setSkills] = useState<Skill[]>([])
-  const appContext = useContext(AppContext);
-  const { stackFormData, setStackFormData } = appContext;
+  const [skills, setSkills] = useState<SkillProps[]>([])
+
+  const formDataContext = useContext(FormDataContext);
+  const { stackFormData, setStackFormData } = formDataContext;
 
   const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

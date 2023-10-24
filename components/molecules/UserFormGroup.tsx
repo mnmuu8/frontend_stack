@@ -1,22 +1,24 @@
 import React, { FC, useState, useEffect, useContext } from 'react'
 import TextInput from './TextInput';
-import { ApiOptions, TeamProps } from '../../types/types';
+import { ApiOptions } from '@/types/api';
+import { TeamProps } from '@/types/team';
 import { getSession } from '@/utiliry/session';
-import AppContext from '@/context/AppContext';
+
 import axios from 'axios';
 
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
+import { FormDataContext } from '@/context/FormDataContext';
 
 const UserFormGroup: FC = () => {
   const [query, setQuery] = useState<string>('');
   const [results, setResults] = useState<TeamProps[]>([]);
   const [showResults, setShowResults] = useState<boolean>(false);
 
-  const appContext = useContext(AppContext);
-  const { userFormData, setUserFormData } = appContext
+  const formDataContext = useContext(FormDataContext);
+  const { userFormData, setUserFormData } = formDataContext;
 
   const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

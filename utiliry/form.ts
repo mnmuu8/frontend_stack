@@ -1,5 +1,5 @@
 import { ResetFormValueProps } from "@/types/form"
-import { ErrorMessagesState, ValidationRules, validationCheckProps } from "@/types/validator"
+import { validationCheckProps } from "@/types/validator"
 
 export const InitialStackFormData = {skill: "", stacked_at: new Date(), minutes: 0, title: "", description: ""}
 export const InitialIntrospectionFormData = {evaluation: 0, reason: "", keeps: [], problems: [], tries: []}

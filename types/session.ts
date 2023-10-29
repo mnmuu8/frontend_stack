@@ -2,6 +2,7 @@ import { TeamProps } from "./team";
 
 export type sessionUser = {
   id: number;
+  role: string;
   name: string;
   email: string;
   profile_content: string;
@@ -14,5 +15,5 @@ export type SessionData = {
   token: string;
   userId: number;
   exp: number;
-  role: string
+  role: string;
 }

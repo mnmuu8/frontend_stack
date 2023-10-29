@@ -3,6 +3,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { FormContext } from '@/context/FormContext';
 import { FormDataContext } from '@/context/FormDataContext';
 import { TeamFormDataParams } from '@/types/form';
+import { SessionContext } from '@/context/SessionContext';
 
 const TeamListItem: FC<TeamFormDataParams> = ({ id, name }) => {
   const formContext = useContext(FormContext);
@@ -10,6 +11,11 @@ const TeamListItem: FC<TeamFormDataParams> = ({ id, name }) => {
 
   const formDataContext = useContext(FormDataContext);
   const { setTeamFormData } = formDataContext;
+
+  const sessionContext = useContext(SessionContext);
+  const { sessionUser } = sessionContext
+
+  const isAdminRole = sessionUser?.role === 'admin';
 
   const handleFormOpen = () => {
     setFormOpen(true);
@@ -23,7 +29,7 @@ const TeamListItem: FC<TeamFormDataParams> = ({ id, name }) => {
   return (
     <div className='flex items-center justify-between px-6 py-2'>
       <div className='bg-gray-50 text-sm'>{name}</div>
-      <EditIcon className='text-gray-500 text-[16px] hover:text-gray-700 cursor-pointer' onClick={handleFormOpen}/>
+      {isAdminRole && <EditIcon className='text-gray-500 text-[16px] hover:text-gray-700 cursor-pointer' onClick={handleFormOpen}/>}
     </div>
   )
 }

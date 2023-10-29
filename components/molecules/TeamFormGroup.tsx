@@ -1,17 +1,37 @@
-import React, { FC, useContext } from 'react'
+import React, { FC, useContext, useState, useEffect } from 'react'
 import TextInput from './TextInput';
 import { FormDataContext } from '@/context/FormDataContext';
+
+import { hasValidationErrors, teamValidationRules } from '@/utiliry/validator';
+import { ErrorMessages } from '@/types/validator';
+import ErrorMessage from '../atoms/ErrorMessage';
+import { FormContext } from '@/context/FormContext';
+import { InitialTeamErrorMessage, validationCheck } from '@/utiliry/form';
 
 const TeamFormGroup: FC = () => {
   const formDataContext = useContext(FormDataContext);
   const { teamFormData, setTeamFormData } = formDataContext;
 
-  const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {    
+  const formContext = useContext(FormContext);
+  const { setIsValidate } = formContext;
+
+  const [errorMessages, setErrorMessages] = useState<ErrorMessages>(InitialTeamErrorMessage);
+
+  const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    const validationRules = teamValidationRules;
+    validationCheck({name, value, validationRules, errorMessages, setErrorMessages})
+
     setTeamFormData({
       ...teamFormData,
-      name: e.target.value,
+      [name]: value,
     });
   };
+
+  useEffect(() => {
+    setIsValidate(!hasValidationErrors(teamFormData));
+  }, [teamFormData])
 
   return (
     <>
@@ -28,6 +48,7 @@ const TeamFormGroup: FC = () => {
         onChange={handleFieldChange}
         value={teamFormData.name}
       />
+      <ErrorMessage errorMessages={errorMessages} errorKey={'name'} />
     </>
   )
 }

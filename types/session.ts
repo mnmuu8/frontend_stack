@@ -9,3 +9,10 @@ export type sessionUser = {
   updated_at: string;
   team: TeamProps
 } | undefined
+
+export type SessionData = {
+  token: string;
+  userId: number;
+  exp: number;
+  role: string
+}

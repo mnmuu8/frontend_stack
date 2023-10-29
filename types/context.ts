@@ -26,6 +26,8 @@ export type FormContextProps = {
   setFormOpen: Dispatch<SetStateAction<boolean>>;
   isRegisterEvent: boolean;
   setIsRegisterEvent: Dispatch<SetStateAction<boolean>>;
+  isValidate: boolean;
+  setIsValidate: Dispatch<SetStateAction<boolean>>;
 }
 
 export type FormDataContextProps = {

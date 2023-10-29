@@ -10,6 +10,8 @@ const InitialState: FormContextProps = {
   setFormOpen: () => {},
   isRegisterEvent: false,
   setIsRegisterEvent: () => {},
+  isValidate: true,
+  setIsValidate: () => {},
 }
 
 const FormContext = createContext<FormContextProps>(InitialState);
@@ -18,6 +20,7 @@ const FormProvider = ({ children }: ChildrenProps) => {
   const [formOpen, setFormOpen] = useState<boolean>(false);
   const [formType, setFormType] = useState<FormType>('createStack');
   const [isRegisterEvent, setIsRegisterEvent] = useState<boolean>(false);
+  const [isValidate, setIsValidate] = useState<boolean>(true);
 
   return (
     <FormContext.Provider 
@@ -28,6 +31,8 @@ const FormProvider = ({ children }: ChildrenProps) => {
         setFormOpen: setFormOpen,
         isRegisterEvent: isRegisterEvent,
         setIsRegisterEvent: setIsRegisterEvent,
+        isValidate: isValidate,
+        setIsValidate: setIsValidate
       }}
     >
       {children}

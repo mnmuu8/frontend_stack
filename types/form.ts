@@ -1,5 +1,6 @@
 import { SelectChangeEvent } from '@mui/material/Select';
-import { KeepAndProblemAndTryPoint } from './introspection';
+import { IntrospectionProps, KeepAndProblemAndTryPoint } from './introspection';
+import { Dispatch, SetStateAction } from 'react';
 
 export type FormType = 'updateUser' | 'createStack' | 'createStackIntrospection' | 'showStackIntrospection' | 'updateStackIntrospection' | 'createTeam' | 'updateTeam'
 
@@ -48,7 +49,7 @@ export type UserFormDataParams = {
 
 export type StackFormDataParams = {
   skill: string;
-  stacked_at: Date | null;
+  stacked_at: Date;
   minutes: number;
   title: string;
   description: string;
@@ -61,4 +62,15 @@ export type IntrospectionFormDataParams = {
   problems: KeepAndProblemAndTryPoint[];
   tries: KeepAndProblemAndTryPoint[];
   stack_id?: number;
+}
+
+export type ResetFormValueProps = {
+  setFormOpen: Dispatch<SetStateAction<boolean>>;
+  setIsRegisterEvent: Dispatch<SetStateAction<boolean>>;
+  setIsValidate: Dispatch<SetStateAction<boolean>>;
+  setStackFormData: Dispatch<SetStateAction<StackFormDataParams>>;
+  setIntrospectionFormData: Dispatch<SetStateAction<IntrospectionFormDataParams>>;
+  setUserFormData: Dispatch<SetStateAction<UserFormDataParams>>;
+  setTeamFormData: Dispatch<SetStateAction<TeamFormDataParams>>;
+  setShowStackIntrospection: Dispatch<SetStateAction<IntrospectionProps>>;
 }

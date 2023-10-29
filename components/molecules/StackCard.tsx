@@ -29,7 +29,8 @@ const StackCard: FC<StackCardProps> = ({ stack }) => {
   const { setShowStackIntrospection } = formDataContext;
 
   const handleFormOpen = () => {
-    introspectionValue && setShowStackIntrospection(introspectionValue);
+    const stack_id = stack.id
+    introspectionValue && setShowStackIntrospection({ ...introspectionValue, stack_id });
     setFormOpen(true);
     setFormType('updateStackIntrospection');
   }

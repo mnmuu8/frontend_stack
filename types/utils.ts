@@ -46,3 +46,12 @@ export type ChartProps = {
   text: string;
   type: "bar" | "pie";
 }
+
+export type FormSubmitButtonProps = {
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  disabled: boolean;
+  label: string;
+}
+export type FormCancelButtonProps = {
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+}

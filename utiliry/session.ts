@@ -1,4 +1,6 @@
-export const setSession = (token: string, userId: number, exp: number, role: string) => {
+import { SessionData } from "@/types/session";
+
+export const setSession = ({token, userId, exp, role}: SessionData) => {
   const lastActivity = new Date().getTime();
   const session = {
     token,

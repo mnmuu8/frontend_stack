@@ -3,15 +3,16 @@ import { ChildrenProps } from "@/types/utils";
 import { IntrospectionProps } from "@/types/introspection";
 import { StackFormDataParams, TeamFormDataParams, UserFormDataParams, IntrospectionFormDataParams } from "@/types/form";
 import { FormDataContextProps } from "@/types/context";
+import { InitialStackFormData, InitialIntrospectionFormData, InitialTeamFormData, InitialUserFormData } from "@/utiliry/form";
 
 const InitialState: FormDataContextProps = {
-  teamFormData: {name: ""},
+  teamFormData: InitialTeamFormData,
   setTeamFormData: () => {},
-  userFormData: {role: "", name: "", email: "", profile_content: "",team: {name: ""}},
+  userFormData: InitialUserFormData,
   setUserFormData: () => {},
-  stackFormData: {skill: "", stacked_at: null, minutes: 0, title: "", description: ""},
+  stackFormData: InitialStackFormData,
   setStackFormData: () => {},
-  introspectionFormData: {evaluation: 0, reason: "", keeps: [], problems: [], tries: []},
+  introspectionFormData: InitialIntrospectionFormData,
   setIntrospectionFormData: () => {},
   showStackIntrospection: undefined,
   setShowStackIntrospection: () => {},
@@ -20,10 +21,10 @@ const InitialState: FormDataContextProps = {
 const FormDataContext = createContext<FormDataContextProps>(InitialState);
 
 const FormDataProvider = ({ children }: ChildrenProps) => {
-  const [introspectionFormData, setIntrospectionFormData] = useState<IntrospectionFormDataParams>({evaluation: 0, reason: "", keeps: [], problems: [], tries: []})
-  const [teamFormData, setTeamFormData] = useState<TeamFormDataParams>({name: ""})
-  const [userFormData, setUserFormData] = useState<UserFormDataParams>({role: "", name: "", email: "", profile_content: "", team: {name: ""}})
-  const [stackFormData, setStackFormData] = useState<StackFormDataParams>({skill: "", stacked_at: null, minutes: 0, title: "", description: ""})
+  const [introspectionFormData, setIntrospectionFormData] = useState<IntrospectionFormDataParams>(InitialIntrospectionFormData)
+  const [teamFormData, setTeamFormData] = useState<TeamFormDataParams>(InitialTeamFormData)
+  const [userFormData, setUserFormData] = useState<UserFormDataParams>(InitialUserFormData)
+  const [stackFormData, setStackFormData] = useState<StackFormDataParams>(InitialStackFormData)
   const [showStackIntrospection, setShowStackIntrospection] = useState<IntrospectionProps|undefined>(undefined)
 
   return (

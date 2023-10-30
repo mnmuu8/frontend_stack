@@ -1,14 +1,13 @@
 import React, { FC, useContext, useEffect, useState } from 'react'
 import Header from './Header'
 import Sidebar from './Sidebar'
-import { ApiOptions } from '@/types/api'
 import { LayoutProps } from '@/types/utils'
 import { AppContext } from '@/context/AppContext'
 import { useRouter } from 'next/router';
 import { getSession } from '@/utiliry/session'
 import axios from 'axios'
 import { SessionContext } from '@/context/SessionContext'
-import { getApiOptions } from '@/utiliry/api'
+import { getApiHeaders } from '@/utiliry/api'
 
 const Layout: FC<LayoutProps> = ({ children }) => {
 
@@ -16,7 +15,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const {drawerOpen} = appContext;
   
   const sessionContext = useContext(SessionContext)
-  const { setSessionUser } = sessionContext;
+  const { setSessionUser, sessionUser, setIsAdmin, isAdmin } = sessionContext;
 
   const mainStyle: React.CSSProperties = {
     width: drawerOpen ? 'calc(100% - 240px)' : '',
@@ -25,7 +24,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
   const router = useRouter();
 
-  const checkActivity = () => {    
+  const checkActivity = () => {
     const sessionData = getSession();
     const currentTime = new Date().getTime();
     if ((currentTime - sessionData.lastActivity) >= sessionData.exp) {
@@ -70,7 +69,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     const sessionData = getSession();
     if (!sessionData) return;
 
-    const options = getApiOptions(sessionData)
+    const options = getApiHeaders(sessionData)
     axios.get(`${process.env.API_ROOT_URL}/api/v1/users/${sessionData.userId}`, options)
     .then(response => {
       const { data } = response;
@@ -85,6 +84,10 @@ const Layout: FC<LayoutProps> = ({ children }) => {
       }
     });
   }, []);
+
+  useEffect(() => {
+    sessionUser && sessionUser.role === 'admin' ? setIsAdmin(true) : setIsAdmin(false);
+  }, [sessionUser, isAdmin]);
 
   return (
     <>

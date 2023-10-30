@@ -12,7 +12,7 @@ import { FormContext } from '@/context/FormContext';
 import { FormDataContext } from '@/context/FormDataContext';
 import { resetFormValue } from '@/utiliry/form';
 import { callCreateIntrospection, callCreateStack, callCreateTeam, callUpdateIntrospection, callUpdateTeam, callUpdateUser } from '@/utiliry/api';
-import { getApiOptions } from '@/utiliry/api';
+import { getApiHeaders } from '@/utiliry/api';
 import { dataConfirmAlert } from '@/utiliry/form';
 import FormSubmitButton from '../atoms/FormSubmitButton';
 import FormCancelButton from '../atoms/FormCancelButton';
@@ -45,7 +45,7 @@ const FormModal: FC = () => {
     const sessionData = getSession();
     if (!sessionData) return;
 
-    const options = getApiOptions(sessionData);
+    const options = getApiHeaders(sessionData);
 
     if (formType === 'createStack') {
       if (!dataConfirmAlert('積み上げを作成しますか？')) return;

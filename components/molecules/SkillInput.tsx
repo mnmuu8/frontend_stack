@@ -10,7 +10,7 @@ import { ApiOptions } from '@/types/api';
 import { SkillProps } from '@/types/skill';
 import axios from 'axios';
 import { FormDataContext } from '@/context/FormDataContext';
-import { getApiOptions } from '@/utiliry/api';
+import { getApiHeaders } from '@/utiliry/api';
 
 const SkillInput: FC = () => {
   const [skills, setSkills] = useState<SkillProps[]>([])
@@ -31,7 +31,7 @@ const SkillInput: FC = () => {
     const sessionData = getSession();
     if (!sessionData) return;
 
-    const options = getApiOptions(sessionData)
+    const options = getApiHeaders(sessionData)
  
     axios.get(`${process.env.API_ROOT_URL}/api/v1/skills`, options)
     .then(response => {

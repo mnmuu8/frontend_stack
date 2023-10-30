@@ -5,7 +5,7 @@ import { getSession } from '@/utiliry/session'
 import { ApiOptions } from '@/types/api'
 import { StackProps } from '@/types/stack'
 import axios from 'axios'
-import { getApiOptionsUserKey } from '@/utiliry/api'
+import { getApiHeadersWithUserId } from '@/utiliry/api'
 
 const DashboardWrapper: FC = () => {
   const [stacks, setStacks] = useState<StackProps[]>([]);
@@ -32,7 +32,7 @@ const DashboardWrapper: FC = () => {
     const sessionData = getSession();
     if (!sessionData) return;
  
-    const options = getApiOptionsUserKey(sessionData);
+    const options = getApiHeadersWithUserId(sessionData);
     axios.get(`${process.env.API_ROOT_URL}/api/v1/stacks`, options)
     .then(response => {
       const { data } = response;

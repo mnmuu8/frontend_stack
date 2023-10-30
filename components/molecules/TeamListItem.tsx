@@ -13,9 +13,7 @@ const TeamListItem: FC<TeamFormDataParams> = ({ id, name }) => {
   const { setTeamFormData } = formDataContext;
 
   const sessionContext = useContext(SessionContext);
-  const { sessionUser } = sessionContext
-
-  const isAdminRole = sessionUser?.role === 'admin';
+  const { isAdmin } = sessionContext;
 
   const handleFormOpen = () => {
     setFormOpen(true);
@@ -29,7 +27,7 @@ const TeamListItem: FC<TeamFormDataParams> = ({ id, name }) => {
   return (
     <div className='flex items-center justify-between px-6 py-2'>
       <div className='bg-gray-50 text-sm'>{name}</div>
-      {isAdminRole && <EditIcon className='text-gray-500 text-[16px] hover:text-gray-700 cursor-pointer' onClick={handleFormOpen}/>}
+      {isAdmin && <EditIcon className='text-gray-500 text-[16px] hover:text-gray-700 cursor-pointer' onClick={handleFormOpen}/>}
     </div>
   )
 }

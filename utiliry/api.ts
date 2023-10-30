@@ -2,7 +2,7 @@ import { ApiOptions, callStackApiProps, callUserApiProps, createIntrospectionApi
 import { SessionData } from "@/types/session";
 import axios from "axios";
 
-export const getApiOptions = (sessionData: SessionData): ApiOptions => {
+export const getApiHeaders = (sessionData: SessionData): ApiOptions => {
   return {
     headers: {
       'Content-Type': 'application/json',
@@ -11,7 +11,7 @@ export const getApiOptions = (sessionData: SessionData): ApiOptions => {
   }
 }
 
-export const getApiOptionsUserKey = (sessionData: SessionData): ApiOptions<{user_id: number}> => {
+export const getApiHeadersWithUserId = (sessionData: SessionData): ApiOptions<{user_id: number}> => {
   return {
     headers: {
       'Content-Type': 'application/json',

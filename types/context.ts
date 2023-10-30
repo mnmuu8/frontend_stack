@@ -17,6 +17,8 @@ export type AppContextProps = {
 export type SessionContextProps = {
   sessionUser: sessionUser;
   setSessionUser: Dispatch<SetStateAction<sessionUser>>;
+  isAdmin: boolean;
+  setIsAdmin: Dispatch<React.SetStateAction<boolean>>;
 }
 
 export type FormContextProps = {

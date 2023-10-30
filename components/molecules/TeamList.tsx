@@ -7,6 +7,7 @@ import TeamListItem from './TeamListItem';
 import AddIcon from '@mui/icons-material/Add';
 import { FormContext } from '@/context/FormContext';
 import { SessionContext } from '@/context/SessionContext';
+import { getApiOptions } from '@/utiliry/api';
 
 const TeamList: FC = () => {
   const [teams, setTeams] = useState<TeamProps[]>([])
@@ -22,13 +23,7 @@ const TeamList: FC = () => {
       const sessionData = getSession();
       if (!sessionData) return;
 
-      const options: ApiOptions = {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${sessionData.token}`
-        },
-      }
-
+      const options = getApiOptions(sessionData)
       try {
         const response = await axios.get(`${process.env.API_ROOT_URL}/api/v1/teams`, options);
         return response.data.teams;

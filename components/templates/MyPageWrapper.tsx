@@ -6,6 +6,7 @@ import axios from 'axios';
 import { getSession } from '@/utiliry/session';
 import { ApiOptions } from '@/types/api'
 import { StackProps } from '@/types/stack';
+import { getApiOptionsUserKey } from '@/utiliry/api';
 
 const MyPageWrapper: FC = () => {
   const [activeTab, setActiveTab] = useState('all');
@@ -24,15 +25,7 @@ const MyPageWrapper: FC = () => {
     const sessionData = getSession();
     if (!sessionData) return;
  
-    const options: ApiOptions<{user_id: number}> = {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${sessionData.token}`
-      },
-      params: {
-        user_id: sessionData.userId
-      }
-    }
+    const options = getApiOptionsUserKey(sessionData);
     axios.get(`${process.env.API_ROOT_URL}/api/v1/stacks`, options)
     .then(response => {
       const { data } = response;

@@ -1,11 +1,24 @@
 import { ApiOptions, callStackApiProps, callUserApiProps, createIntrospectionApiProps, createTeamApiProps } from "@/types/api";
+import { SessionData } from "@/types/session";
 import axios from "axios";
 
-export const getApiOptions = (sessionData: any): ApiOptions => {
+export const getApiOptions = (sessionData: SessionData): ApiOptions => {
   return {
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionData.token}`
+    }
+  }
+}
+
+export const getApiOptionsUserKey = (sessionData: SessionData): ApiOptions<{user_id: number}> => {
+  return {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionData.token}`
+    },
+    params: {
+      user_id: sessionData.userId
     }
   }
 }

@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import { getSession } from '@/utiliry/session'
 import axios from 'axios'
 import { SessionContext } from '@/context/SessionContext'
+import { getApiOptions } from '@/utiliry/api'
 
 const Layout: FC<LayoutProps> = ({ children }) => {
 
@@ -69,12 +70,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     const sessionData = getSession();
     if (!sessionData) return;
 
-    const options: ApiOptions = {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${sessionData.token}`
-      }
-    }
+    const options = getApiOptions(sessionData)
     axios.get(`${process.env.API_ROOT_URL}/api/v1/users/${sessionData.userId}`, options)
     .then(response => {
       const { data } = response;

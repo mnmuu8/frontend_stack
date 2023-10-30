@@ -10,6 +10,7 @@ import { ApiOptions } from '@/types/api';
 import { SkillProps } from '@/types/skill';
 import axios from 'axios';
 import { FormDataContext } from '@/context/FormDataContext';
+import { getApiOptions } from '@/utiliry/api';
 
 const SkillInput: FC = () => {
   const [skills, setSkills] = useState<SkillProps[]>([])
@@ -29,13 +30,9 @@ const SkillInput: FC = () => {
   useEffect(() => {
     const sessionData = getSession();
     if (!sessionData) return;
+
+    const options = getApiOptions(sessionData)
  
-    const options: ApiOptions<{user_id: number}> = {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${sessionData.token}`
-      }
-    }
     axios.get(`${process.env.API_ROOT_URL}/api/v1/skills`, options)
     .then(response => {
       const { data } = response;

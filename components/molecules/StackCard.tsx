@@ -13,6 +13,7 @@ import { FormContext } from '@/context/FormContext';
 import { SessionContext } from '@/context/SessionContext';
 import { FormDataContext } from '@/context/FormDataContext';
 import { InitialIntrospectionFormData } from '@/utiliry/form';
+import { getApiOptions } from '@/utiliry/api';
 
 const StackCard: FC<StackCardProps> = ({ stack }) => {
   const stackCreatedAt = stack.created_at;
@@ -48,12 +49,7 @@ const StackCard: FC<StackCardProps> = ({ stack }) => {
       const sessionData = getSession();
       if (!sessionData) return;
 
-      const options: ApiOptions = {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${sessionData.token}`
-        }
-      }
+      const options = getApiOptions(sessionData)
       const url = `${process.env.API_ROOT_URL}/api/v1/stacks/${stack.id}/introspection`;
 
       try {

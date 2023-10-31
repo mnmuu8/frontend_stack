@@ -1,25 +1,41 @@
 import React, { FC, useState, useEffect, useContext } from 'react'
 import TextInput from './TextInput';
-import { ApiOptions, TeamProps } from '../../types/types';
+import { ApiOptions } from '@/types/api';
+import { TeamProps } from '@/types/team';
 import { getSession } from '@/utiliry/session';
-import AppContext from '@/context/AppContext';
+
+import { hasValidationErrors, userValidationRules } from '@/utiliry/validator';
+import { ErrorMessages } from '@/types/validator';
+import ErrorMessage from '../atoms/ErrorMessage';
+
 import axios from 'axios';
 
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
+import { FormDataContext } from '@/context/FormDataContext';
+import { FormContext } from '@/context/FormContext';
+import { InitialUserErrorMessage, validationCheck } from '@/utiliry/form';
 
 const UserFormGroup: FC = () => {
   const [query, setQuery] = useState<string>('');
   const [results, setResults] = useState<TeamProps[]>([]);
   const [showResults, setShowResults] = useState<boolean>(false);
 
-  const appContext = useContext(AppContext);
-  const { userFormData, setUserFormData } = appContext
+  const formDataContext = useContext(FormDataContext);
+  const { userFormData, setUserFormData } = formDataContext;
+
+  const formContext = useContext(FormContext);
+  const { setIsValidate } = formContext;
+
+  const [errorMessages, setErrorMessages] = useState<ErrorMessages>(InitialUserErrorMessage);
 
   const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+
+    const validationRules = userValidationRules;
+    validationCheck({name, value, validationRules, errorMessages, setErrorMessages})
     
     setUserFormData({
       ...userFormData,
@@ -32,13 +48,18 @@ const UserFormGroup: FC = () => {
   };
 
   const handleTeamChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value)
+    const { name, value } = e.target;
+
+    setQuery(value)
     setUserFormData({
       ...userFormData,
-      team: {
-        name: e.target.value,
+      [name]: {
+        name: value,
       }
     });
+
+    const validationRules = userValidationRules;
+    validationCheck({name, value, validationRules, errorMessages, setErrorMessages})
   };
 
   const handleTeamClick = (team: TeamProps) => {
@@ -48,6 +69,10 @@ const UserFormGroup: FC = () => {
     });
     setShowResults(false);
   }
+
+  useEffect(() => {
+    setIsValidate(!hasValidationErrors(userFormData));
+  }, [userFormData])
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -116,6 +141,7 @@ const UserFormGroup: FC = () => {
           <FormControlLabel value="admin" control={<Radio />} label="管理者" />
           <FormControlLabel value="general" control={<Radio />} label="一般" />
         </RadioGroup>
+        <ErrorMessage errorMessages={errorMessages} errorKey={'role'} />
       </FormControl>
 
       <TextInput
@@ -131,7 +157,7 @@ const UserFormGroup: FC = () => {
         onChange={handleFieldChange}
         value={userFormData.name}
       />
-
+      <ErrorMessage errorMessages={errorMessages} errorKey={'name'} />
       <TextInput
         name={"email"}
         fullWidth={true}
@@ -145,7 +171,7 @@ const UserFormGroup: FC = () => {
         onChange={handleFieldChange}
         value={userFormData.email}
       />
-
+      <ErrorMessage errorMessages={errorMessages} errorKey={'email'} />
       <TextInput
         name={"profile_content"}
         fullWidth={true}
@@ -159,7 +185,7 @@ const UserFormGroup: FC = () => {
         onChange={handleFieldChange}
         value={userFormData.profile_content}
       />
-
+      <ErrorMessage errorMessages={errorMessages} errorKey={'profile_content'} />
       <TextInput
         name={"team"}
         fullWidth={true}
@@ -184,6 +210,8 @@ const UserFormGroup: FC = () => {
           ))}
         </div>
       )}
+      
+      <ErrorMessage errorMessages={errorMessages} errorKey={'team'} />
     </>
   )
 }

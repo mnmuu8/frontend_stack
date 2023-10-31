@@ -1,6 +1,6 @@
 import React, { FC, useContext } from 'react'
-import { sidebarMenus } from '@/types/types'
-import AppContext from '@/context/AppContext';
+import { sidebarMenus } from '@/types/utils'
+import { AppContext } from '@/context/AppContext';
 import Link from 'next/link';
 
 import Drawer from '@mui/material/Drawer';

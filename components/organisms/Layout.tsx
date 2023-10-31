@@ -1,16 +1,21 @@
 import React, { FC, useContext, useEffect, useState } from 'react'
 import Header from './Header'
 import Sidebar from './Sidebar'
-import { ApiOptions, LayoutProps } from '@/types/types'
-import AppContext from '@/context/AppContext'
+import { LayoutProps } from '@/types/utils'
+import { AppContext } from '@/context/AppContext'
 import { useRouter } from 'next/router';
 import { getSession } from '@/utiliry/session'
 import axios from 'axios'
+import { SessionContext } from '@/context/SessionContext'
+import { getApiHeaders } from '@/utiliry/api'
 
 const Layout: FC<LayoutProps> = ({ children }) => {
 
   const appContext = useContext(AppContext);
-  const {drawerOpen, setSessionUser} = appContext;
+  const {drawerOpen} = appContext;
+  
+  const sessionContext = useContext(SessionContext)
+  const { setSessionUser, sessionUser, setIsAdmin, isAdmin } = sessionContext;
 
   const mainStyle: React.CSSProperties = {
     width: drawerOpen ? 'calc(100% - 240px)' : '',
@@ -19,7 +24,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
   const router = useRouter();
 
-  const checkActivity = () => {    
+  const checkActivity = () => {
     const sessionData = getSession();
     const currentTime = new Date().getTime();
     if ((currentTime - sessionData.lastActivity) >= sessionData.exp) {
@@ -64,12 +69,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     const sessionData = getSession();
     if (!sessionData) return;
 
-    const options: ApiOptions = {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${sessionData.token}`
-      }
-    }
+    const options = getApiHeaders(sessionData)
     axios.get(`${process.env.API_ROOT_URL}/api/v1/users/${sessionData.userId}`, options)
     .then(response => {
       const { data } = response;
@@ -84,6 +84,10 @@ const Layout: FC<LayoutProps> = ({ children }) => {
       }
     });
   }, []);
+
+  useEffect(() => {
+    sessionUser && sessionUser.role === 'admin' ? setIsAdmin(true) : setIsAdmin(false);
+  }, [sessionUser, isAdmin]);
 
   return (
     <>

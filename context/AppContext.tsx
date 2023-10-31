@@ -1,36 +1,8 @@
-import { createContext, Dispatch, SetStateAction } from "react";
-import { FormType, IntrospectionFormDataParams, IntrospectionProps, sessionUser, StackFormDataParams, TeamFormDataParams, UserFormDataParams } from "@/types/types";
+import React, { MouseEvent, createContext, useState } from "react";
+import { ChildrenProps } from "@/types/utils";
+import { AppContextProps } from "@/types/context";
 
-type AppContextProps = {
-  drawerOpen: boolean;
-  setDrawerOpen: Dispatch<React.SetStateAction<boolean>>;
-  handleDrawerOpen: () => void;
-  handleDrawerClose: () => void;
-  anchorEl: HTMLElement | null;
-  setAnchorEl: Dispatch<React.SetStateAction<HTMLElement | null>>;
-  handleMenuOpen: (event: React.MouseEvent<HTMLElement>) => void;
-  handleMenuClose: () => void;
-  formType: FormType;
-  setFormType: Dispatch<React.SetStateAction<FormType>>;
-  formOpen: boolean;
-  setFormOpen: Dispatch<React.SetStateAction<boolean>>;
-  showStackIntrospection: IntrospectionProps;
-  setShowStackIntrospection: Dispatch<SetStateAction<IntrospectionProps>>;
-  sessionUser: sessionUser;
-  setSessionUser: React.Dispatch<React.SetStateAction<sessionUser>>;
-  introspectionFormData: IntrospectionFormDataParams;
-  setIntrospectionFormData: Dispatch<SetStateAction<IntrospectionFormDataParams>>;
-  isRegisterEvent: boolean;
-  setIsRegisterEvent: Dispatch<React.SetStateAction<boolean>>;
-  teamFormData: TeamFormDataParams;
-  setTeamFormData: Dispatch<React.SetStateAction<TeamFormDataParams>>;
-  userFormData: UserFormDataParams;
-  setUserFormData: Dispatch<React.SetStateAction<UserFormDataParams>>;
-  stackFormData: StackFormDataParams;
-  setStackFormData: Dispatch<React.SetStateAction<StackFormDataParams>>;
-}
-
-const AppContext = createContext<AppContextProps>({
+const InitialState: AppContextProps = {
   drawerOpen: true,
   setDrawerOpen: () => {},
   handleDrawerOpen: () => {},
@@ -39,24 +11,43 @@ const AppContext = createContext<AppContextProps>({
   setAnchorEl: () => {},
   handleMenuOpen: () => {},
   handleMenuClose: () => {},
-  formType: 'createStack',
-  setFormType: () => {},
-  formOpen: false,
-  setFormOpen: () => {},
-  showStackIntrospection: undefined,
-  setShowStackIntrospection: () => {},
-  sessionUser: undefined,
-  setSessionUser: () => {},
-  introspectionFormData: {evaluation: 0, reason: "", keeps: [], problems: [], tries: []},
-  setIntrospectionFormData: () => {},
-  isRegisterEvent: false,
-  setIsRegisterEvent: () => {},
-  teamFormData: {name: ""},
-  setTeamFormData: () => {},
-  userFormData: {role: "", name: "", email: "", profile_content: "",team: {name: ""}},
-  setUserFormData: () => {},
-  stackFormData: {skill: "", stacked_at: null, minutes: 0, title: "", description: ""},
-  setStackFormData: () => {},
-}) 
+}
 
-export default AppContext
+const AppContext = createContext<AppContextProps>(InitialState);
+
+const AppProvider = ({ children }: ChildrenProps) => {
+  const [drawerOpen, setDrawerOpen] = useState<boolean>(true);
+  const handleDrawerOpen: () => void = () => {
+    setDrawerOpen(true);
+  };
+  const handleDrawerClose: () => void = () => {
+    setDrawerOpen(false);
+  };
+
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const handleMenuOpen = (event: MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleMenuClose: () => void = () => {
+    setAnchorEl(null);
+  };
+
+  return (
+    <AppContext.Provider 
+      value={{
+        drawerOpen: drawerOpen,
+        setDrawerOpen: setDrawerOpen,
+        handleDrawerOpen: handleDrawerOpen,
+        handleDrawerClose: handleDrawerClose,
+        anchorEl: anchorEl,
+        setAnchorEl: setAnchorEl,
+        handleMenuOpen: handleMenuOpen,
+        handleMenuClose: handleMenuClose,
+      }}
+    >
+      {children}
+    </AppContext.Provider>
+  )
+}
+
+export { AppProvider, AppContext }

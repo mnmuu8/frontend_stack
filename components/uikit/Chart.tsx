@@ -1,5 +1,5 @@
 import React, { FC, useState, useEffect } from 'react'
-import { ChartProps, ChartData, ChartOption } from '@/types/types';
+import { ChartProps, ChartData, ChartOption } from '@/types/utils';
 import { Bar, Pie } from "react-chartjs-2";
 
 import {

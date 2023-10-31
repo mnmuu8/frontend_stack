@@ -1,28 +1,26 @@
 import React, { FC, useContext, useEffect, useState } from 'react'
 import { getSession } from '@/utiliry/session';
-import { ApiOptions, TeamProps } from '@/types/types';
+import { TeamProps } from '@/types/team';
 import axios from 'axios';
 import TeamListItem from './TeamListItem';
 import AddIcon from '@mui/icons-material/Add';
-import AppContext from '@/context/AppContext';
+import { FormContext } from '@/context/FormContext';
+import { SessionContext } from '@/context/SessionContext';
+import { getApiHeaders } from '@/utiliry/api';
 
 const TeamList: FC = () => {
   const [teams, setTeams] = useState<TeamProps[]>([])
-  const appContext = useContext(AppContext);
-  const { setFormOpen, setFormType, isRegisterEvent } = appContext
+  const formContext = useContext(FormContext);
+  const { setFormOpen, setFormType, isRegisterEvent } = formContext
+  const sessionContext = useContext(SessionContext);
+  const { isAdmin } = sessionContext;
 
   useEffect(() => {
     const fetchTeams = async () => {
       const sessionData = getSession();
       if (!sessionData) return;
 
-      const options: ApiOptions = {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${sessionData.token}`
-        },
-      }
-
+      const options = getApiHeaders(sessionData)
       try {
         const response = await axios.get(`${process.env.API_ROOT_URL}/api/v1/teams`, options);
         return response.data.teams;
@@ -43,7 +41,7 @@ const TeamList: FC = () => {
     <div>
       <div className='flex items-center px-2 pt-4 pb-2'>
         <div className='text-gray-500 text-sm mr-4'>チーム一覧</div>
-        <AddIcon className='text-gray-500 text-[20px] hover:text-gray-700 cursor-pointer' onClick={handleFormOpen}/>
+        {isAdmin && <AddIcon className='text-gray-500 text-[20px] hover:text-gray-700 cursor-pointer' onClick={handleFormOpen}/>}
       </div>
       <div>
         {teams &&

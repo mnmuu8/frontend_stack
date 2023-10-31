@@ -1,15 +1,29 @@
-import React, { FC, useEffect, useContext } from 'react'
-import AppContext from '@/context/AppContext';
+import React, { FC, useEffect, useContext, useState } from 'react'
 import TextInput from './TextInput';
 import Button from '@mui/material/Button';
-import { IntrospectionFormDataParams } from '../../types/types';
+import { IntrospectionFormDataParams } from '@/types/form';
+import { FormDataContext } from '@/context/FormDataContext';
+
+import { hasValidationErrors, introspectionValidationRules, isRequiredArray } from '@/utiliry/validator';
+import { ErrorMessages } from '@/types/validator';
+import ErrorMessage from '../atoms/ErrorMessage';
+import { FormContext } from '@/context/FormContext';
+import { InitialIntrospectionErrorMessage, validationCheck } from '@/utiliry/form';
 
 const StackInspectionFormGroup: FC = () => {
-  const appContext = useContext(AppContext);
-  const { showStackIntrospection, introspectionFormData, setIntrospectionFormData } = appContext;
+  const formDataContext = useContext(FormDataContext);
+  const { showStackIntrospection, introspectionFormData, setIntrospectionFormData } = formDataContext;
+
+  const formContext = useContext(FormContext);
+  const { setIsValidate } = formContext;
+
+  const [errorMessages, setErrorMessages] = useState<ErrorMessages>(InitialIntrospectionErrorMessage);
 
   const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    
+    const validationRules = introspectionValidationRules;
+    validationCheck({name, value, validationRules, errorMessages, setErrorMessages})
     
     setIntrospectionFormData({
       ...introspectionFormData,
@@ -21,6 +35,13 @@ const StackInspectionFormGroup: FC = () => {
     setIntrospectionFormData((prevData: IntrospectionFormDataParams) => {
       const updatedField = [...prevData[fieldName]];
       updatedField[index].content = value;
+
+      const isValid = isRequiredArray(updatedField);
+      setErrorMessages({
+        ...errorMessages,
+        [fieldName]: isValid ? '' : '必須項目です',
+      });
+
       return {
         ...prevData,
         [fieldName]: updatedField,
@@ -68,6 +89,10 @@ const StackInspectionFormGroup: FC = () => {
     }
   }, [])
 
+  useEffect(() => {
+    setIsValidate(!hasValidationErrors(introspectionFormData));
+  }, [introspectionFormData])
+
   return (
     <>
       <TextInput
@@ -83,6 +108,7 @@ const StackInspectionFormGroup: FC = () => {
         onChange={handleFieldChange}
         value={introspectionFormData.evaluation}
       />
+      <ErrorMessage errorMessages={errorMessages} errorKey='evaluation' />
       <TextInput
         name={"reason"}
         fullWidth={true}
@@ -96,6 +122,7 @@ const StackInspectionFormGroup: FC = () => {
         onChange={handleFieldChange}
         value={introspectionFormData.reason}
       />
+      <ErrorMessage errorMessages={errorMessages} errorKey='reason' />
       <div>
         {introspectionFormData.keeps.map((keep, index) => (
           <div key={keep.id} className='relative'>
@@ -115,6 +142,7 @@ const StackInspectionFormGroup: FC = () => {
             <div onClick={() => handleRemovePoint("keeps", index)} className='flex items-center justify-center absolute top-[-10px] right-[-10px] text-white bg-red-500 hover:bg-red-400 w-[30px] h-[30px] rounded-full cursor-pointer'>×</div>
           </div>
         ))}
+        <ErrorMessage errorMessages={errorMessages} errorKey='keeps' />
         <Button onClick={() => handleAddPoint("keeps")} className='w-full border-indigo-200 border-2 text-white bg-[#000044] hover:bg-[#000066] mt-4 py-3'>
           Keepを追加
         </Button>
@@ -138,6 +166,7 @@ const StackInspectionFormGroup: FC = () => {
             <div onClick={() => handleRemovePoint("problems", index)} className='flex items-center justify-center absolute top-[-10px] right-[-10px] text-white bg-red-500 hover:bg-red-400 w-[30px] h-[30px] rounded-full cursor-pointer'>×</div>
           </div>
         ))}
+        <ErrorMessage errorMessages={errorMessages} errorKey='problems' />
         <Button onClick={() => handleAddPoint("problems")} className='w-full border-indigo-200 border-2 text-white bg-[#000044] hover:bg-[#000066] mt-4 py-3'>
           Problemを追加
         </Button>
@@ -146,7 +175,7 @@ const StackInspectionFormGroup: FC = () => {
         {introspectionFormData.tries.map((tries, index) => (
           <div key={tries.id} className='relative'>
             <TextInput 
-              name={`try[${index}]_content`}  // 正しいプロパティを指定
+              name={`try[${index}]_content`}
               fullWidth={true}
               multiline={true}
               minRows={2}
@@ -161,6 +190,7 @@ const StackInspectionFormGroup: FC = () => {
             <div onClick={() => handleRemovePoint("tries", index)} className='flex items-center justify-center absolute top-[-10px] right-[-10px] text-white bg-red-500 hover:bg-red-400 w-[30px] h-[30px] rounded-full cursor-pointer'>×</div>
           </div>
         ))}
+        <ErrorMessage errorMessages={errorMessages} errorKey='tries' />
         <Button onClick={() => handleAddPoint("tries")} className='w-full border-indigo-200 border-2 text-white bg-[#000044] hover:bg-[#000066] mt-4 py-3'>
           Tryを追加
         </Button>

@@ -4,24 +4,43 @@ import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import { formatDate } from '../uikit/dateUtils';
-import { StackCardProps, ApiOptions, IntrospectionProps } from '@/types/types';
-import StackCardMenu from './StackCardMenu';
-import EditIcon from '@mui/icons-material/Edit';
-import AppContext from '@/context/AppContext';
+import { ApiOptions } from '@/types/api';
+import { IntrospectionProps } from '@/types/introspection';
+import { StackCardProps } from '@/types/stack';
 import { getSession } from '@/utiliry/session';
 import axios from 'axios';
+import { FormContext } from '@/context/FormContext';
+import { SessionContext } from '@/context/SessionContext';
+import { FormDataContext } from '@/context/FormDataContext';
+import { InitialIntrospectionFormData } from '@/utiliry/form';
+import { getApiHeaders } from '@/utiliry/api';
 
 const StackCard: FC<StackCardProps> = ({ stack }) => {
   const stackCreatedAt = stack.created_at;
   const formattedCreateDate = formatDate(stackCreatedAt);
-  const appContext = useContext(AppContext);
-  const { setFormOpen, setFormType, setShowStackIntrospection, sessionUser, isRegisterEvent } = appContext;
+  
+  const sessionContext = useContext(SessionContext)
+  const { sessionUser } = sessionContext;
+  
+  const formContext = useContext(FormContext);
+  const { setFormOpen, setFormType, isRegisterEvent } = formContext;
+  
+  const formDataContext = useContext(FormDataContext);
+  const { setShowStackIntrospection, setIntrospectionFormData } = formDataContext;
 
-  const handleFormOpen = () => {
-    introspectionValue && setShowStackIntrospection(introspectionValue);
-    setFormOpen(true);
+  const handleEditFormOpen = () => {
+    const stack_id = stack.id
+    introspectionValue && setShowStackIntrospection({ ...introspectionValue, stack_id });
     setFormType('updateStackIntrospection');
+    setFormOpen(true);
   }
+
+  const handleNewFormOpen = () => {
+    const stack_id = stack.id
+    setIntrospectionFormData({ ...InitialIntrospectionFormData, stack_id })
+    setFormType('createStackIntrospection');
+    setFormOpen(true);
+  };
 
   const [introspectionValue, setIntrospectionValue] = useState<IntrospectionProps>(undefined);
 
@@ -30,12 +49,7 @@ const StackCard: FC<StackCardProps> = ({ stack }) => {
       const sessionData = getSession();
       if (!sessionData) return;
 
-      const options: ApiOptions = {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${sessionData.token}`
-        }
-      }
+      const options = getApiHeaders(sessionData)
       const url = `${process.env.API_ROOT_URL}/api/v1/stacks/${stack.id}/introspection`;
 
       try {
@@ -65,16 +79,12 @@ const StackCard: FC<StackCardProps> = ({ stack }) => {
           <div className='flex items-center mr-4'><FavoriteBorderIcon className='text-gray-400 text-[20px] mr-1'/> 0</div>
           <div className='flex items-center'><BookmarkBorderIcon className='text-gray-400 text-[20px] mr-1'/> 0</div>
         </div>
-        {introspectionValue &&
-          <div className='mt-4'>
-            <div key={introspectionValue.id} className='bg-blue-500 px-6 py-2 rounded-full flex justify-between items-center mt-2'>
-              <span className='text-white text-sm font-bold'>反省</span>
-              <EditIcon className='text-[20px] text-white cursor-pointer' onClick={handleFormOpen} />
-            </div>
-          </div>
-        }
+        {introspectionValue ? (
+          <div className='bg-blue-500 text-blue-100 hover:bg-blue-600 text-sm font-bold rounded-full px-4 py-2 mt-2 ml-auto w-[90px] text-center cursor-pointer' onClick={handleEditFormOpen}>反省詳細</div>
+        ) : (
+          <div className='bg-blue-100 text-blue-500 hover:bg-blue-200 text-sm font-bold rounded-full px-4 py-2 mt-2 ml-auto w-[90px] text-center cursor-pointer' onClick={handleNewFormOpen}>反省追加</div>
+        )}
       </div>
-      <StackCardMenu stack_id={stack.id} />
     </div>
   )
 }

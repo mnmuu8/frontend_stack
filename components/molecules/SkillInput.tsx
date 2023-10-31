@@ -5,15 +5,18 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 
-import AppContext from '@/context/AppContext';
 import { getSession } from '@/utiliry/session';
-import { ApiOptions, Skill } from '@/types/types';
+import { ApiOptions } from '@/types/api';
+import { SkillProps } from '@/types/skill';
 import axios from 'axios';
+import { FormDataContext } from '@/context/FormDataContext';
+import { getApiHeaders } from '@/utiliry/api';
 
 const SkillInput: FC = () => {
-  const [skills, setSkills] = useState<Skill[]>([])
-  const appContext = useContext(AppContext);
-  const { stackFormData, setStackFormData } = appContext;
+  const [skills, setSkills] = useState<SkillProps[]>([])
+
+  const formDataContext = useContext(FormDataContext);
+  const { stackFormData, setStackFormData } = formDataContext;
 
   const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -27,13 +30,9 @@ const SkillInput: FC = () => {
   useEffect(() => {
     const sessionData = getSession();
     if (!sessionData) return;
+
+    const options = getApiHeaders(sessionData)
  
-    const options: ApiOptions<{user_id: number}> = {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${sessionData.token}`
-      }
-    }
     axios.get(`${process.env.API_ROOT_URL}/api/v1/skills`, options)
     .then(response => {
       const { data } = response;

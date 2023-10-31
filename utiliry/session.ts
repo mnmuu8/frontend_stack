@@ -1,4 +1,4 @@
-export const setSession = (token: string, userId: number, exp: number, role: string) => {
+export const setSession = (token: string, userId: number, exp: string, role: string) => {
   const lastActivity = new Date().getTime();
   const session = {
     token,

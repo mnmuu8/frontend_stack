@@ -3,8 +3,10 @@ import StackCard from '@/components/molecules/StackCard';
 import SelectBox from './SelectBox';
 import { SelectChangeEvent } from '@mui/material/Select';
 import { getSession } from '@/utiliry/session';
-import { ApiOptions, StackProps } from '@/types/types';
+import { ApiOptions } from '@/types/api';
+import { StackProps } from '@/types/stack';
 import axios from 'axios';
+import { getApiHeadersWithUserId } from '@/utiliry/api';
 
 const StackList: FC = () => {
   const [selectedOption, setSelectedOption] = useState<string>('all');
@@ -19,15 +21,7 @@ const StackList: FC = () => {
     const sessionData = getSession();
     if (!sessionData) return;
 
-    const options: ApiOptions<{user_id: number}> = {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${sessionData.token}`
-      },
-      params: {
-        user_id: sessionData.userId
-      }
-    }
+    const options = getApiHeadersWithUserId(sessionData);
     axios.get(`${process.env.API_ROOT_URL}/api/v1/stacks`, options)
     .then(response => {
       const { data } = response;

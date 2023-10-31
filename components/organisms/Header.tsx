@@ -1,5 +1,5 @@
 import React, { FC, useContext } from 'react';
-import AppContext from '@/context/AppContext';
+import { AppContext } from '@/context/AppContext';
 import SearchBox from '../molecules/SearchBox';
 import UserProfile from '../molecules/UserProfile';
 import HeaderMenu from '../uikit/HeaderMenu';
@@ -7,10 +7,14 @@ import IconButton from '@mui/material/IconButton';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import MenuIcon from '@mui/icons-material/Menu';
 import { siteTitle } from '@/config';
+import { SessionContext } from '@/context/SessionContext';
 
 const Header: FC = () => {
   const appContext = useContext(AppContext);
-  const { drawerOpen, handleDrawerOpen, handleMenuOpen, sessionUser } = appContext;
+  const { drawerOpen, handleDrawerOpen, handleMenuOpen } = appContext;
+
+  const sessionContext = useContext(SessionContext)
+  const { sessionUser } = sessionContext;
 
   const headerStyle: React.CSSProperties = {
     width: appContext.drawerOpen ? 'calc(100% - 240px)' : '',

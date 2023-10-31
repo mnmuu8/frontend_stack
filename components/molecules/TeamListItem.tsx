@@ -1,11 +1,19 @@
 import React, { FC, useContext } from 'react'
 import EditIcon from '@mui/icons-material/Edit';
-import AppContext from '@/context/AppContext';
-import { TeamFormDataParams } from '@/types/types';
+import { FormContext } from '@/context/FormContext';
+import { FormDataContext } from '@/context/FormDataContext';
+import { TeamFormDataParams } from '@/types/form';
+import { SessionContext } from '@/context/SessionContext';
 
 const TeamListItem: FC<TeamFormDataParams> = ({ id, name }) => {
-  const appContext = useContext(AppContext);
-  const { setFormOpen, setFormType, setTeamFormData } = appContext;
+  const formContext = useContext(FormContext);
+  const { setFormOpen, setFormType } = formContext;
+
+  const formDataContext = useContext(FormDataContext);
+  const { setTeamFormData } = formDataContext;
+
+  const sessionContext = useContext(SessionContext);
+  const { isAdmin } = sessionContext;
 
   const handleFormOpen = () => {
     setFormOpen(true);
@@ -19,7 +27,7 @@ const TeamListItem: FC<TeamFormDataParams> = ({ id, name }) => {
   return (
     <div className='flex items-center justify-between px-6 py-2'>
       <div className='bg-gray-50 text-sm'>{name}</div>
-      <EditIcon className='text-gray-500 text-[16px] hover:text-gray-700 cursor-pointer' onClick={handleFormOpen}/>
+      {isAdmin && <EditIcon className='text-gray-500 text-[16px] hover:text-gray-700 cursor-pointer' onClick={handleFormOpen}/>}
     </div>
   )
 }

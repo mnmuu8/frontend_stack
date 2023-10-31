@@ -2,7 +2,7 @@ import { NextPage } from 'next'
 import Layout from '@/components/organisms/Layout'
 import FormModal from '@/components/molecules/FormModal'
 import FormOpenButton from '@/components/atoms/FormOpenButton'
-import DashboardWrapper from '@/components/organisms/DashboardWrapper'
+import DashboardWrapper from '@/components/templates/DashboardWrapper'
 
 const index: NextPage = () => {
   return (

@@ -16,6 +16,8 @@ import { getApiHeaders } from '@/utiliry/api';
 import { dataConfirmAlert } from '@/utiliry/form';
 import FormSubmitButton from '../atoms/FormSubmitButton';
 import FormCancelButton from '../atoms/FormCancelButton';
+import OutputFormGroup from './OutputFormGroup';
+import { callCreateOutput } from '@/utiliry/api/outputs';
 
 const FormModal: FC = () => {
   const router: NextRouter = useRouter();
@@ -33,7 +35,8 @@ const FormModal: FC = () => {
     teamFormData,
     userFormData,
     stackFormData,
-    introspectionFormData
+    introspectionFormData,
+    outputFormData
   } = formDataContext;
 
   const FormCancel = () => {
@@ -70,6 +73,10 @@ const FormModal: FC = () => {
     if (formType === 'updateUser') {
       if (!dataConfirmAlert('ユーザー情報を更新しますか？')) return;
       callUpdateUser({options, sessionData, userFormData, router})
+    }
+    if (formType === 'createOutput') {
+      if (!dataConfirmAlert('アウトプットを作成しますか？')) return;
+      callCreateOutput({options, outputFormData, setIsRegisterEvent, router})
     }
 
     resetFormValue({setFormOpen, setIsRegisterEvent, setIsValidate, setStackFormData, setIntrospectionFormData, setUserFormData, setTeamFormData, setShowStackIntrospection})
@@ -116,6 +123,13 @@ const FormModal: FC = () => {
         label: 'チームを更新',
         component: <TeamFormGroup />,
         button: <FormSubmitButton onClick={FormSubmit} disabled={isValidate} label={'更新'} />
+      }
+    }
+    if (formType === 'createOutput') {
+      return {
+        label: 'アウトプットを作成',
+        component: <OutputFormGroup />,
+        button: <FormSubmitButton onClick={FormSubmit} disabled={isValidate} label={'作成'} />
       }
     }
   }

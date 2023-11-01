@@ -1,9 +1,9 @@
 import React, { createContext, useState } from "react";
 import { ChildrenProps } from "@/types/utils";
 import { IntrospectionProps } from "@/types/introspection";
-import { StackFormDataParams, TeamFormDataParams, UserFormDataParams, IntrospectionFormDataParams } from "@/types/form";
+import { StackFormDataParams, TeamFormDataParams, UserFormDataParams, IntrospectionFormDataParams, OutputFormDataParams } from "@/types/form";
 import { FormDataContextProps } from "@/types/context";
-import { InitialStackFormData, InitialIntrospectionFormData, InitialTeamFormData, InitialUserFormData } from "@/utiliry/form";
+import { InitialStackFormData, InitialIntrospectionFormData, InitialTeamFormData, InitialUserFormData, InitialOutputFormData } from "@/utiliry/form";
 
 const InitialState: FormDataContextProps = {
   teamFormData: InitialTeamFormData,
@@ -16,6 +16,8 @@ const InitialState: FormDataContextProps = {
   setIntrospectionFormData: () => {},
   showStackIntrospection: undefined,
   setShowStackIntrospection: () => {},
+  outputFormData: InitialOutputFormData,
+  setOutputFormData: () => {},
 }
 
 const FormDataContext = createContext<FormDataContextProps>(InitialState);
@@ -26,6 +28,7 @@ const FormDataProvider = ({ children }: ChildrenProps) => {
   const [userFormData, setUserFormData] = useState<UserFormDataParams>(InitialUserFormData)
   const [stackFormData, setStackFormData] = useState<StackFormDataParams>(InitialStackFormData)
   const [showStackIntrospection, setShowStackIntrospection] = useState<IntrospectionProps|undefined>(undefined)
+  const [outputFormData, setOutputFormData] = useState<OutputFormDataParams>(InitialOutputFormData)
 
   return (
     <FormDataContext.Provider 
@@ -40,6 +43,8 @@ const FormDataProvider = ({ children }: ChildrenProps) => {
         setIntrospectionFormData: setIntrospectionFormData,
         showStackIntrospection: showStackIntrospection,
         setShowStackIntrospection: setShowStackIntrospection,
+        outputFormData: outputFormData,
+        setOutputFormData: setOutputFormData,
       }}
     >
       {children}

@@ -17,6 +17,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MessageIcon from '@mui/icons-material/Message';
 import CastForEducationIcon from '@mui/icons-material/CastForEducation';
 import TeamList from '../molecules/TeamList';
+import OutputIcon from '@mui/icons-material/Output';
 
 const Sidebar: FC = () => {
   const appContext = useContext(AppContext);
@@ -28,6 +29,7 @@ const Sidebar: FC = () => {
     {id: 'mypage', label: 'マイページ', value: '/mypage', icon: <AccountCircleIcon />},
     {id: 'portfolio', label: 'ポートフォリオ', value: '/portfolio', icon: <CastForEducationIcon />},
     {id: 'message', label: 'メッセージ', value: '/message', icon: <MessageIcon />},
+    {id: 'outputs', label: 'アウトプット', value: '/outputs', icon: <OutputIcon />},
   ]
 
   return (

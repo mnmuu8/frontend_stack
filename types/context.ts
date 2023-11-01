@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import { sessionUser } from "./session";
-import { FormType, StackFormDataParams, TeamFormDataParams, UserFormDataParams, IntrospectionFormDataParams } from "./form";
+import { FormType, StackFormDataParams, TeamFormDataParams, UserFormDataParams, IntrospectionFormDataParams, OutputFormDataParams } from "./form";
 import { IntrospectionProps } from "./introspection";
 
 export type AppContextProps = {
@@ -43,4 +43,6 @@ export type FormDataContextProps = {
   setIntrospectionFormData: Dispatch<SetStateAction<IntrospectionFormDataParams>>;
   showStackIntrospection: IntrospectionProps;
   setShowStackIntrospection: Dispatch<SetStateAction<IntrospectionProps>>;
+  outputFormData: OutputFormDataParams;
+  setOutputFormData: Dispatch<SetStateAction<OutputFormDataParams>>;
 }

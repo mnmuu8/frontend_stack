@@ -2,7 +2,7 @@ import { SelectChangeEvent } from '@mui/material/Select';
 import { IntrospectionProps, KeepAndProblemAndTryPoint } from './introspection';
 import { Dispatch, SetStateAction } from 'react';
 
-export type FormType = 'updateUser' | 'createStack' | 'createStackIntrospection' | 'showStackIntrospection' | 'updateStackIntrospection' | 'createTeam' | 'updateTeam'
+export type FormType = 'updateUser' | 'createStack' | 'createStackIntrospection' | 'showStackIntrospection' | 'updateStackIntrospection' | 'createTeam' | 'updateTeam' | 'createOutput'
 
 export type FormTypeProps = {
   formType: FormType;
@@ -62,6 +62,10 @@ export type IntrospectionFormDataParams = {
   problems: KeepAndProblemAndTryPoint[];
   tries: KeepAndProblemAndTryPoint[];
   stack_id?: number;
+}
+
+export type OutputFormDataParams = {
+  content: string;
 }
 
 export type ResetFormValueProps = {

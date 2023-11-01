@@ -46,3 +46,7 @@ export const userValidationRules: ValidationRules = {
   profile_content: (value) => isRequired(value),
   team: (value) => isRequired(value),
 };
+
+export const outputValidationRules: ValidationRules = {
+  content: (value) => isRequired(value),
+};

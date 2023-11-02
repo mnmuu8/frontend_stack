@@ -17,7 +17,7 @@ export const dataConfirmAlert = (message: string) => {
   return window.confirm(message);
 }
 
-export const resetFormValue = ({setFormOpen, setIsRegisterEvent, setIsValidate, setStackFormData, setIntrospectionFormData, setUserFormData, setTeamFormData, setShowStackIntrospection}: ResetFormValueProps): void => {
+export const resetFormValue = ({setFormOpen, setIsRegisterEvent, setIsValidate, setStackFormData, setIntrospectionFormData, setUserFormData, setTeamFormData, setShowStackIntrospection, setOutputFormData}: ResetFormValueProps): void => {
   setFormOpen(false);
 
   setIsRegisterEvent(false)
@@ -27,6 +27,7 @@ export const resetFormValue = ({setFormOpen, setIsRegisterEvent, setIsValidate, 
   setIntrospectionFormData(InitialIntrospectionFormData)
   setUserFormData(InitialUserFormData)
   setTeamFormData(InitialTeamFormData)
+  setOutputFormData(InitialOutputFormData)
 
   setShowStackIntrospection(undefined);
 }

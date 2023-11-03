@@ -12,7 +12,7 @@ const OutputCard: FC<OutputCardProps> = ({ output }) => {
   const formattedCreateDate = formatDate(outputCreatedAt);
 
   return (
-    <div key={output.id} className='w-[49%] bg-gray-50 rounded-md p-6 mb-4'>
+    <div key={output.id} className='w-full bg-gray-50 rounded-md p-6 mb-4'>
       <div className='flex items-center mb-2'>
         <UserProfile user={sessionUser} height={32} width={32} isHeader={false} created_at={formattedCreateDate}/>
       </div>

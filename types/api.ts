@@ -1,7 +1,8 @@
 import { Dispatch, SetStateAction } from "react";
 import { IntrospectionFormDataParams, OutputFormDataParams, StackFormDataParams, TeamFormDataParams, UserFormDataParams } from "./form";
-import { SessionData } from "./session";
+import { SessionData, sessionUser } from "./session";
 import { NextRouter } from "next/router";
+import { StackRankings } from "@/components/uikit/RankTable";
 
 export type routerProps = {
   router: NextRouter;
@@ -9,6 +10,10 @@ export type routerProps = {
 
 export type SessionDataProps = {
   sessionData: SessionData;
+}
+
+export type SessionUserProps = {
+  sessionUser: sessionUser;
 }
 
 export type setIsRegisterEventProps = {
@@ -45,4 +50,8 @@ export type createTeamApiProps = ApiOptionsProps & setIsRegisterEventProps & {
 
 export type createOutputApiProps = ApiOptionsProps & routerProps & setIsRegisterEventProps & {
   outputFormData: OutputFormDataParams;
+}
+
+export type fetchStackRankingsProps = ApiOptionsProps & SessionUserProps & {
+  setStackRankings: React.Dispatch<React.SetStateAction<StackRankings[]>>
 }

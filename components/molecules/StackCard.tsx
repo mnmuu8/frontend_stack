@@ -44,6 +44,9 @@ const StackCard: FC<StackCardProps> = ({ stack }) => {
 
   const [introspectionValue, setIntrospectionValue] = useState<IntrospectionProps>(undefined);
 
+  const UserProfileHeight = 32;
+  const UserProfileWidth = 32;
+
   useEffect(() => {
     const fetchIntrospection = async () => {
       const sessionData = getSession();
@@ -68,7 +71,7 @@ const StackCard: FC<StackCardProps> = ({ stack }) => {
     <div className='relative'>
       <div className='relative bg-gray-50 rounded-md px-10 py-4 mb-4'>
         <div className='flex items-center'>
-          <UserProfile user={sessionUser} height={32} width={32} isHeader={false} created_at={formattedCreateDate} />
+          <UserProfile user={sessionUser} height={UserProfileHeight} width={UserProfileWidth} isHeader={false} created_at={formattedCreateDate} />
         </div>
         <div className='pt-4 pb-2 text-lg font-bold'>{stack.title}</div>
         <div className='flex items-center'>

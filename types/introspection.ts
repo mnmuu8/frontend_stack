@@ -14,4 +14,3 @@ export type IntrospectionProps = {
   id?: number;
   stack_id?: number;
 } | undefined;
-

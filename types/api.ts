@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction } from "react";
 import { IntrospectionFormDataParams, OutputFormDataParams, StackFormDataParams, TeamFormDataParams, UserFormDataParams } from "./form";
 import { SessionData } from "./session";
 import { NextRouter } from "next/router";
+import { OutputProps } from "./output";
 
 export type routerProps = {
   router: NextRouter;
@@ -46,3 +47,7 @@ export type createTeamApiProps = ApiOptionsProps & setIsRegisterEventProps & {
 export type createOutputApiProps = ApiOptionsProps & routerProps & setIsRegisterEventProps & {
   outputFormData: OutputFormDataParams;
 }
+
+export type getOutputsApiProps = ApiOptionsProps & {
+  setOutputs: Dispatch<SetStateAction<OutputProps[]>>;
+};

@@ -32,6 +32,7 @@ const FormModal: FC = () => {
     setUserFormData,
     setTeamFormData,
     setShowStackIntrospection,
+    setOutputFormData,
     teamFormData,
     userFormData,
     stackFormData,
@@ -41,7 +42,7 @@ const FormModal: FC = () => {
 
   const FormCancel = () => {
     if (!dataConfirmAlert('入力した値が削除されます')) return;
-    resetFormValue({setFormOpen, setIsRegisterEvent, setIsValidate, setStackFormData, setIntrospectionFormData, setUserFormData, setTeamFormData, setShowStackIntrospection})
+    resetFormValue({setFormOpen, setIsRegisterEvent, setIsValidate, setStackFormData, setIntrospectionFormData, setUserFormData, setTeamFormData, setShowStackIntrospection, setOutputFormData})
   }
 
   const FormSubmit = () => {
@@ -79,7 +80,7 @@ const FormModal: FC = () => {
       callCreateOutput({options, outputFormData, setIsRegisterEvent, router})
     }
 
-    resetFormValue({setFormOpen, setIsRegisterEvent, setIsValidate, setStackFormData, setIntrospectionFormData, setUserFormData, setTeamFormData, setShowStackIntrospection})
+    resetFormValue({setFormOpen, setIsRegisterEvent, setIsValidate, setStackFormData, setIntrospectionFormData, setUserFormData, setTeamFormData, setShowStackIntrospection, setOutputFormData})
   }
 
   const setFormGroup = ({formType}: FormTypeProps): setFormGroupProps | undefined  => {

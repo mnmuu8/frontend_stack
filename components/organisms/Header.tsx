@@ -20,6 +20,9 @@ const Header: FC = () => {
     width: appContext.drawerOpen ? 'calc(100% - 240px)' : '',
     left: appContext.drawerOpen ? 'auto' : 0,
   }
+
+  const UserProfileHeight = 50;
+  const UserProfileWidth = 50;
   
   return (
     <header className='fixed top-0 left-0 right-0 bg-white' style={headerStyle} >
@@ -38,7 +41,7 @@ const Header: FC = () => {
           <SearchBox />
         </div>
         <div className='flex items-center'>
-          <UserProfile user={sessionUser} height={50} width={50} isHeader={true} />
+          <UserProfile user={sessionUser} height={UserProfileHeight} width={UserProfileWidth} isHeader={true} />
           <IconButton onClick={handleMenuOpen}>
             <KeyboardArrowDownIcon />
           </IconButton>

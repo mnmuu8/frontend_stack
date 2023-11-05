@@ -32,7 +32,7 @@ const RankTable: FC = () => {
   const [stackRankings, setStackRankings] = useState<StackRankings[]>([])
 
   const StackRankingColumns: StackRankingColumn[] = [
-    { id: 'order', label: 'ランキング'},
+    { id: 'order', label: '順位'},
     { id: 'user_name', label: 'ユーザー名'},
   ];
 

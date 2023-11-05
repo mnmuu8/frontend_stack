@@ -13,6 +13,9 @@ const ProfileCard: FC = () => {
   const formContext = useContext(FormContext);
   const { setFormOpen, setFormType } = formContext;
 
+  const UserProfileHeight = 80;
+  const UserProfileWidth = 80;
+
   const handleFormOpen = () => {
     setFormType('updateUser');
     setFormOpen(true);
@@ -21,7 +24,7 @@ const ProfileCard: FC = () => {
   if (sessionUser) {
     return (
       <div className='self-start w-[320px] bg-gray-50 px-4 py-8 rounded-md shadow-md'>
-        <ImageWrapper src={'/no_image.png'} height={80} width={80} alt={sessionUser.name} className='rounded-full m-auto' />
+        <ImageWrapper src={'/no_image.png'} height={UserProfileHeight} width={UserProfileWidth} alt={sessionUser.name} className='rounded-full m-auto' />
         <div className='text-center mt-2 font-bold'>{sessionUser.name}</div>
         <div className='flex justify-center mt-2'>
           <Link href=''><TwitterIcon className='text-gray-400 mx-1'/></Link>

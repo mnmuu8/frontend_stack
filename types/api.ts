@@ -3,6 +3,7 @@ import { IntrospectionFormDataParams, OutputFormDataParams, StackFormDataParams,
 import { SessionData, sessionUser } from "./session";
 import { NextRouter } from "next/router";
 import { StackRankings } from "@/components/uikit/RankTable";
+import { OutputProps } from "./output";
 
 export type routerProps = {
   router: NextRouter;
@@ -55,3 +56,7 @@ export type createOutputApiProps = ApiOptionsProps & routerProps & setIsRegister
 export type fetchStackRankingsProps = ApiOptionsProps & SessionUserProps & {
   setStackRankings: React.Dispatch<React.SetStateAction<StackRankings[]>>
 }
+
+export type getOutputsApiProps = ApiOptionsProps & {
+  setOutputs: Dispatch<SetStateAction<OutputProps[]>>;
+};

@@ -76,5 +76,6 @@ export type ResetFormValueProps = {
   setIntrospectionFormData: Dispatch<SetStateAction<IntrospectionFormDataParams>>;
   setUserFormData: Dispatch<SetStateAction<UserFormDataParams>>;
   setTeamFormData: Dispatch<SetStateAction<TeamFormDataParams>>;
+  setOutputFormData: Dispatch<SetStateAction<OutputFormDataParams>>;
   setShowStackIntrospection: Dispatch<SetStateAction<IntrospectionProps>>;
 }

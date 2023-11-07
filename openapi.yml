@@ -79,6 +79,10 @@ paths:
                 $ref: '#/components/schemas/Stacks_Stack'
         '401':
           description: 認証エラー
+        '404':
+          description: スキルランクが存在しない
+        '409':
+          description: 同一情報のスキルランクがすでに存在する
         '422':
           description: バリデーションエラー
 

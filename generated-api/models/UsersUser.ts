@@ -19,6 +19,12 @@ import {
     UsersUserRoleFromJSONTyped,
     UsersUserRoleToJSON,
 } from './UsersUserRole';
+import type { UsersUserSkillRanksInner } from './UsersUserSkillRanksInner';
+import {
+    UsersUserSkillRanksInnerFromJSON,
+    UsersUserSkillRanksInnerFromJSONTyped,
+    UsersUserSkillRanksInnerToJSON,
+} from './UsersUserSkillRanksInner';
 import type { UsersUserTeam } from './UsersUserTeam';
 import {
     UsersUserTeamFromJSON,
@@ -70,6 +76,12 @@ export interface UsersUser {
     team: UsersUserTeam;
     /**
      * 
+     * @type {Array<UsersUserSkillRanksInner>}
+     * @memberof UsersUser
+     */
+    skillRanks: Array<UsersUserSkillRanksInner>;
+    /**
+     * 
      * @type {Date}
      * @memberof UsersUser
      */
@@ -93,6 +105,7 @@ export function instanceOfUsersUser(value: object): boolean {
     isInstance = isInstance && "profileContent" in value;
     isInstance = isInstance && "role" in value;
     isInstance = isInstance && "team" in value;
+    isInstance = isInstance && "skillRanks" in value;
     isInstance = isInstance && "createdAt" in value;
     isInstance = isInstance && "updatedAt" in value;
 
@@ -115,6 +128,7 @@ export function UsersUserFromJSONTyped(json: any, ignoreDiscriminator: boolean):
         'profileContent': json['profile_content'],
         'role': UsersUserRoleFromJSON(json['role']),
         'team': UsersUserTeamFromJSON(json['team']),
+        'skillRanks': ((json['skill_ranks'] as Array<any>).map(UsersUserSkillRanksInnerFromJSON)),
         'createdAt': (new Date(json['created_at'])),
         'updatedAt': (new Date(json['updated_at'])),
     };
@@ -135,6 +149,7 @@ export function UsersUserToJSON(value?: UsersUser | null): any {
         'profile_content': value.profileContent,
         'role': UsersUserRoleToJSON(value.role),
         'team': UsersUserTeamToJSON(value.team),
+        'skill_ranks': ((value.skillRanks as Array<any>).map(UsersUserSkillRanksInnerToJSON)),
         'created_at': (value.createdAt.toISOString()),
         'updated_at': (value.updatedAt.toISOString()),
     };

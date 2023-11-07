@@ -12,6 +12,8 @@ models/AuthLoginRequestBody.ts
 models/OutputCreateRequestBody.ts
 models/OutputsOutput.ts
 models/OutputsOutputListInner.ts
+models/SkillRanksSkillRank.ts
+models/SkillRanksSkillRankName.ts
 models/SkillsSkill.ts
 models/SkillsSkillListInner.ts
 models/StacksCreateRequestBody.ts
@@ -37,6 +39,7 @@ models/TeamsTeamListInner.ts
 models/UserUpdateRequestBody.ts
 models/UsersUser.ts
 models/UsersUserRole.ts
+models/UsersUserSkillRanksInner.ts
 models/UsersUserTeam.ts
 models/index.ts
 runtime.ts

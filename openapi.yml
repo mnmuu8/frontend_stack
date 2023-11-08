@@ -79,6 +79,10 @@ paths:
                 $ref: '#/components/schemas/Stacks_Stack'
         '401':
           description: 認証エラー
+        '404':
+          description: スキルランクが存在しない
+        '409':
+          description: 同一情報のスキルランクがすでに存在する
         '422':
           description: バリデーションエラー
 
@@ -763,6 +767,7 @@ components:
         - profile_content
         - role
         - team
+        - skill_ranks
         - created_at
         - updated_at
       properties:
@@ -790,6 +795,11 @@ components:
           allOf:
             - $ref: '#/components/schemas/Teams_Team'
           nullable: false
+        skill_ranks:
+          type: array
+          items:
+            allOf:
+              - $ref: '#/components/schemas/SkillRanks_SkillRank'
         created_at:
           allOf:
             - $ref: '#/components/schemas/DateTime'
@@ -831,6 +841,54 @@ components:
       type: string
       description: ユーザーのパスワード
       example: password
+
+    SkillRanks_SkillRank:
+      type: object
+      required:
+        - id
+        - name
+        - skill
+        - created_at
+        - updated_at
+      properties:
+        id:
+          allOf:
+            - $ref: '#/components/schemas/SkillRanks_SkillRank_Id'
+          nullable: false
+        name:
+          allOf:
+            - $ref: '#/components/schemas/SkillRanks_SkillRank_Name'
+          nullable: false
+        skill:
+          allOf:
+            - $ref: '#/components/schemas/Skills_Skill'
+          nullable: false
+        created_at:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+          nullable: false
+        updated_at:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+          nullable: false
+
+    SkillRanks_SkillRank_Id:
+      type: integer
+      description: スキルランクID
+      example: 1
+
+    SkillRanks_SkillRank_Name:
+      type: string
+      description: スキルランク名
+      example: bronze
+      enum:
+        - bronze
+        - silver
+        - gold
+        - platinum
+        - diamond
+        - master
+        - legend
 
     Teams_TeamList:
       type: array

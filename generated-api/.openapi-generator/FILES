@@ -1,6 +1,7 @@
 apis/AuthApi.ts
 apis/IntrospectionApi.ts
 apis/OutputApi.ts
+apis/OutputCommentApi.ts
 apis/SkillApi.ts
 apis/StackApi.ts
 apis/TeamApi.ts
@@ -10,6 +11,8 @@ index.ts
 models/AuthLogin.ts
 models/AuthLoginRequestBody.ts
 models/OutputCreateRequestBody.ts
+models/OutputsCommentsComment.ts
+models/OutputsCommentsCommentListInner.ts
 models/OutputsOutput.ts
 models/OutputsOutputListInner.ts
 models/SkillRanksSkillRank.ts

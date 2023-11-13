@@ -434,6 +434,33 @@ paths:
         '422':
           description: バリデーションエラー
 
+  /api/v1/outputs/{output_id}/comments:
+    get:
+      summary: アウトプットのコメント一覧
+      operationId: api.v1.outputs.comments.index
+      tags:
+        - OutputComment
+      security: []
+      parameters:
+        - name: output_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Outputs_Output_Id'
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Outputs_Comments_CommentList'
+        '401':
+          description: 認証エラー
+        '404':
+          description: アウトプットが存在しない
+        '422':
+          description: バリデーションエラー
+
 components:
   schemas:
     Auth_Login:
@@ -1002,6 +1029,52 @@ components:
       type: string
       description: アウトプット内容
       example: アウトプットします
+
+    Outputs_Comments_CommentList:
+      type: array
+      items:
+        allOf:
+          - $ref: '#/components/schemas/Outputs_Comments_Comment'
+
+    Outputs_Comments_Comment:
+      type: object
+      required:
+        - id
+        - content
+        - user_id
+        - created_at
+        - updated_at
+      properties:
+        id:
+          allOf:
+            - $ref: '#/components/schemas/Outputs_Comments_Comment_Id'
+          nullable: false
+        content:
+          allOf:
+            - $ref: '#/components/schemas/Outputs_Comments_Comment_Content'
+          nullable: false
+        user_id:
+          allOf:
+            - $ref: '#/components/schemas/Users_User_Id'
+          nullable: false
+        created_at:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+          nullable: false
+        updated_at:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+          nullable: false
+
+    Outputs_Comments_Comment_Id:
+      type: integer
+      description: アウトプットへのコメントID
+      example: 1
+
+    Outputs_Comments_Comment_Content:
+      type: string
+      description: アウトプットへのコメント内容
+      example: Good!
 
     DateTime:
       type: string

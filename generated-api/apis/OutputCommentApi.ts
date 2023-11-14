@@ -15,12 +15,23 @@
 
 import * as runtime from '../runtime';
 import type {
+  OutputCommentCreateRequestBody,
+  OutputsCommentsComment,
   OutputsCommentsCommentListInner,
 } from '../models';
 import {
+    OutputCommentCreateRequestBodyFromJSON,
+    OutputCommentCreateRequestBodyToJSON,
+    OutputsCommentsCommentFromJSON,
+    OutputsCommentsCommentToJSON,
     OutputsCommentsCommentListInnerFromJSON,
     OutputsCommentsCommentListInnerToJSON,
 } from '../models';
+
+export interface ApiV1OutputsCommentsCreateRequest {
+    outputId: number;
+    outputCommentCreateRequestBody: OutputCommentCreateRequestBody;
+}
 
 export interface ApiV1OutputsCommentsIndexRequest {
     outputId: number;
@@ -30,6 +41,43 @@ export interface ApiV1OutputsCommentsIndexRequest {
  * 
  */
 export class OutputCommentApi extends runtime.BaseAPI {
+
+    /**
+     * アウトプット作成
+     */
+    async apiV1OutputsCommentsCreateRaw(requestParameters: ApiV1OutputsCommentsCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OutputsCommentsComment>> {
+        if (requestParameters.outputId === null || requestParameters.outputId === undefined) {
+            throw new runtime.RequiredError('outputId','Required parameter requestParameters.outputId was null or undefined when calling apiV1OutputsCommentsCreate.');
+        }
+
+        if (requestParameters.outputCommentCreateRequestBody === null || requestParameters.outputCommentCreateRequestBody === undefined) {
+            throw new runtime.RequiredError('outputCommentCreateRequestBody','Required parameter requestParameters.outputCommentCreateRequestBody was null or undefined when calling apiV1OutputsCommentsCreate.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/api/v1/outputs/{output_id}/comments`.replace(`{${"output_id"}}`, encodeURIComponent(String(requestParameters.outputId))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: OutputCommentCreateRequestBodyToJSON(requestParameters.outputCommentCreateRequestBody),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => OutputsCommentsCommentFromJSON(jsonValue));
+    }
+
+    /**
+     * アウトプット作成
+     */
+    async apiV1OutputsCommentsCreate(requestParameters: ApiV1OutputsCommentsCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OutputsCommentsComment> {
+        const response = await this.apiV1OutputsCommentsCreateRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
 
     /**
      * アウトプットのコメント一覧

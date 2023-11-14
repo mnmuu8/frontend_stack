@@ -2,6 +2,7 @@
 /* eslint-disable */
 export * from './AuthLogin';
 export * from './AuthLoginRequestBody';
+export * from './OutputCommentCreateRequestBody';
 export * from './OutputCreateRequestBody';
 export * from './OutputsCommentsComment';
 export * from './OutputsCommentsCommentListInner';

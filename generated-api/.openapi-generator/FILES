@@ -10,6 +10,7 @@ apis/index.ts
 index.ts
 models/AuthLogin.ts
 models/AuthLoginRequestBody.ts
+models/OutputCommentCreateRequestBody.ts
 models/OutputCreateRequestBody.ts
 models/OutputsCommentsComment.ts
 models/OutputsCommentsCommentListInner.ts

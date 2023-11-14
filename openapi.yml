@@ -460,6 +460,37 @@ paths:
           description: アウトプットが存在しない
         '422':
           description: バリデーションエラー
+    post:
+      summary: アウトプット作成
+      operationId: api.v1.outputs.comments.create
+      tags:
+        - OutputComment
+      security: []
+      parameters:
+        - name: output_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Outputs_Output_Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OutputCommentCreateRequestBody'
+      responses:
+        '201':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Outputs_Comments_Comment'
+        '401':
+          description: 認証エラー
+        '404':
+          description: アウトプットが存在しない
+        '422':
+          description: バリデーションエラー
 
 components:
   schemas:
@@ -1255,4 +1286,19 @@ components:
         content:
           allOf:
             - $ref: '#/components/schemas/Outputs_Output_Content'
+          nullable: false
+
+    OutputCommentCreateRequestBody:
+      type: object
+      required:
+        - content
+        - user_id
+      properties:
+        content:
+          allOf:
+            - $ref: '#/components/schemas/Outputs_Comments_Comment_Content'
+          nullable: false
+        user_id:
+          allOf:
+            - $ref: '#/components/schemas/Users_User_Id'
           nullable: false

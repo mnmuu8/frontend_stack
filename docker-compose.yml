@@ -9,8 +9,9 @@ services:
     volumes:
       - .:/app
     networks:
-      - skill-climbing-shared-network
+      - default
 
 networks:
-  skill-climbing-shared-network:
-    external: true
+  default:
+    external:
+      name: skill_climbing_shared_network

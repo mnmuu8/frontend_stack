@@ -5,6 +5,10 @@ export type OutputProps = {
   updated_at: string;
 }
 
+export type OutputsProps = {
+  outputs: OutputProps[];
+}
+
 export type OutputCardProps = {
   output: OutputProps;
 }

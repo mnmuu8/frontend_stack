@@ -29,13 +29,13 @@
 ## 4. 環境構築手順
 1. リポジトリをローカルにcloneする
   - 以下コマンドを実行する。
-    - `git clone git@github.com:mnmuu8/skill-climbing-frontend.git`
+    - `git clone git@github.com:mnmuu8/frontend_stack.git`
 2. Dockerイメージの作成
   - 以下コマンドを実行する。
     - `make build`
 3. Dockerネットワークの作成
   - 以下コマンドを実行する。
-    - `docker network create skill-climbing-shared-network`
+    - `docker network create stack_shared_network`
 4. Dockerコンテナを立ち上げる
   - 以下コマンドを実行する。
     - `make up`

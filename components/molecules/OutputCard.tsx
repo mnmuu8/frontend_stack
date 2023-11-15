@@ -3,6 +3,7 @@ import { SessionContext } from '@/context/SessionContext';
 import UserProfile from './UserProfile';
 import { OutputCardProps } from '@/types/output';
 import { formatDate } from '../uikit/dateUtils';
+import Link from 'next/link';
 
 const OutputCard: FC<OutputCardProps> = ({ output }) => {
   const sessionContext = useContext(SessionContext);
@@ -16,10 +17,12 @@ const OutputCard: FC<OutputCardProps> = ({ output }) => {
 
   return (
     <div key={output.id} className='w-full bg-gray-50 rounded-md p-6 mb-4'>
-      <div className='flex items-center mb-2'>
-        <UserProfile user={sessionUser} height={UserProfileHeight} width={UserProfileWidth} isHeader={false} created_at={formattedCreateDate}/>
-      </div>
-      <div className='text-md'>{output.content}</div>
+      <Link href={`/outputs/${output.id}`}>
+        <div className='flex items-center mb-2'>
+          <UserProfile user={sessionUser} height={UserProfileHeight} width={UserProfileWidth} isHeader={false} created_at={formattedCreateDate}/>
+        </div>
+        <div className='text-md'>{output.content}</div>
+      </Link>
     </div>
   )
 }

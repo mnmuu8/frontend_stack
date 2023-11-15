@@ -11,6 +11,15 @@ export const getApiHeaders = (sessionData: SessionData): ApiOptions => {
   }
 }
 
+export const getNextApiHeaders = (token: string): ApiOptions => {
+  return {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    }
+  }
+}
+
 export const getApiHeadersWithUserId = (sessionData: SessionData): ApiOptions<{user_id: number}> => {
   return {
     headers: {

@@ -14,4 +14,4 @@ services:
 networks:
   default:
     external:
-      name: skill_climbing_shared_network
+      name: stack_shared_network

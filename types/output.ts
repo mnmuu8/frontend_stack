@@ -25,5 +25,5 @@ export type OutputsProps = {
 
 export type OutputCardProps = {
   output: OutputProps;
-  initialComments: CommentProps[];
+  initialComments?: CommentProps[];
 }

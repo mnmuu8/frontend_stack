@@ -4,7 +4,7 @@ import cookie from 'cookie';
 import { GetServerSideProps, NextPage } from 'next';
 import { getNextApiHeaders } from '@/utiliry/api';
 import { useRouter } from 'next/router';
-import { OutputCardProps } from '@/types/output';
+import { OutputCardProps, CommentProps } from '@/types/output';
 
 const Output: NextPage<OutputCardProps> = ({ output, initialComments }) => {
   const router = useRouter();
@@ -33,7 +33,7 @@ const Output: NextPage<OutputCardProps> = ({ output, initialComments }) => {
   );
 };
 
-const Comment: React.FC<{ comment: OutputCardProps['initialComments'][0] }> = ({ comment }) => {
+const Comment: React.FC<{ comment: CommentProps }> = ({ comment }) => {
   const timeAgo = formatTimeAgo(comment.created_at);
 
   return (

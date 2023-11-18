@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, useContext } from 'react'
+import React, { FC, useState, useEffect, useContext } from 'react';
 import TextInput from './TextInput';
 import { ApiOptions } from '@/types/api';
 import { TeamProps } from '@/types/team';
@@ -35,8 +35,8 @@ const UserFormGroup: FC = () => {
     const { name, value } = e.target;
 
     const validationRules = userValidationRules;
-    validationCheck({name, value, validationRules, errorMessages, setErrorMessages})
-    
+    validationCheck({ name, value, validationRules, errorMessages, setErrorMessages });
+
     setUserFormData({
       ...userFormData,
       [name]: value,
@@ -50,41 +50,41 @@ const UserFormGroup: FC = () => {
   const handleTeamChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setQuery(value)
+    setQuery(value);
     setUserFormData({
       ...userFormData,
       [name]: {
         name: value,
-      }
+      },
     });
 
     const validationRules = userValidationRules;
-    validationCheck({name, value, validationRules, errorMessages, setErrorMessages})
+    validationCheck({ name, value, validationRules, errorMessages, setErrorMessages });
   };
 
   const handleTeamClick = (team: TeamProps) => {
     setUserFormData({
       ...userFormData,
-      team: team
+      team: team,
     });
     setShowResults(false);
-  }
+  };
 
   useEffect(() => {
     setIsValidate(!hasValidationErrors(userFormData));
-  }, [userFormData])
+  }, [userFormData]);
 
   useEffect(() => {
     const fetchUser = async () => {
       const sessionData = getSession();
       if (!sessionData) return;
 
-      const options: ApiOptions<{name: string}> = {
+      const options: ApiOptions<{ name: string }> = {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${sessionData.token}`
-        }
-      }
+          Authorization: `Bearer ${sessionData.token}`,
+        },
+      };
 
       try {
         const response = await axios.get(`${process.env.API_ROOT_URL}/api/v1/users/${sessionData.userId}`, options);
@@ -92,18 +92,18 @@ const UserFormGroup: FC = () => {
       } catch (error) {
         throw new Error(`${JSON.stringify(error)}`);
       }
-    }
+    };
 
-    fetchUser().then(res => {
+    fetchUser().then((res) => {
       setUserFormData({
         role: res.role,
         name: res.name,
         email: res.email,
         profile_content: res.profile_content,
-        team: res.team
+        team: res.team,
       });
     });
-  }, [])
+  }, []);
 
   useEffect(() => {
     const fetchTeams = async (query: string) => {
@@ -113,10 +113,10 @@ const UserFormGroup: FC = () => {
       const options: ApiOptions = {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${sessionData.token}`
+          Authorization: `Bearer ${sessionData.token}`,
         },
-        params: query ? { name: query } : undefined
-      }
+        params: query ? { name: query } : undefined,
+      };
 
       try {
         const response = await axios.get(`${process.env.API_ROOT_URL}/api/v1/teams`, options);
@@ -126,75 +126,70 @@ const UserFormGroup: FC = () => {
       }
     };
 
-    fetchTeams(query).then(res => setResults(res));
-  }, [query])
+    fetchTeams(query).then((res) => setResults(res));
+  }, [query]);
 
   return (
     <>
       <FormControl>
-        <RadioGroup
-          row
-          name="role"
-          value={userFormData.role}
-          onChange={handleFieldChange}
-        >
-          <FormControlLabel value="admin" control={<Radio />} label="管理者" />
-          <FormControlLabel value="general" control={<Radio />} label="一般" />
+        <RadioGroup row name='role' value={userFormData.role} onChange={handleFieldChange}>
+          <FormControlLabel value='admin' control={<Radio />} label='管理者' />
+          <FormControlLabel value='general' control={<Radio />} label='一般' />
         </RadioGroup>
         <ErrorMessage errorMessages={errorMessages} errorKey={'role'} />
       </FormControl>
 
       <TextInput
-        name={"name"}
+        name={'name'}
         fullWidth={true}
         multiline={false}
         minRows={1}
         required={true}
-        requiredMessage={"必須入力"}
-        label={"ユーザー名"}
-        placeholder={"uyu_morning"}
+        requiredMessage={'必須入力'}
+        label={'ユーザー名'}
+        placeholder={'uyu_morning'}
         type='text'
         onChange={handleFieldChange}
         value={userFormData.name}
       />
       <ErrorMessage errorMessages={errorMessages} errorKey={'name'} />
       <TextInput
-        name={"email"}
+        name={'email'}
         fullWidth={true}
         multiline={false}
         minRows={1}
         required={true}
-        requiredMessage={"必須入力"}
-        label={"メールアドレス"}
-        placeholder={"example@example.com"}
+        requiredMessage={'必須入力'}
+        label={'メールアドレス'}
+        placeholder={'example@example.com'}
         type='text'
         onChange={handleFieldChange}
         value={userFormData.email}
       />
       <ErrorMessage errorMessages={errorMessages} errorKey={'email'} />
       <TextInput
-        name={"profile_content"}
+        name={'profile_content'}
         fullWidth={true}
         multiline={true}
         minRows={10}
         required={false}
-        requiredMessage={"必須入力"}
-        label={"プロフィール内容"}
-        placeholder={"私はWebエンジニアでReactを得意としております..."}
+        requiredMessage={'必須入力'}
+        label={'プロフィール内容'}
+        placeholder={'私はWebエンジニアでReactを得意としております...'}
         type='text'
         onChange={handleFieldChange}
         value={userFormData.profile_content}
       />
       <ErrorMessage errorMessages={errorMessages} errorKey={'profile_content'} />
       <TextInput
-        name={"team"}
+        name={'team'}
         fullWidth={true}
         multiline={false}
         minRows={1}
         required={true}
-        requiredMessage={"必須入力"}
-        label={"チーム"}
-        placeholder={"チームを選択してください"}
+        requiredMessage={'必須入力'}
+        label={'チーム'}
+        placeholder={'チームを選択してください'}
         type='text'
         onChange={(e) => handleTeamChange(e)}
         onClick={handleTextInputClick}
@@ -202,18 +197,22 @@ const UserFormGroup: FC = () => {
       />
 
       {showResults && (
-        <div className="max-h-[120px] overflow-y-auto">
+        <div className='max-h-[120px] overflow-y-auto'>
           {results.map((team: TeamProps) => (
-            <div key={team.id} onClick={() => handleTeamClick(team)} className='cursor-pointer hover:bg-gray-100 py-2 px-2 bg-gray-50'>
+            <div
+              key={team.id}
+              onClick={() => handleTeamClick(team)}
+              className='cursor-pointer hover:bg-gray-100 py-2 px-2 bg-gray-50'
+            >
               {team.name}
             </div>
           ))}
         </div>
       )}
-      
+
       <ErrorMessage errorMessages={errorMessages} errorKey={'team'} />
     </>
-  )
-}
+  );
+};
 
-export default UserFormGroup
+export default UserFormGroup;

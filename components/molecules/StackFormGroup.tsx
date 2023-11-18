@@ -1,4 +1,4 @@
-import React, { FC, useContext, useEffect, useState } from 'react'
+import React, { FC, useContext, useEffect, useState } from 'react';
 
 import DateInput from './DateInput';
 import TextInput from './TextInput';
@@ -24,7 +24,7 @@ const StackFormGroup: FC = () => {
     const { name, value } = e.target;
 
     const validationRules = stackValidationRules;
-    validationCheck({name, value, validationRules, errorMessages, setErrorMessages})
+    validationCheck({ name, value, validationRules, errorMessages, setErrorMessages });
 
     setStackFormData({
       ...stackFormData,
@@ -34,7 +34,7 @@ const StackFormGroup: FC = () => {
 
   useEffect(() => {
     setIsValidate(!hasValidationErrors(stackFormData));
-  }, [stackFormData])
+  }, [stackFormData]);
 
   return (
     <>
@@ -43,15 +43,15 @@ const StackFormGroup: FC = () => {
       <div className='flex'>
         <DateInput errorMessages={errorMessages} setErrorMessages={setErrorMessages} />
         <div>
-          <TextInput 
-            name={"minutes"}
+          <TextInput
+            name={'minutes'}
             fullWidth={true}
             multiline={false}
             minRows={1}
             required={true}
-            requiredMessage={"必須入力"}
-            label={"積み上げ時間"}
-            placeholder={"8"}
+            requiredMessage={'必須入力'}
+            label={'積み上げ時間'}
+            placeholder={'8'}
             type='number'
             value={stackFormData.minutes}
             onChange={handleFieldChange}
@@ -59,36 +59,36 @@ const StackFormGroup: FC = () => {
           <ErrorMessage errorMessages={errorMessages} errorKey={'minutes'} />
         </div>
       </div>
-      <TextInput 
-        name={"title"}
+      <TextInput
+        name={'title'}
         fullWidth={true}
         multiline={false}
         minRows={1}
         required={true}
-        requiredMessage={"必須入力"}
-        label={"タイトル"}
-        placeholder={"Reactの学習..."}
+        requiredMessage={'必須入力'}
+        label={'タイトル'}
+        placeholder={'Reactの学習...'}
         type='text'
         value={stackFormData.title}
         onChange={handleFieldChange}
       />
       <ErrorMessage errorMessages={errorMessages} errorKey={'title'} />
-      <TextInput 
-        name={"description"}
+      <TextInput
+        name={'description'}
         fullWidth={true}
         multiline={true}
         minRows={5}
         required={true}
-        requiredMessage={"必須入力"}
-        label={"積み上げ内容"}
-        placeholder={"ReactHooksを学習しました。useStateについて..."}
+        requiredMessage={'必須入力'}
+        label={'積み上げ内容'}
+        placeholder={'ReactHooksを学習しました。useStateについて...'}
         type='text'
         value={stackFormData.description}
         onChange={handleFieldChange}
       />
       <ErrorMessage errorMessages={errorMessages} errorKey={'description'} />
     </>
-  )
-}
+  );
+};
 
-export default StackFormGroup
+export default StackFormGroup;

@@ -1,4 +1,4 @@
-import React, { FC, useState, useMemo, } from 'react'
+import React, { FC, useState, useMemo, useContext, useEffect, } from 'react'
 
 import Editor from '@draft-js-plugins/editor';
 import { EditorState, RichUtils } from 'draft-js';
@@ -20,9 +20,14 @@ import TerminalIcon from '@mui/icons-material/Terminal';
 import { blockStyleFn } from '@/utiliry/editor/blockStyleClasses';
 import { styleMap } from '@/utiliry/editor/InlineStykeClasses';
 import { handleBeforeInput, handleKeyCommand, handlePastedText, handleReturn, keyBindingFn } from '@/utiliry/editor/editorOptions';
+import { FormDataContext } from '@/context/FormDataContext';
+import { stateToHTML } from 'draft-js-export-html';
 
 const RichTextEditor: FC = () => {
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
+
+  const formDataContext = useContext(FormDataContext);
+  const { setOutputFormData } = formDataContext;
 
   const [plugins] = useMemo(() => {
     const linkifyPlugin = createLinkifyPlugin({
@@ -56,6 +61,12 @@ const RichTextEditor: FC = () => {
     { action: applyCustomBlockType, styleType: 'blockquote', IconComponent: FormatQuoteIcon },
     { action: applyCustomBlockType, styleType: 'code-block', IconComponent: TerminalIcon }
   ];
+
+  useEffect(() => {
+    const currentContent = editorState.getCurrentContent();
+    const newHtmlContent = stateToHTML(currentContent);
+    setOutputFormData({ content: newHtmlContent });
+  }, [editorState]);
 
   return (
     <div className='mt-4'>

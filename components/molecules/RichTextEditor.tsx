@@ -62,9 +62,16 @@ const RichTextEditor: FC = () => {
     { action: applyCustomBlockType, styleType: 'code-block', IconComponent: TerminalIcon }
   ];
 
+  const cleanEditorContent = (htmlContent: string) => {
+    if (htmlContent.trim() === '<p><br></p>') return '';
+    return htmlContent;
+  }
+
   useEffect(() => {
     const currentContent = editorState.getCurrentContent();
-    const newHtmlContent = stateToHTML(currentContent);
+    const htmlContent = stateToHTML(currentContent);
+    const newHtmlContent = cleanEditorContent(htmlContent)
+
     setOutputFormData({ content: newHtmlContent });
   }, [editorState]);
 

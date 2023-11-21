@@ -33,6 +33,7 @@ export * from './TeamsStackRankingList';
 export * from './TeamsStackRankingListStackRankingsInner';
 export * from './TeamsTeam';
 export * from './TeamsTeamListInner';
+export * from './UserCreateRequestBody';
 export * from './UserUpdateRequestBody';
 export * from './UsersUser';
 export * from './UsersUserRole';

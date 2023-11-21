@@ -41,6 +41,7 @@ models/TeamsStackRankingList.ts
 models/TeamsStackRankingListStackRankingsInner.ts
 models/TeamsTeam.ts
 models/TeamsTeamListInner.ts
+models/UserCreateRequestBody.ts
 models/UserUpdateRequestBody.ts
 models/UsersUser.ts
 models/UsersUserRole.ts

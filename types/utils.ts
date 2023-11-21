@@ -1,30 +1,30 @@
-import { ReactNode } from "react"
-import { StaticImageData } from "next/image";
+import { ReactNode } from 'react';
+import { StaticImageData } from 'next/image';
 
 export type ChildrenProps = {
-  children: ReactNode
-}
-export type LayoutProps = ChildrenProps
+  children: ReactNode;
+};
+export type LayoutProps = ChildrenProps;
 
 export type ImageWrapperProps = {
   src: string | StaticImageData;
-  alt: string
-  width: number
-  height: number
-  className: string
-}
+  alt: string;
+  width: number;
+  height: number;
+  className: string;
+};
 
 export type sidebarMenus = {
   id: string;
   label: string;
   value: string;
   icon: React.JSX.Element;
-}
+};
 
 export type ChartData = {
   labels: string[];
   datasets: any[];
-}
+};
 
 export type ChartOption = {
   responsive: boolean;
@@ -34,7 +34,7 @@ export type ChartOption = {
       text: string;
     };
   };
-}
+};
 
 export type ChartProps = {
   labels: string[];
@@ -44,14 +44,14 @@ export type ChartProps = {
   bgColor: string[];
   bdwidth: number;
   text: string;
-  type: "bar" | "pie";
-}
+  type: 'bar' | 'pie';
+};
 
 export type FormSubmitButtonProps = {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
   disabled: boolean;
   label: string;
-}
+};
 export type FormCancelButtonProps = {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
-}
+};

@@ -26,6 +26,7 @@ export * from './StacksStack';
 export * from './StacksStackListInner';
 export * from './StacksStackSkill';
 export * from './TeamCreateRequestBody';
+export * from './TeamInviteRequestBody';
 export * from './TeamUpdateRequestBody';
 export * from './TeamsStackRanking';
 export * from './TeamsStackRankingList';

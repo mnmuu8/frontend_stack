@@ -1,11 +1,19 @@
-import React, { FC } from 'react'
+import React, { FC } from 'react';
 import ImageWrapper from '../atoms/ImageWrapper';
 import { UserProfileProps } from '@/types/user';
 
 const UserProfile: FC<UserProfileProps> = ({ user, height, width, isHeader, created_at }) => {
   return (
     <>
-      {user && <ImageWrapper src={'/no_image.png'} height={height} width={width} alt={user.name} className='rounded-full mr-4' />}
+      {user && (
+        <ImageWrapper
+          src={'/no_image.png'}
+          height={height}
+          width={width}
+          alt={user.name}
+          className='rounded-full mr-4'
+        />
+      )}
       <div className='mr-2'>
         <span className='block text-sm'>{user?.name}</span>
         {isHeader ? (
@@ -15,7 +23,7 @@ const UserProfile: FC<UserProfileProps> = ({ user, height, width, isHeader, crea
         )}
       </div>
     </>
-  )
-}
+  );
+};
 
-export default UserProfile
+export default UserProfile;

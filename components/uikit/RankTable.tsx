@@ -1,4 +1,4 @@
-import React, { FC, useContext, useEffect, useState } from 'react'
+import React, { FC, useContext, useEffect, useState } from 'react';
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -15,12 +15,12 @@ import { callFetchStackRankings } from '@/utiliry/api/stack-ranking';
 export type StackRankings = {
   order: number;
   user_name: string;
-}
+};
 
 export type StackRankingColumn = {
   id: 'order' | 'user_name';
   label: string;
-}
+};
 
 const RankTable: FC = () => {
   const [page, setPage] = React.useState(0);
@@ -29,11 +29,11 @@ const RankTable: FC = () => {
   const sessionContext = useContext(SessionContext);
   const { sessionUser } = sessionContext;
 
-  const [stackRankings, setStackRankings] = useState<StackRankings[]>([])
+  const [stackRankings, setStackRankings] = useState<StackRankings[]>([]);
 
   const StackRankingColumns: StackRankingColumn[] = [
-    { id: 'order', label: '順位'},
-    { id: 'user_name', label: 'ユーザー名'},
+    { id: 'order', label: '順位' },
+    { id: 'user_name', label: 'ユーザー名' },
   ];
 
   const handleChangePage = (event: unknown, newPage: number) => {
@@ -47,20 +47,20 @@ const RankTable: FC = () => {
 
   useEffect(() => {
     const sessionData = getSession();
-      if (!sessionData) return;
+    if (!sessionData) return;
 
     const options = getApiHeaders(sessionData);
-    callFetchStackRankings({options, sessionUser, setStackRankings})
-  }, [sessionUser])
+    callFetchStackRankings({ options, sessionUser, setStackRankings });
+  }, [sessionUser]);
 
   return (
     <>
       <TableContainer>
-        <Table stickyHeader aria-label="sticky table">
+        <Table stickyHeader aria-label='sticky table'>
           <TableHead>
             <TableRow>
               {StackRankingColumns.map((column) => (
-                <TableCell key={column.id} style={{ backgroundColor: "#F0F8FA" }}>
+                <TableCell key={column.id} style={{ backgroundColor: '#F0F8FA' }}>
                   {column.label}
                 </TableCell>
               ))}
@@ -69,14 +69,10 @@ const RankTable: FC = () => {
           <TableBody>
             {stackRankings.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
               return (
-                <TableRow hover role="checkbox" tabIndex={-1} key={row.order}>
+                <TableRow hover role='checkbox' tabIndex={-1} key={row.order}>
                   {StackRankingColumns.map((column) => {
                     const value = row[column.id];
-                    return (
-                      <TableCell key={column.id}>
-                        {value}
-                      </TableCell>
-                    );
+                    return <TableCell key={column.id}>{value}</TableCell>;
                   })}
                 </TableRow>
               );
@@ -86,7 +82,7 @@ const RankTable: FC = () => {
       </TableContainer>
       <TablePagination
         rowsPerPageOptions={[6, 12, 24, 48, 100]}
-        component="div"
+        component='div'
         count={stackRankings.length}
         rowsPerPage={rowsPerPage}
         page={page}
@@ -94,7 +90,7 @@ const RankTable: FC = () => {
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
     </>
-  )
-}
+  );
+};
 
-export default RankTable
+export default RankTable;

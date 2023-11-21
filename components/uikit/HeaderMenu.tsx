@@ -1,4 +1,4 @@
-import React, { FC, useContext } from 'react'
+import React, { FC, useContext } from 'react';
 import { useRouter } from 'next/router';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -12,7 +12,7 @@ const HeaderMenu: FC = () => {
   const appContext = useContext(AppContext);
   const { anchorEl, handleMenuClose } = appContext;
 
-  const sessionContext = useContext(SessionContext)
+  const sessionContext = useContext(SessionContext);
   const { setSessionUser } = sessionContext;
 
   const open = Boolean(anchorEl);
@@ -22,7 +22,7 @@ const HeaderMenu: FC = () => {
     localStorage.removeItem('session');
     setSessionUser(undefined);
     router.push('/login');
-  }
+  };
 
   return (
     <div>
@@ -62,19 +62,19 @@ const HeaderMenu: FC = () => {
       >
         <MenuItem onClick={handleMenuClose}>
           <ListItemIcon>
-            <Settings fontSize="small" />
+            <Settings fontSize='small' />
           </ListItemIcon>
           設定
         </MenuItem>
         <MenuItem onClick={handleMenuClose}>
           <ListItemIcon>
-            <Logout fontSize="small" />
+            <Logout fontSize='small' />
           </ListItemIcon>
           <div onClick={logoutUser}>ログアウト</div>
         </MenuItem>
       </Menu>
     </div>
-  )
-}
+  );
+};
 
-export default HeaderMenu
+export default HeaderMenu;

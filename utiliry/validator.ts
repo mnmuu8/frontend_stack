@@ -50,3 +50,7 @@ export const userValidationRules: ValidationRules = {
 export const outputValidationRules: ValidationRules = {
   content: (value) => isRequired(value),
 };
+
+export const outputCommentValidationRules: ValidationRules = {
+  content: (value) => isRequired(value),
+};

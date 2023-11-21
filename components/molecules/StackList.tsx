@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react'
+import React, { FC, useState, useEffect } from 'react';
 import StackCard from '@/components/molecules/StackCard';
 import SelectBox from './SelectBox';
 import { SelectChangeEvent } from '@mui/material/Select';
@@ -11,7 +11,7 @@ import { getApiHeadersWithUserId } from '@/utiliry/api';
 const StackList: FC = () => {
   const [selectedOption, setSelectedOption] = useState<string>('all');
   const [filteredStackLists, setFilteredStackLists] = useState<StackProps[]>([]);
-  const [stacks, setStacks] = useState<StackProps[]>([])
+  const [stacks, setStacks] = useState<StackProps[]>([]);
 
   const handleOptionChange = (event: SelectChangeEvent<string>) => {
     setSelectedOption(event.target.value);
@@ -22,20 +22,21 @@ const StackList: FC = () => {
     if (!sessionData) return;
 
     const options = getApiHeadersWithUserId(sessionData);
-    axios.get(`${process.env.API_ROOT_URL}/api/v1/stacks`, options)
-    .then(response => {
-      const { data } = response;
-      setStacks(data.stacks);
-    })
-    .catch(error => {
-      if (error.response) {
-        const { data } = error.response;
-        throw new Error(`${JSON.stringify(data)}`);
-      } else {
-        throw new Error(`${JSON.stringify(error)}`);
-      }
-    });
-  }, [])
+    axios
+      .get(`${process.env.API_ROOT_URL}/api/v1/stacks`, options)
+      .then((response) => {
+        const { data } = response;
+        setStacks(data.stacks);
+      })
+      .catch((error) => {
+        if (error.response) {
+          const { data } = error.response;
+          throw new Error(`${JSON.stringify(data)}`);
+        } else {
+          throw new Error(`${JSON.stringify(error)}`);
+        }
+      });
+  }, []);
 
   // TODO: 一旦仮で作成。後ほど項目増やしてフィルターかけて表示する
   useEffect(() => {
@@ -62,9 +63,11 @@ const StackList: FC = () => {
           <StackCard key={stack.id} stack={stack} />
         ))}
       </div>
-      <div className='w-[280px] m-auto mt-10 rounded-md border-2 cursor-pointer border-gray-200 text-center text-sm py-3 duration-300 hover:bg-gray-50 hover:duration-300'>もっとみる</div>
+      <div className='w-[280px] m-auto mt-10 rounded-md border-2 cursor-pointer border-gray-200 text-center text-sm py-3 duration-300 hover:bg-gray-50 hover:duration-300'>
+        もっとみる
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default StackList
+export default StackList;

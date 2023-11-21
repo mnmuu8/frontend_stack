@@ -1,4 +1,4 @@
-import React, { FC, useContext, useState, useEffect } from 'react'
+import React, { FC, useContext, useState, useEffect } from 'react';
 import TextInput from './TextInput';
 import { FormDataContext } from '@/context/FormDataContext';
 
@@ -21,7 +21,7 @@ const TeamFormGroup: FC = () => {
     const { name, value } = e.target;
 
     const validationRules = teamValidationRules;
-    validationCheck({name, value, validationRules, errorMessages, setErrorMessages})
+    validationCheck({ name, value, validationRules, errorMessages, setErrorMessages });
 
     setTeamFormData({
       ...teamFormData,
@@ -31,26 +31,26 @@ const TeamFormGroup: FC = () => {
 
   useEffect(() => {
     setIsValidate(!hasValidationErrors(teamFormData));
-  }, [teamFormData])
+  }, [teamFormData]);
 
   return (
     <>
-      <TextInput 
-        name={"name"}
+      <TextInput
+        name={'name'}
         fullWidth={true}
         multiline={false}
         minRows={1}
         required={true}
-        requiredMessage={"必須入力"}
-        label={"チーム名"}
-        placeholder={"エンジニア第７世代"}
+        requiredMessage={'必須入力'}
+        label={'チーム名'}
+        placeholder={'エンジニア第７世代'}
         type='text'
         onChange={handleFieldChange}
         value={teamFormData.name}
       />
       <ErrorMessage errorMessages={errorMessages} errorKey={'name'} />
     </>
-  )
-}
+  );
+};
 
-export default TeamFormGroup
+export default TeamFormGroup;

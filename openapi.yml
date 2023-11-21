@@ -368,6 +368,37 @@ paths:
         '422':
           description: バリデーションエラー
 
+  /api/v1/teams/{team_id}/invite:
+    put:
+      summary: チームメンバー招待
+      operationId: api.v1.teams.invite
+      tags:
+        - Team
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamInviteRequestBody'
+      parameters:
+        - name: team_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Teams_Team_Id'
+      responses:
+        '204':
+          description: 成功
+        '401':
+          description: 認証エラー
+        '404':
+          description: チームが存在しない
+        '409':
+          description: 既にメールアドレスが登録されています
+        '422':
+          description: バリデーションエラー
+
   /api/v1/outputs/:
     get:
       summary: アウトプット一覧
@@ -1276,6 +1307,16 @@ components:
         name:
           allOf:
             - $ref: '#/components/schemas/Teams_Team_Name'
+          nullable: false
+
+    TeamInviteRequestBody:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          allOf:
+            - $ref: '#/components/schemas/Users_User_Email'
           nullable: false
 
     OutputCreateRequestBody:

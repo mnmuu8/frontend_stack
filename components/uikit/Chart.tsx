@@ -1,6 +1,6 @@
-import React, { FC, useState, useEffect } from 'react'
+import React, { FC, useState, useEffect } from 'react';
 import { ChartProps, ChartData, ChartOption } from '@/types/utils';
-import { Bar, Pie } from "react-chartjs-2";
+import { Bar, Pie } from 'react-chartjs-2';
 
 import {
   Chart as ChartJS,
@@ -13,24 +13,14 @@ import {
   Title,
   Tooltip,
   Legend,
-} from "chart.js";
+} from 'chart.js';
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  BarElement,
-  ArcElement,
-  Title,
-  Tooltip,
-  Legend
-);
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, ArcElement, Title, Tooltip, Legend);
 
 const Chart: FC<ChartProps> = ({ labels, label, data, bdColor, bgColor, bdwidth, text, type }) => {
   const [chartData, setChartData] = useState<ChartData | null>(null);
   const [chartOption, setChartOption] = useState<ChartOption | null>(null);
-  const [chartType, setChartType] = useState<"bar" | "pie" | null>(null)
+  const [chartType, setChartType] = useState<'bar' | 'pie' | null>(null);
 
   useEffect(() => {
     const formattedChartData: ChartData = {
@@ -53,25 +43,25 @@ const Chart: FC<ChartProps> = ({ labels, label, data, bdColor, bgColor, bdwidth,
           text: text,
         },
       },
-    }; 
+    };
 
-    setChartType(type)
+    setChartType(type);
     setChartData(formattedChartData);
     setChartOption(formattedChartOptions);
-  }, [data, labels])
-  
+  }, [data, labels]);
+
   return (
     <>
-      {chartType === "bar" && 
+      {chartType === 'bar' && (
         //@ts-ignore
         <Bar options={chartOption} data={chartData} />
-      }
-      {chartType === "pie" && 
+      )}
+      {chartType === 'pie' && (
         //@ts-ignore
         <Pie options={chartOption} data={chartData} />
-      }
+      )}
     </>
-  )
-}
+  );
+};
 
-export default Chart
+export default Chart;

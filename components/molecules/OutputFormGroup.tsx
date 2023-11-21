@@ -1,4 +1,4 @@
-import React, { FC, useContext, useState, useEffect } from 'react'
+import React, { FC, useContext, useState, useEffect } from 'react';
 import TextInput from './TextInput';
 import { FormDataContext } from '@/context/FormDataContext';
 
@@ -21,7 +21,7 @@ const OutputFormGroup: FC = () => {
     const { name, value } = e.target;
 
     const validationRules = outputValidationRules;
-    validationCheck({name, value, validationRules, errorMessages, setErrorMessages})
+    validationCheck({ name, value, validationRules, errorMessages, setErrorMessages });
 
     setOutputFormData({
       ...outputFormData,
@@ -31,26 +31,26 @@ const OutputFormGroup: FC = () => {
 
   useEffect(() => {
     setIsValidate(!hasValidationErrors(outputFormData));
-  }, [outputFormData])
+  }, [outputFormData]);
 
   return (
     <>
-      <TextInput 
-        name={"content"}
+      <TextInput
+        name={'content'}
         fullWidth={true}
         multiline={true}
         minRows={5}
         required={true}
-        requiredMessage={"必須入力"}
-        label={"内容"}
-        placeholder={"ChatGPTの便利な使い方を紹介..."}
+        requiredMessage={'必須入力'}
+        label={'内容'}
+        placeholder={'ChatGPTの便利な使い方を紹介...'}
         type='text'
         onChange={handleFieldChange}
         value={outputFormData.content}
       />
       <ErrorMessage errorMessages={errorMessages} errorKey={'content'} />
     </>
-  )
-}
+  );
+};
 
-export default OutputFormGroup
+export default OutputFormGroup;

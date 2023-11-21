@@ -2,8 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body, h1, h2, h3, h4, h5, h6, p, span, div, ul, li, a {
-  @apply m-0 p-0 box-border
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+div,
+ul,
+li,
+a {
+  @apply m-0 p-0 box-border;
 }
 main {
   @apply absolute top-20 left-0 right-0 py-8 px-12 h-[auto] z-[-1];
@@ -31,7 +44,7 @@ h3 {
   @apply w-[0.8em] h-[0.8em];
 }
 .Skill-RadioGroup .MuiFormGroup-root .MuiFormControlLabel-root .MuiTypography-root {
-  @apply text-[0.8em]
+  @apply text-[0.8em];
 }
 
 .react-datepicker-wrapper .react-datepicker__input-container input {
@@ -44,8 +57,8 @@ h3 {
   @apply min-h-[300px];
 }
 .MyPage-stacklist > div {
-  @apply mb-0 border-b-[1px] rounded-none
+  @apply mb-0 border-b-[1px] rounded-none;
 }
 .MyPage-stacklist > div:last-of-type {
-  @apply border-none
+  @apply border-none;
 }

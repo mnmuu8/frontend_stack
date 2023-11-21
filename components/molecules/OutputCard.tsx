@@ -1,4 +1,4 @@
-import React, { FC, useContext } from 'react'
+import React, { FC, useContext } from 'react';
 import { SessionContext } from '@/context/SessionContext';
 import UserProfile from './UserProfile';
 import { OutputCardProps } from '@/types/output';
@@ -19,12 +19,18 @@ const OutputCard: FC<OutputCardProps> = ({ output }) => {
     <div key={output.id} className='w-full bg-gray-50 rounded-md p-6 mb-4'>
       <Link href={`/outputs/${output.id}`}>
         <div className='flex items-center mb-2'>
-          <UserProfile user={sessionUser} height={UserProfileHeight} width={UserProfileWidth} isHeader={false} created_at={formattedCreateDate}/>
+          <UserProfile
+            user={sessionUser}
+            height={UserProfileHeight}
+            width={UserProfileWidth}
+            isHeader={false}
+            created_at={formattedCreateDate}
+          />
         </div>
         <div className='text-md'>{output.content}</div>
       </Link>
     </div>
-  )
-}
+  );
+};
 
-export default OutputCard
+export default OutputCard;

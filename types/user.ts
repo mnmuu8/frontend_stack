@@ -1,4 +1,4 @@
-import { sessionUser } from "./session";
+import { sessionUser } from './session';
 
 export type UserProfileProps = {
   user: sessionUser;
@@ -6,4 +6,4 @@ export type UserProfileProps = {
   width: number;
   isHeader: boolean;
   created_at?: string;
-}
+};

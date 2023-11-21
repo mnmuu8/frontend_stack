@@ -1,7 +1,15 @@
-import { Dispatch, SetStateAction } from "react";
-import { sessionUser } from "./session";
-import { FormType, StackFormDataParams, TeamFormDataParams, UserFormDataParams, IntrospectionFormDataParams, OutputFormDataParams } from "./form";
-import { IntrospectionProps } from "./introspection";
+import { Dispatch, SetStateAction } from 'react';
+import { sessionUser } from './session';
+import {
+  FormType,
+  StackFormDataParams,
+  TeamFormDataParams,
+  UserFormDataParams,
+  IntrospectionFormDataParams,
+  OutputFormDataParams,
+  OutputCommentFormDataParams,
+} from './form';
+import { IntrospectionProps } from './introspection';
 
 export type AppContextProps = {
   drawerOpen: boolean;
@@ -12,14 +20,14 @@ export type AppContextProps = {
   setAnchorEl: Dispatch<SetStateAction<HTMLElement | null>>;
   handleMenuOpen: (event: React.MouseEvent<HTMLElement>) => void;
   handleMenuClose: () => void;
-}
+};
 
 export type SessionContextProps = {
   sessionUser: sessionUser;
   setSessionUser: Dispatch<SetStateAction<sessionUser>>;
   isAdmin: boolean;
   setIsAdmin: Dispatch<React.SetStateAction<boolean>>;
-}
+};
 
 export type FormContextProps = {
   formType: FormType;
@@ -30,7 +38,7 @@ export type FormContextProps = {
   setIsRegisterEvent: Dispatch<SetStateAction<boolean>>;
   isValidate: boolean;
   setIsValidate: Dispatch<SetStateAction<boolean>>;
-}
+};
 
 export type FormDataContextProps = {
   teamFormData: TeamFormDataParams;
@@ -45,4 +53,6 @@ export type FormDataContextProps = {
   setShowStackIntrospection: Dispatch<SetStateAction<IntrospectionProps>>;
   outputFormData: OutputFormDataParams;
   setOutputFormData: Dispatch<SetStateAction<OutputFormDataParams>>;
-}
+  outputCommentFormData: OutputCommentFormDataParams;
+  setOutputCommentFormData: Dispatch<SetStateAction<OutputCommentFormDataParams>>;
+};

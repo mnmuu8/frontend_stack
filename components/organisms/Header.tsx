@@ -13,26 +13,26 @@ const Header: FC = () => {
   const appContext = useContext(AppContext);
   const { drawerOpen, handleDrawerOpen, handleMenuOpen } = appContext;
 
-  const sessionContext = useContext(SessionContext)
+  const sessionContext = useContext(SessionContext);
   const { sessionUser } = sessionContext;
 
   const headerStyle: React.CSSProperties = {
     width: appContext.drawerOpen ? 'calc(100% - 240px)' : '',
     left: appContext.drawerOpen ? 'auto' : 0,
-  }
+  };
 
   const UserProfileHeight = 50;
   const UserProfileWidth = 50;
-  
+
   return (
-    <header className='fixed top-0 left-0 right-0 bg-white' style={headerStyle} >
+    <header className='fixed top-0 left-0 right-0 bg-white' style={headerStyle}>
       <div className='flex justify-between items-center h-20 px-8 shadow-md'>
         <div className='flex items-center'>
           <IconButton
-            color="inherit"
-            aria-label="open drawer"
+            color='inherit'
+            aria-label='open drawer'
             onClick={handleDrawerOpen}
-            edge="start"
+            edge='start'
             sx={{ mr: 2, ...(drawerOpen && { display: 'none' }) }}
           >
             <MenuIcon />
@@ -50,7 +50,6 @@ const Header: FC = () => {
       <HeaderMenu />
     </header>
   );
-
 };
 
 export default Header;

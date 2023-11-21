@@ -1,6 +1,6 @@
-import React, { MouseEvent, createContext, useState } from "react";
-import { ChildrenProps } from "@/types/utils";
-import { AppContextProps } from "@/types/context";
+import React, { MouseEvent, createContext, useState } from 'react';
+import { ChildrenProps } from '@/types/utils';
+import { AppContextProps } from '@/types/context';
 
 const InitialState: AppContextProps = {
   drawerOpen: true,
@@ -11,7 +11,7 @@ const InitialState: AppContextProps = {
   setAnchorEl: () => {},
   handleMenuOpen: () => {},
   handleMenuClose: () => {},
-}
+};
 
 const AppContext = createContext<AppContextProps>(InitialState);
 
@@ -33,7 +33,7 @@ const AppProvider = ({ children }: ChildrenProps) => {
   };
 
   return (
-    <AppContext.Provider 
+    <AppContext.Provider
       value={{
         drawerOpen: drawerOpen,
         setDrawerOpen: setDrawerOpen,
@@ -47,7 +47,7 @@ const AppProvider = ({ children }: ChildrenProps) => {
     >
       {children}
     </AppContext.Provider>
-  )
-}
+  );
+};
 
-export { AppProvider, AppContext }
+export { AppProvider, AppContext };

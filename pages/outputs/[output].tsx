@@ -1,15 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import cookie from 'cookie';
 import { GetServerSideProps, NextPage } from 'next';
 import { getNextApiHeaders } from '@/utiliry/api';
 import { useRouter } from 'next/router';
 import { OutputCardProps, CommentProps } from '@/types/output';
+import { FormContext } from '@/context/FormContext';
+import FormModal from '@/components/molecules/FormModal'
+import { InitialOutputCommentFormData } from '@/utiliry/form';
+import { FormDataContext } from '@/context/FormDataContext';
 
 const Output: NextPage<OutputCardProps> = ({ output, initialComments }) => {
   const router = useRouter();
   const handleBack = () => router.back();
   const [comments, setComments] = useState(initialComments);
+
+  const formContext = useContext(FormContext);
+  const { setFormOpen, setFormType } = formContext;
+  const formDataContext = useContext(FormDataContext);
+  const { setOutputCommentFormData } = formDataContext;
+  const handleFormOpen = () => {
+    const outputId = output.id
+    setOutputCommentFormData({ ...InitialOutputCommentFormData, outputId })
+    setFormType('createOutputComment');
+    setFormOpen(true);
+  }
 
   useEffect(() => {
     setComments(initialComments);
@@ -22,12 +37,14 @@ const Output: NextPage<OutputCardProps> = ({ output, initialComments }) => {
           <div className='text-sm cursor-pointer' onClick={handleBack}>＜ 戻る</div>
         </div>
         <div className='p-4'>{output.content}</div>
+        <button className='block bg-blue-500 text-blue-100 hover:bg-blue-600 text-sm font-bold rounded-full p-2 ml-auto w-[150px] text-center cursor-pointer' onClick={handleFormOpen}>コメントする</button>
         <div className='p-4 bg-white'>
           <h2 className='text-lg font-bold mb-4'>コメント</h2>
           {comments && comments.map((comment) => (
             <Comment key={comment.id} comment={comment} />
           ))}
         </div>
+        <FormModal />
       </div>
     </div>
   );

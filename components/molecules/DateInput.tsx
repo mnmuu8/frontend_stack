@@ -1,6 +1,6 @@
-import React, { FC, useContext } from 'react'
+import React, { FC, useContext } from 'react';
 import ReactDatePicker from 'react-datepicker';
-import "react-datepicker/dist/react-datepicker.css";
+import 'react-datepicker/dist/react-datepicker.css';
 import Box from '@mui/material/Box';
 import { FormDataContext } from '@/context/FormDataContext';
 
@@ -13,7 +13,6 @@ const DateInput: FC<ErrorMessagesState> = ({ errorMessages, setErrorMessages }) 
   const { stackFormData, setStackFormData } = formDataContext;
 
   const handleDateChange = (stacked_at: Date) => {
-
     const validationRule = stackValidationRules['stacked_at'];
     if (validationRule) {
       const isValid = validationRule(stacked_at ? stacked_at.toString() : '');
@@ -25,23 +24,23 @@ const DateInput: FC<ErrorMessagesState> = ({ errorMessages, setErrorMessages }) 
 
     setStackFormData({
       ...stackFormData,
-      stacked_at
-    })
+      stacked_at,
+    });
   };
 
   return (
-    <Box className="mt-4 mr-4">
+    <Box className='mt-4 mr-4'>
       <ReactDatePicker
         name='stacked_at'
         selected={stackFormData.stacked_at}
-        placeholderText="積み上げ日付"
+        placeholderText='積み上げ日付'
         onChange={handleDateChange}
-        dateFormat={"yyyy/MM/dd"}
+        dateFormat={'yyyy/MM/dd'}
         dateFormatCalendar='yyyy/MM/dd'
       />
       <ErrorMessage errorMessages={errorMessages} errorKey={'stacked_at'} />
     </Box>
-  )
-}
+  );
+};
 
-export default DateInput
+export default DateInput;

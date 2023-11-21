@@ -1,11 +1,11 @@
-import React, { FC, useEffect, useState } from 'react'
-import Chart from '@/components/uikit/Chart'
-import RankTable from '@/components/uikit/RankTable'
-import { getSession } from '@/utiliry/session'
-import { ApiOptions } from '@/types/api'
-import { StackProps } from '@/types/stack'
-import axios from 'axios'
-import { getApiHeadersWithUserId } from '@/utiliry/api'
+import React, { FC, useEffect, useState } from 'react';
+import Chart from '@/components/uikit/Chart';
+import RankTable from '@/components/uikit/RankTable';
+import { getSession } from '@/utiliry/session';
+import { ApiOptions } from '@/types/api';
+import { StackProps } from '@/types/stack';
+import axios from 'axios';
+import { getApiHeadersWithUserId } from '@/utiliry/api';
 
 const DashboardWrapper: FC = () => {
   const [stacks, setStacks] = useState<StackProps[]>([]);
@@ -31,44 +31,45 @@ const DashboardWrapper: FC = () => {
   useEffect(() => {
     const sessionData = getSession();
     if (!sessionData) return;
- 
+
     const options = getApiHeadersWithUserId(sessionData);
-    axios.get(`${process.env.API_ROOT_URL}/api/v1/stacks`, options)
-    .then(response => {
-      const { data } = response;
-      setStacks(data.stacks)
+    axios
+      .get(`${process.env.API_ROOT_URL}/api/v1/stacks`, options)
+      .then((response) => {
+        const { data } = response;
+        setStacks(data.stacks);
 
-      const aggregatedData = new Array(daysInMonth).fill(0);
+        const aggregatedData = new Array(daysInMonth).fill(0);
 
-      data.stacks.forEach((stack: StackProps) => {
-        const stackDate = new Date(stack.stacked_at);
-        const stackYear = stackDate.getFullYear();
-        const stackMonth = stackDate.getMonth() + 1;
-        const stackDay = stackDate.getDate();
-        
-        const minutes = stack.minutes;
-        
-        if (stackYear === currentYear && stackMonth === currentMonth) {
-          aggregatedData[stackDay - 1] += minutes;
+        data.stacks.forEach((stack: StackProps) => {
+          const stackDate = new Date(stack.stacked_at);
+          const stackYear = stackDate.getFullYear();
+          const stackMonth = stackDate.getMonth() + 1;
+          const stackDay = stackDate.getDate();
+
+          const minutes = stack.minutes;
+
+          if (stackYear === currentYear && stackMonth === currentMonth) {
+            aggregatedData[stackDay - 1] += minutes;
+          }
+        });
+        setBarData(aggregatedData);
+      })
+      .catch((error) => {
+        if (error.response) {
+          const { data } = error.response;
+          throw new Error(`${JSON.stringify(data)}`);
+        } else {
+          throw new Error(`${JSON.stringify(error)}`);
         }
       });
-      setBarData(aggregatedData)
-    })
-    .catch(error => {
-      if (error.response) {
-        const { data } = error.response;
-        throw new Error(`${JSON.stringify(data)}`);
-      } else {
-        throw new Error(`${JSON.stringify(error)}`);
-      }
-    });
   }, []);
 
   useEffect(() => {
     if (!stacks.length) return;
-  
+
     const skillMinutesMap: { [key: string]: number } = {};
-    stacks.forEach(stack => {
+    stacks.forEach((stack) => {
       const skillName = stack.skill.name;
       const minutes = stack.minutes;
       skillMinutesMap[skillName] = (skillMinutesMap[skillName] || 0) + minutes;
@@ -76,10 +77,10 @@ const DashboardWrapper: FC = () => {
 
     const totalMinutes = Object.values(skillMinutesMap).reduce((acc, curr) => acc + curr, 0);
     const skillLabels = Object.keys(skillMinutesMap);
-    const skillData = skillLabels.map(label => skillMinutesMap[label] / totalMinutes);
+    const skillData = skillLabels.map((label) => skillMinutesMap[label] / totalMinutes);
 
-    setPieData(skillData)
-    setPieLabels(skillLabels)
+    setPieData(skillData);
+    setPieLabels(skillLabels);
   }, [stacks]);
 
   return (
@@ -87,7 +88,16 @@ const DashboardWrapper: FC = () => {
       <div className='text-2xl text-blue-900 font-bold mb-6'>積み上げ時間</div>
       <div className='bg-white shadow-md p-6 w-full mb-10'>
         <div className='w-8/12 m-auto flex justify-center'>
-          <Chart labels={barLabels} label={"時間"} data={barData} bdColor={["rgb(39, 119, 169)"]} bgColor={["rgb(240, 248, 250)"]} bdwidth={1} text={currentMonth + "月の学習時間"} type={"bar"} />
+          <Chart
+            labels={barLabels}
+            label={'時間'}
+            data={barData}
+            bdColor={['rgb(39, 119, 169)']}
+            bgColor={['rgb(240, 248, 250)']}
+            bdwidth={1}
+            text={currentMonth + '月の学習時間'}
+            type={'bar'}
+          />
         </div>
       </div>
       <div className='flex justify-between'>
@@ -95,7 +105,16 @@ const DashboardWrapper: FC = () => {
           <div className='text-2xl text-blue-900 font-bold mb-6'>積み上げスキル</div>
           <div className='bg-white shadow-md p-6 flex-grow'>
             <div className='w-8/12 m-auto'>
-            <Chart labels={pieLabels} label={"学習時間"} data={pieData} bdColor={["rgb(39, 119, 169)"]} bgColor={["rgb(240, 248, 250)"]} bdwidth={1} text={"積み上げスキル"} type={"pie"} />
+              <Chart
+                labels={pieLabels}
+                label={'学習時間'}
+                data={pieData}
+                bdColor={['rgb(39, 119, 169)']}
+                bgColor={['rgb(240, 248, 250)']}
+                bdwidth={1}
+                text={'積み上げスキル'}
+                type={'pie'}
+              />
             </div>
           </div>
         </div>
@@ -107,7 +126,7 @@ const DashboardWrapper: FC = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default DashboardWrapper
+export default DashboardWrapper;

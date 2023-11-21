@@ -1,5 +1,5 @@
 import { EditorState, Modifier, SelectionState, getDefaultKeyBinding } from "draft-js";
-import { HandleBeforeInputProps, handleKeyCommandProps, handlePastedTextProps, handleReturnProps, keyBindingFnProps } from "../../types/editor/type";
+import { HandleBeforeInputProps, handleKeyCommandProps, handlePastedTextProps, handleReturnProps, keyBindingFnProps } from "../../types/editor";
 
 export const handleReturn = ({ editorState, setEditorState }: handleReturnProps) => {
   const selection = editorState.getSelection();

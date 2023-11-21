@@ -10,6 +10,9 @@
     "format": "prettier --write './{page,components,styles,context,types}/**/*.{js,jsx,ts,tsx,json,css}'"
   },
   "dependencies": {
+    "@draft-js-plugins/editor": "^4.1.4",
+    "@draft-js-plugins/inline-toolbar": "^4.2.1",
+    "@draft-js-plugins/linkify": "^4.2.2",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.11.16",
@@ -22,6 +25,8 @@
     "axios": "^1.5.0",
     "cookie": "^0.6.0",
     "dayjs": "^1.11.9",
+    "draft-js": "^0.11.7",
+    "draft-js-export-html": "^1.4.1",
     "eslint": "8.41.0",
     "eslint-config-next": "13.4.3",
     "next": "^13.4.3",
@@ -35,6 +40,7 @@
   "devDependencies": {
     "@faker-js/faker": "^8.0.2",
     "@types/cookie": "^0.5.4",
+    "@types/draft-js": "^0.11.15",
     "@types/react-datepicker": "^4.11.2",
     "@typescript-eslint/parser": "^5.59.7",
     "autoprefixer": "^10.4.14",

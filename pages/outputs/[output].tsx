@@ -36,7 +36,7 @@ const Output: NextPage<OutputCardProps> = ({ output, initialComments }) => {
         <div className='py-2 px-4 border-b-gray-100 border-b-2'>
           <div className='text-sm cursor-pointer' onClick={handleBack}>＜ 戻る</div>
         </div>
-        <div className='p-4'>{output.content}</div>
+        <div className='p-4 OutputContent' dangerouslySetInnerHTML={{ __html: output.content }} />
         <button className='block bg-blue-500 text-blue-100 hover:bg-blue-600 text-sm font-bold rounded-full p-2 ml-auto w-[150px] text-center cursor-pointer' onClick={handleFormOpen}>コメントする</button>
         <div className='p-4 bg-white'>
           <h2 className='text-lg font-bold mb-4'>コメント</h2>

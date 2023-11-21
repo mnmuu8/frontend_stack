@@ -7,6 +7,7 @@ import { ErrorMessages } from '@/types/validator';
 import ErrorMessage from '../atoms/ErrorMessage';
 import { FormContext } from '@/context/FormContext';
 import { InitialOutputErrorMessage, validationCheck } from '@/utiliry/form';
+import RichTextEditor from './RichTextEditor';
 
 const OutputFormGroup: FC = () => {
   const formDataContext = useContext(FormDataContext);
@@ -35,19 +36,22 @@ const OutputFormGroup: FC = () => {
 
   return (
     <>
-      <TextInput
-        name={'content'}
-        fullWidth={true}
-        multiline={true}
-        minRows={5}
-        required={true}
-        requiredMessage={'必須入力'}
-        label={'内容'}
-        placeholder={'ChatGPTの便利な使い方を紹介...'}
-        type='text'
-        onChange={handleFieldChange}
-        value={outputFormData.content}
-      />
+      <div className='hidden'>
+        <TextInput 
+          name={"content"}
+          fullWidth={true}
+          multiline={true}
+          minRows={1}
+          required={true}
+          requiredMessage={"必須入力"}
+          label={"内容"}
+          placeholder={"ChatGPTの便利な使い方を紹介..."}
+          type='text'
+          onChange={handleFieldChange}
+          value={outputFormData.content}
+        />
+      </div>
+      <RichTextEditor />
       <ErrorMessage errorMessages={errorMessages} errorKey={'content'} />
     </>
   );

@@ -60,5 +60,31 @@ h3 {
   @apply mb-0 border-b-[1px] rounded-none;
 }
 .MyPage-stacklist > div:last-of-type {
-  @apply border-none;
+  @apply border-none
+}
+
+.OutputCardContent p code {
+  @apply Code;
+}
+.OutputCardContent pre {
+  @apply PreCode;
+}
+
+.OutputContent p code {
+  @apply Code;
+}
+.OutputContent pre {
+  @apply PreCode;
+}
+
+.PreCode {
+  @apply p-2 text-[12px] bg-gray-100 border rounded-sm whitespace-pre-wrap;
+}
+.Code {
+  @apply p-1 text-sm text-red-400 bg-gray-100 border rounded-sm
+}
+
+.MoreButton {
+  @apply absolute left-0 right-0 bottom-6 p-6 text-center cursor-pointer;
+  background: linear-gradient(to top, rgb(249,250,251), rgba(0, 0, 0, 0));
 }

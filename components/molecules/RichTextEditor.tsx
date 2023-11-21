@@ -8,14 +8,16 @@ import '@draft-js-plugins/inline-toolbar/lib/plugin.css';
 import createInlineToolbarPlugin from '@draft-js-plugins/inline-toolbar';
 import createLinkifyPlugin from '@draft-js-plugins/linkify';
 
-import FormatBoldIcon from '@mui/icons-material/FormatBold';
-import FormatItalicIcon from '@mui/icons-material/FormatItalic';
-import FormatUnderlinedIcon from '@mui/icons-material/FormatUnderlined';
-import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
-import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
-import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
-import CodeIcon from '@mui/icons-material/Code';
-import TerminalIcon from '@mui/icons-material/Terminal';
+import {
+  FormatBold,
+  FormatItalic,
+  FormatUnderlined,
+  FormatListBulleted,
+  FormatListNumbered,
+  FormatQuote,
+  Code,
+  Terminal,
+} from '@mui/icons-material/';
 
 import { blockStyleFn } from '@/utiliry/editor/blockStyleClasses';
 import { styleMap } from '@/utiliry/editor/InlineStykeClasses';
@@ -52,14 +54,14 @@ const RichTextEditor: FC = () => {
   }
 
   const toolbarButtons = [
-    { action: applyCustomInlineStyle, styleType: 'BOLD', IconComponent: FormatBoldIcon },
-    { action: applyCustomInlineStyle, styleType: 'ITALIC', IconComponent: FormatItalicIcon },
-    { action: applyCustomInlineStyle, styleType: 'UNDERLINE', IconComponent: FormatUnderlinedIcon },
-    { action: applyCustomInlineStyle, styleType: 'CODE', IconComponent: CodeIcon },
-    { action: applyCustomBlockType, styleType: 'unordered-list-item', IconComponent: FormatListBulletedIcon },
-    { action: applyCustomBlockType, styleType: 'ordered-list-item', IconComponent: FormatListNumberedIcon },
-    { action: applyCustomBlockType, styleType: 'blockquote', IconComponent: FormatQuoteIcon },
-    { action: applyCustomBlockType, styleType: 'code-block', IconComponent: TerminalIcon }
+    { action: applyCustomInlineStyle, styleType: 'BOLD', IconComponent: FormatBold },
+    { action: applyCustomInlineStyle, styleType: 'ITALIC', IconComponent: FormatItalic },
+    { action: applyCustomInlineStyle, styleType: 'UNDERLINE', IconComponent: FormatUnderlined },
+    { action: applyCustomInlineStyle, styleType: 'CODE', IconComponent: Code },
+    { action: applyCustomBlockType, styleType: 'unordered-list-item', IconComponent: FormatListBulleted },
+    { action: applyCustomBlockType, styleType: 'ordered-list-item', IconComponent: FormatListNumbered },
+    { action: applyCustomBlockType, styleType: 'blockquote', IconComponent: FormatQuote },
+    { action: applyCustomBlockType, styleType: 'code-block', IconComponent: Terminal }
   ];
 
   const cleanEditorContent = (htmlContent: string) => {

@@ -34,6 +34,7 @@ models/StacksStack.ts
 models/StacksStackListInner.ts
 models/StacksStackSkill.ts
 models/TeamCreateRequestBody.ts
+models/TeamInviteRequestBody.ts
 models/TeamUpdateRequestBody.ts
 models/TeamsStackRanking.ts
 models/TeamsStackRankingList.ts

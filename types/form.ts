@@ -2,17 +2,26 @@ import { SelectChangeEvent } from '@mui/material/Select';
 import { IntrospectionProps, KeepAndProblemAndTryPoint } from './introspection';
 import { Dispatch, SetStateAction } from 'react';
 
-export type FormType = 'updateUser' | 'createStack' | 'createStackIntrospection' | 'showStackIntrospection' | 'updateStackIntrospection' | 'createTeam' | 'updateTeam' | 'createOutput'
+export type FormType =
+  | 'updateUser'
+  | 'createStack'
+  | 'createStackIntrospection'
+  | 'showStackIntrospection'
+  | 'updateStackIntrospection'
+  | 'createTeam'
+  | 'updateTeam'
+  | 'createOutput'
+  | 'createOutputComment';
 
 export type FormTypeProps = {
   formType: FormType;
-}
+};
 
 export type setFormGroupProps = {
   label: string;
   component: React.JSX.Element;
   button: React.JSX.Element;
-}
+};
 
 export type TextInputProps = {
   name: string;
@@ -24,20 +33,20 @@ export type TextInputProps = {
   label: string;
   placeholder: string;
   type: string;
-  onChange?: React.ChangeEventHandler<HTMLInputElement>; 
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
-  value?: string | number
-}
+  value?: string | number;
+};
 
 export type SelectBoxProps = {
   selectedOption: string;
   handleOptionChange: (event: SelectChangeEvent<string>) => void;
-}
+};
 
 export type TeamFormDataParams = {
-  id?: number,
-  name: string
-}
+  id?: number;
+  name: string;
+};
 
 export type UserFormDataParams = {
   role: string;
@@ -45,7 +54,7 @@ export type UserFormDataParams = {
   email: string;
   profile_content: string;
   team: TeamFormDataParams;
-}
+};
 
 export type StackFormDataParams = {
   skill: string;
@@ -53,7 +62,7 @@ export type StackFormDataParams = {
   minutes: number;
   title: string;
   description: string;
-}
+};
 
 export type IntrospectionFormDataParams = {
   reason: string;
@@ -62,11 +71,16 @@ export type IntrospectionFormDataParams = {
   problems: KeepAndProblemAndTryPoint[];
   tries: KeepAndProblemAndTryPoint[];
   stack_id?: number;
-}
+};
 
 export type OutputFormDataParams = {
   content: string;
-}
+};
+
+export type OutputCommentFormDataParams = {
+  content: string;
+  outputId: number;
+};
 
 export type ResetFormValueProps = {
   setFormOpen: Dispatch<SetStateAction<boolean>>;
@@ -78,4 +92,5 @@ export type ResetFormValueProps = {
   setTeamFormData: Dispatch<SetStateAction<TeamFormDataParams>>;
   setOutputFormData: Dispatch<SetStateAction<OutputFormDataParams>>;
   setShowStackIntrospection: Dispatch<SetStateAction<IntrospectionProps>>;
-}
+  setOutputCommentFormData: Dispatch<SetStateAction<OutputCommentFormDataParams>>;
+};

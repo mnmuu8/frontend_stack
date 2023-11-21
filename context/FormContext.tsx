@@ -1,7 +1,7 @@
-import React, { createContext, useState } from "react";
-import { ChildrenProps } from "@/types/utils";
-import { FormType } from "@/types/form";
-import { FormContextProps } from "@/types/context";
+import React, { createContext, useState } from 'react';
+import { ChildrenProps } from '@/types/utils';
+import { FormType } from '@/types/form';
+import { FormContextProps } from '@/types/context';
 
 const InitialState: FormContextProps = {
   formType: 'createStack',
@@ -12,7 +12,7 @@ const InitialState: FormContextProps = {
   setIsRegisterEvent: () => {},
   isValidate: true,
   setIsValidate: () => {},
-}
+};
 
 const FormContext = createContext<FormContextProps>(InitialState);
 
@@ -23,7 +23,7 @@ const FormProvider = ({ children }: ChildrenProps) => {
   const [isValidate, setIsValidate] = useState<boolean>(true);
 
   return (
-    <FormContext.Provider 
+    <FormContext.Provider
       value={{
         formType: formType,
         setFormType: setFormType,
@@ -32,12 +32,12 @@ const FormProvider = ({ children }: ChildrenProps) => {
         isRegisterEvent: isRegisterEvent,
         setIsRegisterEvent: setIsRegisterEvent,
         isValidate: isValidate,
-        setIsValidate: setIsValidate
+        setIsValidate: setIsValidate,
       }}
     >
       {children}
     </FormContext.Provider>
-  )
-}
+  );
+};
 
-export { FormProvider, FormContext }
+export { FormProvider, FormContext };

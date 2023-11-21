@@ -12,3 +12,6 @@ down:
 
 ps:
 	docker-compose ps
+
+make check:
+	npm run format && npm run lint && npm run build

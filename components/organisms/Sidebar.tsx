@@ -1,5 +1,5 @@
-import React, { FC, useContext } from 'react'
-import { sidebarMenus } from '@/types/utils'
+import React, { FC, useContext } from 'react';
+import { sidebarMenus } from '@/types/utils';
 import { AppContext } from '@/context/AppContext';
 import Link from 'next/link';
 
@@ -21,16 +21,16 @@ import OutputIcon from '@mui/icons-material/Output';
 
 const Sidebar: FC = () => {
   const appContext = useContext(AppContext);
-  const {drawerOpen, handleDrawerClose} = appContext;
+  const { drawerOpen, handleDrawerClose } = appContext;
 
   const sidebarMenus: sidebarMenus[] = [
-    {id: 'dashboard', label: 'ダッシュボード', value: '/', icon: <DashboardIcon />},
-    {id: 'timeline', label: 'タイムライン', value: '/timeline', icon: <FeedIcon />},
-    {id: 'mypage', label: 'マイページ', value: '/mypage', icon: <AccountCircleIcon />},
-    {id: 'portfolio', label: 'ポートフォリオ', value: '/portfolio', icon: <CastForEducationIcon />},
-    {id: 'message', label: 'メッセージ', value: '/message', icon: <MessageIcon />},
-    {id: 'outputs', label: 'アウトプット', value: '/outputs', icon: <OutputIcon />},
-  ]
+    { id: 'dashboard', label: 'ダッシュボード', value: '/', icon: <DashboardIcon /> },
+    { id: 'timeline', label: 'タイムライン', value: '/timeline', icon: <FeedIcon /> },
+    { id: 'mypage', label: 'マイページ', value: '/mypage', icon: <AccountCircleIcon /> },
+    { id: 'portfolio', label: 'ポートフォリオ', value: '/portfolio', icon: <CastForEducationIcon /> },
+    { id: 'message', label: 'メッセージ', value: '/message', icon: <MessageIcon /> },
+    { id: 'outputs', label: 'アウトプット', value: '/outputs', icon: <OutputIcon /> },
+  ];
 
   return (
     <aside>
@@ -41,8 +41,8 @@ const Sidebar: FC = () => {
             width: 240,
           },
         }}
-        variant="persistent"
-        anchor="left"
+        variant='persistent'
+        anchor='left'
         open={drawerOpen}
       >
         <div className='flex items-center justify-end h-20 bg-gray-600 px-2'>
@@ -55,9 +55,7 @@ const Sidebar: FC = () => {
             {sidebarMenus.map((menu) => (
               <ListItem key={menu.id} disablePadding>
                 <ListItemButton>
-                  <ListItemIcon>
-                    {menu.icon}
-                  </ListItemIcon>
+                  <ListItemIcon>{menu.icon}</ListItemIcon>
                   <Link href={menu.value}>{menu.label}</Link>
                 </ListItemButton>
               </ListItem>
@@ -68,7 +66,7 @@ const Sidebar: FC = () => {
         </div>
       </Drawer>
     </aside>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;

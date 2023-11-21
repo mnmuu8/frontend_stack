@@ -33,7 +33,13 @@ const OutputCard: FC<OutputCardProps> = ({ output }) => {
     <div key={output.id} className='w-full bg-gray-50 rounded-md p-6 mb-4 relative'>
       <Link href={`/outputs/${output.id}`}>
         <div className='flex items-center mb-2'>
-          <UserProfile user={sessionUser} height={UserProfileHeight} width={UserProfileWidth} isHeader={false} created_at={formattedCreateDate}/>
+          <UserProfile
+            user={sessionUser}
+            height={UserProfileHeight}
+            width={UserProfileWidth}
+            isHeader={false}
+            created_at={formattedCreateDate}
+          />
         </div>
         <div
           ref={contentRef}
@@ -46,7 +52,7 @@ const OutputCard: FC<OutputCardProps> = ({ output }) => {
         <div className='MoreButton' onClick={toggleContent}>もっと見る</div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default OutputCard
+export default OutputCard;

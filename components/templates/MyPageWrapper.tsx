@@ -1,17 +1,17 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react';
 import { tabInfo, skillData } from '../../sample';
 import StackCard from '../molecules/StackCard';
 import ProfileCard from '../molecules/ProfileCard';
 import axios from 'axios';
 import { getSession } from '@/utiliry/session';
-import { ApiOptions } from '@/types/api'
+import { ApiOptions } from '@/types/api';
 import { StackProps } from '@/types/stack';
 import { getApiHeadersWithUserId } from '@/utiliry/api';
 
 const MyPageWrapper: FC = () => {
   const [activeTab, setActiveTab] = useState('all');
   const [innerTab, setInnerTab] = useState('allStack');
-  const [stacks, setStacks] = useState<StackProps[]>([])
+  const [stacks, setStacks] = useState<StackProps[]>([]);
 
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
@@ -24,26 +24,27 @@ const MyPageWrapper: FC = () => {
   useEffect(() => {
     const sessionData = getSession();
     if (!sessionData) return;
- 
+
     const options = getApiHeadersWithUserId(sessionData);
-    axios.get(`${process.env.API_ROOT_URL}/api/v1/stacks`, options)
-    .then(response => {
-      const { data } = response;
-      setStacks(data.stacks);
-    })
-    .catch(error => {
-      if (error.response) {
-        const { data } = error.response;
-        throw new Error(`${JSON.stringify(data)}`);
-      } else {
-        throw new Error(`${JSON.stringify(error)}`);
-      }
-    });
-  }, [])
+    axios
+      .get(`${process.env.API_ROOT_URL}/api/v1/stacks`, options)
+      .then((response) => {
+        const { data } = response;
+        setStacks(data.stacks);
+      })
+      .catch((error) => {
+        if (error.response) {
+          const { data } = error.response;
+          throw new Error(`${JSON.stringify(data)}`);
+        } else {
+          throw new Error(`${JSON.stringify(error)}`);
+        }
+      });
+  }, []);
 
   return (
     <div className='flex justify-between w-[80%] m-auto'>
-      <ProfileCard/>
+      <ProfileCard />
       <div className='w-[calc(100%-340px)]'>
         <div className='bg-gray-800 text-white rounded-md py-8 px-10 mb-8 shadow-md'>
           <div className='mb-6'>$ analyze @Yu-8chan</div>
@@ -98,10 +99,12 @@ const MyPageWrapper: FC = () => {
             ))}
           </div>
         </div>
-        <div className='w-[280px] m-auto mt-10 rounded-md border-2 cursor-pointer border-gray-200 text-center text-sm py-3 duration-300 hover:bg-gray-50 hover:duration-300'>もっとみる</div>
+        <div className='w-[280px] m-auto mt-10 rounded-md border-2 cursor-pointer border-gray-200 text-center text-sm py-3 duration-300 hover:bg-gray-50 hover:duration-300'>
+          もっとみる
+        </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default MyPageWrapper
+export default MyPageWrapper;

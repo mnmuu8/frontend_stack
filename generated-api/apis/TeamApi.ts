@@ -16,6 +16,7 @@
 import * as runtime from '../runtime';
 import type {
   TeamCreateRequestBody,
+  TeamInviteRequestBody,
   TeamUpdateRequestBody,
   TeamsStackRankingList,
   TeamsTeam,
@@ -24,6 +25,8 @@ import type {
 import {
     TeamCreateRequestBodyFromJSON,
     TeamCreateRequestBodyToJSON,
+    TeamInviteRequestBodyFromJSON,
+    TeamInviteRequestBodyToJSON,
     TeamUpdateRequestBodyFromJSON,
     TeamUpdateRequestBodyToJSON,
     TeamsStackRankingListFromJSON,
@@ -40,6 +43,11 @@ export interface ApiV1TeamsCreateRequest {
 
 export interface ApiV1TeamsIndexRequest {
     name?: string;
+}
+
+export interface ApiV1TeamsInviteRequest {
+    teamId: number;
+    teamInviteRequestBody: TeamInviteRequestBody;
 }
 
 export interface ApiV1TeamsStackRankingRequest {
@@ -117,6 +125,42 @@ export class TeamApi extends runtime.BaseAPI {
     async apiV1TeamsIndex(requestParameters: ApiV1TeamsIndexRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<TeamsTeamListInner>> {
         const response = await this.apiV1TeamsIndexRaw(requestParameters, initOverrides);
         return await response.value();
+    }
+
+    /**
+     * チームメンバー招待
+     */
+    async apiV1TeamsInviteRaw(requestParameters: ApiV1TeamsInviteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.teamId === null || requestParameters.teamId === undefined) {
+            throw new runtime.RequiredError('teamId','Required parameter requestParameters.teamId was null or undefined when calling apiV1TeamsInvite.');
+        }
+
+        if (requestParameters.teamInviteRequestBody === null || requestParameters.teamInviteRequestBody === undefined) {
+            throw new runtime.RequiredError('teamInviteRequestBody','Required parameter requestParameters.teamInviteRequestBody was null or undefined when calling apiV1TeamsInvite.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/api/v1/teams/{team_id}/invite`.replace(`{${"team_id"}}`, encodeURIComponent(String(requestParameters.teamId))),
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: TeamInviteRequestBodyToJSON(requestParameters.teamInviteRequestBody),
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * チームメンバー招待
+     */
+    async apiV1TeamsInvite(requestParameters: ApiV1TeamsInviteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.apiV1TeamsInviteRaw(requestParameters, initOverrides);
     }
 
     /**

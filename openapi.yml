@@ -197,6 +197,31 @@ paths:
         '401':
           description: 認証エラー
 
+  /api/v1/users/:
+    post:
+      summary: ユーザーデータ作成
+      operationId: api.v1.users.create
+      tags:
+        - User
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreateRequestBody'
+      responses:
+        '201':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users_User'
+        '401':
+          description: 認証エラー
+        '422':
+          description: バリデーションエラー
+
   /api/v1/users/{user_id}:
     get:
       summary: ユーザーデータ詳細
@@ -1258,6 +1283,36 @@ components:
           items:
             allOf:
             - $ref: '#/components/schemas/Stacks_Introspections_Tries_Try_Content'
+
+    UserCreateRequestBody:
+      type: object
+      required:
+        - name
+        - email
+        - profile_content
+        - role
+        - team_id
+      properties:
+        name:
+          allOf:
+            - $ref: '#/components/schemas/Users_User_Name'
+          nullable: false
+        email:
+          allOf:
+            - $ref: '#/components/schemas/Users_User_Email'
+          nullable: false
+        profile_content:
+          allOf:
+            - $ref: '#/components/schemas/Users_User_ProfileContent'
+          nullable: true
+        role:
+          allOf:
+            - $ref: '#/components/schemas/Users_User_Role'
+          nullable: false
+        team_id:
+          allOf:
+            - $ref: '#/components/schemas/Teams_Team_Id'
+          nullable: true
 
     UserUpdateRequestBody:
       type: object

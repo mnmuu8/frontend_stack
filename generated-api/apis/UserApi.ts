@@ -15,15 +15,22 @@
 
 import * as runtime from '../runtime';
 import type {
+  UserCreateRequestBody,
   UserUpdateRequestBody,
   UsersUser,
 } from '../models';
 import {
+    UserCreateRequestBodyFromJSON,
+    UserCreateRequestBodyToJSON,
     UserUpdateRequestBodyFromJSON,
     UserUpdateRequestBodyToJSON,
     UsersUserFromJSON,
     UsersUserToJSON,
 } from '../models';
+
+export interface ApiV1UsersCreateRequest {
+    userCreateRequestBody: UserCreateRequestBody;
+}
 
 export interface ApiV1UsersShowRequest {
     userId: number;
@@ -38,6 +45,39 @@ export interface ApiV1UsersUpdateRequest {
  * 
  */
 export class UserApi extends runtime.BaseAPI {
+
+    /**
+     * ユーザーデータ作成
+     */
+    async apiV1UsersCreateRaw(requestParameters: ApiV1UsersCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UsersUser>> {
+        if (requestParameters.userCreateRequestBody === null || requestParameters.userCreateRequestBody === undefined) {
+            throw new runtime.RequiredError('userCreateRequestBody','Required parameter requestParameters.userCreateRequestBody was null or undefined when calling apiV1UsersCreate.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/api/v1/users/`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: UserCreateRequestBodyToJSON(requestParameters.userCreateRequestBody),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => UsersUserFromJSON(jsonValue));
+    }
+
+    /**
+     * ユーザーデータ作成
+     */
+    async apiV1UsersCreate(requestParameters: ApiV1UsersCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UsersUser> {
+        const response = await this.apiV1UsersCreateRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
 
     /**
      * ユーザーデータ詳細

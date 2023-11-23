@@ -1,4 +1,5 @@
-import { ApiOptions, callStackApiProps, callUserApiProps, createIntrospectionApiProps, createTeamApiProps } from "@/types/api";
+import { ApiOptions, callStackApiProps, callUserApiProps, createIntrospectionApiProps, createTeamApiProps, inviteTeamApiProps } from "@/types/api";
+import { useRouter } from 'next/router';
 import { SessionData } from "@/types/session";
 import axios from "axios";
 
@@ -50,6 +51,24 @@ export const callCreateTeam = ({options, teamFormData, setIsRegisterEvent}: crea
   createTeam().then(res => {
     setIsRegisterEvent(true);
   });
+}
+
+export const callInviteTeam = ({options, inviteTeamFormData, router}: inviteTeamApiProps) => {
+  const inviteTeam = async () => {
+    const params = {
+      email: inviteTeamFormData.email
+    }
+    const url: string = `${process.env.API_ROOT_URL}/api/v1/teams/${inviteTeamFormData.id}/invite`;
+
+    try {
+      const response = await axios.put(url, params, options);
+      return response.data;
+    } catch (error) {
+      throw new Error(`${JSON.stringify(error)}`);
+    }
+  };
+
+  inviteTeam().then(res => {});
 }
 
 export const callUpdateTeam = ({options, teamFormData, setIsRegisterEvent}: createTeamApiProps) => {

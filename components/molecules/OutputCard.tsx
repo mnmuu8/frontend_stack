@@ -1,4 +1,4 @@
-import React, { FC, useContext, useEffect, useRef, useState } from 'react'
+import React, { FC, useContext, useEffect, useRef, useState } from 'react';
 import { SessionContext } from '@/context/SessionContext';
 import UserProfile from './UserProfile';
 import { OutputCardProps } from '@/types/output';
@@ -49,7 +49,9 @@ const OutputCard: FC<OutputCardProps> = ({ output }) => {
         />
       </Link>
       {showMoreButton && !isExpanded && (
-        <div className='MoreButton' onClick={toggleContent}>もっと見る</div>
+        <div className='MoreButton' onClick={toggleContent}>
+          もっと見る
+        </div>
       )}
     </div>
   );

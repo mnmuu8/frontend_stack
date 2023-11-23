@@ -37,15 +37,15 @@ const OutputFormGroup: FC = () => {
   return (
     <>
       <div className='hidden'>
-        <TextInput 
-          name={"content"}
+        <TextInput
+          name={'content'}
           fullWidth={true}
           multiline={true}
           minRows={1}
           required={true}
-          requiredMessage={"必須入力"}
-          label={"内容"}
-          placeholder={"ChatGPTの便利な使い方を紹介..."}
+          requiredMessage={'必須入力'}
+          label={'内容'}
+          placeholder={'ChatGPTの便利な使い方を紹介...'}
           type='text'
           onChange={handleFieldChange}
           value={outputFormData.content}

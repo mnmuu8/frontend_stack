@@ -4,6 +4,7 @@ import {
   FormType,
   StackFormDataParams,
   TeamFormDataParams,
+  InviteTeamFormDataParams,
   UserFormDataParams,
   IntrospectionFormDataParams,
   OutputFormDataParams,
@@ -43,6 +44,8 @@ export type FormContextProps = {
 export type FormDataContextProps = {
   teamFormData: TeamFormDataParams;
   setTeamFormData: Dispatch<SetStateAction<TeamFormDataParams>>;
+  inviteTeamFormData: InviteTeamFormDataParams;
+  setInviteTeamFormData: Dispatch<SetStateAction<InviteTeamFormDataParams>>;
   userFormData: UserFormDataParams;
   setUserFormData: Dispatch<SetStateAction<UserFormDataParams>>;
   stackFormData: StackFormDataParams;

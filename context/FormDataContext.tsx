@@ -4,6 +4,7 @@ import { IntrospectionProps } from '@/types/introspection';
 import {
   StackFormDataParams,
   TeamFormDataParams,
+  InviteTeamFormDataParams,
   UserFormDataParams,
   IntrospectionFormDataParams,
   OutputFormDataParams,
@@ -14,6 +15,7 @@ import {
   InitialStackFormData,
   InitialIntrospectionFormData,
   InitialTeamFormData,
+  InitialInviteTeamFormData,
   InitialUserFormData,
   InitialOutputFormData,
   InitialOutputCommentFormData,
@@ -22,6 +24,8 @@ import {
 const InitialState: FormDataContextProps = {
   teamFormData: InitialTeamFormData,
   setTeamFormData: () => {},
+  inviteTeamFormData: InitialInviteTeamFormData,
+  setInviteTeamFormData: () => {},
   userFormData: InitialUserFormData,
   setUserFormData: () => {},
   stackFormData: InitialStackFormData,
@@ -42,6 +46,7 @@ const FormDataProvider = ({ children }: ChildrenProps) => {
   const [introspectionFormData, setIntrospectionFormData] =
     useState<IntrospectionFormDataParams>(InitialIntrospectionFormData);
   const [teamFormData, setTeamFormData] = useState<TeamFormDataParams>(InitialTeamFormData);
+  const [inviteTeamFormData, setInviteTeamFormData] = useState<InviteTeamFormDataParams>(InitialInviteTeamFormData);
   const [userFormData, setUserFormData] = useState<UserFormDataParams>(InitialUserFormData);
   const [stackFormData, setStackFormData] = useState<StackFormDataParams>(InitialStackFormData);
   const [showStackIntrospection, setShowStackIntrospection] = useState<IntrospectionProps | undefined>(undefined);
@@ -54,6 +59,8 @@ const FormDataProvider = ({ children }: ChildrenProps) => {
       value={{
         teamFormData: teamFormData,
         setTeamFormData: setTeamFormData,
+        inviteTeamFormData: inviteTeamFormData,
+        setInviteTeamFormData: setInviteTeamFormData,
         userFormData: userFormData,
         setUserFormData: setUserFormData,
         stackFormData: stackFormData,

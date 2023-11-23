@@ -50,6 +50,10 @@ export interface ApiV1TeamsInviteRequest {
     teamInviteRequestBody: TeamInviteRequestBody;
 }
 
+export interface ApiV1TeamsShowRequest {
+    teamId: number;
+}
+
 export interface ApiV1TeamsStackRankingRequest {
     teamId: number;
 }
@@ -161,6 +165,36 @@ export class TeamApi extends runtime.BaseAPI {
      */
     async apiV1TeamsInvite(requestParameters: ApiV1TeamsInviteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.apiV1TeamsInviteRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * チーム詳細
+     */
+    async apiV1TeamsShowRaw(requestParameters: ApiV1TeamsShowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TeamsTeam>> {
+        if (requestParameters.teamId === null || requestParameters.teamId === undefined) {
+            throw new runtime.RequiredError('teamId','Required parameter requestParameters.teamId was null or undefined when calling apiV1TeamsShow.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/api/v1/teams/{team_id}`.replace(`{${"team_id"}}`, encodeURIComponent(String(requestParameters.teamId))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TeamsTeamFromJSON(jsonValue));
+    }
+
+    /**
+     * チーム詳細
+     */
+    async apiV1TeamsShow(requestParameters: ApiV1TeamsShowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TeamsTeam> {
+        const response = await this.apiV1TeamsShowRaw(requestParameters, initOverrides);
+        return await response.value();
     }
 
     /**

@@ -9,6 +9,7 @@ export type FormType =
   | 'showStackIntrospection'
   | 'updateStackIntrospection'
   | 'createTeam'
+  | 'inviteTeam'
   | 'updateTeam'
   | 'createOutput'
   | 'createOutputComment';
@@ -46,6 +47,11 @@ export type SelectBoxProps = {
 export type TeamFormDataParams = {
   id?: number;
   name: string;
+};
+
+export type InviteTeamFormDataParams = {
+  id: number;
+  email: string;
 };
 
 export type UserFormDataParams = {
@@ -90,6 +96,7 @@ export type ResetFormValueProps = {
   setIntrospectionFormData: Dispatch<SetStateAction<IntrospectionFormDataParams>>;
   setUserFormData: Dispatch<SetStateAction<UserFormDataParams>>;
   setTeamFormData: Dispatch<SetStateAction<TeamFormDataParams>>;
+  setInviteTeamFormData: Dispatch<SetStateAction<InviteTeamFormDataParams>>;
   setOutputFormData: Dispatch<SetStateAction<OutputFormDataParams>>;
   setShowStackIntrospection: Dispatch<SetStateAction<IntrospectionProps>>;
   setOutputCommentFormData: Dispatch<SetStateAction<OutputCommentFormDataParams>>;

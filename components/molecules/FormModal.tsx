@@ -8,6 +8,7 @@ import UserFormGroup from './UserFormGroup';
 import { getSession } from '@/utiliry/session';
 import { NextRouter, useRouter } from 'next/router';
 import TeamFormGroup from './TeamFormGroup';
+import InviteTeamFormGroup from './InviteTeamFormGroup';
 import { FormContext } from '@/context/FormContext';
 import { FormDataContext } from '@/context/FormDataContext';
 import { resetFormValue } from '@/utiliry/form';
@@ -15,6 +16,7 @@ import {
   callCreateIntrospection,
   callCreateStack,
   callCreateTeam,
+  callInviteTeam,
   callUpdateIntrospection,
   callUpdateTeam,
   callUpdateUser,
@@ -27,7 +29,6 @@ import OutputFormGroup from './OutputFormGroup';
 import OutputCommentFormGroup from './OutputCommentFormGroup';
 import { callCreateOutput } from '@/utiliry/api/outputs';
 import { callCreateOutputComment } from '@/utiliry/api/outputs/comments';
-import { SessionContext } from '@/context/SessionContext';
 
 const FormModal: FC = () => {
   const router: NextRouter = useRouter();
@@ -35,19 +36,18 @@ const FormModal: FC = () => {
   const formContext = useContext(FormContext);
   const formDataContext = useContext(FormDataContext);
 
-  const sessionContext = useContext(SessionContext);
-  const { sessionUser } = sessionContext;
-
   const { formOpen, setFormOpen, formType, setIsRegisterEvent, isValidate, setIsValidate } = formContext;
   const {
     setStackFormData,
     setIntrospectionFormData,
     setUserFormData,
     setTeamFormData,
+    setInviteTeamFormData,
     setShowStackIntrospection,
     setOutputFormData,
     setOutputCommentFormData,
     teamFormData,
+    inviteTeamFormData,
     userFormData,
     stackFormData,
     introspectionFormData,
@@ -65,6 +65,7 @@ const FormModal: FC = () => {
       setIntrospectionFormData,
       setUserFormData,
       setTeamFormData,
+      setInviteTeamFormData,
       setShowStackIntrospection,
       setOutputFormData,
       setOutputCommentFormData,
@@ -93,6 +94,10 @@ const FormModal: FC = () => {
       if (!dataConfirmAlert('チームを作成しますか？')) return;
       callCreateTeam({ options, teamFormData, setIsRegisterEvent });
     }
+    if (formType === 'inviteTeam') {
+      if (!dataConfirmAlert('チームに招待しますか？')) return;
+      callInviteTeam({ options, inviteTeamFormData, router });
+    }
     if (formType === 'updateTeam') {
       if (!dataConfirmAlert('チームを更新しますか？')) return;
       callUpdateTeam({ options, teamFormData, setIsRegisterEvent });
@@ -118,6 +123,7 @@ const FormModal: FC = () => {
       setIntrospectionFormData,
       setUserFormData,
       setTeamFormData,
+      setInviteTeamFormData,
       setShowStackIntrospection,
       setOutputFormData,
       setOutputCommentFormData,
@@ -158,6 +164,13 @@ const FormModal: FC = () => {
         label: 'チームを作成',
         component: <TeamFormGroup />,
         button: <FormSubmitButton onClick={FormSubmit} disabled={isValidate} label={'作成'} />,
+      };
+    }
+    if (formType === 'inviteTeam') {
+      return {
+        label: 'チームに招待',
+        component: <InviteTeamFormGroup />,
+        button: <FormSubmitButton onClick={FormSubmit} disabled={isValidate} label={'招待'} />,
       };
     }
     if (formType === 'updateTeam') {

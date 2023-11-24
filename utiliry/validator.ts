@@ -39,6 +39,10 @@ export const teamValidationRules: ValidationRules = {
   name: (value) => isRequired(value),
 };
 
+export const inviteTeamValidationRules: ValidationRules = {
+  email: (value) => isRequired(value),
+};
+
 export const userValidationRules: ValidationRules = {
   role: (value) => isRequired(value),
   name: (value) => isRequired(value),

@@ -4,6 +4,7 @@ import {
   OutputFormDataParams,
   StackFormDataParams,
   TeamFormDataParams,
+  InviteTeamFormDataParams,
   UserFormDataParams,
   OutputCommentFormDataParams,
 } from './form';
@@ -61,6 +62,11 @@ export type callUserApiProps = ApiOptionsProps &
 export type createTeamApiProps = ApiOptionsProps &
   setIsRegisterEventProps & {
     teamFormData: TeamFormDataParams;
+  };
+
+export type inviteTeamApiProps = ApiOptionsProps &
+  routerProps & {
+    inviteTeamFormData: InviteTeamFormDataParams;
   };
 
 export type createOutputApiProps = ApiOptionsProps &

@@ -333,6 +333,31 @@ paths:
         '422':
           description: バリデーションエラー
   /api/v1/teams/{team_id}:
+    get:
+      summary: チーム詳細
+      operationId: api.v1.teams.show
+      tags:
+        - Team
+      security: []
+      parameters:
+        - name: team_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Teams_Team_Id'
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Teams_Team'
+        '401':
+          description: 認証エラー
+        '404':
+          description: チームが存在しない
+        '422':
+          description: バリデーションエラー
     patch:
       summary: チーム更新
       operationId: api.v1.teams.update

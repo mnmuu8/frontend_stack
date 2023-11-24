@@ -1316,6 +1316,8 @@ components:
         - email
         - profile_content
         - role
+        - password
+        - password_confirmation
         - team_id
       properties:
         name:
@@ -1333,6 +1335,14 @@ components:
         role:
           allOf:
             - $ref: '#/components/schemas/Users_User_Role'
+          nullable: false
+        password:
+          allOf:
+            - $ref: '#/components/schemas/Users_User_Password'
+          nullable: false
+        password_confirmation:
+          allOf:
+            - $ref: '#/components/schemas/Users_User_Password'
           nullable: false
         team_id:
           allOf:

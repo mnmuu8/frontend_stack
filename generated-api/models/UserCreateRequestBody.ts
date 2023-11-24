@@ -51,6 +51,18 @@ export interface UserCreateRequestBody {
      */
     role: UsersUserRole;
     /**
+     * ユーザーのパスワード
+     * @type {string}
+     * @memberof UserCreateRequestBody
+     */
+    password: string;
+    /**
+     * ユーザーのパスワード
+     * @type {string}
+     * @memberof UserCreateRequestBody
+     */
+    passwordConfirmation: string;
+    /**
      * チームID
      * @type {number}
      * @memberof UserCreateRequestBody
@@ -67,6 +79,8 @@ export function instanceOfUserCreateRequestBody(value: object): boolean {
     isInstance = isInstance && "email" in value;
     isInstance = isInstance && "profileContent" in value;
     isInstance = isInstance && "role" in value;
+    isInstance = isInstance && "password" in value;
+    isInstance = isInstance && "passwordConfirmation" in value;
     isInstance = isInstance && "teamId" in value;
 
     return isInstance;
@@ -86,6 +100,8 @@ export function UserCreateRequestBodyFromJSONTyped(json: any, ignoreDiscriminato
         'email': json['email'],
         'profileContent': json['profile_content'],
         'role': UsersUserRoleFromJSON(json['role']),
+        'password': json['password'],
+        'passwordConfirmation': json['password_confirmation'],
         'teamId': json['team_id'],
     };
 }
@@ -103,6 +119,8 @@ export function UserCreateRequestBodyToJSON(value?: UserCreateRequestBody | null
         'email': value.email,
         'profile_content': value.profileContent,
         'role': UsersUserRoleToJSON(value.role),
+        'password': value.password,
+        'password_confirmation': value.passwordConfirmation,
         'team_id': value.teamId,
     };
 }

@@ -35,6 +35,7 @@ export * from './TeamsTeam';
 export * from './TeamsTeamListInner';
 export * from './UserCreateRequestBody';
 export * from './UserUpdateRequestBody';
+export * from './UsersProfilesUploadUrl';
 export * from './UsersUser';
 export * from './UsersUserRole';
 export * from './UsersUserSkillRanksInner';

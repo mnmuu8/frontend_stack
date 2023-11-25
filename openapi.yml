@@ -283,6 +283,48 @@ paths:
         '422':
           description: バリデーションエラー
 
+  /api/v1/users/{user_id}/profiles/upload_url:
+    get:
+      summary: ユーザーデータ詳細
+      operationId: api.v1.users.profiles.upload_url
+      tags:
+        - UserProfile
+      security: []
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Users_User_Id'
+        - name: filename
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/Users_Profiles_Filename'
+        - name: byte_size
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/Users_Profiles_ByteSize'
+        - name: content_type
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/Users_Profiles_ContentType'
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users_Profiles_UploadUrl'
+        '401':
+          description: 認証エラー
+        '404':
+          description: ユーザーが存在しない
+        '422':
+          description: バリデーションエラー
+
   /api/v1/teams:
     get:
       summary: チーム一覧
@@ -948,6 +990,16 @@ components:
             - $ref: '#/components/schemas/DateTime'
           nullable: false
 
+    Users_Profiles_UploadUrl:
+      type: object
+      required:
+        - url
+      properties:
+        url:
+          allOf:
+            - $ref: '#/components/schemas/Users_Profiles_Url'
+          nullable: false
+
     Users_User_Id:
       type: integer
       description: ユーザーID
@@ -980,6 +1032,26 @@ components:
       type: string
       description: ユーザーのパスワード
       example: password
+
+    Users_Profiles_Filename:
+      type: string
+      description: ファイル名
+      example: test.jpg
+
+    Users_Profiles_ByteSize:
+      type: integer
+      description: ファイルサイズ
+      example: 12345
+
+    Users_Profiles_ContentType:
+      type: string
+      description: コンテンツタイプ
+      example: image/jpg
+
+    Users_Profiles_Url:
+      type: string
+      description: 署名付きURL
+      example: https://s3.ap-northeast-1.amazonaws.com/
 
     SkillRanks_SkillRank:
       type: object

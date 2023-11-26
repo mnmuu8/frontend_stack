@@ -283,6 +283,81 @@ paths:
         '422':
           description: バリデーションエラー
 
+  /api/v1/users/{user_id}/profile_images/upload_url:
+    get:
+      summary: ユーザープロフィール画像アップロードURL取得
+      operationId: api.v1.users.profile_images.upload_url
+      tags:
+        - UserProfileImage
+      security: []
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Users_User_Id'
+        - name: filename
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/Users_ProfileImages_Filename'
+        - name: byte_size
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/Users_ProfileImages_ByteSize'
+        - name: content_type
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/Users_ProfileImages_ContentType'
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users_ProfileImages_UploadUrl'
+        '401':
+          description: 認証エラー
+        '404':
+          description: ユーザーが存在しない
+        '422':
+          description: バリデーションエラー
+
+  /api/v1/users/{user_id}/profile_images/attach:
+    put:
+      summary: ユーザープロフィール画像登録
+      operationId: api.v1.users.profile_images.attach
+      tags:
+        - UserProfileImage
+      security: []
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Users_User_Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserProfileImagesAttachRequestBody'
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users_User'
+        '401':
+          description: 認証エラー
+        '404':
+          description: ユーザーが存在しない
+        '422':
+          description: バリデーションエラー
+
   /api/v1/teams:
     get:
       summary: チーム一覧
@@ -905,6 +980,7 @@ components:
         - email
         - profile_content
         - role
+        - profile_path
         - team
         - skill_ranks
         - created_at
@@ -930,6 +1006,10 @@ components:
           allOf:
             - $ref: '#/components/schemas/Users_User_Role'
           nullable: false
+        profile_image_path:
+          allOf:
+            - $ref: '#/components/schemas/Users_User_ProfileImagePath'
+          nullable: false
         team:
           allOf:
             - $ref: '#/components/schemas/Teams_Team'
@@ -946,6 +1026,16 @@ components:
         updated_at:
           allOf:
             - $ref: '#/components/schemas/DateTime'
+          nullable: false
+
+    Users_ProfileImages_UploadUrl:
+      type: object
+      required:
+        - url
+      properties:
+        url:
+          allOf:
+            - $ref: '#/components/schemas/Users_ProfileImages_Url'
           nullable: false
 
     Users_User_Id:
@@ -976,10 +1066,35 @@ components:
         - admin
         - general
 
+    Users_User_ProfileImagePath:
+      type: string
+      description: ユーザープロフィール画像のS3ファイルパス
+      example: path/to/file.jpg
+
     Users_User_Password:
       type: string
       description: ユーザーのパスワード
       example: password
+
+    Users_ProfileImages_Filename:
+      type: string
+      description: ファイル名
+      example: test.jpg
+
+    Users_ProfileImages_ByteSize:
+      type: integer
+      description: ファイルサイズ
+      example: 12345
+
+    Users_ProfileImages_ContentType:
+      type: string
+      description: コンテンツタイプ
+      example: image/jpg
+
+    Users_ProfileImages_Url:
+      type: string
+      description: 署名付きURL
+      example: https://s3.ap-northeast-1.amazonaws.com/
 
     SkillRanks_SkillRank:
       type: object
@@ -1378,6 +1493,16 @@ components:
           allOf:
             - $ref: '#/components/schemas/Teams_Team_Id'
           nullable: true
+
+    UserProfileImagesAttachRequestBody:
+      type: object
+      required:
+        - s3_file_path
+      properties:
+        s3_file_path:
+          allOf:
+            - $ref: '#/components/schemas/Users_User_ProfileImagePath'
+          nullable: false
 
     TeamCreateRequestBody:
       type: object

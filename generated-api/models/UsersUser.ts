@@ -69,6 +69,12 @@ export interface UsersUser {
      */
     role: UsersUserRole;
     /**
+     * ユーザープロフィール画像のS3ファイルパス
+     * @type {string}
+     * @memberof UsersUser
+     */
+    profileImagePath?: string;
+    /**
      * 
      * @type {UsersUserTeam}
      * @memberof UsersUser
@@ -127,6 +133,7 @@ export function UsersUserFromJSONTyped(json: any, ignoreDiscriminator: boolean):
         'email': json['email'],
         'profileContent': json['profile_content'],
         'role': UsersUserRoleFromJSON(json['role']),
+        'profileImagePath': !exists(json, 'profile_image_path') ? undefined : json['profile_image_path'],
         'team': UsersUserTeamFromJSON(json['team']),
         'skillRanks': ((json['skill_ranks'] as Array<any>).map(UsersUserSkillRanksInnerFromJSON)),
         'createdAt': (new Date(json['created_at'])),
@@ -148,6 +155,7 @@ export function UsersUserToJSON(value?: UsersUser | null): any {
         'email': value.email,
         'profile_content': value.profileContent,
         'role': UsersUserRoleToJSON(value.role),
+        'profile_image_path': value.profileImagePath,
         'team': UsersUserTeamToJSON(value.team),
         'skill_ranks': ((value.skillRanks as Array<any>).map(UsersUserSkillRanksInnerToJSON)),
         'created_at': (value.createdAt.toISOString()),

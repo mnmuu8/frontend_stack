@@ -6,6 +6,7 @@ apis/SkillApi.ts
 apis/StackApi.ts
 apis/TeamApi.ts
 apis/UserApi.ts
+apis/UserProfileImageApi.ts
 apis/index.ts
 index.ts
 models/AuthLogin.ts
@@ -42,7 +43,9 @@ models/TeamsStackRankingListStackRankingsInner.ts
 models/TeamsTeam.ts
 models/TeamsTeamListInner.ts
 models/UserCreateRequestBody.ts
+models/UserProfileImagesAttachRequestBody.ts
 models/UserUpdateRequestBody.ts
+models/UsersProfileImagesUploadUrl.ts
 models/UsersUser.ts
 models/UsersUserRole.ts
 models/UsersUserSkillRanksInner.ts

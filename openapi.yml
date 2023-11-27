@@ -355,6 +355,8 @@ paths:
           description: 認証エラー
         '404':
           description: ユーザーが存在しない
+        '409':
+          description: プロフィール画像の登録に失敗
         '422':
           description: バリデーションエラー
 

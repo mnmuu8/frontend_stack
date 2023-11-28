@@ -53,6 +53,11 @@ export type createIntrospectionApiProps = ApiOptionsProps &
     introspectionFormData: IntrospectionFormDataParams;
   };
 
+export type createUserApiProps = ApiOptionsProps &
+  routerProps & {
+    userFormData: UserFormDataParams;
+  };
+
 export type callUserApiProps = ApiOptionsProps &
   routerProps &
   SessionDataProps & {

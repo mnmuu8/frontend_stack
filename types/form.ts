@@ -59,6 +59,8 @@ export type UserFormDataParams = {
   name: string;
   email: string;
   profile_content: string;
+  password?: string;
+  password_confirmation?: string;
   team: TeamFormDataParams;
 };
 

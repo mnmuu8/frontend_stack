@@ -1,4 +1,4 @@
-import { ApiOptions, callStackApiProps, callUserApiProps, createIntrospectionApiProps, createTeamApiProps, inviteTeamApiProps } from "@/types/api";
+import { ApiOptions, callStackApiProps, createUserApiProps, callUserApiProps, createIntrospectionApiProps, createTeamApiProps, inviteTeamApiProps } from "@/types/api";
 import { useRouter } from 'next/router';
 import { SessionData } from "@/types/session";
 import axios from "axios";
@@ -89,6 +89,29 @@ export const callUpdateTeam = ({options, teamFormData, setIsRegisterEvent}: crea
   updateTeam().then(res => {
     setIsRegisterEvent(true);
   });
+}
+
+export const callCreateUser = ({options, userFormData, router}: createUserApiProps) => {
+  const createUser = async () => {
+    const params = {
+      role: userFormData.role,
+      name: userFormData.name,
+      email: userFormData.email,
+      profile_content: userFormData.profile_content,
+      password: userFormData.password,
+      password_confirmation: userFormData.password_confirmation,
+      team_id: userFormData.team.id,
+    }
+    const url: string = `${process.env.API_ROOT_URL}/api/v1/users/`;
+    try {
+      const response = await axios.post(url, params, options);
+      return response.data;
+    } catch (error) {
+      // throw new Error(`${JSON.stringify(error)}`);
+    }
+  };
+  console.log('createUser');
+  createUser().then(res => router.push('/mypage'));
 }
 
 export const callUpdateUser = ({options, sessionData, userFormData, router}: callUserApiProps) => {

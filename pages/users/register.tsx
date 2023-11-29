@@ -2,12 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { GetServerSideProps, NextPage } from 'next'
 import { useRouter } from 'next/router';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
 import { ApiOptions } from '@/types/api';
-import { TeamProps } from '@/types/team';
 import { ErrorMessages } from '@/types/validator';
 import { UserRegisterProps } from '@/types/user';
 import { getSession } from '@/utiliry/session';
@@ -22,10 +17,6 @@ import FormSubmitButton from '@/components/atoms/FormSubmitButton';
 import UserFormGroup from '@/components/molecules/UserFormGroup';
 
 const Register: NextPage<UserRegisterProps> = ({ email, team_id }) => {
-  const [query, setQuery] = useState<string>('');
-  const [results, setResults] = useState<TeamProps[]>([]);
-  const [showResults, setShowResults] = useState<boolean>(false);
-
   const formDataContext = useContext(FormDataContext);
   const { userFormData, setUserFormData } = formDataContext;
 
@@ -44,33 +35,6 @@ const Register: NextPage<UserRegisterProps> = ({ email, team_id }) => {
       ...userFormData,
       [name]: value,
     });
-  };
-
-  const handleTextInputClick = () => {
-    setShowResults(true);
-  };
-
-  const handleTeamChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-
-    setQuery(value);
-    setUserFormData({
-      ...userFormData,
-      [name]: {
-        name: value,
-      },
-    });
-
-    const validationRules = userValidationRules;
-    validationCheck({ name, value, validationRules, errorMessages, setErrorMessages });
-  };
-
-  const handleTeamClick = (team: TeamProps) => {
-    setUserFormData({
-      ...userFormData,
-      team: team,
-    });
-    setShowResults(false);
   };
 
   const router = useRouter();
@@ -119,30 +83,6 @@ const Register: NextPage<UserRegisterProps> = ({ email, team_id }) => {
       });
     });
   }, []);
-
-  useEffect(() => {
-    const fetchTeams = async (query: string) => {
-      const sessionData = getSession();
-      if (!sessionData) return;
-
-      const options: ApiOptions = {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${sessionData.token}`,
-        },
-        params: query ? { name: query } : undefined,
-      };
-
-      try {
-        const response = await axios.get(`${process.env.API_ROOT_URL}/api/v1/teams`, options);
-        return response.data.teams;
-      } catch (error) {
-        throw new Error(`${JSON.stringify(error)}`);
-      }
-    };
-
-    fetchTeams(query).then((res) => setResults(res));
-  }, [query]);
 
   return (
     <>

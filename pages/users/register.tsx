@@ -19,6 +19,7 @@ import { FormDataContext } from '@/context/FormDataContext';
 import TextInput from '@/components/molecules/TextInput';
 import ErrorMessage from '@/components/atoms/ErrorMessage';
 import FormSubmitButton from '@/components/atoms/FormSubmitButton';
+import UserFormGroup from '@/components/molecules/UserFormGroup';
 
 const Register: NextPage<UserRegisterProps> = ({ email, team_id }) => {
   const [query, setQuery] = useState<string>('');
@@ -150,58 +151,7 @@ const Register: NextPage<UserRegisterProps> = ({ email, team_id }) => {
     </div>
     <div className='bg-gray-50 h-full min-h-screen flex justify-center items-center'>
       <div className='w-[768px] bg-white max-h-[80vh] overflow-auto'>
-        <FormControl>
-          <RadioGroup row name='role' value={userFormData.role} onChange={handleFieldChange}>
-            <FormControlLabel value='admin' control={<Radio />} label='管理者' />
-            <FormControlLabel value='general' control={<Radio />} label='一般' />
-          </RadioGroup>
-          <ErrorMessage errorMessages={errorMessages} errorKey={'role'} />
-        </FormControl>
-
-        <TextInput
-          name={'name'}
-          fullWidth={true}
-          multiline={false}
-          minRows={1}
-          required={true}
-          requiredMessage={'必須入力'}
-          label={'ユーザー名'}
-          placeholder={'uyu_morning'}
-          type='text'
-          onChange={handleFieldChange}
-          value={userFormData.name}
-        />
-        <ErrorMessage errorMessages={errorMessages} errorKey={'name'} />
-
-        <TextInput
-          name={'email'}
-          fullWidth={true}
-          multiline={false}
-          minRows={1}
-          required={true}
-          requiredMessage={'必須入力'}
-          label={'メールアドレス'}
-          placeholder={'example@example.com'}
-          type='text'
-          onChange={handleFieldChange}
-          value={userFormData.email}
-        />
-        <ErrorMessage errorMessages={errorMessages} errorKey={'email'} />
-
-        <TextInput
-          name={'profile_content'}
-          fullWidth={true}
-          multiline={true}
-          minRows={10}
-          required={false}
-          requiredMessage={'必須入力'}
-          label={'プロフィール内容'}
-          placeholder={'私はWebエンジニアでReactを得意としております...'}
-          type='text'
-          onChange={handleFieldChange}
-          value={userFormData.profile_content}
-        />
-        <ErrorMessage errorMessages={errorMessages} errorKey={'profile_content'} />
+        <UserFormGroup />
 
         <TextInput
           name={'password'}
@@ -232,35 +182,6 @@ const Register: NextPage<UserRegisterProps> = ({ email, team_id }) => {
           value={userFormData.password_confirmation}
         />
         <ErrorMessage errorMessages={errorMessages} errorKey={'password_confirmation'} />
-
-        <TextInput
-          name={'team'}
-          fullWidth={true}
-          multiline={false}
-          minRows={1}
-          required={true}
-          requiredMessage={'必須入力'}
-          label={'チーム'}
-          placeholder={'チームを選択してください'}
-          type='text'
-          onChange={(e) => handleTeamChange(e)}
-          onClick={handleTextInputClick}
-          value={userFormData.team.name}
-        />
-        {showResults && (
-          <div className='max-h-[120px] overflow-y-auto'>
-            {results.map((team: TeamProps) => (
-              <div
-                key={team.id}
-                onClick={() => handleTeamClick(team)}
-                className='cursor-pointer hover:bg-gray-100 py-2 px-2 bg-gray-50'
-              >
-                {team.name}
-              </div>
-            ))}
-          </div>
-        )}
-        <ErrorMessage errorMessages={errorMessages} errorKey={'team'} />
 
         <div className='flex justify-center pt-6'>
           <FormSubmitButton onClick={FormSubmit} disabled={isValidate} label={'登録する'} />

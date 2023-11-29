@@ -7,3 +7,8 @@ export type UserProfileProps = {
   isHeader: boolean;
   created_at?: string;
 };
+
+export type UserRegisterProps = {
+  email: string;
+  team_id: number;
+};

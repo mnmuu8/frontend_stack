@@ -46,9 +46,9 @@ const MyPageWrapper: FC = () => {
   }, []);
 
   useEffect(() => {
-    const skillAccumulation: {[skill: string]: number} = {};
+    const skillAccumulation: { [skill: string]: number } = {};
 
-    stacks.forEach(stack => {
+    stacks.forEach((stack) => {
       const { skill, minutes } = stack;
       if (skillAccumulation[skill.name]) {
         skillAccumulation[skill.name] += minutes;
@@ -59,7 +59,7 @@ const MyPageWrapper: FC = () => {
 
     setSkills(Object.keys(skillAccumulation));
     setMinutes(Object.values(skillAccumulation));
-  }, [stacks])
+  }, [stacks]);
 
   return (
     <div className='flex justify-between w-[80%] m-auto'>
@@ -80,12 +80,30 @@ const MyPageWrapper: FC = () => {
             />
           </div>
           <div className='py-6 flex items-center justify-center bg-gray-100'>
-            <div className='flex items-center mr-4'><span className='w-3 h-3 block bg-opal mr-1'></span><span className='text-sm'>Opal</span></div>
-            <div className='flex items-center mr-4'><span className='w-3 h-3 block bg-bronze mr-1'></span><span className='text-sm'>Bronze</span></div>
-            <div className='flex items-center mr-4'><span className='w-3 h-3 block bg-silver mr-1'></span><span className='text-sm'>Silver</span></div>
-            <div className='flex items-center mr-4'><span className='w-3 h-3 block bg-gold mr-1'></span><span className='text-sm'>Gold</span></div>
-            <div className='flex items-center mr-4'><span className='w-3 h-3 block bg-platinum mr-1'></span><span className='text-sm'>Platinum</span></div>
-            <div className='flex items-center mr-4'><span className='w-3 h-3 block bg-diamond mr-1'></span><span className='text-sm'>Diamond</span></div>
+            <div className='flex items-center mr-4'>
+              <span className='w-3 h-3 block bg-opal mr-1'></span>
+              <span className='text-sm'>Opal</span>
+            </div>
+            <div className='flex items-center mr-4'>
+              <span className='w-3 h-3 block bg-bronze mr-1'></span>
+              <span className='text-sm'>Bronze</span>
+            </div>
+            <div className='flex items-center mr-4'>
+              <span className='w-3 h-3 block bg-silver mr-1'></span>
+              <span className='text-sm'>Silver</span>
+            </div>
+            <div className='flex items-center mr-4'>
+              <span className='w-3 h-3 block bg-gold mr-1'></span>
+              <span className='text-sm'>Gold</span>
+            </div>
+            <div className='flex items-center mr-4'>
+              <span className='w-3 h-3 block bg-platinum mr-1'></span>
+              <span className='text-sm'>Platinum</span>
+            </div>
+            <div className='flex items-center mr-4'>
+              <span className='w-3 h-3 block bg-diamond mr-1'></span>
+              <span className='text-sm'>Diamond</span>
+            </div>
           </div>
         </div>
         <div className='flex text-sm mb-8'>

@@ -16,7 +16,18 @@ import {
   Legend,
 } from 'chart.js';
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, ArcElement, Title, Tooltip, Legend, Annotation);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend,
+  Annotation,
+);
 
 const Chart: FC<ChartProps> = ({ labels, label, data, bdColor, bgColor, bdwidth, text, type, pattern }) => {
   const [chartData, setChartData] = useState<ChartData | null>(null);
@@ -30,7 +41,7 @@ const Chart: FC<ChartProps> = ({ labels, label, data, bdColor, bgColor, bdwidth,
     if (minutes >= 300 && minutes < 400) return 'Gold';
     if (minutes >= 400 && minutes < 500) return 'Platinum';
     if (minutes >= 500) return 'Diamond';
-  }
+  };
 
   const getChartData = () => {
     const chartData: ChartData = {
@@ -47,7 +58,7 @@ const Chart: FC<ChartProps> = ({ labels, label, data, bdColor, bgColor, bdwidth,
     };
 
     return chartData;
-  }
+  };
 
   const getChartOptions = (pattern: number) => {
     if (pattern === 3) {
@@ -60,22 +71,46 @@ const Chart: FC<ChartProps> = ({ labels, label, data, bdColor, bgColor, bdwidth,
           },
           tooltip: {
             callbacks: {
-              label: function(context) {
+              label: function (context) {
                 const minutes = context.parsed.y;
                 const rank = RankingIndex(minutes);
                 return `時間: ${minutes}  ランク: ${rank}`;
-              }
-            }
+              },
+            },
           },
           annotation: {
             annotations: {
-              diamondLine: { type: 'line', yMin: 500, yMax: 500, borderColor: 'rgba(255, 255, 255, 0.5)', borderWidth: 2 },
-              platinumLine: { type: 'line', yMin: 400, yMax: 400, borderColor: 'rgba(229, 228, 226, 0.5)', borderWidth: 2 },
+              diamondLine: {
+                type: 'line',
+                yMin: 500,
+                yMax: 500,
+                borderColor: 'rgba(255, 255, 255, 0.5)',
+                borderWidth: 2,
+              },
+              platinumLine: {
+                type: 'line',
+                yMin: 400,
+                yMax: 400,
+                borderColor: 'rgba(229, 228, 226, 0.5)',
+                borderWidth: 2,
+              },
               goldLine: { type: 'line', yMin: 300, yMax: 300, borderColor: 'rgba(255, 215, 0, 0.5)', borderWidth: 2 },
-              silverLine: { type: 'line', yMin: 200, yMax: 200, borderColor: 'rgba(192, 192, 192, 0.5)', borderWidth: 2 },
-              bronzeLine: { type: 'line', yMin: 100, yMax: 100, borderColor: 'rgba(205, 127, 50, 0.5)', borderWidth: 2 },
-            }
-          }
+              silverLine: {
+                type: 'line',
+                yMin: 200,
+                yMax: 200,
+                borderColor: 'rgba(192, 192, 192, 0.5)',
+                borderWidth: 2,
+              },
+              bronzeLine: {
+                type: 'line',
+                yMin: 100,
+                yMax: 100,
+                borderColor: 'rgba(205, 127, 50, 0.5)',
+                borderWidth: 2,
+              },
+            },
+          },
         },
       };
       return chartOptions;
@@ -91,11 +126,11 @@ const Chart: FC<ChartProps> = ({ labels, label, data, bdColor, bgColor, bdwidth,
       };
       return chartOptions;
     }
-  }
+  };
 
   useEffect(() => {
-    const formattedChartData = getChartData()
-    const formattedChartOptions = getChartOptions(pattern)
+    const formattedChartData = getChartData();
+    const formattedChartOptions = getChartOptions(pattern);
 
     setChartType(type);
     setChartData(formattedChartData);

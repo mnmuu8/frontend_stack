@@ -33,7 +33,7 @@ export type AnnotationLine = {
   yMax: number;
   borderColor: string;
   borderWidth: number;
-}
+};
 
 export type ChartOption = {
   responsive: boolean;
@@ -54,8 +54,8 @@ export type ChartOption = {
         goldLine: AnnotationLine;
         silverLine: AnnotationLine;
         bronzeLine: AnnotationLine;
-      }
-    }
+      };
+    };
   };
 };
 

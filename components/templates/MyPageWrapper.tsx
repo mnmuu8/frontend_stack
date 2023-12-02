@@ -88,26 +88,6 @@ const MyPageWrapper: FC = () => {
             <div className='flex items-center mr-4'><span className='w-3 h-3 block bg-diamond mr-1'></span><span className='text-sm'>Diamond</span></div>
           </div>
         </div>
-        <div className='bg-gray-800 text-white rounded-md py-8 px-10 mb-8 shadow-md'>
-          <div className='mb-6'>$ analyze @Yu-8chan</div>
-          <div className='flex justify-between'>
-            {skillData.map((data) => (
-              <div key={data.label} className='w-[48%]'>
-                <div className='text-green-400 mb-2'>{data.label}:</div>
-                <div className='px-6'>
-                  {data.data.map((d) => (
-                    <div key={d.skill} className='flex justify-between'>
-                      <div>{d.skill}:</div>
-                      <div className='text-orange-300'>
-                        {d.value} {data.label === '積み上げスキル' ? '%' : 'h'}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
         <div className='flex text-sm mb-8'>
           {Object.keys(tabInfo).map((tab) => (
             <div

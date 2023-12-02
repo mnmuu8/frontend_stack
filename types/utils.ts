@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { StaticImageData } from 'next/image';
+import { TooltipItem } from 'chart.js';
 
 export type ChildrenProps = {
   children: ReactNode;
@@ -26,6 +27,14 @@ export type ChartData = {
   datasets: any[];
 };
 
+export type AnnotationLine = {
+  type: 'line';
+  yMin: number;
+  yMax: number;
+  borderColor: string;
+  borderWidth: number;
+}
+
 export type ChartOption = {
   responsive: boolean;
   plugins: {
@@ -33,6 +42,20 @@ export type ChartOption = {
       display: boolean;
       text: string;
     };
+    tooltip?: {
+      callbacks: {
+        label: (context: TooltipItem<'bar'>) => string;
+      };
+    };
+    annotation?: {
+      annotations: {
+        diamondLine: AnnotationLine;
+        platinumLine: AnnotationLine;
+        goldLine: AnnotationLine;
+        silverLine: AnnotationLine;
+        bronzeLine: AnnotationLine;
+      }
+    }
   };
 };
 
@@ -45,6 +68,7 @@ export type ChartProps = {
   bdwidth: number;
   text: string;
   type: 'bar' | 'pie';
+  pattern: number;
 };
 
 export type FormSubmitButtonProps = {

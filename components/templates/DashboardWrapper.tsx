@@ -97,6 +97,7 @@ const DashboardWrapper: FC = () => {
             bdwidth={1}
             text={currentMonth + '月の学習時間'}
             type={'bar'}
+            pattern={1}
           />
         </div>
       </div>
@@ -114,6 +115,7 @@ const DashboardWrapper: FC = () => {
                 bdwidth={1}
                 text={'積み上げスキル'}
                 type={'pie'}
+                pattern={2}
               />
             </div>
           </div>

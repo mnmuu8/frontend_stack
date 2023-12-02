@@ -4,14 +4,17 @@ import StackCard from '../molecules/StackCard';
 import ProfileCard from '../molecules/ProfileCard';
 import axios from 'axios';
 import { getSession } from '@/utiliry/session';
-import { ApiOptions } from '@/types/api';
 import { StackProps } from '@/types/stack';
 import { getApiHeadersWithUserId } from '@/utiliry/api';
+import Chart from '../uikit/Chart';
 
 const MyPageWrapper: FC = () => {
   const [activeTab, setActiveTab] = useState('all');
   const [innerTab, setInnerTab] = useState('allStack');
   const [stacks, setStacks] = useState<StackProps[]>([]);
+
+  const [skills, setSkills] = useState<string[]>([]);
+  const [minutes, setMinutes] = useState<number[]>([]);
 
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
@@ -42,10 +45,49 @@ const MyPageWrapper: FC = () => {
       });
   }, []);
 
+  useEffect(() => {
+    const skillAccumulation: {[skill: string]: number} = {};
+
+    stacks.forEach(stack => {
+      const { skill, minutes } = stack;
+      if (skillAccumulation[skill.name]) {
+        skillAccumulation[skill.name] += minutes;
+      } else {
+        skillAccumulation[skill.name] = minutes;
+      }
+    });
+
+    setSkills(Object.keys(skillAccumulation));
+    setMinutes(Object.values(skillAccumulation));
+  }, [stacks])
+
   return (
     <div className='flex justify-between w-[80%] m-auto'>
       <ProfileCard />
       <div className='w-[calc(100%-340px)]'>
+        <div className='bg-gray-50 mb-8'>
+          <div className='p-6'>
+            <Chart
+              labels={skills}
+              label={'時間'}
+              data={minutes}
+              bdColor={['rgb(39, 119, 169)']}
+              bgColor={['rgb(240, 248, 250)']}
+              bdwidth={1}
+              text={'スキル毎のランク'}
+              type={'bar'}
+              pattern={3}
+            />
+          </div>
+          <div className='py-6 flex items-center justify-center bg-gray-100'>
+            <div className='flex items-center mr-4'><span className='w-3 h-3 block bg-opal mr-1'></span><span className='text-sm'>Opal</span></div>
+            <div className='flex items-center mr-4'><span className='w-3 h-3 block bg-bronze mr-1'></span><span className='text-sm'>Bronze</span></div>
+            <div className='flex items-center mr-4'><span className='w-3 h-3 block bg-silver mr-1'></span><span className='text-sm'>Silver</span></div>
+            <div className='flex items-center mr-4'><span className='w-3 h-3 block bg-gold mr-1'></span><span className='text-sm'>Gold</span></div>
+            <div className='flex items-center mr-4'><span className='w-3 h-3 block bg-platinum mr-1'></span><span className='text-sm'>Platinum</span></div>
+            <div className='flex items-center mr-4'><span className='w-3 h-3 block bg-diamond mr-1'></span><span className='text-sm'>Diamond</span></div>
+          </div>
+        </div>
         <div className='bg-gray-800 text-white rounded-md py-8 px-10 mb-8 shadow-md'>
           <div className='mb-6'>$ analyze @Yu-8chan</div>
           <div className='flex justify-between'>

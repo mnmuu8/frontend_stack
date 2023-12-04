@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { tabInfo, skillData } from '../../sample';
+import { tabInfo } from '../../sample';
 import StackCard from '../molecules/StackCard';
 import ProfileCard from '../molecules/ProfileCard';
 import axios from 'axios';
@@ -76,7 +76,7 @@ const MyPageWrapper: FC = () => {
               bdwidth={1}
               text={'スキル毎のランク'}
               type={'bar'}
-              pattern={3}
+              pattern={'SkillRankGraph'}
             />
           </div>
           <div className='py-6 flex items-center justify-center bg-gray-100'>

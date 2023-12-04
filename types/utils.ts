@@ -74,7 +74,7 @@ export type ChartProps = {
   bdwidth: number;
   text: string;
   type: 'bar' | 'pie';
-  pattern: number;
+  pattern: string;
 };
 
 export type FormSubmitButtonProps = {

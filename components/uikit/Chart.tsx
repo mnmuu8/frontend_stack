@@ -61,8 +61,8 @@ const Chart: FC<ChartProps> = ({ labels, label, data, bdColor, bgColor, bdwidth,
     return chartData;
   };
 
-  const getChartOptions = (pattern: number) => {
-    if (pattern === 3) {
+  const getChartOptions = (pattern: string) => {
+    if (pattern === 'SkillRankGraph') {
       const maxDataValue = Math.max(...data);
       const scaledMax = maxDataValue * 1.2;
 

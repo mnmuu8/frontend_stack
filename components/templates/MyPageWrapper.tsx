@@ -1,17 +1,20 @@
 import React, { FC, useEffect, useState } from 'react';
-import { tabInfo, skillData } from '../../sample';
+import { tabInfo } from '../../sample';
 import StackCard from '../molecules/StackCard';
 import ProfileCard from '../molecules/ProfileCard';
 import axios from 'axios';
 import { getSession } from '@/utiliry/session';
-import { ApiOptions } from '@/types/api';
 import { StackProps } from '@/types/stack';
 import { getApiHeadersWithUserId } from '@/utiliry/api';
+import Chart from '../uikit/Chart';
 
 const MyPageWrapper: FC = () => {
   const [activeTab, setActiveTab] = useState('all');
   const [innerTab, setInnerTab] = useState('allStack');
   const [stacks, setStacks] = useState<StackProps[]>([]);
+
+  const [skills, setSkills] = useState<string[]>([]);
+  const [minutes, setMinutes] = useState<number[]>([]);
 
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
@@ -42,28 +45,69 @@ const MyPageWrapper: FC = () => {
       });
   }, []);
 
+  useEffect(() => {
+    const skillAccumulation: { [skill: string]: number } = {};
+
+    stacks.forEach((stack) => {
+      const { skill, minutes } = stack;
+      if (skillAccumulation[skill.name]) {
+        skillAccumulation[skill.name] += minutes;
+      } else {
+        skillAccumulation[skill.name] = minutes;
+      }
+    });
+
+    setSkills(Object.keys(skillAccumulation));
+    setMinutes(Object.values(skillAccumulation));
+  }, [stacks]);
+
   return (
     <div className='flex justify-between w-[80%] m-auto'>
       <ProfileCard />
       <div className='w-[calc(100%-340px)]'>
-        <div className='bg-gray-800 text-white rounded-md py-8 px-10 mb-8 shadow-md'>
-          <div className='mb-6'>$ analyze @Yu-8chan</div>
-          <div className='flex justify-between'>
-            {skillData.map((data) => (
-              <div key={data.label} className='w-[48%]'>
-                <div className='text-green-400 mb-2'>{data.label}:</div>
-                <div className='px-6'>
-                  {data.data.map((d) => (
-                    <div key={d.skill} className='flex justify-between'>
-                      <div>{d.skill}:</div>
-                      <div className='text-orange-300'>
-                        {d.value} {data.label === '積み上げスキル' ? '%' : 'h'}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
+        <div className='bg-gray-50 mb-8'>
+          <div className='p-6'>
+            <Chart
+              labels={skills}
+              label={'時間'}
+              data={minutes}
+              bdColor={['rgb(39, 119, 169)']}
+              bgColor={['rgb(240, 248, 250)']}
+              bdwidth={1}
+              text={'スキル毎のランク'}
+              type={'bar'}
+              pattern={'SkillRankGraph'}
+            />
+          </div>
+          <div className='py-6 flex items-center justify-center bg-gray-100'>
+            <div className='flex items-center mr-4'>
+              <span className='w-3 h-3 block bg-bronze mr-1'></span>
+              <span className='text-sm'>ブロンズ</span>
+            </div>
+            <div className='flex items-center mr-4'>
+              <span className='w-3 h-3 block bg-silver mr-1'></span>
+              <span className='text-sm'>シルバー</span>
+            </div>
+            <div className='flex items-center mr-4'>
+              <span className='w-3 h-3 block bg-gold mr-1'></span>
+              <span className='text-sm'>ゴールド</span>
+            </div>
+            <div className='flex items-center mr-4'>
+              <span className='w-3 h-3 block bg-platinum mr-1'></span>
+              <span className='text-sm'>プラチナ</span>
+            </div>
+            <div className='flex items-center mr-4'>
+              <span className='w-3 h-3 block bg-diamond mr-1'></span>
+              <span className='text-sm'>ダイヤモンド</span>
+            </div>
+            <div className='flex items-center mr-4'>
+              <span className='w-3 h-3 block bg-master mr-1'></span>
+              <span className='text-sm'>マスター</span>
+            </div>
+            <div className='flex items-center mr-4'>
+              <span className='w-3 h-3 block bg-legend mr-1'></span>
+              <span className='text-sm'>レジェンド</span>
+            </div>
           </div>
         </div>
         <div className='flex text-sm mb-8'>

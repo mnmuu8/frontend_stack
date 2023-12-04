@@ -2,7 +2,6 @@ import React, { FC, useEffect, useState } from 'react';
 import Chart from '@/components/uikit/Chart';
 import RankTable from '@/components/uikit/RankTable';
 import { getSession } from '@/utiliry/session';
-import { ApiOptions } from '@/types/api';
 import { StackProps } from '@/types/stack';
 import axios from 'axios';
 import { getApiHeadersWithUserId } from '@/utiliry/api';
@@ -97,6 +96,7 @@ const DashboardWrapper: FC = () => {
             bdwidth={1}
             text={currentMonth + '月の学習時間'}
             type={'bar'}
+            pattern={'StackTimeGraph'}
           />
         </div>
       </div>
@@ -114,6 +114,7 @@ const DashboardWrapper: FC = () => {
                 bdwidth={1}
                 text={'積み上げスキル'}
                 type={'pie'}
+                pattern={'StackSkillGraph'}
               />
             </div>
           </div>

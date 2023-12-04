@@ -7,7 +7,17 @@ module.exports = {
     "./utiliry/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        legend: '#E0115F',
+        master: '#4B0082',
+        diamond: '#ADD8E6',
+        platinum: '#C0C0E0',
+        gold: '#ffd700',
+        silver: '#c0c0c0',
+        bronze: '#cd7f32',
+      },
+    },
   },
   plugins: [],
 }

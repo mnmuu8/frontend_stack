@@ -35,12 +35,13 @@ const Chart: FC<ChartProps> = ({ labels, label, data, bdColor, bgColor, bdwidth,
   const [chartType, setChartType] = useState<'bar' | 'pie' | null>(null);
 
   const RankingIndex = (minutes: number) => {
-    if (minutes < 100) return 'Opal';
-    if (minutes >= 100 && minutes < 200) return 'Bronze';
-    if (minutes >= 200 && minutes < 300) return 'Silver';
-    if (minutes >= 300 && minutes < 400) return 'Gold';
-    if (minutes >= 400 && minutes < 500) return 'Platinum';
-    if (minutes >= 500) return 'Diamond';
+    if (minutes <= 10000) return 'ブロンズ';
+    if (minutes > 10000 && minutes <= 30000) return 'シルバー';
+    if (minutes > 30000 && minutes <= 60000) return 'ゴールド';
+    if (minutes > 60000 && minutes <= 100000) return 'プラチナ';
+    if (minutes > 100000 && minutes <= 300000) return 'ダイヤモンド';
+    if (minutes > 300000 && minutes <= 600000) return 'マスター';
+    if (minutes > 600000) return 'レジェンド';
   };
 
   const getChartData = () => {
@@ -62,6 +63,9 @@ const Chart: FC<ChartProps> = ({ labels, label, data, bdColor, bgColor, bdwidth,
 
   const getChartOptions = (pattern: number) => {
     if (pattern === 3) {
+      const maxDataValue = Math.max(...data);
+      const scaledMax = maxDataValue * 1.2;
+
       const chartOptions: ChartOption = {
         responsive: true,
         plugins: {
@@ -80,37 +84,55 @@ const Chart: FC<ChartProps> = ({ labels, label, data, bdColor, bgColor, bdwidth,
           },
           annotation: {
             annotations: {
+              legendLine: {
+                type: 'line',
+                yMin: 600000,
+                yMax: 600000,
+                borderColor: 'rgba(224, 17, 95, 0.5)',
+                borderWidth: 2,
+              },
+              masterLine: {
+                type: 'line',
+                yMin: 300000,
+                yMax: 300000,
+                borderColor: 'rgba(75, 0, 130, 0.5)',
+                borderWidth: 2,
+              },
               diamondLine: {
                 type: 'line',
-                yMin: 500,
-                yMax: 500,
-                borderColor: 'rgba(255, 255, 255, 0.5)',
+                yMin: 100000,
+                yMax: 100000,
+                borderColor: 'rgba(173, 216, 230, 0.5)',
                 borderWidth: 2,
               },
               platinumLine: {
                 type: 'line',
-                yMin: 400,
-                yMax: 400,
-                borderColor: 'rgba(229, 228, 226, 0.5)',
+                yMin: 60000,
+                yMax: 60000,
+                borderColor: 'rgba(192, 192, 224, 0.5)',
                 borderWidth: 2,
               },
-              goldLine: { type: 'line', yMin: 300, yMax: 300, borderColor: 'rgba(255, 215, 0, 0.5)', borderWidth: 2 },
+              goldLine: {
+                type: 'line',
+                yMin: 30000,
+                yMax: 30000,
+                borderColor: 'rgba(255, 215, 0, 0.5)',
+                borderWidth: 2
+              },
               silverLine: {
                 type: 'line',
-                yMin: 200,
-                yMax: 200,
+                yMin: 10000,
+                yMax: 10000,
                 borderColor: 'rgba(192, 192, 192, 0.5)',
-                borderWidth: 2,
-              },
-              bronzeLine: {
-                type: 'line',
-                yMin: 100,
-                yMax: 100,
-                borderColor: 'rgba(205, 127, 50, 0.5)',
                 borderWidth: 2,
               },
             },
           },
+        },
+        scales: {
+          y: {
+            suggestedMax: scaledMax
+          }
         },
       };
       return chartOptions;

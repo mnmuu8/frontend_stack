@@ -49,14 +49,20 @@ export type ChartOption = {
     };
     annotation?: {
       annotations: {
+        legendLine: AnnotationLine;
+        masterLine: AnnotationLine;
         diamondLine: AnnotationLine;
         platinumLine: AnnotationLine;
         goldLine: AnnotationLine;
         silverLine: AnnotationLine;
-        bronzeLine: AnnotationLine;
       };
     };
   };
+  scales?: {
+    y: {
+      suggestedMax: number;
+    }
+  }
 };
 
 export type ChartProps = {

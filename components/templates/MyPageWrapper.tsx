@@ -81,28 +81,32 @@ const MyPageWrapper: FC = () => {
           </div>
           <div className='py-6 flex items-center justify-center bg-gray-100'>
             <div className='flex items-center mr-4'>
-              <span className='w-3 h-3 block bg-opal mr-1'></span>
-              <span className='text-sm'>Opal</span>
-            </div>
-            <div className='flex items-center mr-4'>
               <span className='w-3 h-3 block bg-bronze mr-1'></span>
-              <span className='text-sm'>Bronze</span>
+              <span className='text-sm'>ブロンズ</span>
             </div>
             <div className='flex items-center mr-4'>
               <span className='w-3 h-3 block bg-silver mr-1'></span>
-              <span className='text-sm'>Silver</span>
+              <span className='text-sm'>シルバー</span>
             </div>
             <div className='flex items-center mr-4'>
               <span className='w-3 h-3 block bg-gold mr-1'></span>
-              <span className='text-sm'>Gold</span>
+              <span className='text-sm'>ゴールド</span>
             </div>
             <div className='flex items-center mr-4'>
               <span className='w-3 h-3 block bg-platinum mr-1'></span>
-              <span className='text-sm'>Platinum</span>
+              <span className='text-sm'>プラチナ</span>
             </div>
             <div className='flex items-center mr-4'>
               <span className='w-3 h-3 block bg-diamond mr-1'></span>
-              <span className='text-sm'>Diamond</span>
+              <span className='text-sm'>ダイヤモンド</span>
+            </div>
+            <div className='flex items-center mr-4'>
+              <span className='w-3 h-3 block bg-master mr-1'></span>
+              <span className='text-sm'>マスター</span>
+            </div>
+            <div className='flex items-center mr-4'>
+              <span className='w-3 h-3 block bg-legend mr-1'></span>
+              <span className='text-sm'>レジェンド</span>
             </div>
           </div>
         </div>

@@ -31,8 +31,7 @@ const Index: NextPage = () => {
 
       try {
         const response = await axios.get(url, options);
-        const reversedStacks = response.data.stacks.reverse();
-        return reversedStacks;
+        return response.data.stacks;
       } catch (error) {
         throw new Error(`${JSON.stringify(error)}`);
       }

@@ -49,6 +49,11 @@ paths:
           required: false
           schema:
             $ref: '#/components/schemas/Users_User_Id'
+        - name: team_id
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/Teams_Team_Id'
       responses:
         '200':
           description: 成功

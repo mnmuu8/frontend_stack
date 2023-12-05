@@ -34,6 +34,7 @@ models/StacksIntrospectionsTriesTry.ts
 models/StacksStack.ts
 models/StacksStackListInner.ts
 models/StacksStackSkill.ts
+models/StacksStackUser.ts
 models/TeamCreateRequestBody.ts
 models/TeamInviteRequestBody.ts
 models/TeamUpdateRequestBody.ts
@@ -45,6 +46,7 @@ models/TeamsTeamListInner.ts
 models/UserCreateRequestBody.ts
 models/UserProfileImagesAttachRequestBody.ts
 models/UserUpdateRequestBody.ts
+models/UsersMinimumUser.ts
 models/UsersProfileImagesUploadUrl.ts
 models/UsersUser.ts
 models/UsersUserRole.ts

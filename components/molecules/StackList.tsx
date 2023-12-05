@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import StackCard from '@/components/molecules/StackCard';
 import { StackProps } from '@/types/stack';
 
-const StackList: FC<{stacks: StackProps[]}> = ({ stacks }) => {
+const StackList: FC<{ stacks: StackProps[] }> = ({ stacks }) => {
   return (
     <div className='w-full max-w-[980px] m-auto pb-10'>
       {stacks.map((stack) => (

@@ -61,8 +61,8 @@ export type ChartOption = {
   scales?: {
     y: {
       suggestedMax: number;
-    }
-  }
+    };
+  };
 };
 
 export type ChartProps = {

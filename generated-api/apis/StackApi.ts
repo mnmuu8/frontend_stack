@@ -43,6 +43,7 @@ export interface ApiV1StacksCreateRequest {
 
 export interface ApiV1StacksIndexRequest {
     userId?: number;
+    teamId?: number;
 }
 
 export interface ApiV1StacksIntrospectionsCreateRequest {
@@ -105,6 +106,10 @@ export class StackApi extends runtime.BaseAPI {
 
         if (requestParameters.userId !== undefined) {
             queryParameters['user_id'] = requestParameters.userId;
+        }
+
+        if (requestParameters.teamId !== undefined) {
+            queryParameters['team_id'] = requestParameters.teamId;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};

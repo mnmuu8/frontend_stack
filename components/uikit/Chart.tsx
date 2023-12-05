@@ -117,7 +117,7 @@ const Chart: FC<ChartProps> = ({ labels, label, data, bdColor, bgColor, bdwidth,
                 yMin: 30000,
                 yMax: 30000,
                 borderColor: 'rgba(255, 215, 0, 0.5)',
-                borderWidth: 2
+                borderWidth: 2,
               },
               silverLine: {
                 type: 'line',
@@ -131,8 +131,8 @@ const Chart: FC<ChartProps> = ({ labels, label, data, bdColor, bgColor, bdwidth,
         },
         scales: {
           y: {
-            suggestedMax: scaledMax
-          }
+            suggestedMax: scaledMax,
+          },
         },
       };
       return chartOptions;

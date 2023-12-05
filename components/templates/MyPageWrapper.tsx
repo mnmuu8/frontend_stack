@@ -33,7 +33,7 @@ const MyPageWrapper: FC = () => {
       .get(`${process.env.API_ROOT_URL}/api/v1/stacks`, options)
       .then((response) => {
         const { data } = response;
-        setStacks(data.stacks);
+        setStacks(data.stacks.reverse());
       })
       .catch((error) => {
         if (error.response) {

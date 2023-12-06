@@ -33,6 +33,11 @@ export interface ApiV1OutputsCommentsCreateRequest {
     outputCommentCreateRequestBody: OutputCommentCreateRequestBody;
 }
 
+export interface ApiV1OutputsCommentsDestroyRequest {
+    outputId: number;
+    outputCommentId: number;
+}
+
 export interface ApiV1OutputsCommentsIndexRequest {
     outputId: number;
 }
@@ -77,6 +82,39 @@ export class OutputCommentApi extends runtime.BaseAPI {
     async apiV1OutputsCommentsCreate(requestParameters: ApiV1OutputsCommentsCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OutputsCommentsComment> {
         const response = await this.apiV1OutputsCommentsCreateRaw(requestParameters, initOverrides);
         return await response.value();
+    }
+
+    /**
+     * アウトプットのコメント削除API
+     */
+    async apiV1OutputsCommentsDestroyRaw(requestParameters: ApiV1OutputsCommentsDestroyRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.outputId === null || requestParameters.outputId === undefined) {
+            throw new runtime.RequiredError('outputId','Required parameter requestParameters.outputId was null or undefined when calling apiV1OutputsCommentsDestroy.');
+        }
+
+        if (requestParameters.outputCommentId === null || requestParameters.outputCommentId === undefined) {
+            throw new runtime.RequiredError('outputCommentId','Required parameter requestParameters.outputCommentId was null or undefined when calling apiV1OutputsCommentsDestroy.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/api/v1/outputs/{output_id}/comments/{output_comment_id}`.replace(`{${"output_id"}}`, encodeURIComponent(String(requestParameters.outputId))).replace(`{${"output_comment_id"}}`, encodeURIComponent(String(requestParameters.outputCommentId))),
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * アウトプットのコメント削除API
+     */
+    async apiV1OutputsCommentsDestroy(requestParameters: ApiV1OutputsCommentsDestroyRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.apiV1OutputsCommentsDestroyRaw(requestParameters, initOverrides);
     }
 
     /**

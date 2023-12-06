@@ -111,6 +111,8 @@ paths:
           description: 認証エラー
         '404':
           description: 積み上げが存在しない
+        '409':
+          description: 積み上げ者以外は削除できない
         '422':
           description: バリデーションエラー
 

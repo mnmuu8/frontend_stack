@@ -496,6 +496,29 @@ paths:
           description: チーム名が重複している/管理者ではない
         '422':
           description: バリデーションエラー
+    delete:
+      summary: チーム削除API
+      operationId: api.v1.teams.destroy
+      tags:
+        - Team
+      security: []
+      parameters:
+        - name: team_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Teams_Team_Id'
+      responses:
+        '204':
+          description: 成功
+        '401':
+          description: 認証エラー
+        '404':
+          description: チームが存在しない
+        '409':
+          description: 管理者ではない
+        '422':
+          description: バリデーションエラー
   /api/v1/teams/{team_id}/stack_ranking:
     get:
       summary: チーム内積み上げ時間ランキング

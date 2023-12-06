@@ -91,6 +91,29 @@ paths:
         '422':
           description: バリデーションエラー
 
+  /api/v1/stacks/{stack_id}:
+    delete:
+      summary: 積み上げ削除API
+      operationId: api.v1.stacks.destroy
+      tags:
+        - Stack
+      security: []
+      parameters:
+        - name: stack_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Stacks_Stack_Id'
+      responses:
+        '204':
+          description: 成功
+        '401':
+          description: 認証エラー
+        '404':
+          description: 積み上げが存在しない
+        '422':
+          description: バリデーションエラー
+
   /api/v1/stacks/{stack_id}/introspection:
     get:
       summary: 積み上げの反省詳細API

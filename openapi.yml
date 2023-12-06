@@ -714,8 +714,9 @@ components:
         - id
         - title
         - minutes
-        - skill
         - description
+        - skill
+        - user
         - stacked_at
         - created_at
         - updated_at
@@ -732,14 +733,18 @@ components:
           allOf:
             - $ref: '#/components/schemas/Stacks_Stack_Minutes'
           nullable: false
-        skill:
-          allOf:
-            - $ref: '#/components/schemas/Skills_Skill'
-          nullable: false
         description:
           allOf:
             - $ref: '#/components/schemas/Stacks_Stack_Description'
           nullable: true
+        skill:
+          allOf:
+            - $ref: '#/components/schemas/Skills_Skill'
+          nullable: false
+        user:
+          allOf:
+            - $ref: '#/components/schemas/Users_MinimumUser'
+          nullable: false
         stacked_at:
           allOf:
             - $ref: '#/components/schemas/DateTime'
@@ -978,6 +983,41 @@ components:
       type: string
       description: スキル名
       example: Ruby
+
+    Users_MinimumUser:
+      type: object
+      required:
+        - id
+        - name
+        - email
+        - profile_content
+        - role
+        - profile_path
+      properties:
+        id:
+          allOf:
+            - $ref: '#/components/schemas/Users_User_Id'
+          nullable: false
+        name:
+          allOf:
+            - $ref: '#/components/schemas/Users_User_Name'
+          nullable: false
+        email:
+          allOf:
+            - $ref: '#/components/schemas/Users_User_Email'
+          nullable: false
+        profile_content:
+          allOf:
+            - $ref: '#/components/schemas/Users_User_ProfileContent'
+          nullable: true
+        role:
+          allOf:
+            - $ref: '#/components/schemas/Users_User_Role'
+          nullable: false
+        profile_image_path:
+          allOf:
+            - $ref: '#/components/schemas/Users_User_ProfileImagePath'
+          nullable: false
 
     Users_User:
       type: object

@@ -642,6 +642,27 @@ paths:
           description: アウトプットが存在しない
         '422':
           description: バリデーションエラー
+    delete:
+      summary: アウトプット削除API
+      operationId: api.v1.outputs.destroy
+      tags:
+        - Output
+      security: []
+      parameters:
+        - name: output_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Outputs_Output_Id'
+      responses:
+        '204':
+          description: 成功
+        '401':
+          description: 認証エラー
+        '404':
+          description: アウトプットが存在しない
+        '422':
+          description: バリデーションエラー
 
   /api/v1/outputs/{output_id}/comments:
     get:

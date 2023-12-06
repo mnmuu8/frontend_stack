@@ -722,6 +722,36 @@ paths:
         '422':
           description: バリデーションエラー
 
+  /api/v1/outputs/{output_id}/comments/{output_comment_id}:
+    delete:
+      summary: アウトプットのコメント削除API
+      operationId: api.v1.outputs.comments.destroy
+      tags:
+        - OutputComment
+      security: []
+      parameters:
+        - name: output_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Outputs_Output_Id'
+        - name: output_comment_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Outputs_Comments_Comment_Id'
+      responses:
+        '204':
+          description: 成功
+        '401':
+          description: 認証エラー
+        '404':
+          description: アウトプットが存在しない/アウトプットのコメントが存在しない
+        '409':
+          description: コメント者以外は削除できない
+        '422':
+          description: バリデーションエラー
+
 components:
   schemas:
     Auth_Login:

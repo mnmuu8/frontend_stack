@@ -1,4 +1,5 @@
 import React, { FC, useContext } from 'react';
+import { useRouter } from 'next/router';
 import { sidebarMenus } from '@/types/utils';
 import { AppContext } from '@/context/AppContext';
 import Link from 'next/link';
@@ -31,6 +32,8 @@ const Sidebar: FC = () => {
     { id: 'message', label: 'メッセージ', value: '/message', icon: <MessageIcon /> },
     { id: 'outputs', label: 'アウトプット', value: '/outputs', icon: <OutputIcon /> },
   ];
+  const router = useRouter();
+  const isActive = (path: string) => router.pathname === path;
 
   return (
     <aside>
@@ -53,8 +56,8 @@ const Sidebar: FC = () => {
         <div className='bg-gray-50 flex-grow'>
           <List>
             {sidebarMenus.map((menu) => (
-              <ListItem key={menu.id} disablePadding>
-                <ListItemButton>
+              <ListItem key={menu.id} disablePadding sx={isActive(menu.value) ? { backgroundColor: '#D1D5DB' } : {}}>
+                <ListItemButton >
                   <ListItemIcon>{menu.icon}</ListItemIcon>
                   <Link href={menu.value}>{menu.label}</Link>
                 </ListItemButton>

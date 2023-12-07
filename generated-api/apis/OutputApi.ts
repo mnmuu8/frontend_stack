@@ -32,6 +32,10 @@ export interface ApiV1OutputsCreateRequest {
     outputCreateRequestBody: OutputCreateRequestBody;
 }
 
+export interface ApiV1OutputsDestroyRequest {
+    outputId: number;
+}
+
 export interface ApiV1OutputsShowRequest {
     outputId: number;
 }
@@ -72,6 +76,35 @@ export class OutputApi extends runtime.BaseAPI {
     async apiV1OutputsCreate(requestParameters: ApiV1OutputsCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OutputsOutput> {
         const response = await this.apiV1OutputsCreateRaw(requestParameters, initOverrides);
         return await response.value();
+    }
+
+    /**
+     * アウトプット削除API
+     */
+    async apiV1OutputsDestroyRaw(requestParameters: ApiV1OutputsDestroyRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.outputId === null || requestParameters.outputId === undefined) {
+            throw new runtime.RequiredError('outputId','Required parameter requestParameters.outputId was null or undefined when calling apiV1OutputsDestroy.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/api/v1/outputs/{output_id}`.replace(`{${"output_id"}}`, encodeURIComponent(String(requestParameters.outputId))),
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * アウトプット削除API
+     */
+    async apiV1OutputsDestroy(requestParameters: ApiV1OutputsDestroyRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.apiV1OutputsDestroyRaw(requestParameters, initOverrides);
     }
 
     /**

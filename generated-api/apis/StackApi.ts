@@ -41,6 +41,10 @@ export interface ApiV1StacksCreateRequest {
     stacksCreateRequestBody: StacksCreateRequestBody;
 }
 
+export interface ApiV1StacksDestroyRequest {
+    stackId: number;
+}
+
 export interface ApiV1StacksIndexRequest {
     userId?: number;
     teamId?: number;
@@ -96,6 +100,35 @@ export class StackApi extends runtime.BaseAPI {
     async apiV1StacksCreate(requestParameters: ApiV1StacksCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<StacksStack> {
         const response = await this.apiV1StacksCreateRaw(requestParameters, initOverrides);
         return await response.value();
+    }
+
+    /**
+     * 積み上げ削除API
+     */
+    async apiV1StacksDestroyRaw(requestParameters: ApiV1StacksDestroyRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.stackId === null || requestParameters.stackId === undefined) {
+            throw new runtime.RequiredError('stackId','Required parameter requestParameters.stackId was null or undefined when calling apiV1StacksDestroy.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/api/v1/stacks/{stack_id}`.replace(`{${"stack_id"}}`, encodeURIComponent(String(requestParameters.stackId))),
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * 積み上げ削除API
+     */
+    async apiV1StacksDestroy(requestParameters: ApiV1StacksDestroyRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.apiV1StacksDestroyRaw(requestParameters, initOverrides);
     }
 
     /**

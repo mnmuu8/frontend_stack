@@ -41,6 +41,10 @@ export interface ApiV1TeamsCreateRequest {
     teamCreateRequestBody: TeamCreateRequestBody;
 }
 
+export interface ApiV1TeamsDestroyRequest {
+    teamId: number;
+}
+
 export interface ApiV1TeamsIndexRequest {
     name?: string;
 }
@@ -99,6 +103,35 @@ export class TeamApi extends runtime.BaseAPI {
     async apiV1TeamsCreate(requestParameters: ApiV1TeamsCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TeamsTeam> {
         const response = await this.apiV1TeamsCreateRaw(requestParameters, initOverrides);
         return await response.value();
+    }
+
+    /**
+     * チーム削除API
+     */
+    async apiV1TeamsDestroyRaw(requestParameters: ApiV1TeamsDestroyRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.teamId === null || requestParameters.teamId === undefined) {
+            throw new runtime.RequiredError('teamId','Required parameter requestParameters.teamId was null or undefined when calling apiV1TeamsDestroy.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/api/v1/teams/{team_id}`.replace(`{${"team_id"}}`, encodeURIComponent(String(requestParameters.teamId))),
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * チーム削除API
+     */
+    async apiV1TeamsDestroy(requestParameters: ApiV1TeamsDestroyRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.apiV1TeamsDestroyRaw(requestParameters, initOverrides);
     }
 
     /**

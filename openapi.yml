@@ -663,6 +663,8 @@ paths:
           description: 認証エラー
         '404':
           description: アウトプットが存在しない
+        '409':
+          description: アウトプット者以外は削除できない
         '422':
           description: バリデーションエラー
 

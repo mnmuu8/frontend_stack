@@ -5,6 +5,15 @@ import { getSession } from "./session";
 export const getApiHeaders = (): ApiOptions => {
   const sessionData = getSession();
 
+  if (!sessionData) {
+    return {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer '
+      }
+    }
+  }
+
   return {
     headers: {
       'Content-Type': 'application/json',
@@ -25,6 +34,18 @@ export const getNextApiHeaders = (token: string): ApiOptions => {
 
 export const getApiHeadersWithUserId = (): ApiOptions => {
   const sessionData = getSession();
+
+  if (!sessionData) {
+    return {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer '
+      },
+      params: {
+        user_id: 0
+      }
+    }
+  }
 
   return {
     headers: {

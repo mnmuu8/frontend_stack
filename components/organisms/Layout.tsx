@@ -25,6 +25,8 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
   const checkActivity = () => {
     const sessionData = getSession();
+    if (sessionData === false) return;
+
     const currentTime = new Date().getTime();
     if (currentTime - sessionData.lastActivity >= sessionData.exp) {
       localStorage.removeItem('session');
@@ -33,6 +35,8 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
   const updateActivity = () => {
     const sessionData = getSession();
+    if (sessionData === false) return;
+
     const lastActivity = new Date().getTime();
     sessionData.lastActivity = lastActivity;
     localStorage.setItem('session', JSON.stringify(sessionData));
@@ -42,11 +46,29 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     updateActivity();
   };
 
-  useEffect(() => {
+  useEffect((): void => {
     const sessionData = getSession();
-    if (!sessionData) {
+    if (sessionData === false) {
       router.push('/login');
+      return;
     }
+
+    const options = getApiHeaders();
+
+    axios
+      .get(`${process.env.API_ROOT_URL}/api/v1/users/${sessionData.userId}`, options)
+      .then((response) => {
+        const { data } = response;
+        setSessionUser(data);
+      })
+      .catch((error) => {
+        if (error.response) {
+          const { data } = error.response;
+          throw new Error(`${JSON.stringify(data)}`);
+        } else {
+          throw new Error(`${JSON.stringify(error)}`);
+        }
+      });
   }, []);
 
   useEffect(() => {
@@ -63,27 +85,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
       clearInterval(intervalId);
     };
   }, [router]);
-
-  useEffect(() => {
-    const sessionData = getSession();
-    if (!sessionData) return;
-
-    const options = getApiHeaders(sessionData);
-    axios
-      .get(`${process.env.API_ROOT_URL}/api/v1/users/${sessionData.userId}`, options)
-      .then((response) => {
-        const { data } = response;
-        setSessionUser(data);
-      })
-      .catch((error) => {
-        if (error.response) {
-          const { data } = error.response;
-          throw new Error(`${JSON.stringify(data)}`);
-        } else {
-          throw new Error(`${JSON.stringify(error)}`);
-        }
-      });
-  }, []);
 
   useEffect(() => {
     sessionUser && sessionUser.role === 'admin' ? setIsAdmin(true) : setIsAdmin(false);

@@ -46,10 +46,7 @@ const StackCard: FC<StackCardProps> = ({ stack }) => {
 
   useEffect(() => {
     const fetchIntrospection = async () => {
-      const sessionData = getSession();
-      if (!sessionData) return;
-
-      const options = getApiHeaders(sessionData);
+      const options = getApiHeaders();
       const url = `${process.env.API_ROOT_URL}/api/v1/stacks/${stack.id}/introspection`;
 
       try {

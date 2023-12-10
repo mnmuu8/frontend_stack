@@ -1,9 +1,10 @@
 import { ApiOptions, callStackApiProps, createUserApiProps, callUserApiProps, createIntrospectionApiProps, createTeamApiProps, inviteTeamApiProps } from "@/types/api";
-import { useRouter } from 'next/router';
-import { SessionData } from "@/types/session";
 import axios from "axios";
+import { getSession } from "./session";
 
-export const getApiHeaders = (sessionData: SessionData): ApiOptions => {
+export const getApiHeaders = (): ApiOptions => {
+  const sessionData = getSession();
+
   return {
     headers: {
       'Content-Type': 'application/json',
@@ -11,6 +12,7 @@ export const getApiHeaders = (sessionData: SessionData): ApiOptions => {
     }
   }
 }
+
 
 export const getNextApiHeaders = (token: string): ApiOptions => {
   return {
@@ -21,7 +23,9 @@ export const getNextApiHeaders = (token: string): ApiOptions => {
   }
 }
 
-export const getApiHeadersWithUserId = (sessionData: SessionData): ApiOptions<{user_id: number}> => {
+export const getApiHeadersWithUserId = (): ApiOptions => {
+  const sessionData = getSession();
+
   return {
     headers: {
       'Content-Type': 'application/json',
@@ -39,7 +43,7 @@ export const callCreateTeam = ({options, teamFormData, setIsRegisterEvent}: crea
       name: teamFormData.name
     }
     const url: string = `${process.env.API_ROOT_URL}/api/v1/teams`;
-  
+
     try {
       const response = await axios.post(url, params, options);
       return response.data;
@@ -47,7 +51,7 @@ export const callCreateTeam = ({options, teamFormData, setIsRegisterEvent}: crea
       throw new Error(`${JSON.stringify(error)}`);
     }
   };
-  
+
   createTeam().then(res => {
     setIsRegisterEvent(true);
   });
@@ -77,7 +81,7 @@ export const callUpdateTeam = ({options, teamFormData, setIsRegisterEvent}: crea
       name: teamFormData.name
     }
     const url: string = `${process.env.API_ROOT_URL}/api/v1/teams/${teamFormData.id}`;
-  
+
     try {
       const response = await axios.patch(url, params, options);
       return response.data;
@@ -85,7 +89,7 @@ export const callUpdateTeam = ({options, teamFormData, setIsRegisterEvent}: crea
       throw new Error(`${JSON.stringify(error)}`);
     }
   };
-  
+
   updateTeam().then(res => {
     setIsRegisterEvent(true);
   });
@@ -107,7 +111,7 @@ export const callCreateUser = ({options, userFormData, router}: createUserApiPro
       const response = await axios.post(url, params, options);
       return response.data;
     } catch (error) {
-      // throw new Error(`${JSON.stringify(error)}`);
+      throw new Error(`${JSON.stringify(error)}`);
     }
   };
   console.log('createUser');
@@ -132,7 +136,7 @@ export const callUpdateUser = ({options, sessionData, userFormData, router}: cal
       throw new Error(`${JSON.stringify(error)}`);
     }
   };
-  
+
   updateUser().then(res => router.push('/mypage'));
 }
 
@@ -193,7 +197,7 @@ export const callUpdateIntrospection = ({options, introspectionFormData, setIsRe
       try_contents: introspectionFormData.tries.map((tries: any) => tries.content),
     }
     const url: string = `${process.env.API_ROOT_URL}/api/v1/stacks/${introspectionFormData.stack_id}/introspection`;
-  
+
     try {
       const response = await axios.patch(url, params, options);
       return response.data;
@@ -201,7 +205,7 @@ export const callUpdateIntrospection = ({options, introspectionFormData, setIsRe
       throw new Error(`${JSON.stringify(error)}`);
     }
   };
-  
+
   updateIntrospection().then(res => {
     setIsRegisterEvent(true);
     router.push('/timeline');

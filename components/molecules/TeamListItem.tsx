@@ -38,9 +38,15 @@ const TeamListItem: FC<TeamFormDataParams> = ({ id, name }) => {
       <div className='text-gray-50 text-sm'>{name}</div>
       <div className='flex items-center'>
         {isAdmin && (
-          <EditIcon className='text-gray-50 text-[18px] hover:text-gray-200 cursor-pointer mr-1' onClick={handleFormOpen} />
+          <EditIcon
+            className='text-gray-50 text-[18px] hover:text-gray-200 cursor-pointer mr-1'
+            onClick={handleFormOpen}
+          />
         )}
-        <AddIcon className='text-gray-50 text-[18px] hover:text-gray-200 cursor-pointer' onClick={handleInviteTeamFormOpen} />
+        <AddIcon
+          className='text-gray-50 text-[18px] hover:text-gray-200 cursor-pointer'
+          onClick={handleInviteTeamFormOpen}
+        />
       </div>
     </div>
   );

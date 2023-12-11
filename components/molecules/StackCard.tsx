@@ -67,7 +67,7 @@ const StackCard: FC<StackCardProps> = ({ stack }) => {
     <div className='px-6 cursor-pointer hover:bg-gray-100'>
       <div className='flex items-center justify-between py-3 border-b-2 border-gray-100'>
         <div className='flex items-center flex-grow pr-2 min-w-0'>
-          { sessionUser && 
+          {sessionUser && (
             <ImageWrapper
               src={'/no_image.png'}
               height={USER_PROFILE_HEIGHT}
@@ -75,7 +75,7 @@ const StackCard: FC<StackCardProps> = ({ stack }) => {
               alt={sessionUser.name}
               className='rounded-full mr-2'
             />
-          }
+          )}
           <div className='text-sm truncate'>{stack.title}</div>
         </div>
         <div className='flex items-center flex-shrink-0'>
@@ -90,15 +90,15 @@ const StackCard: FC<StackCardProps> = ({ stack }) => {
               className='flex items-center border border-gray-300 rounded-full py-1 pl-1 pr-2 cursor-pointer mr-2'
               onClick={handleEditFormOpen}
             >
-              <EditIcon className='rounded-full bg-orange-500 text-gray-50' fontSize='small'/>
+              <EditIcon className='rounded-full bg-orange-500 text-gray-50' fontSize='small' />
               <div className='text-sm text-gray-700 ml-1'>反省詳細</div>
             </div>
           ) : (
             <div
               className='flex items-center border border-gray-300 rounded-full py-1 pl-1 pr-2 cursor-pointer mr-2'
               onClick={handleNewFormOpen}
-              >
-              <AddIcon className='rounded-full bg-blue-500 text-gray-50' fontSize='small'/>
+            >
+              <AddIcon className='rounded-full bg-blue-500 text-gray-50' fontSize='small' />
               <div className='text-sm text-gray-700 ml-1'>反省追加</div>
             </div>
           )}

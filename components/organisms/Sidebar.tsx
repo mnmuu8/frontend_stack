@@ -22,12 +22,42 @@ const Sidebar: FC = () => {
   const { drawerArea, handleDrawerAreaToggle } = appContext;
 
   const sidebarMenus: sidebarMenus[] = [
-    { id: 'dashboard', label: 'ダッシュボード', value: '/', icon: <DashboardIcon sx={{ color: "#DDDDDD", mr: 1 }} fontSize='small' /> },
-    { id: 'timeline', label: 'タイムライン', value: '/timeline', icon: <FeedIcon sx={{ color: "#DDDDDD", mr: 1 }} fontSize='small' /> },
-    { id: 'mypage', label: 'マイページ', value: '/mypage', icon: <AccountCircleIcon sx={{ color: "#DDDDDD", mr: 1 }} fontSize='small' /> },
-    { id: 'portfolio', label: 'ポートフォリオ', value: '/portfolio', icon: <CastForEducationIcon sx={{ color: "#DDDDDD", mr: 1 }} fontSize='small' /> },
-    { id: 'message', label: 'メッセージ', value: '/message', icon: <MessageIcon sx={{ color: "#DDDDDD", mr: 1 }} fontSize='small' /> },
-    { id: 'outputs', label: 'アウトプット', value: '/outputs', icon: <OutputIcon sx={{ color: "#DDDDDD", mr: 1 }} fontSize='small' /> },
+    {
+      id: 'dashboard',
+      label: 'ダッシュボード',
+      value: '/',
+      icon: <DashboardIcon sx={{ color: '#DDDDDD', mr: 1 }} fontSize='small' />,
+    },
+    {
+      id: 'timeline',
+      label: 'タイムライン',
+      value: '/timeline',
+      icon: <FeedIcon sx={{ color: '#DDDDDD', mr: 1 }} fontSize='small' />,
+    },
+    {
+      id: 'mypage',
+      label: 'マイページ',
+      value: '/mypage',
+      icon: <AccountCircleIcon sx={{ color: '#DDDDDD', mr: 1 }} fontSize='small' />,
+    },
+    {
+      id: 'portfolio',
+      label: 'ポートフォリオ',
+      value: '/portfolio',
+      icon: <CastForEducationIcon sx={{ color: '#DDDDDD', mr: 1 }} fontSize='small' />,
+    },
+    {
+      id: 'message',
+      label: 'メッセージ',
+      value: '/message',
+      icon: <MessageIcon sx={{ color: '#DDDDDD', mr: 1 }} fontSize='small' />,
+    },
+    {
+      id: 'outputs',
+      label: 'アウトプット',
+      value: '/outputs',
+      icon: <OutputIcon sx={{ color: '#DDDDDD', mr: 1 }} fontSize='small' />,
+    },
   ];
   const router = useRouter();
   const isActive = (path: string) => router.pathname === path;
@@ -39,7 +69,7 @@ const Sidebar: FC = () => {
           width: 240,
           '& .MuiDrawer-paper': {
             width: 240,
-            top: 60
+            top: 60,
           },
         }}
         variant='persistent'
@@ -50,9 +80,11 @@ const Sidebar: FC = () => {
           <List>
             {sidebarMenus.map((menu) => (
               <ListItem key={menu.id} disablePadding sx={isActive(menu.value) ? { backgroundColor: '#222222' } : {}}>
-                <ListItemButton >
+                <ListItemButton>
                   {menu.icon}
-                  <Link href={menu.value} className='text-sm text-gray-200'>{menu.label}</Link>
+                  <Link href={menu.value} className='text-sm text-gray-200'>
+                    {menu.label}
+                  </Link>
                 </ListItemButton>
               </ListItem>
             ))}

@@ -15,8 +15,8 @@ import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 
 const StackCard: FC<StackCardProps> = ({ stack }) => {
-  const stacked_at = stack.stacked_at;
-  const formattedStackedDate = formatDate(stacked_at);
+  const stackedAt = stack.stacked_at;
+  const formattedStackedDate = formatDate(stackedAt);
 
   const sessionContext = useContext(SessionContext);
   const { sessionUser } = sessionContext;

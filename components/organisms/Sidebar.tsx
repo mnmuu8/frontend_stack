@@ -57,7 +57,7 @@ const Sidebar: FC = () => {
           <List>
             {sidebarMenus.map((menu) => (
               <ListItem key={menu.id} disablePadding sx={isActive(menu.value) ? { backgroundColor: '#D1D5DB' } : {}}>
-                <ListItemButton >
+                <ListItemButton>
                   <ListItemIcon>{menu.icon}</ListItemIcon>
                   <Link href={menu.value}>{menu.label}</Link>
                 </ListItemButton>

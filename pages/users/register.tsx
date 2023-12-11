@@ -40,10 +40,7 @@ const Register: NextPage<UserRegisterProps> = ({ email, team_id }) => {
   const router = useRouter();
 
   const FormSubmit = () => {
-    const sessionData = getSession();
-    if (!sessionData) return;
-
-    const options = getApiHeaders(sessionData);
+    const options = getApiHeaders();
 
     if (!dataConfirmAlert('ユーザーを登録しますか？')) return;
     callCreateUser({ options, userFormData, router });

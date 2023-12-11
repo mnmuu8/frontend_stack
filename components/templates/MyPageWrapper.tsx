@@ -9,12 +9,13 @@ import { getApiHeadersWithUserId } from '@/utiliry/api';
 import Chart from '../uikit/Chart';
 
 const MyPageWrapper: FC = () => {
-  // const [activeTab, setActiveTab] = useState('all');
-  // const [innerTab, setInnerTab] = useState('allStack');
   const [stacks, setStacks] = useState<StackProps[]>([]);
   const [skills, setSkills] = useState<string[]>([]);
   const [minutes, setMinutes] = useState<number[]>([]);
-
+  
+  // TODO: タブで積み上げの一覧を切り替える機能。後ほど使用する可能性があるので残しておく
+  // const [activeTab, setActiveTab] = useState('all');
+  // const [innerTab, setInnerTab] = useState('allStack');
   // const handleTabClick = (tab: string) => {
   //   setActiveTab(tab);
   //   setInnerTab(tabInfo[tab].tabs[0].id);
@@ -65,7 +66,7 @@ const MyPageWrapper: FC = () => {
       <ProfileCard />
       <div className='bg-white rounded-md shadow-sm border border-gray-300 mt-8'>
         <div className='p-6 text-md text-gray-700 border-b-2 border-gray-100'>自分の積み上げ</div>
-        {/* ToDo: 後ほど使用する可能性があるので残しておく */}
+        {/* TODO: タブで積み上げの一覧を切り替える機能。後ほど使用する可能性があるので残しておく */}
         {/* <div className='flex text-sm mb-8'>
           {Object.keys(tabInfo).map((tab) => (
             <div

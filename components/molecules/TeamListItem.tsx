@@ -34,15 +34,14 @@ const TeamListItem: FC<TeamFormDataParams> = ({ id, name }) => {
   };
 
   return (
-    <div className='flex items-center justify-between px-6 py-2'>
-      <div className='bg-gray-50 text-sm'>{name}</div>
-      {isAdmin && (
-        <EditIcon className='text-gray-500 text-[16px] hover:text-gray-700 cursor-pointer' onClick={handleFormOpen} />
-      )}
-      <AddIcon
-        className='text-gray-500 text-[16px] hover:text-gray-700 cursor-pointer'
-        onClick={handleInviteTeamFormOpen}
-      />
+    <div className='flex items-center justify-between px-4 py-2'>
+      <div className='text-gray-50 text-sm'>{name}</div>
+      <div className='flex items-center'>
+        {isAdmin && (
+          <EditIcon className='text-gray-50 text-[18px] hover:text-gray-200 cursor-pointer mr-1' onClick={handleFormOpen} />
+        )}
+        <AddIcon className='text-gray-50 text-[18px] hover:text-gray-200 cursor-pointer' onClick={handleInviteTeamFormOpen} />
+      </div>
     </div>
   );
 };

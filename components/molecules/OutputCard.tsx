@@ -26,8 +26,8 @@ const OutputCard: FC<OutputCardProps> = ({ output }) => {
   const outputCreatedAt = output.created_at;
   const formattedCreateDate = formatDate(outputCreatedAt);
 
-  const UserProfileHeight = 32;
-  const UserProfileWidth = 32;
+  const USER_PROFILE_HEIGHT = 32;
+  const USER_PROFILE_WIDTH = 32;
 
   return (
     <div key={output.id} className='w-full bg-gray-50 rounded-md p-6 mb-4 relative'>
@@ -35,8 +35,8 @@ const OutputCard: FC<OutputCardProps> = ({ output }) => {
         <div className='flex items-center mb-2'>
           <UserProfile
             user={sessionUser}
-            height={UserProfileHeight}
-            width={UserProfileWidth}
+            height={USER_PROFILE_HEIGHT}
+            width={USER_PROFILE_WIDTH}
             isHeader={false}
             created_at={formattedCreateDate}
           />

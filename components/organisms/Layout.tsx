@@ -11,14 +11,13 @@ import { getApiHeaders } from '@/utiliry/api';
 
 const Layout: FC<LayoutProps> = ({ children }) => {
   const appContext = useContext(AppContext);
-  const { drawerOpen } = appContext;
+  const { drawerArea } = appContext;
 
   const sessionContext = useContext(SessionContext);
   const { setSessionUser, sessionUser, setIsAdmin, isAdmin } = sessionContext;
 
   const mainStyle: React.CSSProperties = {
-    width: drawerOpen ? 'calc(100% - 240px)' : '',
-    left: drawerOpen ? 'auto' : 0,
+    width: drawerArea ? 'calc(100% - 240px)' : '100%',
   };
 
   const router = useRouter();
@@ -91,11 +90,13 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   }, [sessionUser, isAdmin]);
 
   return (
-    <>
+    <div className='h-screen'>
       <Header />
-      <Sidebar />
-      <main style={mainStyle}>{children}</main>
-    </>
+      <div className='h-[calc(100%-60px)] flex'>
+        <Sidebar />
+        <main className='ml-auto duration-300' style={mainStyle}>{children}</main>
+      </div>
+    </div>
   );
 };
 

@@ -1,7 +1,6 @@
 import React from 'react'
 import axios from 'axios'
 import Layout from '@/components/organisms/Layout'
-import FormModal from '@/components/molecules/FormModal'
 import OutputsWrapper from '@/components/templates/OutputsWrapper'
 import { GetServerSideProps, NextPage } from 'next'
 import cookie from 'cookie';
@@ -13,7 +12,6 @@ const index: NextPage<OutputsProps> = ({ outputs }) => {
     <div>
       <Layout>
         <OutputsWrapper outputs={outputs} />
-        <FormModal />
       </Layout>
     </div>
   )

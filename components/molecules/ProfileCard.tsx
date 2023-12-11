@@ -10,8 +10,8 @@ const ProfileCard: FC = () => {
   const formContext = useContext(FormContext);
   const { setFormOpen, setFormType } = formContext;
 
-  const UserProfileHeight = 80;
-  const UserProfileWidth = 80;
+  const USER_PROFILE_HEIGHT = 180;
+  const USER_PROFILE_WIDTH = 180;
 
   const handleFormOpen = () => {
     setFormType('updateUser');
@@ -20,24 +20,23 @@ const ProfileCard: FC = () => {
 
   if (sessionUser) {
     return (
-      <div className='self-start w-[320px] bg-gray-50 px-4 py-8 rounded-md shadow-md'>
+      <div className='flex items-center'>
         <ImageWrapper
           src={'/no_image.png'}
-          height={UserProfileHeight}
-          width={UserProfileWidth}
+          height={USER_PROFILE_HEIGHT}
+          width={USER_PROFILE_WIDTH}
           alt={sessionUser.name}
-          className='rounded-full m-auto'
+          className='rounded-full mr-6'
         />
-        <div className='text-center mt-2 font-bold'>{sessionUser.name}</div>
-        <div className='text-sm mt-4'>
-          フロントエンドエンジニアです。 主に日々の学習で学んだことをアウトプットしています(React多め)。
-          初学者故、至らぬ点等ございますが温かい目で見守っていただけると幸いです。
-        </div>
-        <div
-          className='bg-white rounded-md shadow-sm p-2 text-sm mt-4 text-center font-bold cursor-pointer transition-all hover:bg-gray-100'
-          onClick={handleFormOpen}
-        >
-          プロフィールを編集する
+        <div>
+          <div className='text-3xl mb-2'>{sessionUser.name}</div>
+          <div className='text-sm mb-4'>{sessionUser.profile_content}</div>
+          <div
+            className='bg-blue-500 text-gray-50 text-sm inline-block rounded-md py-2 px-8 cursor-pointer transition-all hover:bg-blue-600'
+            onClick={handleFormOpen}
+          >
+            プロフィールを編集する
+          </div>
         </div>
       </div>
     );

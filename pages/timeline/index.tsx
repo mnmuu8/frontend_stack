@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react'
 import { NextPage } from 'next'
 import Layout from '@/components/organisms/Layout'
 import StackList from '@/components/molecules/StackList'
-import FormModal from '@/components/molecules/FormModal'
 import { StackProps } from '@/types/stack'
 import { getSession } from '@/utiliry/session'
 import { ApiOptions } from '@/types/api'
@@ -42,9 +41,7 @@ const Index: NextPage = () => {
 
   return (
     <Layout>
-      <div className='text-center text-xl font-bold mb-6'>「チーム{sessionUser?.team.id}」の積み上げ一覧</div>
       <StackList stacks={stacks} />
-      <FormModal />
     </Layout>
   )
 }

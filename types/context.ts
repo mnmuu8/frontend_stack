@@ -13,10 +13,9 @@ import {
 import { IntrospectionProps } from './introspection';
 
 export type AppContextProps = {
-  drawerOpen: boolean;
-  setDrawerOpen: Dispatch<React.SetStateAction<boolean>>;
-  handleDrawerOpen: () => void;
-  handleDrawerClose: () => void;
+  drawerArea: boolean;
+  setDrawerArea: Dispatch<React.SetStateAction<boolean>>;
+  handleDrawerAreaToggle: () => void;
   anchorEl: HTMLElement | null;
   setAnchorEl: Dispatch<SetStateAction<HTMLElement | null>>;
   handleMenuOpen: (event: React.MouseEvent<HTMLElement>) => void;

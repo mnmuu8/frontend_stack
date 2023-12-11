@@ -17,5 +17,6 @@ export type SessionData = {
   token: string;
   userId: number;
   exp: number;
+  lastActivity: number;
   role: string;
 };

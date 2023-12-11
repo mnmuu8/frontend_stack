@@ -7,7 +7,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import { getSession } from '@/utiliry/session';
 import { getApiHeaders } from '@/utiliry/api';
 import { SessionContext } from '@/context/SessionContext';
 import { callFetchStackRankings } from '@/utiliry/api/stack-ranking';
@@ -24,7 +23,7 @@ export type StackRankingColumn = {
 
 const RankTable: FC = () => {
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(6);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   const sessionContext = useContext(SessionContext);
   const { sessionUser } = sessionContext;
@@ -46,10 +45,7 @@ const RankTable: FC = () => {
   };
 
   useEffect(() => {
-    const sessionData = getSession();
-    if (!sessionData) return;
-
-    const options = getApiHeaders(sessionData);
+    const options = getApiHeaders();
     callFetchStackRankings({ options, sessionUser, setStackRankings });
   }, [sessionUser]);
 
@@ -81,7 +77,7 @@ const RankTable: FC = () => {
         </Table>
       </TableContainer>
       <TablePagination
-        rowsPerPageOptions={[6, 12, 24, 48, 100]}
+        rowsPerPageOptions={[10, 20, 30, 40, 50, 100]}
         component='div'
         count={stackRankings.length}
         rowsPerPage={rowsPerPage}

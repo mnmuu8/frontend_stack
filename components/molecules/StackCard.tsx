@@ -1,5 +1,4 @@
 import React, { FC, useContext, useEffect, useState } from 'react';
-import UserProfile from './UserProfile';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import { formatDate } from '../uikit/dateUtils';
 import { IntrospectionProps } from '@/types/introspection';
@@ -11,10 +10,13 @@ import { SessionContext } from '@/context/SessionContext';
 import { FormDataContext } from '@/context/FormDataContext';
 import { InitialIntrospectionFormData } from '@/utiliry/form';
 import { getApiHeaders } from '@/utiliry/api';
+import ImageWrapper from '../atoms/ImageWrapper';
+import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
 
 const StackCard: FC<StackCardProps> = ({ stack }) => {
-  const stackCreatedAt = stack.created_at;
-  const formattedCreateDate = formatDate(stackCreatedAt);
+  const stackedAt = stack.stacked_at;
+  const formattedStackedDate = formatDate(stackedAt);
 
   const sessionContext = useContext(SessionContext);
   const { sessionUser } = sessionContext;
@@ -41,15 +43,12 @@ const StackCard: FC<StackCardProps> = ({ stack }) => {
 
   const [introspectionValue, setIntrospectionValue] = useState<IntrospectionProps>(undefined);
 
-  const UserProfileHeight = 32;
-  const UserProfileWidth = 32;
+  const USER_PROFILE_HEIGHT = 26;
+  const USER_PROFILE_WIDTH = 26;
 
   useEffect(() => {
     const fetchIntrospection = async () => {
-      const sessionData = getSession();
-      if (!sessionData) return;
-
-      const options = getApiHeaders(sessionData);
+      const options = getApiHeaders();
       const url = `${process.env.API_ROOT_URL}/api/v1/stacks/${stack.id}/introspection`;
 
       try {
@@ -65,45 +64,45 @@ const StackCard: FC<StackCardProps> = ({ stack }) => {
   }, [isRegisterEvent]);
 
   return (
-    <div className='relative'>
-      <div className='relative bg-gray-50 rounded-md px-10 py-4 mb-4'>
-        <div className='flex items-center'>
-          <UserProfile
-            user={sessionUser}
-            height={UserProfileHeight}
-            width={UserProfileWidth}
-            isHeader={false}
-            created_at={formattedCreateDate}
-          />
+    <div className='px-6 cursor-pointer hover:bg-gray-100'>
+      <div className='flex items-center justify-between py-3 border-b-2 border-gray-100'>
+        <div className='flex items-center flex-grow pr-2 min-w-0'>
+          { sessionUser && 
+            <ImageWrapper
+              src={'/no_image.png'}
+              height={USER_PROFILE_HEIGHT}
+              width={USER_PROFILE_WIDTH}
+              alt={sessionUser.name}
+              className='rounded-full mr-2'
+            />
+          }
+          <div className='text-sm truncate'>{stack.title}</div>
         </div>
-        <div className='py-4'>
-          <div className='text-lg font-bold mb-2'>{stack.title}</div>
-          <div className='text-md'>{stack.description}</div>
-        </div>
-        <div className='flex justify-between'>
+        <div className='flex items-center flex-shrink-0'>
           <div className='flex items-center'>
-            <div>
-              <LocalOfferIcon className='text-gray-400 text-[16px] mr-2 relative top-[-1px]' />
-            </div>
-            <div key={stack.skill.id} className='bg-gray-200 rounded-md text-[12px] mr-2 py-1 px-2'>
-              {stack.skill.name}
+            <div className='flex items-center bg-pink-100 border border-pink-300 rounded-md text-[12px] mr-2 py-1 px-2'>
+              <LocalOfferIcon sx={{ color: '#AAAAAA', fontSize: 14, marginRight: '2px' }} />
+              <div>{stack.skill.name}</div>
             </div>
           </div>
           {introspectionValue ? (
             <div
-              className='bg-blue-500 text-blue-100 hover:bg-blue-600 text-sm font-bold rounded-full px-4 py-2 mt-2 w-[90px] text-center cursor-pointer'
+              className='flex items-center border border-gray-300 rounded-full py-1 pl-1 pr-2 cursor-pointer mr-2'
               onClick={handleEditFormOpen}
             >
-              反省詳細
+              <EditIcon className='rounded-full bg-orange-500 text-gray-50' fontSize='small'/>
+              <div className='text-sm text-gray-700 ml-1'>反省詳細</div>
             </div>
           ) : (
             <div
-              className='bg-blue-100 text-blue-500 hover:bg-blue-200 text-sm font-bold rounded-full px-4 py-2 mt-2 w-[90px] text-center cursor-pointer'
+              className='flex items-center border border-gray-300 rounded-full py-1 pl-1 pr-2 cursor-pointer mr-2'
               onClick={handleNewFormOpen}
-            >
-              反省追加
+              >
+              <AddIcon className='rounded-full bg-blue-500 text-gray-50' fontSize='small'/>
+              <div className='text-sm text-gray-700 ml-1'>反省追加</div>
             </div>
           )}
+          <div className='text-sm text-gray-500'>{formattedStackedDate}</div>
         </div>
       </div>
     </div>

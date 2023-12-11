@@ -38,15 +38,15 @@ const TeamList: FC = () => {
   };
 
   return (
-    <div>
-      <div className='flex items-center px-2 pt-4 pb-2'>
-        <div className='text-gray-500 text-sm mr-4'>チーム一覧</div>
+    <>
+      <div className='flex items-center justify-between px-4 py-3'>
+        <div className='text-sm text-gray-200'>チーム一覧</div>
         {isAdmin && (
-          <AddIcon className='text-gray-500 text-[20px] hover:text-gray-700 cursor-pointer' onClick={handleFormOpen} />
+          <AddIcon className='text-[18px] text-gray-200 hover:text-gray-400 cursor-pointer' onClick={handleFormOpen} />
         )}
       </div>
       <div>{teams && teams.map((team: TeamProps) => <TeamListItem key={team.id} id={team.id} name={team.name} />)}</div>
-    </div>
+    </>
   );
 };
 

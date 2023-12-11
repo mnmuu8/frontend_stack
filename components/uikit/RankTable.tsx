@@ -24,7 +24,7 @@ export type StackRankingColumn = {
 
 const RankTable: FC = () => {
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(6);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   const sessionContext = useContext(SessionContext);
   const { sessionUser } = sessionContext;
@@ -81,7 +81,7 @@ const RankTable: FC = () => {
         </Table>
       </TableContainer>
       <TablePagination
-        rowsPerPageOptions={[6, 12, 24, 48, 100]}
+        rowsPerPageOptions={[10, 20, 30, 40, 50, 100]}
         component='div'
         count={stackRankings.length}
         rowsPerPage={rowsPerPage}

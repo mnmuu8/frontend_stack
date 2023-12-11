@@ -83,10 +83,10 @@ const DashboardWrapper: FC = () => {
   }, [stacks]);
 
   return (
-    <div className='dashboard-page'>
-      <div className='text-2xl text-blue-900 font-bold mb-6'>積み上げ時間</div>
-      <div className='bg-white shadow-md p-6 w-full mb-10'>
-        <div className='w-8/12 m-auto flex justify-center'>
+    <div className='max-w-[1020px] m-auto'>
+      <div className='bg-white rounded-md shadow-sm border border-gray-300'>
+        <div className='p-6 text-md text-gray-700 border-b-2 border-gray-100'>積み上げ時間</div>
+        <div className='px-6 pt-6 pb-10'>
           <Chart
             labels={barLabels}
             label={'時間'}
@@ -100,30 +100,28 @@ const DashboardWrapper: FC = () => {
           />
         </div>
       </div>
-      <div className='flex justify-between'>
-        <div className='w-[48%] flex flex-col'>
-          <div className='text-2xl text-blue-900 font-bold mb-6'>積み上げスキル</div>
-          <div className='bg-white shadow-md p-6 flex-grow'>
-            <div className='w-8/12 m-auto'>
-              <Chart
-                labels={pieLabels}
-                label={'学習時間'}
-                data={pieData}
-                bdColor={['rgb(39, 119, 169)']}
-                bgColor={['rgb(240, 248, 250)']}
-                bdwidth={1}
-                text={'積み上げスキル'}
-                type={'pie'}
-                pattern={'StackSkillGraph'}
-              />
-            </div>
+      <div className='bg-white rounded-md shadow-sm border border-gray-300 mt-8'>
+        <div className='p-6 text-md text-gray-700 border-b-2 border-gray-100'>積み上げスキル</div>
+        <div className='p-6 pb-10 flex justify-center'>
+          <div className='w-[50%]'>
+            <Chart
+              labels={pieLabels}
+              label={'学習時間'}
+              data={pieData}
+              bdColor={['rgb(39, 119, 169)']}
+              bgColor={['rgb(240, 248, 250)']}
+              bdwidth={1}
+              text={'積み上げスキル'}
+              type={'pie'}
+              pattern={'StackSkillGraph'}
+            />
           </div>
         </div>
-        <div className='w-[48%] flex flex-col'>
-          <div className='text-2xl text-blue-900 font-bold mb-6'>積み上げランキング</div>
-          <div className='bg-white shadow-md p-6 flex-grow'>
-            <RankTable />
-          </div>
+      </div>
+      <div className='bg-white rounded-md shadow-sm border border-gray-300 mt-8'>
+        <div className='p-6 text-md text-gray-700 border-b-2 border-gray-100'>積み上げランキング</div>
+        <div className='p-6'>
+          <RankTable />
         </div>
       </div>
     </div>

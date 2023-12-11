@@ -1,53 +1,64 @@
 import React, { FC, useContext } from 'react';
 import { AppContext } from '@/context/AppContext';
-import SearchBox from '../molecules/SearchBox';
-import UserProfile from '../molecules/UserProfile';
-import HeaderMenu from '../uikit/HeaderMenu';
-import IconButton from '@mui/material/IconButton';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import MenuIcon from '@mui/icons-material/Menu';
-import { siteTitle } from '@/config';
+import { FormContext } from '@/context/FormContext';
 import { SessionContext } from '@/context/SessionContext';
+import HeaderMenu from '../uikit/HeaderMenu';
+import ImageWrapper from '../atoms/ImageWrapper';
+import FormModal from '../molecules/FormModal';
+import { FormType } from '@/types/form';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import AddIcon from '@mui/icons-material/Add';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 const Header: FC = () => {
   const appContext = useContext(AppContext);
-  const { drawerOpen, handleDrawerOpen, handleMenuOpen } = appContext;
+  const { handleDrawerAreaToggle, handleMenuOpen } = appContext;
 
   const sessionContext = useContext(SessionContext);
   const { sessionUser } = sessionContext;
 
-  const headerStyle: React.CSSProperties = {
-    width: appContext.drawerOpen ? 'calc(100% - 240px)' : '',
-    left: appContext.drawerOpen ? 'auto' : 0,
+  const formContext = useContext(FormContext);
+  const { setFormOpen, setFormType } = formContext;
+
+  const handleFormOpen = (formType: FormType) => {
+    setFormOpen(true);
+    setFormType(formType);
   };
 
-  const UserProfileHeight = 50;
-  const UserProfileWidth = 50;
+  const UserProfileHeight = 30;
+  const UserProfileWidth = 30;
 
   return (
-    <header className='fixed top-0 left-0 right-0 bg-white' style={headerStyle}>
-      <div className='flex justify-between items-center h-20 px-8 shadow-md'>
+    <header className='bg-gray-700 h-[60px] border-b-[1px] border-gray-500'>
+      <div className='flex justify-between items-center h-full px-4'>
         <div className='flex items-center'>
-          <IconButton
-            color='inherit'
-            aria-label='open drawer'
-            onClick={handleDrawerOpen}
-            edge='start'
-            sx={{ mr: 2, ...(drawerOpen && { display: 'none' }) }}
+          <IconButton onClick={handleDrawerAreaToggle}>
+            <MenuIcon className='text-white' />
+          </IconButton>
+          <div
+            className='flex items-center border border-gray-500 rounded-full py-1 pl-1 pr-2 cursor-pointer hover:bg-opacity-75'
+            onClick={() => handleFormOpen('createStack')}
           >
-            <MenuIcon />
-          </IconButton>
-          <div className='font-mono font-bold text-2xl mr-8'>{siteTitle}</div>
-          <SearchBox />
+            <AddIcon className='rounded-full bg-red-500 text-gray-50' fontSize='small'/>
+            <div className='text-sm text-gray-50 ml-1'>作成</div>
+          </div>
         </div>
-        <div className='flex items-center'>
-          <UserProfile user={sessionUser} height={UserProfileHeight} width={UserProfileWidth} isHeader={true} />
-          <IconButton onClick={handleMenuOpen}>
-            <KeyboardArrowDownIcon />
-          </IconButton>
+        <div className='flex items-center cursor-pointer' onClick={handleMenuOpen}>
+          { sessionUser && 
+            <ImageWrapper
+              src={'/no_image.png'}
+              height={UserProfileHeight}
+              width={UserProfileWidth}
+              alt={sessionUser?.name}
+              className='rounded-full'
+            />
+          }
+          <KeyboardArrowDownIcon fontSize='small' sx={{ color: '#DDDDDD' }} />
         </div>
       </div>
       <HeaderMenu />
+      <FormModal />
     </header>
   );
 };

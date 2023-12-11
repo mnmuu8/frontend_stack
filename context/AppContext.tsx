@@ -3,10 +3,9 @@ import { ChildrenProps } from '@/types/utils';
 import { AppContextProps } from '@/types/context';
 
 const InitialState: AppContextProps = {
-  drawerOpen: true,
-  setDrawerOpen: () => {},
-  handleDrawerOpen: () => {},
-  handleDrawerClose: () => {},
+  drawerArea: true,
+  setDrawerArea: () => {},
+  handleDrawerAreaToggle: () => {},
   anchorEl: null,
   setAnchorEl: () => {},
   handleMenuOpen: () => {},
@@ -16,12 +15,9 @@ const InitialState: AppContextProps = {
 const AppContext = createContext<AppContextProps>(InitialState);
 
 const AppProvider = ({ children }: ChildrenProps) => {
-  const [drawerOpen, setDrawerOpen] = useState<boolean>(true);
-  const handleDrawerOpen: () => void = () => {
-    setDrawerOpen(true);
-  };
-  const handleDrawerClose: () => void = () => {
-    setDrawerOpen(false);
+  const [drawerArea, setDrawerArea] = useState<boolean>(true);
+  const handleDrawerAreaToggle: () => void = () => {
+    setDrawerArea(!drawerArea);
   };
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -35,10 +31,9 @@ const AppProvider = ({ children }: ChildrenProps) => {
   return (
     <AppContext.Provider
       value={{
-        drawerOpen: drawerOpen,
-        setDrawerOpen: setDrawerOpen,
-        handleDrawerOpen: handleDrawerOpen,
-        handleDrawerClose: handleDrawerClose,
+        drawerArea: drawerArea,
+        setDrawerArea: setDrawerArea,
+        handleDrawerAreaToggle: handleDrawerAreaToggle,
         anchorEl: anchorEl,
         setAnchorEl: setAnchorEl,
         handleMenuOpen: handleMenuOpen,

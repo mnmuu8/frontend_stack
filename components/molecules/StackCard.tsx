@@ -75,7 +75,7 @@ const StackCard: FC<StackCardProps> = ({ stack }) => {
               src={'/no_image.png'}
               height={USER_PROFILE_HEIGHT}
               width={USER_PROFILE_WIDTH}
-              alt={sessionUser?.name}
+              alt={sessionUser.name}
               className='rounded-full mr-2'
             />
           }

@@ -1,5 +1,4 @@
 import React, { FC, useContext, useEffect, useState } from 'react';
-import { getSession } from '@/utiliry/session';
 import { TeamProps } from '@/types/team';
 import axios from 'axios';
 import TeamListItem from './TeamListItem';
@@ -17,10 +16,7 @@ const TeamList: FC = () => {
 
   useEffect(() => {
     const fetchTeams = async () => {
-      const sessionData = getSession();
-      if (!sessionData) return;
-
-      const options = getApiHeaders(sessionData);
+      const options = getApiHeaders();
       try {
         const response = await axios.get(`${process.env.API_ROOT_URL}/api/v1/teams`, options);
         return response.data.teams;

@@ -26,7 +26,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     const sessionData = getSession();
     if (!sessionData) return;
 
-    const options = getApiHeaders(sessionData);
+    const options = getApiHeaders();
     axios.get(`${process.env.API_ROOT_URL}/api/v1/users/${sessionData.userId}`, options)
       .then((response) => {
         const { data } = response;

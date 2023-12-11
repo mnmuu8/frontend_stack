@@ -3,7 +3,6 @@ import { tabInfo } from '../../sample';
 import StackCard from '../molecules/StackCard';
 import ProfileCard from '../molecules/ProfileCard';
 import axios from 'axios';
-import { getSession } from '@/utiliry/session';
 import { StackProps } from '@/types/stack';
 import { getApiHeadersWithUserId } from '@/utiliry/api';
 import Chart from '../uikit/Chart';
@@ -25,10 +24,7 @@ const MyPageWrapper: FC = () => {
   // };
 
   useEffect(() => {
-    const sessionData = getSession();
-    if (!sessionData) return;
-
-    const options = getApiHeadersWithUserId(sessionData);
+    const options = getApiHeadersWithUserId();
     axios
       .get(`${process.env.API_ROOT_URL}/api/v1/stacks`, options)
       .then((response) => {

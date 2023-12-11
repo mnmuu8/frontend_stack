@@ -26,8 +26,8 @@ const Header: FC = () => {
     setFormType(formType);
   };
 
-  const UserProfileHeight = 30;
-  const UserProfileWidth = 30;
+  const USER_PROFILE_HEIGHT = 30;
+  const USER_PROFILE_WIDTH = 30;
 
   return (
     <header className='bg-gray-700 h-[60px] border-b-[1px] border-gray-500'>
@@ -48,8 +48,8 @@ const Header: FC = () => {
           { sessionUser && 
             <ImageWrapper
               src={'/no_image.png'}
-              height={UserProfileHeight}
-              width={UserProfileWidth}
+              height={USER_PROFILE_HEIGHT}
+              width={USER_PROFILE_WIDTH}
               alt={sessionUser?.name}
               className='rounded-full'
             />

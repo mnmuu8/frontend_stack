@@ -43,8 +43,8 @@ const StackCard: FC<StackCardProps> = ({ stack }) => {
 
   const [introspectionValue, setIntrospectionValue] = useState<IntrospectionProps>(undefined);
 
-  const UserProfileHeight = 26;
-  const UserProfileWidth = 25;
+  const USER_PROFILE_HEIGHT = 26;
+  const USER_PROFILE_WIDTH = 26;
 
   useEffect(() => {
     const fetchIntrospection = async () => {
@@ -73,8 +73,8 @@ const StackCard: FC<StackCardProps> = ({ stack }) => {
           { sessionUser && 
             <ImageWrapper
               src={'/no_image.png'}
-              height={UserProfileHeight}
-              width={UserProfileWidth}
+              height={USER_PROFILE_HEIGHT}
+              width={USER_PROFILE_WIDTH}
               alt={sessionUser?.name}
               className='rounded-full mr-2'
             />

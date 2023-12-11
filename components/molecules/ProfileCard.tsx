@@ -10,8 +10,8 @@ const ProfileCard: FC = () => {
   const formContext = useContext(FormContext);
   const { setFormOpen, setFormType } = formContext;
 
-  const UserProfileHeight = 180;
-  const UserProfileWidth = 180;
+  const USER_PROFILE_HEIGHT = 180;
+  const USER_PROFILE_WIDTH = 180;
 
   const handleFormOpen = () => {
     setFormType('updateUser');
@@ -23,8 +23,8 @@ const ProfileCard: FC = () => {
       <div className='flex items-center'>
         <ImageWrapper
           src={'/no_image.png'}
-          height={UserProfileHeight}
-          width={UserProfileWidth}
+          height={USER_PROFILE_HEIGHT}
+          width={USER_PROFILE_WIDTH}
           alt={sessionUser.name}
           className='rounded-full mr-6'
         />

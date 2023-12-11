@@ -76,7 +76,7 @@ const FormModal: FC = () => {
     const sessionData = getSession();
     if (!sessionData) return;
 
-    const options = getApiHeaders(sessionData);
+    const options = getApiHeaders();
 
     if (formType === 'createStack') {
       if (!dataConfirmAlert('積み上げを作成しますか？')) return;

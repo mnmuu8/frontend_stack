@@ -2,6 +2,9 @@ import React, { FC, useEffect, useContext, useState } from 'react';
 import TextInput from './TextInput';
 import Button from '@mui/material/Button';
 import { IntrospectionFormDataParams } from '@/types/form';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+import ReportIcon from '@mui/icons-material/Report';
 import { FormDataContext } from '@/context/FormDataContext';
 
 import { hasValidationErrors, introspectionValidationRules, isRequiredArray } from '@/utiliry/validator';
@@ -153,6 +156,14 @@ const StackInspectionFormGroup: FC = () => {
           className='w-full border-indigo-200 border-2 text-white bg-[#000044] hover:bg-[#000066] mt-4 py-3'
         >
           Keepを追加
+          <Tooltip
+            title="「これからも続けたいこと」「自分が発揮できた価値」「成果に繋がったこと」「嬉しかったこと」などプラスなことをたくさん書きましょう。"
+            className='text-white'
+          >
+            <IconButton>
+              <ReportIcon />
+            </IconButton>
+          </Tooltip>
         </Button>
       </div>
       <div>
@@ -185,6 +196,14 @@ const StackInspectionFormGroup: FC = () => {
           className='w-full border-indigo-200 border-2 text-white bg-[#000044] hover:bg-[#000066] mt-4 py-3'
         >
           Problemを追加
+          <Tooltip
+            title="「問題と認識していること」「不満や不安に思っていること」「見直したいこと」「改善した方が良さそうなこと」などをたくさん書きましょう。"
+            className='text-white'
+          >
+            <IconButton>
+              <ReportIcon />
+            </IconButton>
+          </Tooltip>
         </Button>
       </div>
       <div>
@@ -217,6 +236,14 @@ const StackInspectionFormGroup: FC = () => {
           className='w-full border-indigo-200 border-2 text-white bg-[#000044] hover:bg-[#000066] mt-4 py-3'
         >
           Tryを追加
+          <Tooltip
+            title="Problemで浮かび上がった問題点に関する原因の解決策や、Keepで判明したことを継続する改善案などをたくさん書きましょう。"
+            className='text-white'
+          >
+            <IconButton>
+              <ReportIcon />
+            </IconButton>
+          </Tooltip>
         </Button>
       </div>
     </>

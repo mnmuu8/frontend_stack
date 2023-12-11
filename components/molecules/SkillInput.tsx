@@ -5,8 +5,6 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 
-import { getSession } from '@/utiliry/session';
-import { ApiOptions } from '@/types/api';
 import { SkillProps } from '@/types/skill';
 import axios from 'axios';
 import { FormDataContext } from '@/context/FormDataContext';
@@ -28,10 +26,7 @@ const SkillInput: FC = () => {
   };
 
   useEffect(() => {
-    const sessionData = getSession();
-    if (!sessionData) return;
-
-    const options = getApiHeaders(sessionData);
+    const options = getApiHeaders();
 
     axios
       .get(`${process.env.API_ROOT_URL}/api/v1/skills`, options)

@@ -199,7 +199,7 @@ const FormModal: FC = () => {
   const currentFormGroup = setFormGroup({ formType });
   const cancelButton = <FormCancelButton onClick={FormCancel} />;
   const insideRef = useRef<HTMLDivElement>(null);
-  const hundleClickOutside = (e: MouseEvent) => {
+  const handleClickOutside: React.MouseEventHandler<HTMLDivElement> = (e) => {
     const el = insideRef.current;
 
     if (!el) {
@@ -213,9 +213,12 @@ const FormModal: FC = () => {
 
   return (
     <>
-      <div className="insideArea" onClick={hundleClickOutside}>
+      <div className='insideArea' onClick={handleClickOutside}>
         <Modal open={formOpen}>
-          <Box ref={insideRef} className='absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-white w-[720px] h-auto max-h-[80vh] p-10 flex flex-col overflow-y-scroll'>
+          <Box
+            ref={insideRef}
+            className='absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-white w-[720px] h-auto max-h-[80vh] p-10 flex flex-col overflow-y-scroll'
+          >
             <div className='flex-1'>
               <div className='text-center text-2xl font-bold'>{currentFormGroup?.label}</div>
               <div className='flex flex-col'>{currentFormGroup?.component}</div>

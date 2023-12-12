@@ -7,6 +7,7 @@ import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import { AppContext } from '@/context/AppContext';
 import { SessionContext } from '@/context/SessionContext';
+import axios from 'axios';
 
 const HeaderMenu: FC = () => {
   const appContext = useContext(AppContext);
@@ -18,10 +19,16 @@ const HeaderMenu: FC = () => {
   const open = Boolean(anchorEl);
   const router = useRouter();
 
-  const logoutUser = () => {
-    localStorage.removeItem('session');
-    setSessionUser(undefined);
-    router.push('/login');
+  const LogoutUser = async () => {
+    try {
+      await axios.post('/api/logout');
+      localStorage.removeItem('session');
+      setSessionUser(undefined);
+
+      router.push('/login');
+    } catch (error) {
+      throw new Error(`${JSON.stringify(error)}`);
+    }
   };
 
   return (
@@ -70,7 +77,7 @@ const HeaderMenu: FC = () => {
           <ListItemIcon>
             <Logout fontSize='small' />
           </ListItemIcon>
-          <div onClick={logoutUser}>ログアウト</div>
+          <div onClick={LogoutUser}>ログアウト</div>
         </MenuItem>
       </Menu>
     </div>

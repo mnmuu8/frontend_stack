@@ -31,7 +31,8 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
     const options = getApiHeaders();
 
-    axios.get(`${process.env.API_ROOT_URL}/api/v1/users/${sessionData.userId}`, options)
+    axios
+      .get(`${process.env.API_ROOT_URL}/api/v1/users/${sessionData.userId}`, options)
       .then((response) => {
         const { data } = response;
         setSessionUser(data);
@@ -60,7 +61,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
         router.push('/login');
       }
     };
-    CheckSession()
+    CheckSession();
   }, [router]);
 
   return (

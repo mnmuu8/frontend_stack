@@ -68,7 +68,9 @@ const Layout: FC<LayoutProps> = ({ children }) => {
       <Header />
       <div className='h-[calc(100%-60px)] flex'>
         <Sidebar />
-        <main className='ml-auto duration-300' style={mainStyle}>{children}</main>
+        <main className='ml-auto duration-300' style={mainStyle}>
+          {children}
+        </main>
       </div>
     </div>
   );

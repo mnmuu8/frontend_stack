@@ -11,10 +11,6 @@ interface ISnackbarContext {
 
 const SnackbarContext = createContext<ISnackbarContext>({ showSnackbar: undefined });
 
-export function useSnackbarContext() {
-  return useContext(SnackbarContext);
-}
-
 const SnackbarProvider = ({ children }: ChildrenProps) => {
   const [open, setOpen] = useState<boolean>(false);
   const [severity, setSeverity] = useState<SnackbarSeverity>('info');

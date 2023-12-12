@@ -31,14 +31,14 @@ const SnackbarProvider = ({ children }: ChildrenProps) => {
   };
 
   return (
-    <React.Fragment>
+    <>
       <SnackbarContext.Provider value={{ showSnackbar: showSnackbar }}>{children}</SnackbarContext.Provider>
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity={severity} sx={{ width: '100%' }}>
           {message}
         </Alert>
       </Snackbar>
-    </React.Fragment>
+    </>
   );
 };
 

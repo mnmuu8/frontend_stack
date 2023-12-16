@@ -1,4 +1,4 @@
-import React, { FC, useContext, useEffect, useState } from 'react';
+import React, { FC, useContext, useEffect } from 'react';
 import Header from './Header';
 import Sidebar from './Sidebar';
 import { LayoutProps } from '@/types/utils';
@@ -10,6 +10,8 @@ import { SessionContext } from '@/context/SessionContext';
 import { getApiHeaders } from '@/utiliry/api';
 
 const Layout: FC<LayoutProps> = ({ children }) => {
+  const router = useRouter();
+
   const appContext = useContext(AppContext);
   const { drawerArea } = appContext;
 
@@ -18,31 +20,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
   const mainStyle: React.CSSProperties = {
     width: drawerArea ? 'calc(100% - 240px)' : '100%',
-  };
-
-  const router = useRouter();
-
-  const checkActivity = () => {
-    const sessionData = getSession();
-    if (sessionData === false) return;
-
-    const currentTime = new Date().getTime();
-    if (currentTime - sessionData.lastActivity >= sessionData.exp) {
-      localStorage.removeItem('session');
-    }
-  };
-
-  const updateActivity = () => {
-    const sessionData = getSession();
-    if (sessionData === false) return;
-
-    const lastActivity = new Date().getTime();
-    sessionData.lastActivity = lastActivity;
-    localStorage.setItem('session', JSON.stringify(sessionData));
-  };
-
-  const handleRouteChange = () => {
-    updateActivity();
   };
 
   useEffect((): void => {
@@ -61,33 +38,31 @@ const Layout: FC<LayoutProps> = ({ children }) => {
         setSessionUser(data);
       })
       .catch((error) => {
-        if (error.response) {
-          const { data } = error.response;
-          throw new Error(`${JSON.stringify(data)}`);
-        } else {
-          throw new Error(`${JSON.stringify(error)}`);
-        }
+        throw new Error(`${JSON.stringify(error)}`);
       });
   }, []);
 
   useEffect(() => {
-    const sessionData = getSession();
-    if (!sessionData) return;
-
-    updateActivity();
-
-    router.events.on('routeChangeComplete', handleRouteChange);
-    const intervalId = setInterval(checkActivity, 60 * 3000);
-
-    return () => {
-      router.events.off('routeChangeComplete', handleRouteChange);
-      clearInterval(intervalId);
-    };
-  }, [router]);
-
-  useEffect(() => {
     sessionUser && sessionUser.role === 'admin' ? setIsAdmin(true) : setIsAdmin(false);
   }, [sessionUser, isAdmin]);
+
+  useEffect(() => {
+    const CheckSession = async () => {
+      try {
+        const response = await axios.get('/api/check-session');
+        if (!response.data.session) {
+          axios.post('/api/logout');
+          localStorage.removeItem('session');
+          setSessionUser(undefined);
+
+          router.push('/login');
+        }
+      } catch (error) {
+        router.push('/login');
+      }
+    };
+    CheckSession();
+  }, [router]);
 
   return (
     <div className='h-screen'>

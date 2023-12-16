@@ -9,7 +9,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const response = await axios.post(url, { email, password });
     const { access_token, user_id, exp, role } = response.data;
 
-    res.setHeader('Set-Cookie', `access_token=${access_token}; Path=/; Max-Age=3600; HttpOnly; Secure; SameSite=Strict`);
+    res.setHeader('Set-Cookie', `access_token=${access_token}; Path=/; Max-Age=86400; HttpOnly; Secure; SameSite=Strict`);
     res.status(200).json({ access_token, user_id, exp, role });
   } catch (error) {
     if (error instanceof AxiosError) {

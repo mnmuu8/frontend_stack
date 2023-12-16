@@ -42,7 +42,6 @@ const ProfileImageModal: FC<ProfileModalState> = ({ isProfileImageModal, setIsPr
     const sessionData = getSession();
     if (!sessionData) return;
 
-    console.log(sessionData.token);
     const options = {
       headers: {
         'Content-Type': 'application/json',

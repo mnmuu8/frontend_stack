@@ -12,7 +12,7 @@ export type ImageWrapperProps = {
   alt: string;
   width: number;
   height: number;
-  className: string;
+  className?: string;
 };
 
 export type sidebarMenus = {

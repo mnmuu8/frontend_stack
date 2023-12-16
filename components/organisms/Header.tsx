@@ -28,6 +28,8 @@ const Header: FC = () => {
 
   const USER_PROFILE_HEIGHT = 30;
   const USER_PROFILE_WIDTH = 30;
+  const USER_PROFILE_SRC_PATH = sessionUser && sessionUser.profile_image_path !== null ? sessionUser.profile_image_path : '/no_image.png' 
+  const USER_PROFILE_NAME = sessionUser && sessionUser.name !== null ? sessionUser.name : 'noname' 
 
   return (
     <header className='bg-gray-700 h-[60px] border-b-[1px] border-gray-500'>
@@ -47,10 +49,10 @@ const Header: FC = () => {
         <div className='flex items-center cursor-pointer' onClick={handleMenuOpen}>
           { sessionUser && 
             <ImageWrapper
-              src={'/no_image.png'}
+              src={USER_PROFILE_SRC_PATH}
               height={USER_PROFILE_HEIGHT}
               width={USER_PROFILE_WIDTH}
-              alt={sessionUser?.name}
+              alt={USER_PROFILE_NAME}
               className='rounded-full'
             />
           }

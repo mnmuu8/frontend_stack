@@ -1,5 +1,6 @@
 import { IntrospectionProps } from './introspection';
 import { SkillProps } from './skill';
+import { UserProps } from './user';
 
 export type StackProps = {
   id: number;
@@ -12,6 +13,7 @@ export type StackProps = {
   stacked_at: string;
   created_at: string;
   updated_at: string;
+  user: UserProps
 };
 
 export type StackCardProps = {

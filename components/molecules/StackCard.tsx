@@ -3,7 +3,6 @@ import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import { formatDate } from '../uikit/dateUtils';
 import { IntrospectionProps } from '@/types/introspection';
 import { StackCardProps } from '@/types/stack';
-import { getSession } from '@/utiliry/session';
 import axios from 'axios';
 import { FormContext } from '@/context/FormContext';
 import { SessionContext } from '@/context/SessionContext';
@@ -45,6 +44,7 @@ const StackCard: FC<StackCardProps> = ({ stack }) => {
 
   const USER_PROFILE_HEIGHT = 26;
   const USER_PROFILE_WIDTH = 26;
+  const USER_PROFILE_SRC_PATH = stack.user.profile_image_path !== null ? stack.user.profile_image_path : '/no_image.png' 
 
   useEffect(() => {
     const fetchIntrospection = async () => {
@@ -69,10 +69,10 @@ const StackCard: FC<StackCardProps> = ({ stack }) => {
         <div className='flex items-center flex-grow pr-2 min-w-0'>
           { sessionUser && 
             <ImageWrapper
-              src={'/no_image.png'}
+              src={USER_PROFILE_SRC_PATH}
               height={USER_PROFILE_HEIGHT}
               width={USER_PROFILE_WIDTH}
-              alt={sessionUser.name}
+              alt={stack.user.name}
               className='rounded-full mr-2'
             />
           }

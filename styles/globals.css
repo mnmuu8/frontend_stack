@@ -91,3 +91,22 @@ h3 {
   @apply absolute left-0 right-0 bottom-6 p-6 text-center cursor-pointer;
   background: linear-gradient(to top, rgb(249, 250, 251), rgba(0, 0, 0, 0));
 }
+
+.ProfileImage {
+  @apply relative mr-6 bg-white rounded-full;
+}
+.ProfileImageOverlay {
+  @apply flex items-center justify-center absolute top-0 left-0 h-full w-full rounded-full cursor-pointer;
+  transition: 0.3s all;
+}
+.ProfileImageIcon {
+  @apply text-gray-100 opacity-0;
+}
+.ProfileImage:hover .ProfileImageOverlay {
+  background-color: rgba(0, 0, 0, 0.1);
+  transition: 0.3s all;
+}
+.ProfileImage:hover .ProfileImageIcon {
+  @apply opacity-100;
+  transition: 0.3s all;
+}

@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useContext, useEffect, useState } from 'react';
 import { tabInfo } from '../../sample';
 import StackCard from '../molecules/StackCard';
 import ProfileCard from '../molecules/ProfileCard';
@@ -6,11 +6,15 @@ import axios from 'axios';
 import { StackProps } from '@/types/stack';
 import { getApiHeadersWithUserId } from '@/utiliry/api';
 import Chart from '../uikit/Chart';
+import { SessionContext } from '@/context/SessionContext';
 
 const MyPageWrapper: FC = () => {
   const [stacks, setStacks] = useState<StackProps[]>([]);
   const [skills, setSkills] = useState<string[]>([]);
   const [minutes, setMinutes] = useState<number[]>([]);
+
+  const sessionContext = useContext(SessionContext);
+  const { sessionUser } = sessionContext;
 
   // TODO: タブで積み上げの一覧を切り替える機能。後ほど使用する可能性があるので残しておく
   // const [activeTab, setActiveTab] = useState('all');
@@ -39,7 +43,7 @@ const MyPageWrapper: FC = () => {
           throw new Error(`${JSON.stringify(error)}`);
         }
       });
-  }, []);
+  }, [sessionUser]);
 
   useEffect(() => {
     const skillAccumulation: { [skill: string]: number } = {};

@@ -2,7 +2,7 @@
 const nextConfig = {
   experimental: {},
   images: {
-    domains: ['lh3.googleusercontent.com','s.gravatar.com'],
+    domains: ['lh3.googleusercontent.com','s.gravatar.com','stack-image-save-bucket.s3.ap-northeast-1.amazonaws.com'],
   },
   env: {
     SITE_TITLE: process.env.SITE_TITLE,

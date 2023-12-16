@@ -7,6 +7,7 @@ import { AppProvider } from '@/context/AppContext';
 import { SessionProvider } from '@/context/SessionContext';
 import { FormProvider } from '@/context/FormContext';
 import { FormDataProvider } from '@/context/FormDataContext';
+import { SnackbarProvider } from '@/context/SnackbarContext';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -14,7 +15,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       <SessionProvider>
         <FormProvider>
           <FormDataProvider>
-            <Component {...pageProps} />
+            <SnackbarProvider>
+              <Component {...pageProps} />
+            </SnackbarProvider>
           </FormDataProvider>
         </FormProvider>
       </SessionProvider>

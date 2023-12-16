@@ -1,6 +1,7 @@
 import { TeamProps } from './team';
 
-export type sessionUser = {
+export type sessionUser =
+  | {
       id: number;
       role: string;
       name: string;

@@ -28,8 +28,9 @@ const Header: FC = () => {
 
   const USER_PROFILE_HEIGHT = 30;
   const USER_PROFILE_WIDTH = 30;
-  const USER_PROFILE_SRC_PATH = sessionUser && sessionUser.profile_image_path !== null ? sessionUser.profile_image_path : '/no_image.png' 
-  const USER_PROFILE_NAME = sessionUser && sessionUser.name !== null ? sessionUser.name : 'noname' 
+  const USER_PROFILE_SRC_PATH =
+    sessionUser && sessionUser.profile_image_path !== null ? sessionUser.profile_image_path : '/no_image.png';
+  const USER_PROFILE_NAME = sessionUser && sessionUser.name !== null ? sessionUser.name : 'noname';
 
   return (
     <header className='bg-gray-700 h-[60px] border-b-[1px] border-gray-500'>
@@ -42,12 +43,12 @@ const Header: FC = () => {
             className='flex items-center border border-gray-500 rounded-full py-1 pl-1 pr-2 cursor-pointer hover:bg-opacity-75'
             onClick={() => handleFormOpen('createStack')}
           >
-            <AddIcon className='rounded-full bg-red-500 text-gray-50' fontSize='small'/>
+            <AddIcon className='rounded-full bg-red-500 text-gray-50' fontSize='small' />
             <div className='text-sm text-gray-50 ml-1'>作成</div>
           </div>
         </div>
         <div className='flex items-center cursor-pointer' onClick={handleMenuOpen}>
-          { sessionUser && 
+          {sessionUser && (
             <ImageWrapper
               src={USER_PROFILE_SRC_PATH}
               height={USER_PROFILE_HEIGHT}
@@ -55,7 +56,7 @@ const Header: FC = () => {
               alt={USER_PROFILE_NAME}
               className='rounded-full'
             />
-          }
+          )}
           <KeyboardArrowDownIcon fontSize='small' sx={{ color: '#DDDDDD' }} />
         </div>
       </div>

@@ -157,7 +157,7 @@ const StackInspectionFormGroup: FC = () => {
         >
           Keepを追加
           <Tooltip
-            title="「これからも続けたいこと」「自分が発揮できた価値」「成果に繋がったこと」「嬉しかったこと」などプラスなことをたくさん書きましょう。"
+            title='「これからも続けたいこと」「自分が発揮できた価値」「成果に繋がったこと」「嬉しかったこと」などプラスなことをたくさん書きましょう。'
             className='text-white'
           >
             <IconButton>
@@ -197,7 +197,7 @@ const StackInspectionFormGroup: FC = () => {
         >
           Problemを追加
           <Tooltip
-            title="「問題と認識していること」「不満や不安に思っていること」「見直したいこと」「改善した方が良さそうなこと」などをたくさん書きましょう。"
+            title='「問題と認識していること」「不満や不安に思っていること」「見直したいこと」「改善した方が良さそうなこと」などをたくさん書きましょう。'
             className='text-white'
           >
             <IconButton>
@@ -237,7 +237,7 @@ const StackInspectionFormGroup: FC = () => {
         >
           Tryを追加
           <Tooltip
-            title="Problemで浮かび上がった問題点に関する原因の解決策や、Keepで判明したことを継続する改善案などをたくさん書きましょう。"
+            title='Problemで浮かび上がった問題点に関する原因の解決策や、Keepで判明したことを継続する改善案などをたくさん書きましょう。'
             className='text-white'
           >
             <IconButton>

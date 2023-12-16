@@ -15,7 +15,7 @@ const MyPageWrapper: FC = () => {
 
   const sessionContext = useContext(SessionContext);
   const { sessionUser } = sessionContext;
-  
+
   // TODO: タブで積み上げの一覧を切り替える機能。後ほど使用する可能性があるので残しておく
   // const [activeTab, setActiveTab] = useState('all');
   // const [innerTab, setInnerTab] = useState('allStack');
@@ -98,7 +98,9 @@ const MyPageWrapper: FC = () => {
             <StackCard key={stack.id} stack={stack} />
           ))}
           <div className='pt-4 px-6'>
-            <div className='text-sm text-gray-900 py-2 px-4 cursor-pointer inline-block hover:bg-gray-50'>もっと表示</div>
+            <div className='text-sm text-gray-900 py-2 px-4 cursor-pointer inline-block hover:bg-gray-50'>
+              もっと表示
+            </div>
           </div>
         </div>
       </div>

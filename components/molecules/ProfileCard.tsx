@@ -12,15 +12,16 @@ const ProfileCard: FC = () => {
   const formContext = useContext(FormContext);
   const { setFormOpen, setFormType } = formContext;
 
-  const [isProfileImageModal, setIsProfileImageModal] = useState<boolean>(false)
+  const [isProfileImageModal, setIsProfileImageModal] = useState<boolean>(false);
 
   const handleProfileImageModalOpen = (): void => {
-    setIsProfileImageModal(true)
-  }
+    setIsProfileImageModal(true);
+  };
 
   const USER_PROFILE_HEIGHT = 180;
   const USER_PROFILE_WIDTH = 180;
-  const USER_PROFILE_SRC_PATH = sessionUser && sessionUser.profile_image_path !== null ? sessionUser.profile_image_path : '/no_image.png' 
+  const USER_PROFILE_SRC_PATH =
+    sessionUser && sessionUser.profile_image_path !== null ? sessionUser.profile_image_path : '/no_image.png';
 
   const handleFormOpen = () => {
     setFormType('updateUser');
@@ -52,10 +53,7 @@ const ProfileCard: FC = () => {
             プロフィールを編集する
           </div>
         </div>
-        <ProfileImageModal 
-          isProfileImageModal={isProfileImageModal}
-          setIsProfileImageModal={setIsProfileImageModal}
-        />
+        <ProfileImageModal isProfileImageModal={isProfileImageModal} setIsProfileImageModal={setIsProfileImageModal} />
       </div>
     );
   } else {

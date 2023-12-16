@@ -13,7 +13,7 @@ export type StackProps = {
   stacked_at: string;
   created_at: string;
   updated_at: string;
-  user: UserProps
+  user: UserProps;
 };
 
 export type StackCardProps = {

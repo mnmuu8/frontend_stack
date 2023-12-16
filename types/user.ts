@@ -27,9 +27,9 @@ export type GetUploadUrl = {
   filename: string;
   byteSize: number;
   contentType: string;
-}
+};
 
 export type ProfileModalState = {
   isProfileImageModal: boolean;
   setIsProfileImageModal: (value: boolean) => void;
-}
+};

@@ -1,10 +1,9 @@
 import React, { FC, useEffect, useState } from 'react';
-import { tabInfo } from '../../sample';
-import StackCard from '../molecules/StackCard';
-import ProfileCard from '../molecules/ProfileCard';
 import axios from 'axios';
 import { StackProps } from '@/types/stack';
 import { getApiHeadersWithUserId } from '@/utiliry/api';
+import ProfileCard from '../molecules/ProfileCard';
+import StackCard from '../molecules/StackCard';
 import Chart from '../uikit/Chart';
 
 const MyPageWrapper: FC = () => {
@@ -24,38 +23,35 @@ const MyPageWrapper: FC = () => {
   // };
 
   useEffect(() => {
-    const options = getApiHeadersWithUserId();
-    axios
-      .get(`${process.env.API_ROOT_URL}/api/v1/stacks`, options)
-      .then((response) => {
+    const fetchData = async () => {
+      try {
+        const options = getApiHeadersWithUserId();
+        const response = await axios.get(`${process.env.API_ROOT_URL}/api/v1/stacks`, options);
         const { data } = response;
         setStacks(data.stacks);
-      })
-      .catch((error) => {
+
+        const skillAccumulation: { [skill: string]: number } = {};
+        data.stacks.forEach((stack) => {
+          const { skill, minutes } = stack;
+          skillAccumulation[skill.name] = (skillAccumulation[skill.name] || 0) + minutes;
+        });
+
+        const skillNames = Object.keys(skillAccumulation);
+        const skillMinutes = Object.values(skillAccumulation);
+        setSkills(skillNames);
+        setMinutes(skillMinutes);
+      } catch (error) {
         if (error.response) {
           const { data } = error.response;
-          throw new Error(`${JSON.stringify(data)}`);
+          console.error(`${JSON.stringify(data)}`);
         } else {
-          throw new Error(`${JSON.stringify(error)}`);
+          console.error(`${JSON.stringify(error)}`);
         }
-      });
-  }, []);
-
-  useEffect(() => {
-    const skillAccumulation: { [skill: string]: number } = {};
-
-    stacks.forEach((stack) => {
-      const { skill, minutes } = stack;
-      if (skillAccumulation[skill.name]) {
-        skillAccumulation[skill.name] += minutes;
-      } else {
-        skillAccumulation[skill.name] = minutes;
       }
-    });
+    };
 
-    setSkills(Object.keys(skillAccumulation));
-    setMinutes(Object.values(skillAccumulation));
-  }, [stacks]);
+    fetchData();
+  }, []);
 
   return (
     <div className='max-w-[1020px] m-auto'>

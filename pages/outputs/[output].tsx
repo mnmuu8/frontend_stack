@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useState, useContext, useCallback } from 'react';
 import axios from 'axios';
 import cookie from 'cookie';
 import { GetServerSideProps, NextPage } from 'next';
@@ -13,6 +13,7 @@ import { FormDataContext } from '@/context/FormDataContext';
 const Output: NextPage<OutputCardProps> = ({ output, initialComments }) => {
   const router = useRouter();
   const handleBack = () => router.back();
+  const [comments, setComments] = useState(initialComments);
 
   const formContext = useContext(FormContext);
   const { setFormOpen, setFormType } = formContext;
@@ -20,12 +21,16 @@ const Output: NextPage<OutputCardProps> = ({ output, initialComments }) => {
   const formDataContext = useContext(FormDataContext);
   const { setOutputCommentFormData } = formDataContext;
 
-  const handleFormOpen = () => {
+  const handleFormOpen = useCallback(() => {
     const outputId = output.id;
     setOutputCommentFormData({ ...InitialOutputCommentFormData, outputId });
     setFormType('createOutputComment');
     setFormOpen(true);
-  };
+  }, []);
+
+  useEffect(() => {
+    setComments(initialComments);
+  }, [initialComments]);
 
   return (
     <div className='bg-gray-50 h-full min-h-screen flex justify-center items-center'>
@@ -37,7 +42,9 @@ const Output: NextPage<OutputCardProps> = ({ output, initialComments }) => {
         <button className='block bg-blue-500 text-blue-100 hover:bg-blue-600 text-sm font-bold rounded-full p-2 ml-auto w-[150px] text-center cursor-pointer' onClick={handleFormOpen}>コメントする</button>
         <div className='p-4 bg-white'>
           <h2 className='text-lg font-bold mb-4'>コメント</h2>
-          <CommentList comments={initialComments} />
+          {comments && comments.map((comment) => (
+            <Comment key={comment.id} comment={comment} />
+          ))}
         </div>
         <FormModal />
       </div>

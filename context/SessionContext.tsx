@@ -3,6 +3,13 @@ import { ChildrenProps } from '@/types/utils';
 import { sessionUser } from '@/types/session';
 import { SessionContextProps } from '@/types/context';
 
+const InitialState: SessionContextProps = {
+  sessionUser: undefined,
+  setSessionUser: () => {},
+  isAdmin: false,
+  setIsAdmin: () => {},
+};
+
 const SessionContext = createContext<SessionContextProps>(InitialState);
 
 const SessionProvider = ({ children }: ChildrenProps) => {

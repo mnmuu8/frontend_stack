@@ -7,6 +7,7 @@ export type sessionUser =
       name: string;
       email: string;
       profile_content: string;
+      profile_image_path: string | null;
       created_at: string;
       updated_at: string;
       team: TeamProps;

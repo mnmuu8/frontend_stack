@@ -1,15 +1,20 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useContext, useEffect, useState } from 'react';
+import { tabInfo } from '../../sample';
+import StackCard from '../molecules/StackCard';
+import ProfileCard from '../molecules/ProfileCard';
 import axios from 'axios';
 import { StackProps } from '@/types/stack';
 import { getApiHeadersWithUserId } from '@/utiliry/api';
-import ProfileCard from '../molecules/ProfileCard';
-import StackCard from '../molecules/StackCard';
 import Chart from '../uikit/Chart';
+import { SessionContext } from '@/context/SessionContext';
 
 const MyPageWrapper: FC = () => {
   const [stacks, setStacks] = useState<StackProps[]>([]);
   const [skills, setSkills] = useState<string[]>([]);
   const [minutes, setMinutes] = useState<number[]>([]);
+
+  const sessionContext = useContext(SessionContext);
+  const { sessionUser } = sessionContext;
 
   // TODO: タブで積み上げの一覧を切り替える機能。後ほど使用する可能性があるので残しておく
   // const [activeTab, setActiveTab] = useState('all');
@@ -23,35 +28,38 @@ const MyPageWrapper: FC = () => {
   // };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const options = getApiHeadersWithUserId();
-        const response = await axios.get(`${process.env.API_ROOT_URL}/api/v1/stacks`, options);
+    const options = getApiHeadersWithUserId();
+    axios
+      .get(`${process.env.API_ROOT_URL}/api/v1/stacks`, options)
+      .then((response) => {
         const { data } = response;
         setStacks(data.stacks);
-
-        const skillAccumulation: { [skill: string]: number } = {};
-        data.stacks.forEach((stack) => {
-          const { skill, minutes } = stack;
-          skillAccumulation[skill.name] = (skillAccumulation[skill.name] || 0) + minutes;
-        });
-
-        const skillNames = Object.keys(skillAccumulation);
-        const skillMinutes = Object.values(skillAccumulation);
-        setSkills(skillNames);
-        setMinutes(skillMinutes);
-      } catch (error) {
+      })
+      .catch((error) => {
         if (error.response) {
           const { data } = error.response;
-          console.error(`${JSON.stringify(data)}`);
+          throw new Error(`${JSON.stringify(data)}`);
         } else {
-          console.error(`${JSON.stringify(error)}`);
+          throw new Error(`${JSON.stringify(error)}`);
         }
-      }
-    };
+      });
+  }, [sessionUser]);
 
-    fetchData();
-  }, []);
+  useEffect(() => {
+    const skillAccumulation: { [skill: string]: number } = {};
+
+    stacks.forEach((stack) => {
+      const { skill, minutes } = stack;
+      if (skillAccumulation[skill.name]) {
+        skillAccumulation[skill.name] += minutes;
+      } else {
+        skillAccumulation[skill.name] = minutes;
+      }
+    });
+
+    setSkills(Object.keys(skillAccumulation));
+    setMinutes(Object.values(skillAccumulation));
+  }, [stacks]);
 
   return (
     <div className='max-w-[1020px] m-auto'>

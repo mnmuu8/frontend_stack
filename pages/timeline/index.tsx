@@ -1,18 +1,18 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { NextPage } from 'next'
-import Layout from '@/components/organisms/Layout'
-import StackList from '@/components/molecules/StackList'
-import { StackProps } from '@/types/stack'
-import { getSession } from '@/utiliry/session'
-import { ApiOptions } from '@/types/api'
-import { SessionContext } from '@/context/SessionContext'
-import axios from 'axios'
+import React, { useContext, useEffect, useState } from 'react';
+import { NextPage } from 'next';
+import Layout from '@/components/organisms/Layout';
+import StackList from '@/components/molecules/StackList';
+import { StackProps } from '@/types/stack';
+import { getSession } from '@/utiliry/session';
+import { ApiOptions } from '@/types/api';
+import { SessionContext } from '@/context/SessionContext';
+import axios from 'axios';
 
 const Index: NextPage = () => {
-  const [stacks, setStacks] = useState<StackProps[]>([]);
-  
   const sessionContext = useContext(SessionContext);
-  const { sessionUser } = sessionContext
+  const { sessionUser } = sessionContext;
+
+  const [stacks, setStacks] = useState<StackProps[]>([]);
 
   useEffect(() => {
     const sessionData = getSession();
@@ -22,11 +22,11 @@ const Index: NextPage = () => {
       const options: ApiOptions = {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${sessionData.token}`
+          Authorization: `Bearer ${sessionData.token}`,
         },
-        params: { team_id: sessionUser?.team.id }
+        params: { team_id: sessionUser?.team.id },
       };
-      const url = `${process.env.API_ROOT_URL}/api/v1/stacks`
+      const url = `${process.env.API_ROOT_URL}/api/v1/stacks`;
 
       try {
         const response = await axios.get(url, options);
@@ -36,14 +36,19 @@ const Index: NextPage = () => {
       }
     };
 
-    fetchStacks().then((res) => { setStacks(res); });
-  }, [stacks]);
+    const fetchData = async () => {
+      const fetchedStacks = await fetchStacks();
+      setStacks(fetchedStacks);
+    };
+
+    fetchData();
+  }, [sessionUser]);
 
   return (
     <Layout>
       <StackList stacks={stacks} />
     </Layout>
-  )
-}
+  );
+};
 
-export default Index
+export default Index;

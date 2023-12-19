@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import axios from 'axios';
 import { GetServerSideProps, NextPage } from 'next'
 import { useRouter } from 'next/router';
@@ -23,21 +23,20 @@ const Register: NextPage<UserRegisterProps> = ({ email, team_id }) => {
   const formContext = useContext(FormContext);
   const { isValidate, setIsValidate } = formContext;
 
-  const [errorMessages, setErrorMessages] = useState<ErrorMessages>(InitialUserErrorMessage);
+  const router = useRouter();
 
   const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     const validationRules = userValidationRules;
-    validationCheck({ name, value, validationRules, errorMessages, setErrorMessages });
+    const newErrorMessages = { ...errorMessages };
+    validationCheck({ name, value, validationRules, errorMessages: newErrorMessages, setErrorMessages });
 
     setUserFormData({
       ...userFormData,
       [name]: value,
     });
   };
-
-  const router = useRouter();
 
   const FormSubmit = () => {
     const options = getApiHeaders();
@@ -81,50 +80,52 @@ const Register: NextPage<UserRegisterProps> = ({ email, team_id }) => {
     });
   }, []);
 
+  const errorMessages: ErrorMessages = InitialUserErrorMessage;
+
   return (
     <>
-    <div className='flex-1'>
-      <div className='text-center text-2xl font-bold'>ユーザー登録</div>
-    </div>
-    <div className='bg-gray-50 h-full min-h-screen flex justify-center items-center'>
-      <div className='w-[768px] bg-white max-h-[80vh] overflow-auto'>
-        <UserFormGroup />
+      <div className='flex-1'>
+        <div className='text-center text-2xl font-bold'>ユーザー登録</div>
+      </div>
+      <div className='bg-gray-50 h-full min-h-screen flex justify-center items-center'>
+        <div className='w-[768px] bg-white max-h-[80vh] overflow-auto'>
+          <UserFormGroup />
 
-        <TextInput
-          name={'password'}
-          fullWidth={true}
-          multiline={false}
-          minRows={1}
-          required={true}
-          requiredMessage={'必須入力'}
-          label={'パスワード'}
-          placeholder={'Password123'}
-          type='password'
-          onChange={handleFieldChange}
-          value={userFormData.password}
-        />
-        <ErrorMessage errorMessages={errorMessages} errorKey={'password'} />
+          <TextInput
+            name={'password'}
+            fullWidth={true}
+            multiline={false}
+            minRows={1}
+            required={true}
+            requiredMessage={'必須入力'}
+            label={'パスワード'}
+            placeholder={'Password123'}
+            type='password'
+            onChange={handleFieldChange}
+            value={userFormData.password}
+          />
+          <ErrorMessage errorMessages={errorMessages} errorKey={'password'} />
 
-        <TextInput
-          name={'password_confirmation'}
-          fullWidth={true}
-          multiline={false}
-          minRows={1}
-          required={true}
-          requiredMessage={'必須入力'}
-          label={'パスワード（確認）'}
-          placeholder={'password'}
-          type='Password123'
-          onChange={handleFieldChange}
-          value={userFormData.password_confirmation}
-        />
-        <ErrorMessage errorMessages={errorMessages} errorKey={'password_confirmation'} />
+          <TextInput
+            name={'password_confirmation'}
+            fullWidth={true}
+            multiline={false}
+            minRows={1}
+            required={true}
+            requiredMessage={'必須入力'}
+            label={'パスワード（確認）'}
+            placeholder={'password'}
+            type='Password123'
+            onChange={handleFieldChange}
+            value={userFormData.password_confirmation}
+          />
+          <ErrorMessage errorMessages={errorMessages} errorKey={'password_confirmation'} />
 
-        <div className='flex justify-center pt-6'>
-          <FormSubmitButton onClick={FormSubmit} disabled={isValidate} label={'登録する'} />
+          <div className='flex justify-center pt-6'>
+            <FormSubmitButton onClick={FormSubmit} disabled={isValidate} label={'登録する'} />
+          </div>
         </div>
       </div>
-    </div>
     </>
   );
 };

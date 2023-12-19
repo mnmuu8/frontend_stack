@@ -1,4 +1,4 @@
-import React, { MouseEvent, createContext, useState } from 'react';
+import React, { MouseEvent, createContext, useState, useCallback, useMemo } from 'react';
 import { ChildrenProps } from '@/types/utils';
 import { AppContextProps } from '@/types/context';
 
@@ -16,30 +16,30 @@ const AppContext = createContext<AppContextProps>(InitialState);
 
 const AppProvider = ({ children }: ChildrenProps) => {
   const [drawerArea, setDrawerArea] = useState<boolean>(true);
-  const handleDrawerAreaToggle: () => void = () => {
-    setDrawerArea(!drawerArea);
-  };
+  const handleDrawerAreaToggle = useCallback(() => {
+    setDrawerArea(prevDrawerArea => !prevDrawerArea);
+  }, []);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const handleMenuOpen = (event: MouseEvent<HTMLElement>) => {
+  const handleMenuOpen = useCallback((event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
-  };
-  const handleMenuClose: () => void = () => {
+  }, []);
+  const handleMenuClose = useCallback(() => {
     setAnchorEl(null);
-  };
+  }, []);
+
+  const providerValue = useMemo(() => ({
+    drawerArea,
+    setDrawerArea,
+    handleDrawerAreaToggle,
+    anchorEl,
+    setAnchorEl,
+    handleMenuOpen,
+    handleMenuClose,
+  }), [drawerArea, anchorEl]);
 
   return (
-    <AppContext.Provider
-      value={{
-        drawerArea: drawerArea,
-        setDrawerArea: setDrawerArea,
-        handleDrawerAreaToggle: handleDrawerAreaToggle,
-        anchorEl: anchorEl,
-        setAnchorEl: setAnchorEl,
-        handleMenuOpen: handleMenuOpen,
-        handleMenuClose: handleMenuClose,
-      }}
-    >
+    <AppContext.Provider value={providerValue}>
       {children}
     </AppContext.Provider>
   );

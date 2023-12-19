@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useMemo } from 'react';
 import { ChildrenProps } from '@/types/utils';
 import { FormType } from '@/types/form';
 import { FormContextProps } from '@/types/context';
@@ -22,19 +22,19 @@ const FormProvider = ({ children }: ChildrenProps) => {
   const [isRegisterEvent, setIsRegisterEvent] = useState<boolean>(false);
   const [isValidate, setIsValidate] = useState<boolean>(true);
 
+  const providerValue = useMemo(() => ({
+    formType,
+    setFormType,
+    formOpen,
+    setFormOpen,
+    isRegisterEvent,
+    setIsRegisterEvent,
+    isValidate,
+    setIsValidate,
+  }), [formType, formOpen, isRegisterEvent, isValidate]);
+
   return (
-    <FormContext.Provider
-      value={{
-        formType: formType,
-        setFormType: setFormType,
-        formOpen: formOpen,
-        setFormOpen: setFormOpen,
-        isRegisterEvent: isRegisterEvent,
-        setIsRegisterEvent: setIsRegisterEvent,
-        isValidate: isValidate,
-        setIsValidate: setIsValidate,
-      }}
-    >
+    <FormContext.Provider value={providerValue}>
       {children}
     </FormContext.Provider>
   );

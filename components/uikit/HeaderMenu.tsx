@@ -9,6 +9,12 @@ import { AppContext } from '@/context/AppContext';
 import { SessionContext } from '@/context/SessionContext';
 import axios from 'axios';
 
+interface MenuItemInfo {
+  icon: React.ReactNode;
+  text: string;
+  action: () => void;
+}
+
 const HeaderMenu: FC = () => {
   const appContext = useContext(AppContext);
   const { anchorEl, handleMenuClose } = appContext;
@@ -16,10 +22,9 @@ const HeaderMenu: FC = () => {
   const sessionContext = useContext(SessionContext);
   const { setSessionUser } = sessionContext;
 
-  const open = Boolean(anchorEl);
   const router = useRouter();
 
-  const LogoutUser = async () => {
+  const logoutUser = async () => {
     try {
       await axios.post('/api/logout');
       localStorage.removeItem('session');
@@ -31,11 +36,24 @@ const HeaderMenu: FC = () => {
     }
   };
 
+  const menuItems: MenuItemInfo[] = [
+    {
+      icon: <Settings fontSize='small' />,
+      text: '設定',
+      action: handleMenuClose,
+    },
+    {
+      icon: <Logout fontSize='small' />,
+      text: 'ログアウト',
+      action: logoutUser,
+    },
+  ];
+
   return (
     <div>
       <Menu
         anchorEl={anchorEl}
-        open={open}
+        open={Boolean(anchorEl)}
         onClose={handleMenuClose}
         onClick={handleMenuClose}
         PaperProps={{
@@ -67,21 +85,15 @@ const HeaderMenu: FC = () => {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem onClick={handleMenuClose}>
-          <ListItemIcon>
-            <Settings fontSize='small' />
-          </ListItemIcon>
-          設定
-        </MenuItem>
-        <MenuItem onClick={handleMenuClose}>
-          <ListItemIcon>
-            <Logout fontSize='small' />
-          </ListItemIcon>
-          <div onClick={LogoutUser}>ログアウト</div>
-        </MenuItem>
+        {menuItems.map((item, index) => (
+          <MenuItem key={index} onClick={item.action}>
+            <ListItemIcon>{item.icon}</ListItemIcon>
+            {item.text}
+          </MenuItem>
+        ))}
       </Menu>
     </div>
   );
 };
 
-export default HeaderMenu;
+export default React.memo(HeaderMenu);

@@ -1,8 +1,6 @@
-import React, { FC, useState, useEffect } from 'react';
-import { ChartProps, ChartData, ChartOption } from '@/types/utils';
+import React, { FC, useState, useEffect, useMemo } from 'react';
 import { Bar, Pie } from 'react-chartjs-2';
 import Annotation from 'chartjs-plugin-annotation';
-
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -29,23 +27,34 @@ ChartJS.register(
   Annotation,
 );
 
-const Chart: FC<ChartProps> = ({ labels, label, data, bdColor, bgColor, bdwidth, text, type, pattern }) => {
-  const [chartData, setChartData] = useState<ChartData | null>(null);
-  const [chartOption, setChartOption] = useState<ChartOption | null>(null);
-  const [chartType, setChartType] = useState<'bar' | 'pie' | null>(null);
+type RankingIndex = (minutes: number) => string;
 
-  const RankingIndex = (minutes: number) => {
-    if (minutes <= 10000) return 'ブロンズ';
-    if (minutes > 10000 && minutes <= 30000) return 'シルバー';
-    if (minutes > 30000 && minutes <= 60000) return 'ゴールド';
-    if (minutes > 60000 && minutes <= 100000) return 'プラチナ';
-    if (minutes > 100000 && minutes <= 300000) return 'ダイヤモンド';
-    if (minutes > 300000 && minutes <= 600000) return 'マスター';
-    if (minutes > 600000) return 'レジェンド';
-  };
+interface ChartProps {
+  labels: string[];
+  label: string;
+  data: number[];
+  bdColor: string[];
+  bgColor: string[];
+  bdwidth: number;
+  text: string;
+  type: 'bar' | 'pie';
+  pattern: string;
+}
 
-  const getChartData = () => {
-    const chartData: ChartData = {
+const RankingIndex: RankingIndex = (minutes: number) => {
+  if (minutes <= 10000) return 'ブロンズ';
+  if (minutes > 10000 && minutes <= 30000) return 'シルバー';
+  if (minutes > 30000 && minutes <= 60000) return 'ゴールド';
+  if (minutes > 60000 && minutes <= 100000) return 'プラチナ';
+  if (minutes > 100000 && minutes <= 300000) return 'ダイヤモンド';
+  if (minutes > 300000 && minutes <= 600000) return 'マスター';
+  if (minutes > 600000) return 'レジェンド';
+  return '';
+};
+
+const BarChart: FC<ChartProps> = ({ labels, label, data, bdColor, bgColor, bdwidth, text, pattern }) => {
+  const chartData = useMemo(() => {
+    return {
       labels: labels,
       datasets: [
         {
@@ -57,16 +66,14 @@ const Chart: FC<ChartProps> = ({ labels, label, data, bdColor, bgColor, bdwidth,
         },
       ],
     };
+  }, [labels, label, data, bdColor, bgColor, bdwidth]);
 
-    return chartData;
-  };
-
-  const getChartOptions = (pattern: string) => {
+  const chartOptions = useMemo(() => {
     if (pattern === 'SkillRankGraph') {
       const maxDataValue = Math.max(...data);
       const scaledMax = maxDataValue * 1.2;
 
-      const chartOptions: ChartOption = {
+      return {
         responsive: true,
         plugins: {
           title: {
@@ -75,8 +82,8 @@ const Chart: FC<ChartProps> = ({ labels, label, data, bdColor, bgColor, bdwidth,
           },
           tooltip: {
             callbacks: {
-              label: function (context) {
-                const minutes = context.parsed.y;
+              label: (context: Chart.TooltipItem) => {
+                const minutes = context.parsed?.y || 0;
                 const rank = RankingIndex(minutes);
                 return `時間: ${minutes}  ランク: ${rank}`;
               },
@@ -135,9 +142,8 @@ const Chart: FC<ChartProps> = ({ labels, label, data, bdColor, bgColor, bdwidth,
           },
         },
       };
-      return chartOptions;
     } else {
-      const chartOptions: ChartOption = {
+      return {
         responsive: true,
         plugins: {
           title: {
@@ -146,31 +152,50 @@ const Chart: FC<ChartProps> = ({ labels, label, data, bdColor, bgColor, bdwidth,
           },
         },
       };
-      return chartOptions;
     }
-  };
+  }, [data, text, pattern]);
 
-  useEffect(() => {
-    const formattedChartData = getChartData();
-    const formattedChartOptions = getChartOptions(pattern);
+  return <Bar options={chartOptions} data={chartData} />;
+};
 
-    setChartType(type);
-    setChartData(formattedChartData);
-    setChartOption(formattedChartOptions);
-  }, [data, labels]);
+const PieChart: FC<ChartProps> = ({ labels, label, data, bdColor, bgColor, bdwidth, text, pattern }) => {
+  const chartData = useMemo(() => {
+    return {
+      labels: labels,
+      datasets: [
+        {
+          label: label,
+          data: data,
+          borderColor: bdColor,
+          backgroundColor: bgColor,
+          borderWidth: bdwidth,
+        },
+      ],
+    };
+  }, [labels, label, data, bdColor, bgColor, bdwidth]);
 
-  return (
-    <>
-      {chartType === 'bar' && (
-        //@ts-ignore
-        <Bar options={chartOption} data={chartData} />
-      )}
-      {chartType === 'pie' && (
-        //@ts-ignore
-        <Pie options={chartOption} data={chartData} />
-      )}
-    </>
-  );
+  const chartOptions = useMemo(() => {
+    return {
+      responsive: true,
+      plugins: {
+        title: {
+          display: true,
+          text: text,
+        },
+      },
+    };
+  }, [text]);
+
+  return <Pie options={chartOptions} data={chartData} />;
+};
+
+const Chart: FC<ChartProps> = ({ type, ...props }) => {
+  if (type === 'bar') {
+    return <BarChart {...props} />;
+  } else if (type === 'pie') {
+    return <PieChart {...props} />;
+  }
+  return null;
 };
 
 export default Chart;

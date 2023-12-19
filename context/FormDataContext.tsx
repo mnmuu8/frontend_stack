@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useMemo } from 'react';
 import { ChildrenProps } from '@/types/utils';
 import { IntrospectionProps } from '@/types/introspection';
 import {
@@ -54,27 +54,27 @@ const FormDataProvider = ({ children }: ChildrenProps) => {
   const [outputCommentFormData, setOutputCommentFormData] =
     useState<OutputCommentFormDataParams>(InitialOutputCommentFormData);
 
+  const providerValue = useMemo(() => ({
+    teamFormData,
+    setTeamFormData,
+    inviteTeamFormData,
+    setInviteTeamFormData,
+    userFormData,
+    setUserFormData,
+    stackFormData,
+    setStackFormData,
+    introspectionFormData,
+    setIntrospectionFormData,
+    showStackIntrospection,
+    setShowStackIntrospection,
+    outputFormData,
+    setOutputFormData,
+    outputCommentFormData,
+    setOutputCommentFormData,
+  }), [teamFormData, inviteTeamFormData, userFormData, stackFormData, introspectionFormData, showStackIntrospection, outputFormData, outputCommentFormData]);
+
   return (
-    <FormDataContext.Provider
-      value={{
-        teamFormData: teamFormData,
-        setTeamFormData: setTeamFormData,
-        inviteTeamFormData: inviteTeamFormData,
-        setInviteTeamFormData: setInviteTeamFormData,
-        userFormData: userFormData,
-        setUserFormData: setUserFormData,
-        stackFormData: stackFormData,
-        setStackFormData: setStackFormData,
-        introspectionFormData: introspectionFormData,
-        setIntrospectionFormData: setIntrospectionFormData,
-        showStackIntrospection: showStackIntrospection,
-        setShowStackIntrospection: setShowStackIntrospection,
-        outputFormData: outputFormData,
-        setOutputFormData: setOutputFormData,
-        outputCommentFormData: outputCommentFormData,
-        setOutputCommentFormData: setOutputCommentFormData,
-      }}
-    >
+    <FormDataContext.Provider value={providerValue}>
       {children}
     </FormDataContext.Provider>
   );

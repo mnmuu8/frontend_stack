@@ -1,23 +1,23 @@
-import React from 'react'
-import axios from 'axios'
-import Layout from '@/components/organisms/Layout'
-import OutputsWrapper from '@/components/templates/OutputsWrapper'
-import { GetServerSideProps, NextPage } from 'next'
+import React from 'react';
+import axios from 'axios';
+import Layout from '@/components/organisms/Layout';
+import OutputsWrapper from '@/components/templates/OutputsWrapper';
 import cookie from 'cookie';
-import { getNextApiHeaders } from '@/utiliry/api'
-import { OutputsProps } from '@/types/output'
+import { GetServerSideProps, NextPage } from 'next';
+import { getNextApiHeaders } from '@/utiliry/api';
+import { OutputsProps } from '@/types/output';
 
-const index: NextPage<OutputsProps> = ({ outputs }) => {
+const Index: NextPage<OutputsProps> = ({ outputs }) => {
   return (
     <div>
       <Layout>
         <OutputsWrapper outputs={outputs} />
       </Layout>
     </div>
-  )
-}
+  );
+};
 
-export default index
+export default Index;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
@@ -39,4 +39,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     console.error('Error fetching data:', error);
     return { props: {} };
   }
-}
+};

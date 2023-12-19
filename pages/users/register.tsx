@@ -17,13 +17,11 @@ import FormSubmitButton from '@/components/atoms/FormSubmitButton';
 import UserFormGroup from '@/components/molecules/UserFormGroup';
 
 const Register: NextPage<UserRegisterProps> = ({ email, team_id }) => {
-  const formDataContext = useContext(FormDataContext);
-  const { userFormData, setUserFormData } = formDataContext;
-
-  const formContext = useContext(FormContext);
-  const { isValidate, setIsValidate } = formContext;
+  const { userFormData, setUserFormData } = useContext(FormDataContext);
+  const { isValidate, setIsValidate } = useContext(FormContext);
 
   const [errorMessages, setErrorMessages] = useState<ErrorMessages>(InitialUserErrorMessage);
+  const router = useRouter();
 
   const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -36,8 +34,6 @@ const Register: NextPage<UserRegisterProps> = ({ email, team_id }) => {
       [name]: value,
     });
   };
-
-  const router = useRouter();
 
   const FormSubmit = () => {
     const options = getApiHeaders();

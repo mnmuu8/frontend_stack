@@ -17,47 +17,24 @@ import CastForEducationIcon from '@mui/icons-material/CastForEducation';
 import TeamList from '../molecules/TeamList';
 import OutputIcon from '@mui/icons-material/Output';
 
-const Sidebar: FC = () => {
-  const appContext = useContext(AppContext);
-  const { drawerArea, handleDrawerAreaToggle } = appContext;
+const ACTIVE_STYLE = {
+  backgroundColor: '#222222',
+};
+const SX = {
+  color: '#DDDDDD',
+  mr: 1
+};
+const FONT_SIZE = 'small';
 
-  const sidebarMenus: sidebarMenus[] = [
-    {
-      id: 'dashboard',
-      label: 'ダッシュボード',
-      value: '/',
-      icon: <DashboardIcon sx={{ color: '#DDDDDD', mr: 1 }} fontSize='small' />,
-    },
-    {
-      id: 'timeline',
-      label: 'タイムライン',
-      value: '/timeline',
-      icon: <FeedIcon sx={{ color: '#DDDDDD', mr: 1 }} fontSize='small' />,
-    },
-    {
-      id: 'mypage',
-      label: 'マイページ',
-      value: '/mypage',
-      icon: <AccountCircleIcon sx={{ color: '#DDDDDD', mr: 1 }} fontSize='small' />,
-    },
-    {
-      id: 'portfolio',
-      label: 'ポートフォリオ',
-      value: '/portfolio',
-      icon: <CastForEducationIcon sx={{ color: '#DDDDDD', mr: 1 }} fontSize='small' />,
-    },
-    {
-      id: 'message',
-      label: 'メッセージ',
-      value: '/message',
-      icon: <MessageIcon sx={{ color: '#DDDDDD', mr: 1 }} fontSize='small' />,
-    },
-    {
-      id: 'outputs',
-      label: 'アウトプット',
-      value: '/outputs',
-      icon: <OutputIcon sx={{ color: '#DDDDDD', mr: 1 }} fontSize='small' />,
-    },
+const Sidebar: FC = () => {
+  const { drawerArea } = useContext(AppContext);
+  const menuItems = [
+    { id: 'dashboard', label: 'ダッシュボード', value: '/', icon: <DashboardIcon sx={SX} fontSize={FONT_SIZE} /> },
+    { id: 'timeline', label: 'タイムライン', value: '/timeline', icon: <FeedIcon sx={SX} fontSize={FONT_SIZE} /> },
+    { id: 'mypage', label: 'マイページ', value: '/mypage', icon: <AccountCircleIcon sx={SX} fontSize={FONT_SIZE} /> },
+    { id: 'portfolio', label: 'ポートフォリオ', value: '/portfolio', icon: <CastForEducationIcon sx={SX} fontSize={FONT_SIZE} /> },
+    { id: 'message', label: 'メッセージ', value: '/message', icon: <MessageIcon sx={SX} fontSize={FONT_SIZE} /> },
+    { id: 'outputs', label: 'アウトプット', value: '/outputs', icon: <OutputIcon sx={SX} fontSize={FONT_SIZE} /> }
   ];
   const router = useRouter();
   const isActive = (path: string) => router.pathname === path;
@@ -76,22 +53,18 @@ const Sidebar: FC = () => {
         anchor='left'
         open={drawerArea}
       >
-        <div className='bg-gray-700 h-full'>
-          <List>
-            {sidebarMenus.map((menu) => (
-              <ListItem key={menu.id} disablePadding sx={isActive(menu.value) ? { backgroundColor: '#222222' } : {}}>
-                <ListItemButton>
-                  {menu.icon}
-                  <Link href={menu.value} className='text-sm text-gray-200'>
-                    {menu.label}
-                  </Link>
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
+        <List className='bg-gray-700 h-full'>
+          {menuItems.map((menu) => (
+            <ListItem key={menu.id} disablePadding sx={isActive(menu.value) ? ACTIVE_STYLE : {}}>
+              <ListItemButton onClick={() => router.push(menu.value)}>
+                {menu.icon}
+                <span className='text-sm text-gray-200'>{menu.label}</span>
+              </ListItemButton>
+            </ListItem>
+          ))}
           <Divider className='bg-gray-500' />
           <TeamList />
-        </div>
+        </List>
       </Drawer>
     </aside>
   );

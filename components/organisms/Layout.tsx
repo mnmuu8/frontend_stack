@@ -1,4 +1,4 @@
-import React, { FC, useContext, useEffect } from 'react';
+import React, { FC, useContext, useEffect, useMemo } from 'react';
 import Header from './Header';
 import Sidebar from './Sidebar';
 import { LayoutProps } from '@/types/utils';
@@ -12,15 +12,12 @@ import { getApiHeaders } from '@/utiliry/api';
 const Layout: FC<LayoutProps> = ({ children }) => {
   const router = useRouter();
 
-  const appContext = useContext(AppContext);
-  const { drawerArea } = appContext;
+  const { drawerArea } = useContext(AppContext);
+  const { setSessionUser, sessionUser, setIsAdmin, isAdmin } = useContext(SessionContext);
 
-  const sessionContext = useContext(SessionContext);
-  const { setSessionUser, sessionUser, setIsAdmin, isAdmin } = sessionContext;
-
-  const mainStyle: React.CSSProperties = {
+  const mainStyle: React.CSSProperties = useMemo(() => ({
     width: drawerArea ? 'calc(100% - 240px)' : '100%',
-  };
+  }), [drawerArea]);
 
   useEffect((): void => {
     const sessionData = getSession();

@@ -55,7 +55,7 @@ const RankTable: FC = () => {
     }
 
     const startIndex = page * rowsPerPage;
-    const endIndex = startIndex + rowsPerPage;
+    const endIndex = page * startIndex + rowsPerPage;
 
     return stackRankings.slice(startIndex, endIndex);
   }, [page, rowsPerPage, stackRankings]);

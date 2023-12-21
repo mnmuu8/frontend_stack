@@ -28,21 +28,20 @@ const AppProvider = ({ children }: ChildrenProps) => {
     setAnchorEl(null);
   }, []);
 
-  const providerValue = useMemo(() => ({
-    drawerArea,
-    setDrawerArea,
-    handleDrawerAreaToggle,
-    anchorEl,
-    setAnchorEl,
-    handleMenuOpen,
-    handleMenuClose,
-  }), [drawerArea, anchorEl]);
-
-  return (
-    <AppContext.Provider value={providerValue}>
-      {children}
-    </AppContext.Provider>
+  const providerValue = useMemo(
+    () => ({
+      drawerArea,
+      setDrawerArea,
+      handleDrawerAreaToggle,
+      anchorEl,
+      setAnchorEl,
+      handleMenuOpen,
+      handleMenuClose,
+    }),
+    [drawerArea, anchorEl],
   );
+
+  return <AppContext.Provider value={providerValue}>{children}</AppContext.Provider>;
 };
 
 export { AppProvider, AppContext };

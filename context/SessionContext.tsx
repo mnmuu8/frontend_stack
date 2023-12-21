@@ -16,18 +16,17 @@ const SessionProvider = ({ children }: ChildrenProps) => {
   const [sessionUser, setSessionUser] = useState<sessionUser>(undefined);
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
-  const providerValue = useMemo(() => ({
-    sessionUser,
-    setSessionUser,
-    isAdmin,
-    setIsAdmin,
-  }), [sessionUser, isAdmin]);
-
-  return (
-    <SessionContext.Provider value={providerValue}>
-      {children}
-    </SessionContext.Provider>
+  const providerValue = useMemo(
+    () => ({
+      sessionUser,
+      setSessionUser,
+      isAdmin,
+      setIsAdmin,
+    }),
+    [sessionUser, isAdmin],
   );
+
+  return <SessionContext.Provider value={providerValue}>{children}</SessionContext.Provider>;
 };
 
 export { SessionProvider, SessionContext };

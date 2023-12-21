@@ -22,7 +22,7 @@ const ACTIVE_STYLE = {
 };
 const SX = {
   color: '#DDDDDD',
-  mr: 1
+  mr: 1,
 };
 const FONT_SIZE = 'small';
 
@@ -32,9 +32,14 @@ const Sidebar: FC = () => {
     { id: 'dashboard', label: 'ダッシュボード', value: '/', icon: <DashboardIcon sx={SX} fontSize={FONT_SIZE} /> },
     { id: 'timeline', label: 'タイムライン', value: '/timeline', icon: <FeedIcon sx={SX} fontSize={FONT_SIZE} /> },
     { id: 'mypage', label: 'マイページ', value: '/mypage', icon: <AccountCircleIcon sx={SX} fontSize={FONT_SIZE} /> },
-    { id: 'portfolio', label: 'ポートフォリオ', value: '/portfolio', icon: <CastForEducationIcon sx={SX} fontSize={FONT_SIZE} /> },
+    {
+      id: 'portfolio',
+      label: 'ポートフォリオ',
+      value: '/portfolio',
+      icon: <CastForEducationIcon sx={SX} fontSize={FONT_SIZE} />,
+    },
     { id: 'message', label: 'メッセージ', value: '/message', icon: <MessageIcon sx={SX} fontSize={FONT_SIZE} /> },
-    { id: 'outputs', label: 'アウトプット', value: '/outputs', icon: <OutputIcon sx={SX} fontSize={FONT_SIZE} /> }
+    { id: 'outputs', label: 'アウトプット', value: '/outputs', icon: <OutputIcon sx={SX} fontSize={FONT_SIZE} /> },
   ];
   const router = useRouter();
   const isActive = (path: string) => router.pathname === path;

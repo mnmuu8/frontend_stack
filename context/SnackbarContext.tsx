@@ -32,9 +32,7 @@ const SnackbarProvider = ({ children }: ChildrenProps) => {
 
   return (
     <>
-      <SnackbarContext.Provider value={{ showSnackbar: showSnackbar }}>
-        {children}
-      </SnackbarContext.Provider>
+      <SnackbarContext.Provider value={{ showSnackbar: showSnackbar }}>{children}</SnackbarContext.Provider>
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity={severity} sx={{ width: '100%' }}>
           {message}

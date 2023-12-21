@@ -152,7 +152,7 @@ const Chart: FC<ChartProps> = ({ labels, label, data, bdColor, bgColor, bdwidth,
         };
         return chartOptions;
       }
-    }
+    };
 
     return chartOptions;
   }, [data]);

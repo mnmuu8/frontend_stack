@@ -26,7 +26,7 @@ const RankTable: FC = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
-  const { sessionUser } =  useContext(SessionContext);
+  const { sessionUser } = useContext(SessionContext);
 
   const [stackRankings, setStackRankings] = useState<StackRankings[]>([]);
 

@@ -15,9 +15,12 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const { drawerArea } = useContext(AppContext);
   const { setSessionUser, sessionUser, setIsAdmin, isAdmin } = useContext(SessionContext);
 
-  const mainStyle: React.CSSProperties = useMemo(() => ({
-    width: drawerArea ? 'calc(100% - 240px)' : '100%',
-  }), [drawerArea]);
+  const mainStyle: React.CSSProperties = useMemo(
+    () => ({
+      width: drawerArea ? 'calc(100% - 240px)' : '100%',
+    }),
+    [drawerArea],
+  );
 
   useEffect((): void => {
     const sessionData = getSession();

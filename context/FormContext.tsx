@@ -22,22 +22,21 @@ const FormProvider = ({ children }: ChildrenProps) => {
   const [isRegisterEvent, setIsRegisterEvent] = useState<boolean>(false);
   const [isValidate, setIsValidate] = useState<boolean>(true);
 
-  const providerValue = useMemo(() => ({
-    formType,
-    setFormType,
-    formOpen,
-    setFormOpen,
-    isRegisterEvent,
-    setIsRegisterEvent,
-    isValidate,
-    setIsValidate,
-  }), [formType, formOpen, isRegisterEvent, isValidate]);
-
-  return (
-    <FormContext.Provider value={providerValue}>
-      {children}
-    </FormContext.Provider>
+  const providerValue = useMemo(
+    () => ({
+      formType,
+      setFormType,
+      formOpen,
+      setFormOpen,
+      isRegisterEvent,
+      setIsRegisterEvent,
+      isValidate,
+      setIsValidate,
+    }),
+    [formType, formOpen, isRegisterEvent, isValidate],
   );
+
+  return <FormContext.Provider value={providerValue}>{children}</FormContext.Provider>;
 };
 
 export { FormProvider, FormContext };

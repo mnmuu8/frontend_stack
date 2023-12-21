@@ -56,9 +56,11 @@ const Sidebar: FC = () => {
         <List className='bg-gray-700 h-full'>
           {menuItems.map((menu) => (
             <ListItem key={menu.id} disablePadding sx={isActive(menu.value) ? ACTIVE_STYLE : {}}>
-              <ListItemButton onClick={() => router.push(menu.value)}>
+              <ListItemButton>
                 {menu.icon}
-                <span className='text-sm text-gray-200'>{menu.label}</span>
+                <Link href={menu.value} className='text-sm text-gray-200'>
+                  {menu.label}
+                </Link>
               </ListItemButton>
             </ListItem>
           ))}

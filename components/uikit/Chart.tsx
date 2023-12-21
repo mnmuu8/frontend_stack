@@ -62,7 +62,7 @@ const Chart: FC<ChartProps> = ({ labels, label, data, bdColor, bgColor, bdwidth,
     };
 
     return chartData;
-  }, [labels, data, bdColor, bgColor, bdwidth]);
+  }, [labels, data]);
 
   const getChartOptions = useMemo(() => {
     const chartOptions = (pattern: string) => {
@@ -155,7 +155,7 @@ const Chart: FC<ChartProps> = ({ labels, label, data, bdColor, bgColor, bdwidth,
     }
 
     return chartOptions;
-  }, [data, text, pattern]);
+  }, [data]);
 
   useEffect(() => {
     const formattedChartData = getChartData();

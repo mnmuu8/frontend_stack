@@ -4,8 +4,7 @@ import OutputCard from '../molecules/OutputCard';
 import { OutputProps, OutputsProps } from '@/types/output';
 
 const OutputsWrapper: FC<OutputsProps> = ({ outputs }) => {
-  const formContext = useContext(FormContext);
-  const { setFormOpen, setFormType } = formContext;
+  const { setFormOpen, setFormType } = useContext(FormContext);
 
   const handleFormOpen = () => {
     setFormType('createOutput');
@@ -21,7 +20,7 @@ const OutputsWrapper: FC<OutputsProps> = ({ outputs }) => {
         アウトプット追加
       </button>
       <div className='flex justify-between flex-wrap mt-8'>
-        {outputs ? (
+        {outputs && outputs.length > 0 ? (
           outputs.map((output: OutputProps) => <OutputCard key={output.id} output={output} />)
         ) : (
           <p>アウトプットがありません。</p>

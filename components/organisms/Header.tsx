@@ -12,14 +12,9 @@ import AddIcon from '@mui/icons-material/Add';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 const Header: FC = () => {
-  const appContext = useContext(AppContext);
-  const { handleDrawerAreaToggle, handleMenuOpen } = appContext;
-
-  const sessionContext = useContext(SessionContext);
-  const { sessionUser } = sessionContext;
-
-  const formContext = useContext(FormContext);
-  const { setFormOpen, setFormType } = formContext;
+  const { handleDrawerAreaToggle, handleMenuOpen } = useContext(AppContext);
+  const { sessionUser } = useContext(SessionContext);
+  const { setFormOpen, setFormType } = useContext(FormContext);
 
   const handleFormOpen = (formType: FormType) => {
     setFormOpen(true);

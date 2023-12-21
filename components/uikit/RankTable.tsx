@@ -1,4 +1,4 @@
-import React, { FC, useContext, useEffect, useState } from 'react';
+import React, { FC, useContext, useEffect, useMemo, useState, useCallback } from 'react';
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -7,6 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
+
 import { getApiHeaders } from '@/utiliry/api';
 import { SessionContext } from '@/context/SessionContext';
 import { callFetchStackRankings } from '@/utiliry/api/stack-ranking';
@@ -25,8 +26,7 @@ const RankTable: FC = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
-  const sessionContext = useContext(SessionContext);
-  const { sessionUser } = sessionContext;
+  const { sessionUser } = useContext(SessionContext);
 
   const [stackRankings, setStackRankings] = useState<StackRankings[]>([]);
 
@@ -35,19 +35,30 @@ const RankTable: FC = () => {
     { id: 'user_name', label: 'ユーザー名' },
   ];
 
-  const handleChangePage = (event: unknown, newPage: number) => {
+  const handleChangePage = useCallback((_event: unknown, newPage: number) => {
     setPage(newPage);
-  };
+  }, []);
 
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeRowsPerPage = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
-  };
+  }, []);
 
   useEffect(() => {
     const options = getApiHeaders();
     callFetchStackRankings({ options, sessionUser, setStackRankings });
   }, [sessionUser]);
+
+  const paginatedData = useMemo(() => {
+    if (!stackRankings) {
+      return [];
+    }
+
+    const startIndex = page * rowsPerPage;
+    const endIndex = page * startIndex + rowsPerPage;
+
+    return stackRankings.slice(startIndex, endIndex);
+  }, [page, rowsPerPage, stackRankings]);
 
   return (
     <>
@@ -63,16 +74,13 @@ const RankTable: FC = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {stackRankings.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-              return (
-                <TableRow hover role='checkbox' tabIndex={-1} key={row.order}>
-                  {StackRankingColumns.map((column) => {
-                    const value = row[column.id];
-                    return <TableCell key={column.id}>{value}</TableCell>;
-                  })}
-                </TableRow>
-              );
-            })}
+            {paginatedData.map((row) => (
+              <TableRow hover role='checkbox' tabIndex={-1} key={row.order}>
+                {StackRankingColumns.map((column) => (
+                  <TableCell key={column.id}>{row[column.id]}</TableCell>
+                ))}
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </TableContainer>

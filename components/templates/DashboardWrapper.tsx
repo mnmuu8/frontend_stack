@@ -1,11 +1,11 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState, useMemo } from 'react';
 import Chart from '@/components/uikit/Chart';
 import RankTable from '@/components/uikit/RankTable';
 import { StackProps } from '@/types/stack';
 import axios from 'axios';
 import { getApiHeadersWithUserId } from '@/utiliry/api';
 
-const DashboardWrapper: FC = () => {
+const DashboardWrapper: FC = React.memo(() => {
   const [stacks, setStacks] = useState<StackProps[]>([]);
   const [barData, setBarData] = useState<number[]>([]);
   const [pieData, setPieData] = useState<number[]>([]);
@@ -16,18 +16,17 @@ const DashboardWrapper: FC = () => {
   const currentMonth = currentDate.getMonth() + 1;
   const daysInMonth = currentDate.getDate();
 
-  const generateLabels = (daysInMonth: number): string[] => {
+  const barLabels = useMemo(() => {
     const stackLabels: string[] = [];
     for (let i = 1; i <= daysInMonth; i++) {
       stackLabels.push(i.toString());
     }
     return stackLabels;
-  };
-
-  const barLabels = generateLabels(daysInMonth);
+  }, [daysInMonth]);
 
   useEffect(() => {
     const options = getApiHeadersWithUserId();
+
     axios
       .get(`${process.env.API_ROOT_URL}/api/v1/stacks`, options)
       .then((response) => {
@@ -122,6 +121,8 @@ const DashboardWrapper: FC = () => {
       </div>
     </div>
   );
-};
+});
+
+DashboardWrapper.displayName = 'DashboardWrapper';
 
 export default DashboardWrapper;

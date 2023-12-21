@@ -13,5 +13,8 @@ down:
 ps:
 	docker-compose ps
 
-make check:
+check:
 	npm run format && npm run lint && npm run build
+
+docker-reset:
+	docker volume prune && docker builder prune && docker container prune && docker image prune && docker network prune && docker system prune

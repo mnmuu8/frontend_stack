@@ -136,7 +136,17 @@ const Chart: FC<ChartProps> = ({ labels, label, data, bdColor, bgColor, bdwidth,
           scales: {
             y: {
               suggestedMax: scaledMax,
+              title: {
+                display: true,
+                text: '積み上げ時間（分）'
+              }
             },
+            x: {
+              title: {
+                display: true,
+                text: 'スキル名'
+              }
+            }
           },
         };
         return chartOptions;

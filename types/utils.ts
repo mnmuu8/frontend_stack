@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { StaticImageData } from 'next/image';
 import { TooltipItem } from 'chart.js';
+import { siteTitle } from '../config';
 
 export type ChildrenProps = {
   children: ReactNode;
@@ -61,7 +62,17 @@ export type ChartOption = {
   scales?: {
     y: {
       suggestedMax: number;
+      title: {
+        display: boolean;
+        text: string;
+      };
     };
+    x: {
+      title: {
+        display: boolean;
+        text: string;
+      }
+    }
   };
 };
 

@@ -1,6 +1,6 @@
 import { NextPage } from 'next'
 import React from 'react'
-import LoginForm from '@/components/molecules/LoginForm'
+import LoginForm from '@/features/sessions/login/components/LoginForm'
 
 const index: NextPage = () => {
   return (

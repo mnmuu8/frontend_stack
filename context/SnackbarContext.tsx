@@ -1,7 +1,7 @@
 import React, { createContext, useState, useCallback } from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
-import { ChildrenProps } from '@/types/utils';
+import { ChildrenProps } from '@/common/types/utils';
 
 type SnackbarSeverity = 'error' | 'warning' | 'info' | 'success';
 

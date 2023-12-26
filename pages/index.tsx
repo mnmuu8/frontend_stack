@@ -1,6 +1,6 @@
 import { NextPage } from 'next'
-import Layout from '@/components/organisms/Layout'
-import DashboardWrapper from '@/components/templates/DashboardWrapper'
+import Layout from '@/components/layouts/Layout'
+import DashboardWrapper from '@/features/stacks/components/DashboardWrapper'
 
 const index: NextPage = () => {
   return (

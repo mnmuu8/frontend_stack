@@ -1,25 +1,22 @@
 import React, { createContext, useState, useMemo } from 'react';
-import { ChildrenProps } from '@/types/utils';
-import { IntrospectionProps } from '@/types/introspection';
-import {
-  StackFormDataParams,
+import { ChildrenProps } from '@/common/types/utils';
+import { IntrospectionProps } from '@/features/introspections/types/introspection';
+import { StackFormDataParams,
   TeamFormDataParams,
   InviteTeamFormDataParams,
   UserFormDataParams,
   IntrospectionFormDataParams,
   OutputFormDataParams,
-  OutputCommentFormDataParams,
-} from '@/types/form';
-import { FormDataContextProps } from '@/types/context';
-import {
+  OutputCommentFormDataParams, } from '@/common/types/form';
+import { FormDataContextProps } from '@/common/types/context';
+import { 
   InitialStackFormData,
   InitialIntrospectionFormData,
   InitialTeamFormData,
   InitialInviteTeamFormData,
   InitialUserFormData,
   InitialOutputFormData,
-  InitialOutputCommentFormData,
-} from '@/utiliry/form';
+  InitialOutputCommentFormData, } from '@/common/functions/form';
 
 const InitialState: FormDataContextProps = {
   teamFormData: InitialTeamFormData,

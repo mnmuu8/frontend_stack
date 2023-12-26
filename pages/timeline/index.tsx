@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { NextPage } from 'next';
-import Layout from '@/components/organisms/Layout';
-import StackList from '@/components/molecules/StackList';
-import { StackProps } from '@/types/stack';
-import { getSession } from '@/utiliry/session';
-import { ApiOptions } from '@/types/api';
+import Layout from '@/components/layouts/Layout';
+import StackList from '@/features/stacks/components/StackList';
+import { StackProps } from '@/features/stacks/types/stack';
+import { getSession } from '@/features/sessions/functions/session';
+import { ApiOptions } from '@/common/types/api';
 import { SessionContext } from '@/context/SessionContext';
 import axios from 'axios';
 

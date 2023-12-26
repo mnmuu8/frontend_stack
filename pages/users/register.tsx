@@ -2,19 +2,19 @@ import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { GetServerSideProps, NextPage } from 'next'
 import { useRouter } from 'next/router';
-import { ApiOptions } from '@/types/api';
-import { ErrorMessages } from '@/types/validator';
-import { UserRegisterProps } from '@/types/user';
-import { getSession } from '@/utiliry/session';
-import { hasValidationErrors, userValidationRules } from '@/utiliry/validator';
-import { InitialUserErrorMessage, validationCheck, dataConfirmAlert } from '@/utiliry/form';
-import { callCreateUser, getApiHeaders } from '@/utiliry/api';
+import { ApiOptions } from '@/common/types/api';
+import { ErrorMessages } from '@/common/types/validator';
+import { UserRegisterProps } from '@/features/users/types/user';
+import { getSession } from '@/features/sessions/functions/session';
+import { hasValidationErrors, userValidationRules } from '@/common/functions/validator';
+import { InitialUserErrorMessage, validationCheck, dataConfirmAlert } from '@/common/functions/form';
+import { callCreateUser, getApiHeaders } from '@/common/functions/api';
 import { FormContext } from '@/context/FormContext';
 import { FormDataContext } from '@/context/FormDataContext';
-import TextInput from '@/components/molecules/TextInput';
-import ErrorMessage from '@/components/atoms/ErrorMessage';
-import FormSubmitButton from '@/components/atoms/FormSubmitButton';
-import UserFormGroup from '@/components/molecules/UserFormGroup';
+import TextInput from '@/components/ui-elements/TextInput';
+import ErrorMessage from '@/components/ui-elements/ErrorMessage';
+import FormSubmitButton from '@/components/ui-elements/FormSubmitButton';
+import UserFormGroup from '@/features/users/components/UserFormGroup';
 
 const Register: NextPage<UserRegisterProps> = ({ email, team_id }) => {
   const { userFormData, setUserFormData } = useContext(FormDataContext);

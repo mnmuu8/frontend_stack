@@ -6,12 +6,13 @@ import { StackCardProps } from '../types/stack';
 import axios from 'axios';
 import { FormContext } from '@/context/FormContext';
 import { SessionContext } from '@/context/SessionContext';
-import { FormDataContext } from '@/context/FormDataContext';
 import { InitialIntrospectionFormData } from '@/common/functions/form';
 import { getApiHeaders } from '@/common/functions/api';
 import ImageWrapper from '@/components/ui-elements/ImageWrapper';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
+import { IntrospectionFormContext } from '@/features/introspections/contexts/IntrospectionFormContext';
+import { StackIntrospectionContext } from '@/features/introspections/contexts/StackIntrospectionContext';
 
 const StackCard: FC<StackCardProps> = ({ stack }) => {
   const stackedAt = stack.stacked_at;
@@ -23,8 +24,8 @@ const StackCard: FC<StackCardProps> = ({ stack }) => {
   const formContext = useContext(FormContext);
   const { setFormOpen, setFormType, isRegisterEvent } = formContext;
 
-  const formDataContext = useContext(FormDataContext);
-  const { setShowStackIntrospection, setIntrospectionFormData } = formDataContext;
+  const  { setIntrospectionFormData } = useContext(IntrospectionFormContext);
+  const  { setShowStackIntrospection } = useContext(StackIntrospectionContext);
 
   const handleEditFormOpen = () => {
     const stack_id = stack.id;

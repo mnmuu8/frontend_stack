@@ -8,7 +8,7 @@ import { OutputCardProps, CommentProps } from '@/features/outputs/types/output';
 import { FormContext } from '@/context/FormContext';
 import FormModal from '@/components/ui-parts/FormModal';
 import { InitialOutputCommentFormData } from '@/common/functions/form';
-import { FormDataContext } from '@/context/FormDataContext';
+import { OutputCommentFormContext } from '@/features/outputs/comments/contexts/OutputCommentFormContext';
 
 const Output: NextPage<OutputCardProps> = ({ output, initialComments }) => {
   const router = useRouter();
@@ -16,7 +16,7 @@ const Output: NextPage<OutputCardProps> = ({ output, initialComments }) => {
 
   const [comments, setComments] = useState(initialComments);
   const { setFormOpen, setFormType } = useContext(FormContext);
-  const { setOutputCommentFormData } = useContext(FormDataContext);
+  const { setOutputCommentFormData } = useContext(OutputCommentFormContext);
 
   const handleFormOpen = useCallback(() => {
     const outputId = output.id

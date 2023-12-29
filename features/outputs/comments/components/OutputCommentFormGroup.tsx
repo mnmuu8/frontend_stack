@@ -1,16 +1,15 @@
 import React, { FC, useContext, useState, useEffect } from 'react';
 import TextInput from '@/components/ui-elements/TextInput';
-import { FormDataContext } from '@/context/FormDataContext';
 
 import { hasValidationErrors, outputCommentValidationRules } from '@/common/functions/validator';
 import { ErrorMessages } from '@/common/types/validator';
 import ErrorMessage from '@/components/ui-elements/ErrorMessage';
 import { FormContext } from '@/context/FormContext';
 import { InitialOutputErrorMessage, validationCheck } from '@/common/functions/form';
+import { OutputCommentFormContext } from '../contexts/OutputCommentFormContext';
 
 const OutputCommentFormGroup: FC = () => {
-  const formDataContext = useContext(FormDataContext);
-  const { outputCommentFormData, setOutputCommentFormData } = formDataContext;
+  const { outputCommentFormData, setOutputCommentFormData } = useContext(OutputCommentFormContext);
 
   const formContext = useContext(FormContext);
   const { setIsValidate } = formContext;

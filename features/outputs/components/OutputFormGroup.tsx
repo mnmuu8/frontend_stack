@@ -1,6 +1,5 @@
 import React, { FC, useContext, useState, useEffect } from 'react';
 import TextInput from '@/components/ui-elements/TextInput';
-import { FormDataContext } from '@/context/FormDataContext';
 
 import { hasValidationErrors, outputValidationRules } from '@/common/functions/validator';
 import { ErrorMessages } from '@/common/types/validator';
@@ -8,10 +7,10 @@ import ErrorMessage from '@/components/ui-elements/ErrorMessage';
 import { FormContext } from '@/context/FormContext';
 import { InitialOutputErrorMessage, validationCheck } from '@/common/functions/form';
 import RichTextEditor from '../rich_editors/components/RichTextEditor';
+import { OutputFormContext } from '../contexts/OutputFormContext';
 
 const OutputFormGroup: FC = () => {
-  const formDataContext = useContext(FormDataContext);
-  const { outputFormData, setOutputFormData } = formDataContext;
+  const { outputFormData, setOutputFormData } = useContext(OutputFormContext);
 
   const formContext = useContext(FormContext);
   const { setIsValidate } = formContext;

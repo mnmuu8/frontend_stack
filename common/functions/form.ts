@@ -21,21 +21,10 @@ export const dataConfirmAlert = (message: string) => {
   return window.confirm(message);
 }
 
-export const resetFormValue = ({setFormOpen, setIsRegisterEvent, setIsValidate, setStackFormData, setIntrospectionFormData, setUserFormData, setTeamFormData, setInviteTeamFormData, setShowStackIntrospection, setOutputFormData, setOutputCommentFormData}: ResetFormValueProps) => {
+export const resetFormValue = ({setFormOpen, setIsRegisterEvent, setIsValidate}: ResetFormValueProps) => {
   setFormOpen(false);
-
   setIsRegisterEvent(false)
   setIsValidate(true)
-
-  setStackFormData(InitialStackFormData)
-  setIntrospectionFormData(InitialIntrospectionFormData)
-  setUserFormData(InitialUserFormData)
-  setTeamFormData(InitialTeamFormData)
-  setInviteTeamFormData(InitialInviteTeamFormData)
-  setOutputFormData(InitialOutputFormData)
-  setOutputCommentFormData(InitialOutputCommentFormData)
-
-  setShowStackIntrospection(undefined);
 }
 
 export const validationCheck = ({name, value, validationRules, errorMessages, setErrorMessages}: validationCheckProps) => {

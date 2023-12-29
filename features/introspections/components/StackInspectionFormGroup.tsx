@@ -5,17 +5,18 @@ import { IntrospectionFormDataParams } from '@/common/types/form';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import ReportIcon from '@mui/icons-material/Report';
-import { FormDataContext } from '@/context/FormDataContext';
 
 import { hasValidationErrors, introspectionValidationRules, isRequiredArray } from '@/common/functions/validator';
 import { ErrorMessages } from '@/common/types/validator';
 import ErrorMessage from '@/components/ui-elements/ErrorMessage';
 import { FormContext } from '@/context/FormContext';
 import { InitialIntrospectionErrorMessage, validationCheck } from '@/common/functions/form';
+import { IntrospectionFormContext } from '../contexts/IntrospectionFormContext';
+import { StackIntrospectionContext } from '../contexts/StackIntrospectionContext';
 
 const StackInspectionFormGroup: FC = () => {
-  const formDataContext = useContext(FormDataContext);
-  const { showStackIntrospection, introspectionFormData, setIntrospectionFormData } = formDataContext;
+  const { introspectionFormData, setIntrospectionFormData } = useContext(IntrospectionFormContext);
+  const { showStackIntrospection } = useContext(StackIntrospectionContext);
 
   const formContext = useContext(FormContext);
   const { setIsValidate } = formContext;

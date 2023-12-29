@@ -135,7 +135,6 @@ export const callCreateUser = ({options, userFormData, router}: createUserApiPro
       throw new Error(`${JSON.stringify(error)}`);
     }
   };
-  console.log('createUser');
   createUser().then(res => router.push('/profile'));
 }
 

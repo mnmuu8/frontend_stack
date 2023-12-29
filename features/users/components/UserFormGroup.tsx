@@ -14,17 +14,16 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
-import { FormDataContext } from '@/context/FormDataContext';
 import { FormContext } from '@/context/FormContext';
 import { InitialUserErrorMessage, validationCheck } from '@/common/functions/form';
+import { UserFormContext } from '../contexts/UserFormContext';
 
 const UserFormGroup: FC = () => {
   const [query, setQuery] = useState<string>('');
   const [results, setResults] = useState<TeamProps[]>([]);
   const [showResults, setShowResults] = useState<boolean>(false);
 
-  const formDataContext = useContext(FormDataContext);
-  const { userFormData, setUserFormData } = formDataContext;
+  const { userFormData, setUserFormData } = useContext(UserFormContext);
 
   const formContext = useContext(FormContext);
   const { setIsValidate } = formContext;

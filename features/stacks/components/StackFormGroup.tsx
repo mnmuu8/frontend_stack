@@ -3,7 +3,6 @@ import React, { FC, useContext, useEffect, useState } from 'react';
 import DateInput from './DateInput';
 import TextInput from '@/components/ui-elements/TextInput';
 import SkillInput from '@/features/skills/components/SkillInput';
-import { FormDataContext } from '@/context/FormDataContext';
 import { FormContext } from '@/context/FormContext';
 
 import { hasValidationErrors, stackValidationRules } from '@/common/functions/validator';
@@ -11,9 +10,11 @@ import { ErrorMessages } from '@/common/types/validator';
 import ErrorMessage from '@/components/ui-elements/ErrorMessage';
 import { InitialStackErrorMessage, validationCheck  } from '@/common/functions/form';
 
+import { StackFormContext } from '../contexts/StackFormContext';
+
 const StackFormGroup: FC = () => {
-  const formDataContext = useContext(FormDataContext);
-  const { stackFormData, setStackFormData } = formDataContext;
+
+  const { stackFormData, setStackFormData } = useContext(StackFormContext);
 
   const formContext = useContext(FormContext);
   const { setIsValidate } = formContext;

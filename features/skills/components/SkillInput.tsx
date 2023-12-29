@@ -7,14 +7,13 @@ import FormControl from '@mui/material/FormControl';
 
 import { SkillProps } from '../types/skill';
 import axios from 'axios';
-import { FormDataContext } from '@/context/FormDataContext';
 import { getApiHeaders } from '@/common/functions/api';
+import { StackFormContext } from '@/features/stacks/contexts/StackFormContext';
 
 const SkillInput: FC = () => {
   const [skills, setSkills] = useState<SkillProps[]>([]);
 
-  const formDataContext = useContext(FormDataContext);
-  const { stackFormData, setStackFormData } = formDataContext;
+  const { stackFormData, setStackFormData } = useContext(StackFormContext);
 
   const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

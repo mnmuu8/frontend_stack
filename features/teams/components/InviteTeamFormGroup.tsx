@@ -1,16 +1,15 @@
 import React, { FC, useContext, useState, useEffect } from 'react';
 import TextInput from '@/components/ui-elements/TextInput';
-import { FormDataContext } from '@/context/FormDataContext';
 
 import { hasValidationErrors, inviteTeamValidationRules } from '@/common/functions/validator';
 import { ErrorMessages } from '@/common/types/validator';
 import ErrorMessage from '@/components/ui-elements/ErrorMessage';
 import { FormContext } from '@/context/FormContext';
 import { InitialTeamErrorMessage, validationCheck } from '@/common/functions/form';
+import { InviteTeamFormContext } from '../contexts/InviteTeamFormContext';
 
 const InviteTeamFormGroup: FC = () => {
-  const formDataContext = useContext(FormDataContext);
-  const { inviteTeamFormData, setInviteTeamFormData } = formDataContext;
+  const { inviteTeamFormData, setInviteTeamFormData } = useContext(InviteTeamFormContext);
 
   const formContext = useContext(FormContext);
   const { setIsValidate } = formContext;

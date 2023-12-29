@@ -2,17 +2,18 @@ import React, { FC, useContext } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
 import { FormContext } from '@/context/FormContext';
-import { FormDataContext } from '@/context/FormDataContext';
 import { TeamFormDataParams } from '@/common/types/form';
 import { SessionContext } from '@/context/SessionContext';
 import { InitialInviteTeamFormData } from '@/common/functions/form';
+import { TeamFormContext } from '../contexts/TeamFormContext';
+import { InviteTeamFormContext } from '../contexts/InviteTeamFormContext';
 
 const TeamListItem: FC<TeamFormDataParams> = ({ id, name }) => {
   const formContext = useContext(FormContext);
   const { setFormOpen, setFormType } = formContext;
 
-  const formDataContext = useContext(FormDataContext);
-  const { setTeamFormData, setInviteTeamFormData } = formDataContext;
+  const { setTeamFormData } = useContext(TeamFormContext);
+  const { setInviteTeamFormData } = useContext(InviteTeamFormContext);
 
   const sessionContext = useContext(SessionContext);
   const { isAdmin } = sessionContext;
@@ -20,10 +21,7 @@ const TeamListItem: FC<TeamFormDataParams> = ({ id, name }) => {
   const handleFormOpen = () => {
     setFormOpen(true);
     setFormType('updateTeam');
-    setTeamFormData({
-      id: id,
-      name: name,
-    });
+    setTeamFormData({ id, name });
   };
   const handleInviteTeamFormOpen = () => {
     setFormOpen(true);

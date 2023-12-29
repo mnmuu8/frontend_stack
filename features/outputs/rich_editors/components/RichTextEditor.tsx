@@ -29,12 +29,12 @@ import { handleBeforeInput,
 } from '../functions/editorOptions';
 import { FormDataContext } from '@/context/FormDataContext';
 import { stateToHTML } from 'draft-js-export-html';
+import { OutputFormContext } from '../../contexts/OutputFormContext';
 
 const RichTextEditor: FC = () => {
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
 
-  const formDataContext = useContext(FormDataContext);
-  const { setOutputFormData } = formDataContext;
+  const { setOutputFormData } = useContext(OutputFormContext);
 
   const [plugins] = useMemo(() => {
     const linkifyPlugin = createLinkifyPlugin({

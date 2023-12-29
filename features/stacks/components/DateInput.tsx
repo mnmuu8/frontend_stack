@@ -7,10 +7,10 @@ import { FormDataContext } from '@/context/FormDataContext';
 import { stackValidationRules } from '@/common/functions/validator';
 import { ErrorMessagesState } from '@/common/types/validator';
 import ErrorMessage from '@/components/ui-elements/ErrorMessage';
+import { StackFormContext } from '../contexts/StackFormContext';
 
 const DateInput: FC<ErrorMessagesState> = ({ errorMessages, setErrorMessages }) => {
-  const formDataContext = useContext(FormDataContext);
-  const { stackFormData, setStackFormData } = formDataContext;
+  const { stackFormData, setStackFormData } = useContext(StackFormContext);
 
   const handleDateChange = (stacked_at: Date) => {
     const validationRule = stackValidationRules['stacked_at'];

@@ -61,39 +61,42 @@ const RankTable: FC = () => {
   }, [page, rowsPerPage, stackRankings]);
 
   return (
-    <>
-      <TableContainer>
-        <Table stickyHeader aria-label='sticky table'>
-          <TableHead>
-            <TableRow>
-              {StackRankingColumns.map((column) => (
-                <TableCell key={column.id} style={{ backgroundColor: '#F0F8FA' }}>
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {paginatedData.map((row) => (
-              <TableRow hover role='checkbox' tabIndex={-1} key={row.order}>
+    <div className='bg-white rounded-md shadow-sm border border-gray-300 mt-8'>
+      <div className='p-6 text-md text-gray-700 border-b-2 border-gray-100'>積み上げランキング</div>
+      <div className='p-6'>
+        <TableContainer>
+          <Table stickyHeader aria-label='sticky table'>
+            <TableHead>
+              <TableRow>
                 {StackRankingColumns.map((column) => (
-                  <TableCell key={column.id}>{row[column.id]}</TableCell>
+                  <TableCell key={column.id} style={{ backgroundColor: '#F0F8FA' }}>
+                    {column.label}
+                  </TableCell>
                 ))}
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[10, 20, 30, 40, 50, 100]}
-        component='div'
-        count={stackRankings.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
-    </>
+            </TableHead>
+            <TableBody>
+              {paginatedData.map((row) => (
+                <TableRow hover role='checkbox' tabIndex={-1} key={row.order}>
+                  {StackRankingColumns.map((column) => (
+                    <TableCell key={column.id}>{row[column.id]}</TableCell>
+                  ))}
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[10, 20, 30, 40, 50, 100]}
+          component='div'
+          count={stackRankings.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+      </div>
+    </div>
   );
 };
 

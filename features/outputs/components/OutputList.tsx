@@ -1,9 +1,9 @@
-import React, { FC, useContext } from 'react';
 import { FormContext } from '@/context/FormContext';
-import OutputCard from './OutputCard';
+import React, { FC, useContext } from 'react'
 import { OutputProps, OutputsProps } from '../types/output';
+import OutputCard from './OutputCard';
 
-const OutputsWrapper: FC<OutputsProps> = ({ outputs }) => {
+const OutputList: FC<OutputsProps> = ({ outputs }) => {
   const { setFormOpen, setFormType } = useContext(FormContext);
 
   const handleFormOpen = () => {
@@ -27,7 +27,7 @@ const OutputsWrapper: FC<OutputsProps> = ({ outputs }) => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default OutputsWrapper;
+export default OutputList

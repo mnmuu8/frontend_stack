@@ -1,4 +1,4 @@
-import { ErrorMessagesProps } from "@/common/types/validator";
+import { ErrorMessagesProps } from '@/common/types/validator';
 import React, { FC } from 'react';
 
 const ErrorMessage: FC<ErrorMessagesProps> = ({ errorMessages, errorKey }) => {

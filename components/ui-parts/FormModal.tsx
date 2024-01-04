@@ -53,32 +53,35 @@ const FormModal: FC = () => {
       setIsRegisterEvent,
       setIsValidate,
     });
-    setStackFormData(InitialStackFormData)
+    setStackFormData(InitialStackFormData);
     setIntrospectionFormData(InitialIntrospectionFormData);
-    setUserFormData(InitialUserFormData)
-    setTeamFormData(InitialTeamFormData)
-    setInviteTeamFormData(InitialInviteTeamFormData)
-    setOutputFormData(InitialOutputFormData)
-    setOutputCommentFormData(InitialOutputCommentFormData)
-    setShowStackIntrospection(undefined)
+    setUserFormData(InitialUserFormData);
+    setTeamFormData(InitialTeamFormData);
+    setInviteTeamFormData(InitialInviteTeamFormData);
+    setOutputFormData(InitialOutputFormData);
+    setOutputCommentFormData(InitialOutputCommentFormData);
+    setShowStackIntrospection(undefined);
   };
 
   const SelectForm = () => {
-    if ( formType == 'createStack' ) return <StackForm />;
-    if ( formType == 'updateUser' ) return <UserForm />;
-    if ( formType == 'createTeam' ) return <TeamForm />;
-    if ( formType == 'updateTeam' ) return <TeamForm />;
-    if ( formType == 'createStackIntrospection' ) return <StackIntrospectionForm />;
-    if ( formType == 'updateStackIntrospection' ) return <StackIntrospectionForm />;
-    if ( formType == 'inviteTeam' ) return <InviteTeamForm />;
-    if ( formType == 'createOutput' ) return <OutputForm />;
-    if ( formType == 'createOutputComment' ) return <OutputCommentForm />;
-  }
+    if (formType == 'createStack') return <StackForm />;
+    if (formType == 'updateUser') return <UserForm />;
+    if (formType == 'createTeam') return <TeamForm />;
+    if (formType == 'updateTeam') return <TeamForm />;
+    if (formType == 'createStackIntrospection') return <StackIntrospectionForm />;
+    if (formType == 'updateStackIntrospection') return <StackIntrospectionForm />;
+    if (formType == 'inviteTeam') return <InviteTeamForm />;
+    if (formType == 'createOutput') return <OutputForm />;
+    if (formType == 'createOutputComment') return <OutputCommentForm />;
+  };
 
   return (
     <div className='insideArea' onClick={handleClickOutside}>
       <Modal open={formOpen}>
-        <Box ref={insideRef} className='absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-white w-[720px] h-auto max-h-[80vh] p-10 flex flex-col overflow-y-scroll'>
+        <Box
+          ref={insideRef}
+          className='absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-white w-[720px] h-auto max-h-[80vh] p-10 flex flex-col overflow-y-scroll'
+        >
           {SelectForm()}
         </Box>
       </Modal>

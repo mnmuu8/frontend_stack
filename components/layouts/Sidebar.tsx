@@ -30,7 +30,12 @@ const Sidebar: FC = () => {
   const menuItems = [
     { id: 'dashboard', label: 'ダッシュボード', value: '/', icon: <DashboardIcon sx={SX} fontSize={FONT_SIZE} /> },
     { id: 'timeline', label: 'タイムライン', value: '/timeline', icon: <FeedIcon sx={SX} fontSize={FONT_SIZE} /> },
-    { id: 'profile', label: 'プロフィール', value: '/profile', icon: <AccountCircleIcon sx={SX} fontSize={FONT_SIZE} /> },
+    {
+      id: 'profile',
+      label: 'プロフィール',
+      value: '/profile',
+      icon: <AccountCircleIcon sx={SX} fontSize={FONT_SIZE} />,
+    },
     {
       id: 'portfolio',
       label: 'ポートフォリオ',

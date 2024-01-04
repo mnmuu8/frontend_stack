@@ -1,7 +1,6 @@
 import { ReactNode } from 'react';
 import { StaticImageData } from 'next/image';
 import { TooltipItem } from 'chart.js';
-import { siteTitle } from '../constans/config';
 
 export type ChildrenProps = {
   children: ReactNode;
@@ -25,7 +24,13 @@ export type sidebarMenus = {
 
 export type ChartData = {
   labels: string[];
-  datasets: any[];
+  datasets: {
+    label: string;
+    data: number[];
+    bgColor: string[];
+    bdColor: string[];
+    bdWidth: number;
+  };
 };
 
 export type AnnotationLine = {
@@ -77,15 +82,9 @@ export type ChartOption = {
 };
 
 export type ChartProps = {
-  labels: string[];
-  label: string;
-  data: number[];
-  bdColor: string[];
-  bgColor: string[];
-  bdwidth: number;
-  text: string;
+  data: any;
+  option: any;
   type: 'bar' | 'pie';
-  pattern: string;
 };
 
 export type FormSubmitButtonProps = {

@@ -1,21 +1,28 @@
-import Chart from '@/components/ui-parts/Chart'
 import React, { FC } from 'react'
+import Chart from '@/components/ui-parts/Chart'
+import { getSkillRankChartOption } from '../functions/chart'
+import { getChartData } from '@/common/functions/chart'
 
 const SkillRankChart: FC<{ skills: string[], minutes: number[] }> = ({ skills, minutes }) => {
+  const text = 'スキル毎のランク'
+  const data = getChartData({
+    labels: skills,
+    label: '時間',
+    data: minutes,
+    bgColor: ['rgb(240, 248, 250)'],
+    bdColor: ['rgb(39, 119, 169)'],
+    bdWidth: 1
+  });
+  const option = getSkillRankChartOption(text, minutes)
+
   return (
     <div className='bg-white rounded-md shadow-sm border border-gray-300 mt-8'>
       <div className='p-6 text-md text-gray-700 border-b-2 border-gray-100'>スキルランク</div>
       <div className='p-6'>
         <Chart
-          labels={skills}
-          label={'時間'}
-          data={minutes}
-          bdColor={['rgb(39, 119, 169)']}
-          bgColor={['rgb(240, 248, 250)']}
-          bdwidth={1}
-          text={'スキル毎のランク'}
+          data={data}
+          option={option}
           type={'bar'}
-          pattern={'SkillRankGraph'}
         />
       </div>
       <div className='py-6 flex items-center justify-center'>

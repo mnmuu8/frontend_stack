@@ -10,9 +10,10 @@ import { hasValidationErrors, introspectionValidationRules, isRequiredArray } fr
 import { ErrorMessages } from '@/common/types/validator';
 import ErrorMessage from '@/components/ui-elements/ErrorMessage';
 import { FormContext } from '@/context/FormContext';
-import { InitialIntrospectionErrorMessage, validationCheck } from '@/common/functions/form';
+import { validationCheck } from '@/common/functions/form';
 import { IntrospectionFormContext } from '../contexts/IntrospectionFormContext';
 import { StackIntrospectionContext } from '../contexts/StackIntrospectionContext';
+import { InitialIntrospectionErrorMessage } from '../functions/form';
 
 const StackInspectionFormGroup: FC = () => {
   const { introspectionFormData, setIntrospectionFormData } = useContext(IntrospectionFormContext);

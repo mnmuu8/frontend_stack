@@ -2,7 +2,7 @@ import React, { FC, useContext } from 'react';
 import { getSession } from '@/features/sessions/functions/session';
 import { NextRouter, useRouter } from 'next/router';
 import { FormContext } from '@/context/FormContext';
-import { InitialUserFormData, resetFormValue } from '@/common/functions/form';
+import { resetFormValue } from '@/common/functions/form';
 import { getApiHeaders } from '@/common/functions/api';
 import { dataConfirmAlert } from '@/common/functions/form';
 import FormSubmitButton from '@/components/ui-elements/FormSubmitButton';
@@ -10,6 +10,7 @@ import FormCancelButton from '@/components/ui-elements/FormCancelButton';
 import UserFormGroup from './UserFormGroup';
 import { UserFormContext } from '../contexts/UserFormContext';
 import { callUpdateUser } from '../functions/api';
+import { InitialUserFormData } from '../functions/form';
 
 const UserForm: FC = () => {
   const { userFormData, setUserFormData } = useContext(UserFormContext);

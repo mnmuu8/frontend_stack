@@ -15,8 +15,9 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import { FormContext } from '@/context/FormContext';
-import { InitialUserErrorMessage, validationCheck } from '@/common/functions/form';
+import { validationCheck } from '@/common/functions/form';
 import { UserFormContext } from '../contexts/UserFormContext';
+import { InitialUserErrorMessage } from '../functions/form';
 
 const UserFormGroup: FC = () => {
   const [query, setQuery] = useState<string>('');

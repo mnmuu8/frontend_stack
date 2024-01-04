@@ -1,7 +1,7 @@
 import React, { createContext, useState, useMemo } from 'react';
 import { ChildrenProps } from '@/common/types/utils';
 import { StackFormDataParams } from '@/common/types/form';
-import { InitialStackFormData } from '@/common/functions/form';
+import { InitialStackFormData } from '../functions/form';
 import { StackFormContextProps } from '../types/context';
 
 const InitialState: StackFormContextProps = {

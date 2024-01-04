@@ -5,8 +5,9 @@ import { hasValidationErrors, outputCommentValidationRules } from '@/common/func
 import { ErrorMessages } from '@/common/types/validator';
 import ErrorMessage from '@/components/ui-elements/ErrorMessage';
 import { FormContext } from '@/context/FormContext';
-import { InitialOutputErrorMessage, validationCheck } from '@/common/functions/form';
+import { validationCheck } from '@/common/functions/form';
 import { OutputCommentFormContext } from '../contexts/OutputCommentFormContext';
+import { InitialOutputErrorMessage } from '../../functions/form';
 
 const OutputCommentFormGroup: FC = () => {
   const { outputCommentFormData, setOutputCommentFormData } = useContext(OutputCommentFormContext);

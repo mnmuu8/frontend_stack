@@ -1,6 +1,5 @@
 import React, { FC, useContext } from 'react';
 import { useRouter } from 'next/router';
-import { sidebarMenus } from '@/common/types/utils';
 import { AppContext } from '@/context/AppContext';
 import Link from 'next/link';
 

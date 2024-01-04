@@ -3,13 +3,14 @@ import StackFormGroup from '@/features/stacks/components/StackFormGroup';
 import { getSession } from '@/features/sessions/functions/session';
 import { NextRouter, useRouter } from 'next/router';
 import { FormContext } from '@/context/FormContext';
-import { InitialStackFormData, resetFormValue } from '@/common/functions/form';
+import { resetFormValue } from '@/common/functions/form';
 import { getApiHeaders } from '@/common/functions/api';
 import { dataConfirmAlert } from '@/common/functions/form';
 import FormSubmitButton from '@/components/ui-elements/FormSubmitButton';
 import FormCancelButton from '@/components/ui-elements/FormCancelButton';
 import { StackFormContext } from '@/features/stacks/contexts/StackFormContext';
 import { callCreateStack } from '../functions/api';
+import { InitialStackFormData } from '../functions/form';
 
 const StackForm: FC = () => {
   const { stackFormData, setStackFormData } = useContext(StackFormContext);

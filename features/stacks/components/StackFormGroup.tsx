@@ -8,9 +8,10 @@ import { FormContext } from '@/context/FormContext';
 import { hasValidationErrors, stackValidationRules } from '@/common/functions/validator';
 import { ErrorMessages } from '@/common/types/validator';
 import ErrorMessage from '@/components/ui-elements/ErrorMessage';
-import { InitialStackErrorMessage, validationCheck  } from '@/common/functions/form';
+import { validationCheck  } from '@/common/functions/form';
 
 import { StackFormContext } from '../contexts/StackFormContext';
+import { InitialStackErrorMessage } from '../functions/form';
 
 const StackFormGroup: FC = () => {
 

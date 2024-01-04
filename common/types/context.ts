@@ -1,14 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 import { sessionUser } from '@/features/sessions/types/session';
-import { FormType,
-  StackFormDataParams,
-  TeamFormDataParams,
-  InviteTeamFormDataParams,
-  UserFormDataParams,
-  IntrospectionFormDataParams,
-  OutputFormDataParams,
-  OutputCommentFormDataParams, } from './form';
-import { IntrospectionProps } from '@/features/introspections/types/introspection';
+import { FormType } from './form';
 
 export type AppContextProps = {
   drawerArea: boolean;
@@ -36,23 +28,4 @@ export type FormContextProps = {
   setIsRegisterEvent: Dispatch<SetStateAction<boolean>>;
   isValidate: boolean;
   setIsValidate: Dispatch<SetStateAction<boolean>>;
-};
-
-export type FormDataContextProps = {
-  teamFormData: TeamFormDataParams;
-  setTeamFormData: Dispatch<SetStateAction<TeamFormDataParams>>;
-  inviteTeamFormData: InviteTeamFormDataParams;
-  setInviteTeamFormData: Dispatch<SetStateAction<InviteTeamFormDataParams>>;
-  userFormData: UserFormDataParams;
-  setUserFormData: Dispatch<SetStateAction<UserFormDataParams>>;
-  stackFormData: StackFormDataParams;
-  setStackFormData: Dispatch<SetStateAction<StackFormDataParams>>;
-  introspectionFormData: IntrospectionFormDataParams;
-  setIntrospectionFormData: Dispatch<SetStateAction<IntrospectionFormDataParams>>;
-  showStackIntrospection: IntrospectionProps;
-  setShowStackIntrospection: Dispatch<SetStateAction<IntrospectionProps>>;
-  outputFormData: OutputFormDataParams;
-  setOutputFormData: Dispatch<SetStateAction<OutputFormDataParams>>;
-  outputCommentFormData: OutputCommentFormDataParams;
-  setOutputCommentFormData: Dispatch<SetStateAction<OutputCommentFormDataParams>>;
 };

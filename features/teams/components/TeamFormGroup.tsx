@@ -5,8 +5,9 @@ import { hasValidationErrors, teamValidationRules } from '@/common/functions/val
 import { ErrorMessages } from '@/common/types/validator';
 import ErrorMessage from '@/components/ui-elements/ErrorMessage';
 import { FormContext } from '@/context/FormContext';
-import { InitialTeamErrorMessage, validationCheck } from '@/common/functions/form';
+import { validationCheck } from '@/common/functions/form';
 import { TeamFormContext } from '../contexts/TeamFormContext';
+import { InitialTeamErrorMessage } from '../functions/form';
 
 const TeamFormGroup: FC = () => {
   const { teamFormData, setTeamFormData } = useContext(TeamFormContext);

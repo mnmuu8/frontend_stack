@@ -4,7 +4,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { FormContext } from '@/context/FormContext';
 import { TeamFormDataParams } from '@/common/types/form';
 import { SessionContext } from '@/context/SessionContext';
-import { InitialInviteTeamFormData } from '@/common/functions/form';
+import { InitialInviteTeamFormData } from '../functions/form';
 import { TeamFormContext } from '../contexts/TeamFormContext';
 import { InviteTeamFormContext } from '../contexts/InviteTeamFormContext';
 

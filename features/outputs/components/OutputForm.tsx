@@ -2,7 +2,7 @@ import React, { FC, useContext, useEffect } from 'react';
 import { getSession } from '@/features/sessions/functions/session';
 import { NextRouter, useRouter } from 'next/router';
 import { FormContext } from '@/context/FormContext';
-import { InitialOutputFormData, resetFormValue } from '@/common/functions/form';
+import { resetFormValue } from '@/common/functions/form';
 import { getApiHeaders } from '@/common/functions/api';
 import { dataConfirmAlert } from '@/common/functions/form';
 import FormSubmitButton from '@/components/ui-elements/FormSubmitButton';
@@ -11,6 +11,7 @@ import FormCancelButton from '@/components/ui-elements/FormCancelButton';
 import { OutputFormContext } from '../contexts/OutputFormContext';
 import OutputFormGroup from './OutputFormGroup';
 import { callCreateOutput } from '../functions/api';
+import { InitialOutputFormData } from '../functions/form';
 
 const OutputForm: FC = () => {
   const { outputFormData, setOutputFormData } = useContext(OutputFormContext);

@@ -27,7 +27,6 @@ import { handleBeforeInput,
   handleReturn,
   keyBindingFn,
 } from '../functions/editorOptions';
-import { FormDataContext } from '@/context/FormDataContext';
 import { stateToHTML } from 'draft-js-export-html';
 import { OutputFormContext } from '../../contexts/OutputFormContext';
 

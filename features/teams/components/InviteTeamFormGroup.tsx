@@ -5,8 +5,9 @@ import { hasValidationErrors, inviteTeamValidationRules } from '@/common/functio
 import { ErrorMessages } from '@/common/types/validator';
 import ErrorMessage from '@/components/ui-elements/ErrorMessage';
 import { FormContext } from '@/context/FormContext';
-import { InitialTeamErrorMessage, validationCheck } from '@/common/functions/form';
+import { validationCheck } from '@/common/functions/form';
 import { InviteTeamFormContext } from '../contexts/InviteTeamFormContext';
+import { InitialTeamErrorMessage } from '../functions/form';
 
 const InviteTeamFormGroup: FC = () => {
   const { inviteTeamFormData, setInviteTeamFormData } = useContext(InviteTeamFormContext);

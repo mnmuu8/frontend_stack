@@ -5,9 +5,10 @@ import { hasValidationErrors, outputValidationRules } from '@/common/functions/v
 import { ErrorMessages } from '@/common/types/validator';
 import ErrorMessage from '@/components/ui-elements/ErrorMessage';
 import { FormContext } from '@/context/FormContext';
-import { InitialOutputErrorMessage, validationCheck } from '@/common/functions/form';
+import { validationCheck } from '@/common/functions/form';
 import RichTextEditor from '../rich_editors/components/RichTextEditor';
 import { OutputFormContext } from '../contexts/OutputFormContext';
+import { InitialOutputErrorMessage } from '../functions/form';
 
 const OutputFormGroup: FC = () => {
   const { outputFormData, setOutputFormData } = useContext(OutputFormContext);

@@ -2,7 +2,6 @@ import React, { FC, useContext } from 'react';
 import ReactDatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Box from '@mui/material/Box';
-import { FormDataContext } from '@/context/FormDataContext';
 
 import { stackValidationRules } from '@/common/functions/validator';
 import { ErrorMessagesState } from '@/common/types/validator';

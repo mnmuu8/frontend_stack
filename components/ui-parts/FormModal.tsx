@@ -10,9 +10,31 @@ import OutputForm from '@/features/outputs/components/OutputForm';
 import OutputCommentForm from '@/features/outputs/comments/components/OutputCommentForm';
 import { dataConfirmAlert, resetFormValue } from '@/common/functions/form';
 import { FormContext } from '@/context/FormContext';
+import { InitialStackFormData } from '@/features/stacks/functions/form';
+import { InitialIntrospectionFormData } from '@/features/introspections/functions/form';
+import { InitialUserFormData } from '@/features/users/functions/form';
+import { InitialInviteTeamFormData, InitialTeamFormData } from '@/features/teams/functions/form';
+import { InitialOutputCommentFormData, InitialOutputFormData } from '@/features/outputs/functions/form';
+import { StackFormContext } from '@/features/stacks/contexts/StackFormContext';
+import { IntrospectionFormContext } from '@/features/introspections/contexts/IntrospectionFormContext';
+import { UserFormContext } from '@/features/users/contexts/UserFormContext';
+import { TeamFormContext } from '@/features/teams/contexts/TeamFormContext';
+import { InviteTeamFormContext } from '@/features/teams/contexts/InviteTeamFormContext';
+import { OutputFormContext } from '@/features/outputs/contexts/OutputFormContext';
+import { OutputCommentFormContext } from '@/features/outputs/comments/contexts/OutputCommentFormContext';
+import { StackIntrospectionContext } from '@/features/introspections/contexts/StackIntrospectionContext';
 
 const FormModal: FC = () => {
   const { formOpen, setFormOpen, formType, setIsRegisterEvent, setIsValidate } = useContext(FormContext);
+
+  const { setStackFormData } = useContext(StackFormContext);
+  const { setIntrospectionFormData } = useContext(IntrospectionFormContext);
+  const { setUserFormData } = useContext(UserFormContext);
+  const { setTeamFormData } = useContext(TeamFormContext);
+  const { setInviteTeamFormData } = useContext(InviteTeamFormContext);
+  const { setOutputFormData } = useContext(OutputFormContext);
+  const { setOutputCommentFormData } = useContext(OutputCommentFormContext);
+  const { setShowStackIntrospection } = useContext(StackIntrospectionContext);
 
   const insideRef = useRef<HTMLDivElement>(null);
   const handleClickOutside: React.MouseEventHandler<HTMLDivElement> = (e) => {
@@ -29,8 +51,16 @@ const FormModal: FC = () => {
     resetFormValue({
       setFormOpen,
       setIsRegisterEvent,
-      setIsValidate
+      setIsValidate,
     });
+    setStackFormData(InitialStackFormData)
+    setIntrospectionFormData(InitialIntrospectionFormData);
+    setUserFormData(InitialUserFormData)
+    setTeamFormData(InitialTeamFormData)
+    setInviteTeamFormData(InitialInviteTeamFormData)
+    setOutputFormData(InitialOutputFormData)
+    setOutputCommentFormData(InitialOutputCommentFormData)
+    setShowStackIntrospection(undefined)
   };
 
   const SelectForm = () => {

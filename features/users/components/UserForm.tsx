@@ -3,13 +3,13 @@ import { getSession } from '@/features/sessions/functions/session';
 import { NextRouter, useRouter } from 'next/router';
 import { FormContext } from '@/context/FormContext';
 import { InitialUserFormData, resetFormValue } from '@/common/functions/form';
-import { callUpdateUser } from '@/common/functions/api';
 import { getApiHeaders } from '@/common/functions/api';
 import { dataConfirmAlert } from '@/common/functions/form';
 import FormSubmitButton from '@/components/ui-elements/FormSubmitButton';
 import FormCancelButton from '@/components/ui-elements/FormCancelButton';
 import UserFormGroup from './UserFormGroup';
 import { UserFormContext } from '../contexts/UserFormContext';
+import { callUpdateUser } from '../functions/api';
 
 const UserForm: FC = () => {
   const { userFormData, setUserFormData } = useContext(UserFormContext);

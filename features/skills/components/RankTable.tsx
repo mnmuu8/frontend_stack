@@ -10,7 +10,7 @@ import TableRow from '@mui/material/TableRow';
 
 import { getApiHeaders } from '@/common/functions/api';
 import { SessionContext } from '@/context/SessionContext';
-import { callFetchStackRankings } from '@/features/stacks/functions/stack-ranking';
+import { callFetchStackRankings } from '../functions/api';
 
 export type StackRankings = {
   order: number;

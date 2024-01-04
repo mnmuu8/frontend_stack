@@ -8,13 +8,14 @@ import { UserRegisterProps } from '@/features/users/types/user';
 import { getSession } from '@/features/sessions/functions/session';
 import { hasValidationErrors, userValidationRules } from '@/common/functions/validator';
 import { InitialUserErrorMessage, validationCheck, dataConfirmAlert } from '@/common/functions/form';
-import { callCreateUser, getApiHeaders } from '@/common/functions/api';
+import { getApiHeaders } from '@/common/functions/api';
 import { FormContext } from '@/context/FormContext';
 import { FormDataContext } from '@/context/FormDataContext';
 import TextInput from '@/components/ui-elements/TextInput';
 import ErrorMessage from '@/components/ui-elements/ErrorMessage';
 import FormSubmitButton from '@/components/ui-elements/FormSubmitButton';
 import UserFormGroup from '@/features/users/components/UserFormGroup';
+import { callCreateUser } from '@/features/users/functions/api';
 
 const Register: NextPage<UserRegisterProps> = ({ email, team_id }) => {
   const { userFormData, setUserFormData } = useContext(FormDataContext);

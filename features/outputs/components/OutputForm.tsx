@@ -10,7 +10,7 @@ import FormCancelButton from '@/components/ui-elements/FormCancelButton';
 
 import { OutputFormContext } from '../contexts/OutputFormContext';
 import OutputFormGroup from './OutputFormGroup';
-import { callCreateOutput } from '../functions/outputs';
+import { callCreateOutput } from '../functions/api';
 
 const OutputForm: FC = () => {
   const { outputFormData, setOutputFormData } = useContext(OutputFormContext);

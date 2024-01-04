@@ -21,4 +21,3 @@ export const callFetchStackRankings = ({options, sessionUser ,setStackRankings}:
     });
   }
 }
-

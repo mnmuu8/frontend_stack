@@ -2,13 +2,13 @@ import React, { FC, useContext } from 'react';
 import { getSession } from '@/features/sessions/functions/session';
 import { FormContext } from '@/context/FormContext';
 import { InitialTeamFormData, resetFormValue } from '@/common/functions/form';
-import { callCreateTeam, callUpdateTeam } from '@/common/functions/api';
 import { getApiHeaders } from '@/common/functions/api';
 import { dataConfirmAlert } from '@/common/functions/form';
 import FormSubmitButton from '@/components/ui-elements/FormSubmitButton';
 import FormCancelButton from '@/components/ui-elements/FormCancelButton';
 import TeamFormGroup from './TeamFormGroup';
 import { TeamFormContext } from '../contexts/TeamFormContext';
+import { callCreateTeam, callUpdateTeam } from '../functions/api';
 
 const TeamForm: FC = () => {
   const { teamFormData, setTeamFormData } = useContext(TeamFormContext);

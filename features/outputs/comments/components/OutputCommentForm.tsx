@@ -9,7 +9,7 @@ import FormSubmitButton from '@/components/ui-elements/FormSubmitButton';
 import FormCancelButton from '@/components/ui-elements/FormCancelButton';
 import { OutputCommentFormContext } from '../contexts/OutputCommentFormContext';
 import OutputCommentFormGroup from './OutputCommentFormGroup';
-import { callCreateOutputComment } from '../functions/comments';
+import { callCreateOutputComment } from '../functions/api';
 
 const OutputCommentForm: FC = () => {
   const { outputCommentFormData, setOutputCommentFormData } = useContext(OutputCommentFormContext);

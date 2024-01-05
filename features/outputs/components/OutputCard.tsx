@@ -11,8 +11,7 @@ const OutputCard: FC<OutputCardProps> = ({ output }) => {
   const [showMoreButton, setShowMoreButton] = useState<boolean>(false);
   const contentRef = useRef<HTMLDivElement>(null);
 
-  const sessionContext = useContext(SessionContext);
-  const { sessionUser } = sessionContext;
+  const { sessionUser } = useContext(SessionContext);
 
   const outputCreatedAt = output.created_at;
   const formattedCreateDate = formatDate(outputCreatedAt);

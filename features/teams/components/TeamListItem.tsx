@@ -15,8 +15,7 @@ const TeamListItem: FC<TeamFormDataParams> = ({ id, name }) => {
   const { setTeamFormData } = useContext(TeamFormContext);
   const { setInviteTeamFormData } = useContext(InviteTeamFormContext);
 
-  const sessionContext = useContext(SessionContext);
-  const { isAdmin } = sessionContext;
+  const { isAdmin } = useContext(SessionContext);
 
   const handleFormOpen = () => {
     setFormOpen(true);

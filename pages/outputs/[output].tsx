@@ -22,8 +22,7 @@ const Output: NextPage<OutputCardProps> = ({ output, initialComments }) => {
   const createAt = output.created_at;
   const formattedStackedDate = formatDate(createAt);
 
-  const sessionContext = useContext(SessionContext);
-  const { sessionUser } = sessionContext;
+  const { sessionUser } = useContext(SessionContext);
 
   // TODO: 現状は仮情報を使用しており、アウトプットにユーザー紐づけたら更新
   const USER_PROFILE_HEIGHT = 26;

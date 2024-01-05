@@ -6,8 +6,7 @@ import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import ProfileImageModal from './ProfileImageModal';
 
 const ProfileCard: FC = () => {
-  const sessionContext = useContext(SessionContext);
-  const { sessionUser } = sessionContext;
+  const { sessionUser } = useContext(SessionContext);
 
   const formContext = useContext(FormContext);
   const { setFormOpen, setFormType } = formContext;

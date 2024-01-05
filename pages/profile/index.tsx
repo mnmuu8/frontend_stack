@@ -14,8 +14,7 @@ const Index: NextPage = () => {
   const [skills, setSkills] = useState<string[]>([]);
   const [minutes, setMinutes] = useState<number[]>([]);
 
-  const sessionContext = useContext(SessionContext);
-  const { sessionUser } = sessionContext;
+  const { sessionUser } = useContext(SessionContext);
 
   useEffect(() => {
     const options = getApiHeadersWithUserId();

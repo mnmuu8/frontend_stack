@@ -17,8 +17,7 @@ const StackCard: FC<StackCardProps> = ({ stack }) => {
   const stackedAt = stack.stacked_at;
   const formattedStackedDate = formatDate(stackedAt);
 
-  const sessionContext = useContext(SessionContext);
-  const { sessionUser } = sessionContext;
+  const { sessionUser } = useContext(SessionContext);
 
   const formContext = useContext(FormContext);
   const { setFormOpen, setFormType, isRegisterEvent } = formContext;

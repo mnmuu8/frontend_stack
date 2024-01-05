@@ -11,8 +11,7 @@ const TeamList: FC = () => {
   const [teams, setTeams] = useState<TeamProps[]>([]);
   const formContext = useContext(FormContext);
   const { setFormOpen, setFormType, isRegisterEvent } = formContext;
-  const sessionContext = useContext(SessionContext);
-  const { isAdmin } = sessionContext;
+  const { isAdmin } = useContext(SessionContext);
 
   useEffect(() => {
     const fetchTeams = async () => {

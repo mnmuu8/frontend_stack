@@ -14,6 +14,7 @@ import OutputCommentCard from '@/features/outputs/comments/components/OutputComm
 import ImageWrapper from '@/components/ui-elements/ImageWrapper';
 import { SessionContext } from '@/context/SessionContext';
 import { formatDate } from '@/common/functions/dateUtils';
+import { USER_PROFILE_HEIGHT_SM, USER_PROFILE_WIDTH_SM } from '@/common/constans/sizes';
 
 const Output: NextPage<OutputCardProps> = ({ output, initialComments }) => {
   const router = useRouter();
@@ -25,10 +26,8 @@ const Output: NextPage<OutputCardProps> = ({ output, initialComments }) => {
   const { sessionUser } = useContext(SessionContext);
 
   // TODO: 現状は仮情報を使用しており、アウトプットにユーザー紐づけたら更新
-  const USER_PROFILE_HEIGHT = 26;
-  const USER_PROFILE_WIDTH = 26;
-  const USER_PROFILE_SRC_PATH = '/no_image.png';
-  const USER_PROFILE_NAME = 'example';
+  const userProfileSrcPath = '/no_image.png';
+  const userProfileName = 'example';
 
   const [comments, setComments] = useState(initialComments);
   const { setFormOpen, setFormType } = useContext(FormContext);
@@ -58,10 +57,10 @@ const Output: NextPage<OutputCardProps> = ({ output, initialComments }) => {
                 <div className='text-[12px] text-gray-500 w-[150px]'>投稿者</div>
                 <div className='flex items-center'>
                   <ImageWrapper
-                    src={USER_PROFILE_SRC_PATH}
-                    height={USER_PROFILE_HEIGHT}
-                    width={USER_PROFILE_WIDTH}
-                    alt={USER_PROFILE_NAME}
+                    src={userProfileSrcPath}
+                    height={USER_PROFILE_HEIGHT_SM}
+                    width={USER_PROFILE_WIDTH_SM}
+                    alt={userProfileName}
                     className='rounded-full'
                   />
                   <div className='ml-2 text-sm'>{sessionUser?.name}</div>

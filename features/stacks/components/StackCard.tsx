@@ -12,6 +12,7 @@ import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import { StackIntrospectionContext } from '@/features/introspections/contexts/StackIntrospectionContext';
 import { InitialIntrospectionFormData } from '@/features/introspections/functions/form';
+import { USER_PROFILE_HEIGHT_SM, USER_PROFILE_WIDTH_SM } from '@/common/constans/sizes';
 
 const StackCard: FC<StackCardProps> = ({ stack }) => {
   const stackedAt = stack.stacked_at;
@@ -40,10 +41,9 @@ const StackCard: FC<StackCardProps> = ({ stack }) => {
 
   const [introspectionValue, setIntrospectionValue] = useState<IntrospectionProps>(undefined);
 
-  const USER_PROFILE_HEIGHT = 26;
-  const USER_PROFILE_WIDTH = 26;
-  const USER_PROFILE_SRC_PATH =
+  const userProfileSrcPath =
     stack.user.profile_image_path !== null ? stack.user.profile_image_path : '/no_image.png';
+  const userProfileName = stack.user.name && stack.user.name !== null ? stack.user.name : 'noname';
 
   useEffect(() => {
     const fetchIntrospection = async () => {
@@ -68,10 +68,10 @@ const StackCard: FC<StackCardProps> = ({ stack }) => {
         <div className='flex items-center flex-grow pr-2 min-w-0'>
           {sessionUser && (
             <ImageWrapper
-              src={USER_PROFILE_SRC_PATH}
-              height={USER_PROFILE_HEIGHT}
-              width={USER_PROFILE_WIDTH}
-              alt={stack.user.name}
+              src={userProfileSrcPath}
+              height={USER_PROFILE_HEIGHT_SM}
+              width={USER_PROFILE_WIDTH_SM}
+              alt={userProfileName}
               className='rounded-full mr-2'
             />
           )}

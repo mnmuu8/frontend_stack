@@ -5,6 +5,7 @@ import { formatDate } from '@/common/functions/dateUtils';
 import ImageWrapper from '@/components/ui-elements/ImageWrapper';
 import EditIcon from '@mui/icons-material/Edit';
 import Link from 'next/link';
+import { USER_PROFILE_HEIGHT_SM, USER_PROFILE_WIDTH_SM } from '@/common/constans/sizes';
 
 const OutputCard: FC<OutputCardProps> = ({ output }) => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
@@ -16,10 +17,8 @@ const OutputCard: FC<OutputCardProps> = ({ output }) => {
   const outputCreatedAt = output.created_at;
   const formattedCreateDate = formatDate(outputCreatedAt);
 
-  const USER_PROFILE_HEIGHT = 32;
-  const USER_PROFILE_WIDTH = 32;
-  const USER_PROFILE_SRC_PATH = sessionUser && sessionUser.profile_image_path !== null ? sessionUser.profile_image_path : '/no_image.png';
-  const USER_PROFILE_NAME = sessionUser && sessionUser.name !== null ? sessionUser.name : 'noname';
+  const userProfileSrcPath = sessionUser && sessionUser.profile_image_path !== null ? sessionUser.profile_image_path : '/no_image.png';
+  const userProfileName = sessionUser && sessionUser.name !== null ? sessionUser.name : 'noname';
 
   const toggleContent = () => {
     setIsExpanded(!isExpanded);
@@ -38,10 +37,10 @@ const OutputCard: FC<OutputCardProps> = ({ output }) => {
           <div className='flex items-center flex-grow pr-2 min-w-0'>
             {sessionUser && (
               <ImageWrapper
-                src={USER_PROFILE_SRC_PATH}
-                height={USER_PROFILE_HEIGHT}
-                width={USER_PROFILE_WIDTH}
-                alt={USER_PROFILE_NAME}
+                src={userProfileSrcPath}
+                height={USER_PROFILE_HEIGHT_SM}
+                width={USER_PROFILE_WIDTH_SM}
+                alt={userProfileName}
                 className='rounded-full mr-2'
               />
             )}

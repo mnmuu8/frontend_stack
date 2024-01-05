@@ -4,6 +4,7 @@ import { FormContext } from '@/context/FormContext';
 import { SessionContext } from '@/context/SessionContext';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import ProfileImageModal from './ProfileImageModal';
+import { USER_PROFILE_HEIGHT_LG, USER_PROFILE_WIDTH_LG } from '@/common/constans/sizes';
 
 const ProfileCard: FC = () => {
   const { sessionUser } = useContext(SessionContext);
@@ -17,10 +18,9 @@ const ProfileCard: FC = () => {
     setIsProfileImageModal(true);
   };
 
-  const USER_PROFILE_HEIGHT = 180;
-  const USER_PROFILE_WIDTH = 180;
-  const USER_PROFILE_SRC_PATH =
+  const userProfileSrcPath =
     sessionUser && sessionUser.profile_image_path !== null ? sessionUser.profile_image_path : '/no_image.png';
+  const userProfileName = sessionUser && sessionUser.name !== null ? sessionUser.name : 'noname';
 
   const handleFormOpen = () => {
     setFormType('updateUser');
@@ -32,10 +32,10 @@ const ProfileCard: FC = () => {
       <div className='flex items-center'>
         <div className='ProfileImage' onClick={handleProfileImageModalOpen}>
           <ImageWrapper
-            src={USER_PROFILE_SRC_PATH}
-            height={USER_PROFILE_HEIGHT}
-            width={USER_PROFILE_WIDTH}
-            alt={sessionUser.name}
+            src={userProfileSrcPath}
+            height={USER_PROFILE_HEIGHT_LG}
+            width={USER_PROFILE_WIDTH_LG}
+            alt={userProfileName}
             className='rounded-full'
           />
           <div className='ProfileImageOverlay'>

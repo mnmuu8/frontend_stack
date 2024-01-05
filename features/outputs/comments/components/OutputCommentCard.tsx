@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import ImageWrapper from '@/components/ui-elements/ImageWrapper';
 import { CommentProps } from '../../types/output';
+import { USER_PROFILE_HEIGHT_SM, USER_PROFILE_WIDTH_SM } from '@/common/constans/sizes';
 
 const OutputCommentCard: FC<{ comment: CommentProps }> = ({ comment }) => {
   const formatTimeAgo = (dateString: string) => {
@@ -19,19 +20,17 @@ const OutputCommentCard: FC<{ comment: CommentProps }> = ({ comment }) => {
   const timeAgo = formatTimeAgo(comment.created_at);
 
   // TODO: 現状は仮情報を使用しており、アウトプットのコメントにユーザー紐づけたら更新
-  const USER_PROFILE_HEIGHT = 26;
-  const USER_PROFILE_WIDTH = 26;
-  const USER_PROFILE_SRC_PATH = '/no_image.png';
-  const USER_PROFILE_NAME = 'example';
+  const userProfileSrcPath = '/no_image.png';
+  const userProfileName = 'example';
 
   return (
     <div className='bg-gray-50 border-b py-2 px-4'>
       <div className='flex items-center'>
         <ImageWrapper
-          src={USER_PROFILE_SRC_PATH}
-          height={USER_PROFILE_HEIGHT}
-          width={USER_PROFILE_WIDTH}
-          alt={USER_PROFILE_NAME}
+          src={userProfileSrcPath}
+          height={USER_PROFILE_HEIGHT_SM}
+          width={USER_PROFILE_WIDTH_SM}
+          alt={userProfileName}
           className='rounded-full'
         />
         <div className='text-sm ml-1'>{comment.user.name}</div>

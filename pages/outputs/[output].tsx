@@ -2,13 +2,13 @@ import React, { useEffect, useState, useContext, useCallback } from 'react';
 import axios from 'axios';
 import cookie from 'cookie';
 import { GetServerSideProps, NextPage } from 'next';
-import { getNextApiHeaders } from '@/utiliry/api';
+import { getNextApiHeaders } from '@/common/functions/api';
 import { useRouter } from 'next/router';
-import { OutputCardProps, CommentProps } from '@/types/output';
+import { OutputCardProps, CommentProps } from '@/features/outputs/types/output';
 import { FormContext } from '@/context/FormContext';
-import FormModal from '@/components/molecules/FormModal';
-import { InitialOutputCommentFormData } from '@/utiliry/form';
-import { FormDataContext } from '@/context/FormDataContext';
+import FormModal from '@/components/ui-parts/FormModal';
+import { InitialOutputCommentFormData } from '@/features/outputs/functions/form';
+import { OutputCommentFormContext } from '@/features/outputs/comments/contexts/OutputCommentFormContext';
 
 const Output: NextPage<OutputCardProps> = ({ output, initialComments }) => {
   const router = useRouter();
@@ -16,7 +16,7 @@ const Output: NextPage<OutputCardProps> = ({ output, initialComments }) => {
 
   const [comments, setComments] = useState(initialComments);
   const { setFormOpen, setFormType } = useContext(FormContext);
-  const { setOutputCommentFormData } = useContext(FormDataContext);
+  const { setOutputCommentFormData } = useContext(OutputCommentFormContext);
 
   const handleFormOpen = useCallback(() => {
     const outputId = output.id

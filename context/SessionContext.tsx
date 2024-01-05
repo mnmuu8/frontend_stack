@@ -1,7 +1,7 @@
 import React, { createContext, useState, useMemo } from 'react';
-import { ChildrenProps } from '@/types/utils';
-import { sessionUser } from '@/types/session';
-import { SessionContextProps } from '@/types/context';
+import { ChildrenProps } from '@/common/types/utils';
+import { sessionUser } from '@/features/sessions/types/session';
+import { SessionContextProps } from '@/common/types/context';
 
 const InitialState: SessionContextProps = {
   sessionUser: undefined,

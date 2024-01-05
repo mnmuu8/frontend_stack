@@ -1,17 +1,17 @@
 import React from 'react';
 import axios from 'axios';
-import Layout from '@/components/organisms/Layout';
-import OutputsWrapper from '@/components/templates/OutputsWrapper';
 import cookie from 'cookie';
+import Layout from '@/components/layouts/Layout';
+import OutputList from '@/features/outputs/components/OutputList';
 import { GetServerSideProps, NextPage } from 'next';
-import { getNextApiHeaders } from '@/utiliry/api';
-import { OutputsProps } from '@/types/output';
+import { getNextApiHeaders } from '@/common/functions/api';
+import { OutputsProps } from '@/features/outputs/types/output';
 
 const Index: NextPage<OutputsProps> = ({ outputs }) => {
   return (
     <div>
       <Layout>
-        <OutputsWrapper outputs={outputs} />
+        <OutputList outputs={outputs} />
       </Layout>
     </div>
   );

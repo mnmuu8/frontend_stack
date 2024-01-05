@@ -1,6 +1,6 @@
 import React, { MouseEvent, createContext, useState, useCallback, useMemo } from 'react';
-import { ChildrenProps } from '@/types/utils';
-import { AppContextProps } from '@/types/context';
+import { ChildrenProps } from '@/common/types/utils';
+import { AppContextProps } from '@/common/types/context';
 
 const InitialState: AppContextProps = {
   drawerArea: true,
@@ -18,9 +18,9 @@ const AppProvider = ({ children }: ChildrenProps) => {
   const [drawerArea, setDrawerArea] = useState<boolean>(true);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  const handleDrawerAreaToggle = useCallback(() => {
+  const handleDrawerAreaToggle = () => {
     setDrawerArea(!drawerArea);
-  }, []);
+  };
   const handleMenuOpen = useCallback((event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   }, []);

@@ -1,0 +1,2 @@
+export const InitialStackFormData = {skill: "", stacked_at: new Date(), minutes: 0, title: "", description: ""}
+export const InitialStackErrorMessage = {skill: '', stacked_at: '', minutes: '', title: '', description: ''}

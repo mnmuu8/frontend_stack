@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Button } from '@mui/material';
 import axios from 'axios';
-import { siteTitle } from '@/common/constans/config';
+import { SITE_TITLE } from '@/common/constans/config';
 import { setSession } from '../../functions/session';
 
 const LoginForm: FC = () => {
@@ -33,7 +33,7 @@ const LoginForm: FC = () => {
 
   return (
     <div>
-      <div className='font-mono text-white text-2xl text-center mb-4'>{siteTitle}</div>
+      <div className='font-mono text-white text-2xl text-center mb-4'>{SITE_TITLE}</div>
       <input
         className='w-full p-2 mb-2'
         type='email'

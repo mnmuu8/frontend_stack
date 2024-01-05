@@ -4,15 +4,32 @@ import cookie from 'cookie';
 import { GetServerSideProps, NextPage } from 'next';
 import { getNextApiHeaders } from '@/common/functions/api';
 import { useRouter } from 'next/router';
-import { OutputCardProps, CommentProps } from '@/features/outputs/types/output';
+import { OutputCardProps } from '@/features/outputs/types/output';
 import { FormContext } from '@/context/FormContext';
-import FormModal from '@/components/ui-parts/FormModal';
 import { InitialOutputCommentFormData } from '@/features/outputs/functions/form';
 import { OutputCommentFormContext } from '@/features/outputs/comments/contexts/OutputCommentFormContext';
+import Layout from '@/components/layouts/Layout';
+import AddIcon from '@mui/icons-material/Add';
+import OutputCommentCard from '@/features/outputs/comments/components/OutputCommentCard';
+import ImageWrapper from '@/components/ui-elements/ImageWrapper';
+import { SessionContext } from '@/context/SessionContext';
+import { formatDate } from '@/common/functions/dateUtils';
 
 const Output: NextPage<OutputCardProps> = ({ output, initialComments }) => {
   const router = useRouter();
   const handleBack = () => router.back();
+
+  const createAt = output.created_at;
+  const formattedStackedDate = formatDate(createAt);
+
+  const sessionContext = useContext(SessionContext);
+  const { sessionUser } = sessionContext;
+
+  // TODO: 現状は仮情報を使用しており、アウトプットにユーザー紐づけたら更新
+  const USER_PROFILE_HEIGHT = 26;
+  const USER_PROFILE_WIDTH = 26;
+  const USER_PROFILE_SRC_PATH = '/no_image.png';
+  const USER_PROFILE_NAME = 'example';
 
   const [comments, setComments] = useState(initialComments);
   const { setFormOpen, setFormType } = useContext(FormContext);
@@ -30,48 +47,64 @@ const Output: NextPage<OutputCardProps> = ({ output, initialComments }) => {
   }, [initialComments]);
 
   return (
-    <div className='bg-gray-50 h-full min-h-screen flex justify-center items-center'>
-      <div className='w-[768px] bg-white max-h-[80vh] overflow-auto'>
-        <div className='py-2 px-4 border-b-gray-100 border-b-2'>
-          <div className='text-sm cursor-pointer' onClick={handleBack}>＜ 戻る</div>
+    <Layout>
+      <div className='flex flex-col h-full max-w-[1020px] m-auto'>
+        <div className='flex flex-col h-full bg-white border border-gray-300 rounded-md shadow-sm'>
+          <div className='flex justify-between items-center border-b-gray-100 border-b-2 px-6 py-4'>
+            <div className='border border-gray-300 cursor-pointer inline-block text-[10px] rounded-md py-2 px-3' onClick={handleBack}>＜ 戻る</div>
+          </div>
+          <div className='overflow-hidden flex-grow p-6'>
+            <div className='overflow-scroll h-full'>
+              <div className='flex items-center'>
+                <div className='text-[12px] text-gray-500 w-[150px]'>投稿者</div>
+                <div className='flex items-center'>
+                  <ImageWrapper
+                    src={USER_PROFILE_SRC_PATH}
+                    height={USER_PROFILE_HEIGHT}
+                    width={USER_PROFILE_WIDTH}
+                    alt={USER_PROFILE_NAME}
+                    className='rounded-full'
+                  />
+                  <div className='ml-2 text-sm'>{sessionUser?.name}</div>
+                </div>
+              </div>
+              <div className='flex items-center mt-4'>
+                <div className='text-[12px] text-gray-500 w-[150px]'>投稿日</div>
+                <div className='flex items-center'>
+                  <div className='text-sm'>{formattedStackedDate}</div>
+                </div>
+              </div>
+              <div className='mt-4'>
+                <div className='text-[12px] text-gray-500 w-[150px]'>内容</div>
+                <div className='OutputContent mt-2' dangerouslySetInnerHTML={{ __html: output.content }} />
+              </div>
+            </div>
+          </div>
+          <div className='border-t-2 border-gray-100 px-6 py-4'>
+            <div className='flex justify-between items-center mb-4'>
+              <div className='text-md text-gray-700 font-bold'>投稿のコメント</div>
+              <div
+                className='flex items-center border border-gray-300 rounded-full py-1 pl-1 pr-2 cursor-pointer hover:bg-gray-50'
+                onClick={handleFormOpen}
+              >
+                <AddIcon className='rounded-full bg-blue-500 text-gray-50' fontSize='small' />
+                <div className='text-sm text-gray-700 ml-1'>コメント追加</div>
+              </div>
+            </div>
+            <div className='overflow-scroll max-h-[200px]'>
+              {comments && comments.length > 0 ? (
+                comments.map((comment) => (
+                  <OutputCommentCard key={comment.id} comment={comment} />
+                ))
+              ) : (
+                <p className='text-sm text-gray-700'>コメントがありません</p>
+              )}
+              </div>
+          </div>
         </div>
-        <div className='p-4 OutputContent' dangerouslySetInnerHTML={{ __html: output.content }} />
-        <button className='block bg-blue-500 text-blue-100 hover:bg-blue-600 text-sm font-bold rounded-full p-2 ml-auto w-[150px] text-center cursor-pointer' onClick={handleFormOpen}>コメントする</button>
-        <div className='p-4 bg-white'>
-          <h2 className='text-lg font-bold mb-4'>コメント</h2>
-          {comments && comments.map((comment) => (
-            <Comment key={comment.id} comment={comment} />
-          ))}
-        </div>
-        <FormModal />
       </div>
-    </div>
+    </Layout>
   );
-};
-
-const Comment: React.FC<{ comment: CommentProps }> = ({ comment }) => {
-  const timeAgo = formatTimeAgo(comment.created_at);
-
-  return (
-    <div className='border p-2 mt-2 bg-gray-200'>
-      <div className='font-bold'>{comment.user.name}</div>
-      <div>{comment.content}</div>
-      <div className='text-gray-500 text-sm'>{timeAgo}</div>
-    </div>
-  );
-};
-
-const formatTimeAgo = (dateString: string) => {
-  const date = new Date(dateString);
-  const diffInSeconds = (new Date().getTime() - date.getTime()) / 1000;
-
-  if (diffInSeconds < 60) return 'たった今';
-
-  return new Intl.DateTimeFormat('ja-JP', {
-    timeZone: 'Asia/Tokyo',
-    year: 'numeric', month: '2-digit', day: '2-digit',
-    hour: '2-digit', minute: '2-digit', second: '2-digit'
-  }).format(date);
 };
 
 export default Output;

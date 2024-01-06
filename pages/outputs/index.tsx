@@ -9,11 +9,11 @@ import { OutputsProps } from '@/features/outputs/types/output';
 
 const Index: NextPage<OutputsProps> = ({ outputs }) => {
   return (
-    <div>
-      <Layout>
+    <Layout>
+      <div className='max-w-[1020px] m-auto'>
         <OutputList outputs={outputs} />
-      </Layout>
-    </div>
+      </div>
+    </Layout>
   );
 };
 

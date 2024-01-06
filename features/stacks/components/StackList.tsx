@@ -4,8 +4,7 @@ import { StackProps } from '../types/stack';
 import { SessionContext } from '@/context/SessionContext';
 
 const StackList: FC<{ stacks: StackProps[] }> = ({ stacks }) => {
-  const sessionContext = useContext(SessionContext);
-  const { sessionUser } = sessionContext;
+  const { sessionUser } = useContext(SessionContext);
 
   if (!sessionUser) {
     return <div>Loading...</div>;

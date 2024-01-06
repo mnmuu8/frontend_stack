@@ -9,6 +9,7 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import ImageWrapper from '@/components/ui-elements/ImageWrapper';
 import axios from 'axios';
+import { USER_PROFILE_HEIGHT_MD, USER_PROFILE_WIDTH_MD } from '@/common/constans/sizes';
 
 const ProfileImageModal: FC<ProfileModalState> = ({ isProfileImageModal, setIsProfileImageModal }) => {
   const sessiontContext = useContext(SessionContext);
@@ -119,11 +120,9 @@ const ProfileImageModal: FC<ProfileModalState> = ({ isProfileImageModal, setIsPr
     }
   };
 
-  const USER_PROFILE_HEIGHT = 100;
-  const USER_PROFILE_WIDTH = 100;
-  const USER_PROFILE_SRC_PATH =
+  const userProfileSrcPath =
     sessionUser && sessionUser.profile_image_path !== null ? sessionUser.profile_image_path : '/no_image.png';
-  const USER_PROFILE_NAME = sessionUser && sessionUser.name !== null ? sessionUser.name : 'noname';
+  const userProfileName = sessionUser && sessionUser.name !== null ? sessionUser.name : 'noname';
 
   return (
     <div onClick={handleClickOutside}>
@@ -134,10 +133,10 @@ const ProfileImageModal: FC<ProfileModalState> = ({ isProfileImageModal, setIsPr
         >
           <div className='flex justify-center mb-6'>
             <ImageWrapper
-              src={USER_PROFILE_SRC_PATH}
-              height={USER_PROFILE_HEIGHT}
-              width={USER_PROFILE_WIDTH}
-              alt={USER_PROFILE_NAME}
+              src={userProfileSrcPath}
+              height={USER_PROFILE_HEIGHT_MD}
+              width={USER_PROFILE_WIDTH_MD}
+              alt={userProfileName}
             />
           </div>
           <button

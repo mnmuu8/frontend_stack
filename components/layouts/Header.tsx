@@ -10,6 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import AddIcon from '@mui/icons-material/Add';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { USER_PROFILE_HEIGHT_SM, USER_PROFILE_WIDTH_SM } from '@/common/constans/sizes';
 
 const Header: FC = () => {
   const { handleDrawerAreaToggle, handleMenuOpen } = useContext(AppContext);
@@ -21,11 +22,9 @@ const Header: FC = () => {
     setFormType(formType);
   };
 
-  const USER_PROFILE_HEIGHT = 30;
-  const USER_PROFILE_WIDTH = 30;
-  const USER_PROFILE_SRC_PATH =
+  const userProfileSrcPath =
     sessionUser && sessionUser.profile_image_path !== null ? sessionUser.profile_image_path : '/no_image.png';
-  const USER_PROFILE_NAME = sessionUser && sessionUser.name !== null ? sessionUser.name : 'noname';
+  const userProfileName = sessionUser && sessionUser.name !== null ? sessionUser.name : 'noname';
 
   return (
     <header className='bg-gray-700 h-[60px] border-b-[1px] border-gray-500'>
@@ -45,10 +44,10 @@ const Header: FC = () => {
         <div className='flex items-center cursor-pointer' onClick={handleMenuOpen}>
           {sessionUser && (
             <ImageWrapper
-              src={USER_PROFILE_SRC_PATH}
-              height={USER_PROFILE_HEIGHT}
-              width={USER_PROFILE_WIDTH}
-              alt={USER_PROFILE_NAME}
+              src={userProfileSrcPath}
+              height={USER_PROFILE_HEIGHT_SM}
+              width={USER_PROFILE_WIDTH_SM}
+              alt={userProfileName}
               className='rounded-full'
             />
           )}

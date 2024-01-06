@@ -88,8 +88,8 @@ h3 {
 }
 
 .MoreButton {
-  @apply absolute left-0 right-0 bottom-6 p-6 text-center cursor-pointer;
-  background: linear-gradient(to top, rgb(249, 250, 251), rgba(0, 0, 0, 0));
+  @apply absolute left-0 right-0 bottom-0 p-6 text-center text-sm text-white cursor-pointer;
+  background: linear-gradient(to top, rgb(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
 }
 
 .ProfileImage {

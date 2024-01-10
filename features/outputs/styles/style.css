@@ -1,0 +1,28 @@
+.PreCode {
+  @apply p-2 text-[12px] bg-gray-100 border rounded-sm whitespace-pre-wrap;
+}
+
+.Code {
+  @apply p-1 text-sm text-red-400 bg-gray-100 border rounded-sm;
+}
+
+.OutputCardContent p code {
+  @apply Code;
+}
+
+.OutputCardContent pre {
+  @apply PreCode;
+}
+
+.OutputContent p code {
+  @apply Code;
+}
+
+.OutputContent pre {
+  @apply PreCode;
+}
+
+.MoreButton {
+  @apply absolute left-0 right-0 bottom-0 p-6 text-center text-sm text-white cursor-pointer;
+  background: linear-gradient(to top, rgb(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
+}

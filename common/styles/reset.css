@@ -1,0 +1,36 @@
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+div,
+ul,
+li,
+a {
+  @apply m-0 p-0 box-border;
+}
+
+body {
+  @apply bg-gray-50;
+}
+
+main {
+  @apply p-8 overflow-y-scroll;
+}
+
+h1 {
+  @apply font-semibold leading-tight text-4xl;
+}
+
+h2 {
+  @apply font-semibold leading-tight text-3xl;
+}
+
+h3 {
+  @apply font-semibold leading-tight text-2xl;
+}

@@ -1,0 +1,11 @@
+.react-datepicker-wrapper .react-datepicker__input-container input {
+  @apply py-[15px] px-[14px] rounded-md box-content border-[1px] border-[#CCCCCC];
+}
+
+.react-datepicker-popper {
+  @apply z-[2] !important;
+}
+
+.quill .ql-container {
+  @apply min-h-[300px];
+}

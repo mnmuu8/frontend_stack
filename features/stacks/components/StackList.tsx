@@ -11,7 +11,7 @@ const StackList: FC<{ stacks: StackProps[] }> = ({ stacks }) => {
   }
 
   return (
-    <div className='max-w-[1020px] m-auto bg-white rounded-md shadow-sm border border-gray-300'>
+    <div className='bg-white rounded-md shadow-sm border border-gray-300'>
       <div className='p-6 text-md text-gray-700 border-b-2 border-gray-100'>
         「チーム{sessionUser.team.id}」の積み上げ一覧
       </div>

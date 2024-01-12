@@ -46,7 +46,7 @@ const Output: NextPage<OutputCardProps> = ({ output, initialComments }) => {
 
   return (
     <Layout>
-      <div className='flex flex-col h-full max-w-[1020px] m-auto'>
+      <div className='Container flex flex-col h-full'>
         <div className='flex flex-col h-full bg-white border border-gray-300 rounded-md shadow-sm'>
           <div className='flex justify-between items-center border-b-gray-100 border-b-2 px-6 py-4'>
             <div className='border border-gray-300 cursor-pointer inline-block text-[10px] rounded-md py-2 px-3' onClick={handleBack}>＜ 戻る</div>

@@ -52,7 +52,7 @@ const Index: NextPage = () => {
 
   return (
     <Layout>
-      <div className='max-w-[1020px] m-auto'>
+      <div className='Container'>
         <ProfileCard />
         <StackMyList stacks={stacks} />
         <SkillRankChart skills={skills} minutes={minutes} />

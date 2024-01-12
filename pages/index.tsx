@@ -82,7 +82,7 @@ const Index: NextPage = () => {
 
   return (
     <Layout>
-      <div className='max-w-[1020px] m-auto'>
+      <div className='Container'>
         <StackChart barLabels={barLabels} barData={barData} currentMonth={currentMonth} />
         <SkillChart pieLabels={pieLabels} pieData={pieData} />
         <RankTable />

@@ -40,7 +40,9 @@ const Index: NextPage = () => {
 
   return (
     <Layout>
-      <StackList stacks={stacks} />
+      <div className='Container'>
+        <StackList stacks={stacks} />
+      </div>
     </Layout>
   );
 };

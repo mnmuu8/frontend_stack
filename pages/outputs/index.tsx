@@ -10,7 +10,7 @@ import { OutputsProps } from '@/features/outputs/types/output';
 const Index: NextPage<OutputsProps> = ({ outputs }) => {
   return (
     <Layout>
-      <div className='max-w-[1020px] m-auto'>
+      <div className='Container'>
         <OutputList outputs={outputs} />
       </div>
     </Layout>

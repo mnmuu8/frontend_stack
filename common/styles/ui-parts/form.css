@@ -1,0 +1,11 @@
+.FormHeading {
+  @apply text-center text-2xl font-bold;
+}
+
+.FormFieldGroup {
+  @apply flex flex-col;
+}
+
+.FormBtnGroup {
+  @apply flex justify-center pt-6;
+}

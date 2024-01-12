@@ -86,19 +86,19 @@ const StackCard: FC<StackCardProps> = ({ stack }) => {
           </div>
           {introspectionValue ? (
             <div
-              className='flex items-center border border-gray-300 rounded-full py-1 pl-1 pr-2 cursor-pointer mr-2'
+              className='ActionBtn mr-2'
               onClick={handleEditFormOpen}
             >
-              <EditIcon className='rounded-full bg-orange-500 text-gray-50' fontSize='small' />
-              <div className='text-sm text-gray-700 ml-1'>反省詳細</div>
+              <EditIcon className='EditActionBtnIcon' fontSize='small' />
+              <div className='BlackActionBtnLabel'>反省詳細</div>
             </div>
           ) : (
             <div
-              className='flex items-center border border-gray-300 rounded-full py-1 pl-1 pr-2 cursor-pointer mr-2'
+              className='ActionBtn mr-2'
               onClick={handleNewFormOpen}
             >
-              <AddIcon className='rounded-full bg-blue-500 text-gray-50' fontSize='small' />
-              <div className='text-sm text-gray-700 ml-1'>反省追加</div>
+              <AddIcon className='AddActionBtnIcon' fontSize='small' />
+              <div className='BlackActionBtnLabel'>反省追加</div>
             </div>
           )}
           <div className='text-sm text-gray-500'>{formattedStackedDate}</div>

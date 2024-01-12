@@ -82,11 +82,11 @@ const Output: NextPage<OutputCardProps> = ({ output, initialComments }) => {
             <div className='flex justify-between items-center mb-4'>
               <div className='text-md text-gray-700 font-bold'>投稿のコメント</div>
               <div
-                className='flex items-center border border-gray-300 rounded-full py-1 pl-1 pr-2 cursor-pointer hover:bg-gray-50'
+                className='ActionBtn'
                 onClick={handleFormOpen}
               >
-                <AddIcon className='rounded-full bg-blue-500 text-gray-50' fontSize='small' />
-                <div className='text-sm text-gray-700 ml-1'>コメント追加</div>
+                <AddIcon className='AddActionBtnIcon' fontSize='small' />
+                <div className='BlackActionBtnLabel'>コメント追加</div>
               </div>
             </div>
             <div className='overflow-scroll max-h-[200px]'>

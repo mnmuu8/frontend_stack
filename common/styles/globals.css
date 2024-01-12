@@ -28,3 +28,36 @@
 .FormBtnGroup {
   @apply flex justify-center pt-6;
 }
+
+/* button parts style */
+.ActionBtn {
+  @apply flex items-center border border-gray-300 rounded-full py-1 pl-1 pr-2 cursor-pointer;
+}
+
+.ActionBtnIcon {
+  @apply rounded-full text-gray-50;
+}
+
+.AddActionBtnIcon {
+  @apply ActionBtnIcon bg-blue-500;
+}
+
+.EditActionBtnIcon {
+  @apply ActionBtnIcon bg-orange-500;
+}
+
+.ShowActionBtnIcon {
+  @apply ActionBtnIcon bg-green-500;
+}
+
+.ActionBtnLabel {
+  @apply text-sm ml-1;
+}
+
+.WhiteActionBtnLabel {
+  @apply ActionBtnLabel text-gray-50;
+}
+
+.BlackActionBtnLabel {
+  @apply ActionBtnLabel text-gray-700;
+}

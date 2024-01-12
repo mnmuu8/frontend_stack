@@ -18,14 +18,18 @@
   @apply text-[0.8em];
 }
 
-.hoverParent {
+.SkillRankIndicator {
   @apply flex items-center mr-4 relative cursor-pointer duration-300;
 }
 
-.hoverParent:hover .hoverChild {
-  @apply opacity-100 duration-300;
+.SkillRankColor {
+  @apply w-3 h-3 block mr-1;
 }
 
-.hoverChild {
+.SkillRankTooltip {
   @apply opacity-0 absolute top-[-30px] right-0 duration-300 rounded-sm py-1 px-4 text-[10px] text-white;
+}
+
+.SkillRankIndicator:hover .SkillRankTooltip {
+  @apply opacity-100 duration-300;
 }

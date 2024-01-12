@@ -47,9 +47,9 @@ const OutputCard: FC<OutputCardProps> = ({ output }) => {
           </div>
           <div className='flex items-center flex-shrink-0'>
             <Link href={`/outputs/${output.id}`}>
-              <div className='flex items-center border border-gray-300 rounded-full py-1 pl-1 pr-2 cursor-pointer mr-2 hover:bg-gray-50'>
-                <EditIcon className='rounded-full bg-orange-500 text-gray-50' fontSize='small' />
-                <div className='text-sm text-gray-700 ml-1'>詳細</div>
+              <div className='ActionBtn mr-2'>
+                <EditIcon className='ShowActionBtnIcon' fontSize='small' />
+                <div className='BlackActionBtnLabel'>詳細</div>
               </div>
             </Link>
             <div className='text-sm text-gray-500'>{formattedCreateDate}</div>

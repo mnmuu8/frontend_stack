@@ -34,11 +34,11 @@ const Header: FC = () => {
             <MenuIcon className='text-white' />
           </IconButton>
           <div
-            className='flex items-center border border-gray-500 rounded-full py-1 pl-1 pr-2 cursor-pointer hover:bg-opacity-75'
+            className='ActionBtn border-gray-500'
             onClick={() => handleFormOpen('createStack')}
           >
-            <AddIcon className='rounded-full bg-red-500 text-gray-50' fontSize='small' />
-            <div className='text-sm text-gray-50 ml-1'>作成</div>
+            <AddIcon className='AddActionBtnIcon' fontSize='small' />
+            <div className='WhiteActionBtnLabel'>作成</div>
           </div>
         </div>
         <div className='flex items-center cursor-pointer' onClick={handleMenuOpen}>

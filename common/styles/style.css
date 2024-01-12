@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('reset.css');
+@import url('globals.css');
+
+/* ui-parts */
+@import url('./ui-parts/form.css');
+
+/* ui-elements */
+@import url('./ui-elements/button.css');
+
+/* features */
+@import url('../../features/stacks/styles/style.css');
+@import url('../../features/outputs/styles/style.css');
+@import url('../../features/users/styles/style.css');
+@import url('../../features/skills/styles/style.css');

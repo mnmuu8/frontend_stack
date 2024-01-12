@@ -16,8 +16,8 @@ const SkillRankChart: FC<{ skills: string[], minutes: number[] }> = ({ skills, m
   const option = getSkillRankChartOption(text, minutes)
 
   return (
-    <div className='bg-white rounded-md shadow-sm border border-gray-300 mt-8'>
-      <div className='p-6 text-md text-gray-700 border-b-2 border-gray-100'>スキルランク</div>
+    <div className='SectionContainer'>
+      <div className='SectionHeading'>スキルランク</div>
       <div className='p-6'>
         <Chart
           data={data}
@@ -26,40 +26,40 @@ const SkillRankChart: FC<{ skills: string[], minutes: number[] }> = ({ skills, m
         />
       </div>
       <div className='py-6 flex items-center justify-center'>
-        <div className='hoverParent'>
-          <span className='w-3 h-3 block bg-bronze mr-1'></span>
+        <div className='SkillRankIndicator'>
+          <span className='SkillRankColor bg-bronze'></span>
           <span className='text-sm'>ブロンズ</span>
-          <div className='hoverChild bg-bronze'>0~10,000(分)</div>
+          <div className='SkillRankTooltip bg-bronze'>0~10,000(分)</div>
         </div>
-        <div className='hoverParent'>
-          <span className='w-3 h-3 block bg-silver mr-1'></span>
+        <div className='SkillRankIndicator'>
+          <span className='SkillRankColor bg-silver'></span>
           <span className='text-sm'>シルバー</span>
-          <div className='hoverChild bg-silver'>10,001~30,000(分)</div>
+          <div className='SkillRankTooltip bg-silver'>10,001~30,000(分)</div>
         </div>
-        <div className='hoverParent'>
-          <span className='w-3 h-3 block bg-gold mr-1'></span>
+        <div className='SkillRankIndicator'>
+          <span className='SkillRankColor bg-gold'></span>
           <span className='text-sm'>ゴールド</span>
-          <div className='hoverChild bg-gold'>30,001~60,000(分)</div>
+          <div className='SkillRankTooltip bg-gold'>30,001~60,000(分)</div>
         </div>
-        <div className='hoverParent'>
-          <span className='w-3 h-3 block bg-platinum mr-1'></span>
+        <div className='SkillRankIndicator'>
+          <span className='SkillRankColor bg-platinum'></span>
           <span className='text-sm'>プラチナ</span>
-          <div className='hoverChild bg-platinum'>60,001~100,000(分)</div>
+          <div className='SkillRankTooltip bg-platinum'>60,001~100,000(分)</div>
         </div>
-        <div className='hoverParent'>
-          <span className='w-3 h-3 block bg-diamond mr-1'></span>
+        <div className='SkillRankIndicator'>
+          <span className='SkillRankColor bg-diamond'></span>
           <span className='text-sm'>ダイヤモンド</span>
-          <div className='hoverChild bg-diamond'>100,001~300,000(分)</div>
+          <div className='SkillRankTooltip bg-diamond'>100,001~300,000(分)</div>
         </div>
-        <div className='hoverParent'>
-          <span className='w-3 h-3 block bg-master mr-1'></span>
+        <div className='SkillRankIndicator'>
+          <span className='SkillRankColor bg-master'></span>
           <span className='text-sm'>マスター</span>
-          <div className='hoverChild bg-master'>300,001~600,000(分)</div>
+          <div className='SkillRankTooltip bg-master'>300,001~600,000(分)</div>
         </div>
-        <div className='hoverParent'>
-          <span className='w-3 h-3 block bg-legend mr-1'></span>
+        <div className='SkillRankIndicator'>
+          <span className='SkillRankColor bg-legend'></span>
           <span className='text-sm'>レジェンド</span>
-          <div className='hoverChild bg-legend'>600,001~700,000(分)</div>
+          <div className='SkillRankTooltip bg-legend'>600,001~700,000(分)</div>
         </div>
       </div>
     </div>

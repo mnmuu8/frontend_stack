@@ -15,8 +15,8 @@ const SkillChart: FC<{ pieLabels: string[], pieData: number[] }> = ({ pieLabels,
   const option = getChartOption(text)
 
   return (
-    <div className='bg-white rounded-md shadow-sm border border-gray-300 mt-8'>
-      <div className='p-6 text-md text-gray-700 border-b-2 border-gray-100'>積み上げスキル</div>
+    <div className='SectionContainer'>
+      <div className='SectionHeading'>積み上げスキル</div>
       <div className='p-6 pb-10 flex justify-center'>
         <div className='w-[50%]'>
           <Chart

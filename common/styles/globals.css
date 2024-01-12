@@ -2,3 +2,29 @@
 .Container {
   @apply max-w-[1020px] m-auto;
 }
+
+/* form modal style */
+/* .FormHeading {
+  @apply text-center text-2xl font-bold;
+}
+
+.FormFieldGroup {
+  @apply flex flex-col;
+}
+
+.FormBtnGroup {
+  @apply flex justify-center pt-6;
+} */
+
+/* section style */
+.SectionContainer {
+  @apply bg-white rounded-md shadow-sm border border-gray-300 mt-8;
+}
+
+.SectionHeading {
+  @apply p-6 text-gray-700 border-b-2 border-gray-100;
+}
+
+.ListMoreButton {
+  @apply text-sm text-gray-900 py-2 px-4 cursor-pointer inline-block hover:bg-gray-50;
+}

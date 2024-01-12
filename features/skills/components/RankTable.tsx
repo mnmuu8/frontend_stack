@@ -61,8 +61,8 @@ const RankTable: FC = () => {
   }, [page, rowsPerPage, stackRankings]);
 
   return (
-    <div className='bg-white rounded-md shadow-sm border border-gray-300 mt-8'>
-      <div className='p-6 text-md text-gray-700 border-b-2 border-gray-100'>積み上げランキング</div>
+    <div className='SectionContainer'>
+      <div className='SectionHeading'>積み上げランキング</div>
       <div className='p-6'>
         <TableContainer>
           <Table stickyHeader aria-label='sticky table'>

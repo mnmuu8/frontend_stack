@@ -15,8 +15,8 @@ const StackChart: FC<{ barLabels: string[], barData: number[], currentMonth: num
   const option = getChartOption(text)
 
   return (
-    <div className='bg-white rounded-md shadow-sm border border-gray-300'>
-      <div className='p-6 text-md text-gray-700 border-b-2 border-gray-100'>積み上げ時間</div>
+    <div className='SectionContainer'>
+      <div className='SectionHeading'>積み上げ時間</div>
       <div className='px-6 pt-6 pb-10'>
         <Chart
           data={data}

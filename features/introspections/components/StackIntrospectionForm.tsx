@@ -60,12 +60,12 @@ const StackIntrospectionForm: FC = () => {
   return (
     <>
       <div className='flex-1'>
-        <div className='text-center text-2xl font-bold'>積み上げの反省を作成</div>
-        <div className='flex flex-col'>
+        <div className='FormHeading'>積み上げの反省を作成</div>
+        <div className='FormFieldGroup'>
           <StackInspectionFormGroup />
         </div>
       </div>
-      <div className='flex justify-center pt-6'>
+      <div className='FormBtnGroup'>
         <FormCancelButton onClick={FormCancel} />
         <FormSubmitButton onClick={FormSubmit} disabled={isValidate} label={'作成'} />
       </div>

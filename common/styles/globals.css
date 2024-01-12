@@ -3,19 +3,6 @@
   @apply max-w-[1020px] m-auto;
 }
 
-/* form modal style */
-/* .FormHeading {
-  @apply text-center text-2xl font-bold;
-}
-
-.FormFieldGroup {
-  @apply flex flex-col;
-}
-
-.FormBtnGroup {
-  @apply flex justify-center pt-6;
-} */
-
 /* section style */
 .SectionContainer {
   @apply bg-white rounded-md shadow-sm border border-gray-300 mt-8;
@@ -27,4 +14,17 @@
 
 .ListMoreButton {
   @apply text-sm text-gray-900 py-2 px-4 cursor-pointer inline-block hover:bg-gray-50;
+}
+
+/* form modal style */
+.FormHeading {
+  @apply text-center text-2xl font-bold;
+}
+
+.FormFieldGroup {
+  @apply flex flex-col;
+}
+
+.FormBtnGroup {
+  @apply flex justify-center pt-6;
 }

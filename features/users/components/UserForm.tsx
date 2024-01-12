@@ -48,12 +48,12 @@ const UserForm: FC = () => {
   return (
     <>
       <div className='flex-1'>
-        <div className='text-center text-2xl font-bold'>ユーザー情報を更新</div>
-        <div className='flex flex-col'>
+        <div className='FormHeading'>ユーザー情報を更新</div>
+        <div className='FormFieldGroup'>
           <UserFormGroup />
         </div>
       </div>
-      <div className='flex justify-center pt-6'>
+      <div className='FormBtnGroup'>
         <FormCancelButton onClick={FormCancel} />
         <FormSubmitButton onClick={FormSubmit} disabled={isValidate} label={'更新'} />
       </div>

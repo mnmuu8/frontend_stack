@@ -82,7 +82,7 @@ const Register: NextPage<UserRegisterProps> = ({ email, team_id }) => {
   return (
     <>
     <div className='flex-1'>
-      <div className='text-center text-2xl font-bold'>ユーザー登録</div>
+      <div className='FormHeading'>ユーザー登録</div>
     </div>
     <div className='bg-gray-50 h-full min-h-screen flex justify-center items-center'>
       <div className='w-[768px] bg-white max-h-[80vh] overflow-auto'>
@@ -118,7 +118,7 @@ const Register: NextPage<UserRegisterProps> = ({ email, team_id }) => {
         />
         <ErrorMessage errorMessages={errorMessages} errorKey={'password_confirmation'} />
 
-        <div className='flex justify-center pt-6'>
+        <div className='FormBtnGroup'>
           <FormSubmitButton onClick={FormSubmit} disabled={isValidate} label={'登録する'} />
         </div>
       </div>

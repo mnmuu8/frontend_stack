@@ -52,12 +52,12 @@ const OutputCommentForm: FC = () => {
   return (
     <>
       <div className='flex-1'>
-        <div className='text-center text-2xl font-bold'>アウトプットに対してコメントする</div>
-        <div className='flex flex-col'>
+        <div className='FormHeading'>アウトプットに対してコメントする</div>
+        <div className='FormFieldGroup'>
           <OutputCommentFormGroup />
         </div>
       </div>
-      <div className='flex justify-center pt-6'>
+      <div className='FormBtnGroup'>
         <FormCancelButton onClick={FormCancel} />
         <FormSubmitButton onClick={FormSubmit} label={'コメントする'} />
       </div>

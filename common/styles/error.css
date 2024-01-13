@@ -1,0 +1,19 @@
+.errorContainer {
+  @apply min-h-screen flex flex-col items-center justify-center text-center;
+}
+
+.errorBase {
+  @apply m-0 text-gray-800;
+}
+
+.errorCode {
+  @apply text-9xl;
+}
+
+.errorMessage {
+  @apply text-5xl;
+}
+
+.errorLink {
+  @apply mt-5 ml-2 text-blue-500;
+}

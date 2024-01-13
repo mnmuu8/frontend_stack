@@ -4,6 +4,7 @@
 
 @import url('reset.css');
 @import url('globals.css');
+@import url('error.css');
 
 /* ui-parts */
 @import url('./ui-parts/form.css');

@@ -5,8 +5,10 @@ import styles from '../common/styles/Error.module.css';
 export default function Custom500() {
   return (
     <div className={styles.container}>
-      <h1 className={`${styles.error} ${styles.errorCode}`}>500</h1>
-      <h1 className={`${styles.error} ${styles.errorMessage}`}>Internal Server Error</h1>
+      <h1 className='flex flex-col'>
+        <span className={`${styles.error} ${styles.errorCode}`}>500</span>
+        <span className={`${styles.error} ${styles.errorMessage}`}>Internal Server Error</span>
+      </h1>
       <p>申し訳ありません。何らかの問題が発生しました。</p>
       <p>エラーが続く場合は、サイトの管理者に連絡して問題を報告してください。</p>
       <div className='flex'>

@@ -1,0 +1,28 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.error {
+  margin: 0;
+  color: #333;
+}
+
+.errorCode {
+  font-size: 10rem;
+}
+
+.errorMessage {
+  font-size: 5rem;
+}
+
+.link {
+  margin-top: 20px;
+  margin-left: 10px;
+  color: blue;
+  cursor: pointer;
+}

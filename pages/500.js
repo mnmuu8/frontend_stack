@@ -1,4 +1,5 @@
 import React from 'react';
+import router from 'next/router';
 import Link from 'next/link';
 import styles from '../common/styles/Error.module.css';
 
@@ -15,7 +16,7 @@ export default function Custom500() {
         <Link href="/" legacyBehavior>
           <a className={styles.link}>ホームに戻る</a>
         </Link>
-        <a onClick={() => window.history.back()} className={styles.link}>前のページに戻る</a>
+        <button onClick={() => router.back()} className={styles.link}>前のページに戻る</button>
       </div>
     </div>
   );

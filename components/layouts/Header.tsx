@@ -33,10 +33,7 @@ const Header: FC = () => {
           <IconButton onClick={handleDrawerAreaToggle}>
             <MenuIcon className='text-white' />
           </IconButton>
-          <div
-            className='ActionBtn border-gray-500'
-            onClick={() => handleFormOpen('createStack')}
-          >
+          <div className='ActionBtn border-gray-500' onClick={() => handleFormOpen('createStack')}>
             <AddIcon className='AddActionBtnIcon' fontSize='small' />
             <div className='WhiteActionBtnLabel'>作成</div>
           </div>

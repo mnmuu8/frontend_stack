@@ -1,18 +1,21 @@
 import React, { FC, useContext, useEffect, useState } from 'react';
-import LocalOfferIcon from '@mui/icons-material/LocalOffer';
-import { formatDate } from '@/common/functions/dateUtils';
-import { IntrospectionProps } from '@/features/introspections/types/introspection';
-import { StackCardProps } from '../types/stack';
 import axios from 'axios';
+import AddIcon from '@mui/icons-material/Add';
+import DeleteIcon from '@mui/icons-material/DeleteForeverOutlined';
+import EditIcon from '@mui/icons-material/Edit';
+import LocalOfferIcon from '@mui/icons-material/LocalOffer';
+import { dataConfirmAlert } from '@/common/functions/form';
+import { fetchDeleteStack } from '@/features/stacks/functions/delete';
+import { StackCardProps } from '../types/stack';
+import { formatDate } from '@/common/functions/dateUtils';
+import { getApiHeaders } from '@/common/functions/api';
+import { USER_PROFILE_HEIGHT_SM, USER_PROFILE_WIDTH_SM } from '@/common/constans/sizes';
 import { FormContext } from '@/context/FormContext';
 import { SessionContext } from '@/context/SessionContext';
-import { getApiHeaders } from '@/common/functions/api';
-import ImageWrapper from '@/components/ui-elements/ImageWrapper';
-import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
+import { IntrospectionProps } from '@/features/introspections/types/introspection';
 import { StackIntrospectionContext } from '@/features/introspections/contexts/StackIntrospectionContext';
 import { InitialIntrospectionFormData } from '@/features/introspections/functions/form';
-import { USER_PROFILE_HEIGHT_SM, USER_PROFILE_WIDTH_SM } from '@/common/constans/sizes';
+import ImageWrapper from '@/components/ui-elements/ImageWrapper';
 
 const StackCard: FC<StackCardProps> = ({ stack }) => {
   const stackedAt = stack.stacked_at;
@@ -38,6 +41,12 @@ const StackCard: FC<StackCardProps> = ({ stack }) => {
     setFormType('createStackIntrospection');
     setFormOpen(true);
   };
+
+  const handleDelete = () => {
+    if (!dataConfirmAlert('削除したデータは復旧できません。本当に削除しますか？')) return;
+
+    fetchDeleteStack(stack.id);
+  }
 
   const [introspectionValue, setIntrospectionValue] = useState<IntrospectionProps>(undefined);
 
@@ -102,6 +111,7 @@ const StackCard: FC<StackCardProps> = ({ stack }) => {
             </div>
           )}
           <div className='text-sm text-gray-500'>{formattedStackedDate}</div>
+          <DeleteIcon onClick={handleDelete}/>
         </div>
       </div>
     </div>

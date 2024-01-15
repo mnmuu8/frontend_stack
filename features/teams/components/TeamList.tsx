@@ -25,7 +25,7 @@ const TeamList: FC = () => {
     };
 
     fetchTeams().then((res) => setTeams(res));
-  }, [isRegisterEvent]);
+  }, [isRegisterEvent, teams]);
 
   const handleFormOpen = () => {
     setFormOpen(true);

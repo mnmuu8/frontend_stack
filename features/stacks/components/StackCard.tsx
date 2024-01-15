@@ -111,7 +111,9 @@ const StackCard: FC<StackCardProps> = ({ stack }) => {
             </div>
           )}
           <div className='text-sm text-gray-500'>{formattedStackedDate}</div>
-          <DeleteIcon onClick={handleDelete}/>
+          {sessionUser && sessionUser.id === stack.user.id && (
+            <DeleteIcon onClick={handleDelete}/>
+          )}
         </div>
       </div>
     </div>

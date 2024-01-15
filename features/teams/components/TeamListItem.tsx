@@ -53,7 +53,7 @@ const TeamListItem: FC<TeamFormDataParams> = ({ id, name }) => {
           className='text-gray-50 text-[18px] hover:text-gray-200 cursor-pointer'
           onClick={handleInviteTeamFormOpen}
         />
-        <DeleteIcon onClick={handleDelete} className='text-white'/>
+        {isAdmin && <DeleteIcon onClick={handleDelete} className='text-white'/>}
       </div>
     </div>
   );

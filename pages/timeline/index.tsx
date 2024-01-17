@@ -36,7 +36,7 @@ const Index: NextPage = () => {
     };
 
     fetchStacks().then((res) => { setStacks(res); });
-  }, [stacks]);
+  }, []);
 
   return (
     <Layout>

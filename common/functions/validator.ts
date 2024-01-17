@@ -140,3 +140,11 @@ export const userRegisterSchema = z.object({
   message: "パスワードとパスワード確認が一致しません",
   path: ["password_confirmation"],
 });
+
+export const outputSchema = z.object({
+  content: z.string().min(1, 'アウトプット内容の入力は必須です'),
+});
+
+export const outputCommentSchema = z.object({
+  content: z.string().min(1, 'アウトプット内容の入力は必須です'),
+});

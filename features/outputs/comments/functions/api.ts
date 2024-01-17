@@ -1,27 +1,31 @@
-import { createOutputCommentApiProps } from "@/common/types/api";
 import axios from "axios";
+import { z } from 'zod';
+import { outputCommentSchema } from "@/common/functions/validator";
+import { createOutputCommentApiProps } from "@/common/types/api";
 
-export const callCreateOutputComment = ({options, outputCommentFormData, router}: createOutputCommentApiProps) => {
+export const callCreateOutputComment = async ({options, sessionData, outputCommentFormData, setErrorMessages}: createOutputCommentApiProps) => {
   const outputId = outputCommentFormData.outputId;
 
-  const CreateOutputComment = async () => {
+  try {
+    outputCommentSchema.parse(outputCommentFormData);
+  
     const params = {
       content: outputCommentFormData.content,
-      user_id: 1 // TODO: sessionUser情報が渡されるようになったら修正する
+      user_id: sessionData.userId
     }
     const url: string = `${process.env.API_ROOT_URL}/api/v1/outputs/${outputId}/comments`;
+    await axios.post(url, params, options);
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      const newErrors: any = {};
+      error.errors.forEach((err) => {
+        newErrors[err.path[0]] = err.message;
+      });
+      setErrorMessages(newErrors);
 
-    try {
-      const response = await axios.post(url, params, options);
-      console.log(response.data);
-
-      return response.data;
-    } catch (error) {
-      throw new Error(`${JSON.stringify(error)}`);
+      throw error;
+    } else {
+      console.error("APIリクエストエラー:", error);
     }
-  };
-
-  CreateOutputComment().then(res => {
-    router.push(`/outputs/${outputId}`);
-  });
+  }
 }

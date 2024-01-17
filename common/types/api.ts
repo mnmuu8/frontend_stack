@@ -66,16 +66,13 @@ export type inviteTeamApiProps = ApiOptionsProps & SetErrorMessages & {
   inviteTeamFormData: InviteTeamFormDataParams;
 };
 
-export type createOutputApiProps = ApiOptionsProps &
-  routerProps &
-  setIsRegisterEventProps & {
-    outputFormData: OutputFormDataParams;
-  };
+export type createOutputApiProps = ApiOptionsProps & SetErrorMessages & {
+  outputFormData: OutputFormDataParams;
+};
 
-export type createOutputCommentApiProps = ApiOptionsProps &
-  routerProps & {
-    outputCommentFormData: OutputCommentFormDataParams;
-  };
+export type createOutputCommentApiProps = ApiOptionsProps & SessionDataProps & SetErrorMessages & {
+  outputCommentFormData: OutputCommentFormDataParams;
+};
 
 export type fetchStackRankingsProps = ApiOptionsProps &
   SessionUserProps & {

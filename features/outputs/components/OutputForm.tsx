@@ -1,4 +1,4 @@
-import React, { FC, useContext, useEffect } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import { getSession } from '@/features/sessions/functions/session';
 import { NextRouter, useRouter } from 'next/router';
 import { FormContext } from '@/context/FormContext';
@@ -12,10 +12,13 @@ import { OutputFormContext } from '../contexts/OutputFormContext';
 import OutputFormGroup from './OutputFormGroup';
 import { callCreateOutput } from '../functions/api';
 import { InitialOutputFormData } from '../functions/form';
+import { ErrorMessages } from '@/common/types/validator';
 
 const OutputForm: FC = () => {
   const { outputFormData, setOutputFormData } = useContext(OutputFormContext);
   const { setFormOpen, setIsRegisterEvent, setIsValidate } = useContext(FormContext);
+
+  const [errorMessages, setErrorMessages] = useState<ErrorMessages>({});
 
   const router: NextRouter = useRouter();
 
@@ -29,33 +32,35 @@ const OutputForm: FC = () => {
     setOutputFormData(InitialOutputFormData)
   };
 
-  const FormSubmit = () => {
+  const FormSubmit = async () => {
     const sessionData = getSession();
     if (!sessionData) return;
 
     const options = getApiHeaders();
 
     if (!dataConfirmAlert('アウトプットを作成しますか？')) return;
-    callCreateOutput({ options, outputFormData, setIsRegisterEvent, router });
+    await callCreateOutput({ options, outputFormData, setErrorMessages })
+      .then(() => {
+        resetFormValue({
+          setFormOpen,
+          setIsRegisterEvent,
+          setIsValidate,
+        });
+        setOutputFormData(InitialOutputFormData)
 
-    resetFormValue({
-      setFormOpen,
-      setIsRegisterEvent,
-      setIsValidate,
-    });
-    setOutputFormData(InitialOutputFormData)
+        router.push('/outputs');
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   };
-
-  useEffect(() => {
-    console.log(outputFormData)
-  }, [outputFormData])
 
   return (
     <>
       <div className='flex-1'>
         <div className='FormHeading'>アウトプットを作成</div>
         <div className='FormFieldGroup'>
-          <OutputFormGroup />
+          <OutputFormGroup errorMessages={errorMessages} setErrorMessages={setErrorMessages} />
         </div>
       </div>
       <div className='FormBtnGroup'>

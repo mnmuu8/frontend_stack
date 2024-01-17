@@ -1,37 +1,20 @@
-import React, { FC, useContext, useState, useEffect } from 'react';
+import React, { FC, useContext } from 'react';
 import TextInput from '@/components/ui-elements/TextInput';
-
-import { hasValidationErrors, outputCommentValidationRules } from '@/common/functions/validator';
-import { ErrorMessages } from '@/common/types/validator';
 import ErrorMessage from '@/components/ui-elements/ErrorMessage';
-import { FormContext } from '@/context/FormContext';
-import { validationCheck } from '@/common/functions/form';
 import { OutputCommentFormContext } from '../contexts/OutputCommentFormContext';
-import { InitialOutputErrorMessage } from '../../functions/form';
+import { ErrorMessagesState } from '@/common/types/validator';
 
-const OutputCommentFormGroup: FC = () => {
+const OutputCommentFormGroup: FC<ErrorMessagesState> = ({ errorMessages }) => {
   const { outputCommentFormData, setOutputCommentFormData } = useContext(OutputCommentFormContext);
-
-  const formContext = useContext(FormContext);
-  const { setIsValidate } = formContext;
-
-  const [errorMessages, setErrorMessages] = useState<ErrorMessages>(InitialOutputErrorMessage);
 
   const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-
-    const validationRules = outputCommentValidationRules;
-    validationCheck({ name, value, validationRules, errorMessages, setErrorMessages });
 
     setOutputCommentFormData({
       ...outputCommentFormData,
       [name]: value,
     });
   };
-
-  useEffect(() => {
-    setIsValidate(!hasValidationErrors(outputCommentFormData));
-  }, [outputCommentFormData]);
 
   return (
     <>

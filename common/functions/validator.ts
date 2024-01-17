@@ -57,7 +57,7 @@ export const inviteTeamSchema = z.object({
 
 export const userSchema = z.object({
   role: z.string().min(1, '権限の選択は必須です'),
-  name: z.string().min(1, 'ユーザー名の選択は必須です'),
+  name: z.string().min(1, 'ユーザー名の入力は必須です'),
   email: emailSchema,
   profile_content: z.string().optional(),
   team: z.object({

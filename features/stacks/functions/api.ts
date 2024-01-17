@@ -2,6 +2,7 @@ import axios from "axios";
 import { z } from 'zod';
 import { stackSchema } from "@/common/functions/validator";
 import { callStackApiProps } from "@/common/types/api";
+import { ErrorMessages } from "@/common/types/validator";
 
 export const callCreateStack = async ({options, sessionData, stackFormData, setErrorMessages}: callStackApiProps) => {
   try {
@@ -19,7 +20,7 @@ export const callCreateStack = async ({options, sessionData, stackFormData, setE
     await axios.post(url, params, options);
   } catch (error) {
     if (error instanceof z.ZodError) {
-      const newErrors: any = {};
+      const newErrors: ErrorMessages = {};
       error.errors.forEach((err) => {
         newErrors[err.path[0]] = err.message;
       });

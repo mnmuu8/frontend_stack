@@ -2,6 +2,7 @@ import axios from "axios";
 import { z } from 'zod';
 import { userRegisterSchema, userSchema } from "@/common/functions/validator";
 import { callUserApiProps, createUserApiProps } from "@/common/types/api";
+import { ErrorMessages } from "@/common/types/validator";
 
 export const callCreateUser = async ({options, userFormData, setErrorMessages}: createUserApiProps) => {
   try {
@@ -20,7 +21,7 @@ export const callCreateUser = async ({options, userFormData, setErrorMessages}: 
     await axios.post(url, params, options);
   } catch (error) {
     if (error instanceof z.ZodError) {
-      const newErrors: any = {};
+      const newErrors: ErrorMessages = {};
       error.errors.forEach((err) => {
         newErrors[err.path[0]] = err.message;
       });
@@ -49,7 +50,7 @@ export const callUpdateUser = async ({options, sessionData, userFormData, setErr
     await axios.patch(url, params, options);
   } catch (error) {
     if (error instanceof z.ZodError) {
-      const newErrors: any = {};
+      const newErrors: ErrorMessages = {};
       error.errors.forEach((err) => {
         newErrors[err.path[0]] = err.message;
       });

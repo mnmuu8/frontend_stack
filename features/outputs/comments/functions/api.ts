@@ -2,6 +2,7 @@ import axios from "axios";
 import { z } from 'zod';
 import { outputCommentSchema } from "@/common/functions/validator";
 import { createOutputCommentApiProps } from "@/common/types/api";
+import { ErrorMessages } from "@/common/types/validator";
 
 export const callCreateOutputComment = async ({options, sessionData, outputCommentFormData, setErrorMessages}: createOutputCommentApiProps) => {
   const outputId = outputCommentFormData.outputId;
@@ -17,7 +18,7 @@ export const callCreateOutputComment = async ({options, sessionData, outputComme
     await axios.post(url, params, options);
   } catch (error) {
     if (error instanceof z.ZodError) {
-      const newErrors: any = {};
+      const newErrors: ErrorMessages = {};
       error.errors.forEach((err) => {
         newErrors[err.path[0]] = err.message;
       });

@@ -2,6 +2,7 @@ import axios from "axios";
 import { z } from 'zod';
 import { introspectionSchema } from "@/common/functions/validator";
 import { createIntrospectionApiProps } from "@/common/types/api";
+import { ErrorMessages } from "@/common/types/validator";
 
 export const callCreateIntrospection = async ({options, introspectionFormData, setErrorMessages}: createIntrospectionApiProps) => {
   try {
@@ -18,7 +19,7 @@ export const callCreateIntrospection = async ({options, introspectionFormData, s
     await axios.post(url, params, options);
   } catch (error) {
     if (error instanceof z.ZodError) {
-      const newErrors: any = {};
+      const newErrors: ErrorMessages = {};
       error.errors.forEach((err) => {
         newErrors[err.path[0]] = err.message;
       });
@@ -46,7 +47,7 @@ export const callUpdateIntrospection = async ({options, introspectionFormData, s
     await axios.patch(url, params, options);
   } catch (error) {
     if (error instanceof z.ZodError) {
-      const newErrors: any = {};
+      const newErrors: ErrorMessages = {};
       error.errors.forEach((err) => {
         newErrors[err.path[0]] = err.message;
       });

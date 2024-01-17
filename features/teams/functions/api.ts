@@ -2,6 +2,7 @@ import axios from "axios";
 import { z } from 'zod';
 import { inviteTeamSchema, teamSchema } from "@/common/functions/validator";
 import { createTeamApiProps, inviteTeamApiProps } from "@/common/types/api";
+import { ErrorMessages } from "@/common/types/validator";
 
 export const callCreateTeam = async ({options, teamFormData, setErrorMessages}: createTeamApiProps) => {
   try {
@@ -14,7 +15,7 @@ export const callCreateTeam = async ({options, teamFormData, setErrorMessages}: 
     await axios.post(url, params, options);
   } catch (error) {
     if (error instanceof z.ZodError) {
-      const newErrors: any = {};
+      const newErrors: ErrorMessages = {};
       error.errors.forEach((err) => {
         newErrors[err.path[0]] = err.message;
       });
@@ -38,7 +39,7 @@ export const callUpdateTeam = async ({options, teamFormData, setErrorMessages}: 
     await axios.patch(url, params, options);
   } catch (error) {
     if (error instanceof z.ZodError) {
-      const newErrors: any = {};
+      const newErrors: ErrorMessages = {};
       error.errors.forEach((err) => {
         newErrors[err.path[0]] = err.message;
       });
@@ -62,7 +63,7 @@ export const callInviteTeam = async ({options, inviteTeamFormData, setErrorMessa
     await axios.put(url, params, options);
   } catch (error) {
     if (error instanceof z.ZodError) {
-      const newErrors: any = {};
+      const newErrors: ErrorMessages = {};
       error.errors.forEach((err) => {
         newErrors[err.path[0]] = err.message;
       });

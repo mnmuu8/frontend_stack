@@ -72,6 +72,14 @@ i18next.init({
 });
 z.setErrorMap(zodI18nMap);
 
+const passwordSchema = z.string()
+  .min(8, 'パスワードは8文字以上である必要があります')
+  .max(16, 'パスワードは16文字以下である必要があります');
+
+const emailSchema = z.string()
+  .min(1, 'Eメールアドレスの入力は必須です')
+  .email('有効なEメールアドレスを入力してください')
+
 export const stackSchema = z.object({
   skill: z.string().min(1, 'スキルの選択は必須です'),
   stacked_at: z.date(),
@@ -105,5 +113,30 @@ export const teamSchema = z.object({
 });
 
 export const inviteTeamSchema = z.object({
-  email: z.string().min(1, 'Eメールアドレスの入力は必須です').email('有効なEメールアドレスを入力してください'),
+  email: emailSchema,
+});
+
+export const userSchema = z.object({
+  role: z.string().min(1, '権限の選択は必須です'),
+  name: z.string().min(1, 'ユーザー名の選択は必須です'),
+  email: emailSchema,
+  profile_content: z.string().optional(),
+  team: z.object({
+    name: z.string().min(1, 'チームの選択は必須です')
+  }),
+});
+
+export const userRegisterSchema = z.object({
+  role: z.string().min(1, '権限の選択は必須です'),
+  name: z.string().min(1, 'ユーザー名の選択は必須です'),
+  email: emailSchema,
+  profile_content: z.string().optional(),
+  team: z.object({
+    name: z.string().min(1, 'チームの選択は必須です')
+  }),
+  password: passwordSchema,
+  password_confirmation: passwordSchema,
+}).refine(data => data.password === data.password_confirmation, {
+  message: "パスワードとパスワード確認が一致しません",
+  path: ["password_confirmation"],
 });

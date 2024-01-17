@@ -50,16 +50,13 @@ export type createIntrospectionApiProps = ApiOptionsProps & SetErrorMessages & {
   introspectionFormData: IntrospectionFormDataParams;
 };
 
-export type createUserApiProps = ApiOptionsProps &
-  routerProps & {
-    userFormData: UserFormDataParams;
-  };
+export type createUserApiProps = ApiOptionsProps & SetErrorMessages & {
+  userFormData: UserFormDataParams;
+};
 
-export type callUserApiProps = ApiOptionsProps &
-  routerProps &
-  SessionDataProps & {
-    userFormData: UserFormDataParams;
-  };
+export type callUserApiProps = ApiOptionsProps & SessionDataProps & SetErrorMessages & {
+  userFormData: UserFormDataParams;
+};
 
 export type createTeamApiProps = ApiOptionsProps & SetErrorMessages & {
   teamFormData: TeamFormDataParams;

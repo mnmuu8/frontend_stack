@@ -6,30 +6,24 @@ import { ApiOptions } from '@/common/types/api';
 import { ErrorMessages } from '@/common/types/validator';
 import { UserRegisterProps } from '@/features/users/types/user';
 import { getSession } from '@/features/sessions/functions/session';
-import { hasValidationErrors, userValidationRules } from '@/common/functions/validator';
-import { validationCheck, dataConfirmAlert } from '@/common/functions/form';
+import { dataConfirmAlert } from '@/common/functions/form';
 import { getApiHeaders } from '@/common/functions/api';
-import { FormContext } from '@/context/FormContext';
 import TextInput from '@/components/ui-elements/TextInput';
 import ErrorMessage from '@/components/ui-elements/ErrorMessage';
 import FormSubmitButton from '@/components/ui-elements/FormSubmitButton';
 import UserFormGroup from '@/features/users/components/UserFormGroup';
 import { callCreateUser } from '@/features/users/functions/api';
-import { InitialUserErrorMessage } from '@/features/users/functions/form';
+import { InitialUserFormData } from '@/features/users/functions/form';
 import { UserFormContext } from '@/features/users/contexts/UserFormContext';
 
 const Register: NextPage<UserRegisterProps> = ({ email, team_id }) => {
   const { userFormData, setUserFormData } = useContext(UserFormContext);
-  const { isValidate, setIsValidate } = useContext(FormContext);
 
-  const [errorMessages, setErrorMessages] = useState<ErrorMessages>(InitialUserErrorMessage);
+  const [errorMessages, setErrorMessages] = useState<ErrorMessages>({});
   const router = useRouter();
 
   const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-
-    const validationRules = userValidationRules;
-    validationCheck({ name, value, validationRules, errorMessages, setErrorMessages });
 
     setUserFormData({
       ...userFormData,
@@ -37,16 +31,19 @@ const Register: NextPage<UserRegisterProps> = ({ email, team_id }) => {
     });
   };
 
-  const FormSubmit = () => {
+  const FormSubmit = async () => {
     const options = getApiHeaders();
 
     if (!dataConfirmAlert('ユーザーを登録しますか？')) return;
-    callCreateUser({ options, userFormData, router });
+    await callCreateUser({ options, userFormData, setErrorMessages })
+      .then(() => {
+        setUserFormData(InitialUserFormData)
+        router.push('/profile')
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
-
-  useEffect(() => {
-    setIsValidate(!hasValidationErrors(userFormData));
-  }, [userFormData]);
 
   useEffect(() => {
     const fetchTeam = async (teamId: number) => {
@@ -86,7 +83,7 @@ const Register: NextPage<UserRegisterProps> = ({ email, team_id }) => {
     </div>
     <div className='bg-gray-50 h-full min-h-screen flex justify-center items-center'>
       <div className='w-[768px] bg-white max-h-[80vh] overflow-auto'>
-        <UserFormGroup />
+        <UserFormGroup errorMessages={errorMessages} setErrorMessages={setErrorMessages} />
 
         <TextInput
           name={'password'}
@@ -119,7 +116,7 @@ const Register: NextPage<UserRegisterProps> = ({ email, team_id }) => {
         <ErrorMessage errorMessages={errorMessages} errorKey={'password_confirmation'} />
 
         <div className='FormBtnGroup'>
-          <FormSubmitButton onClick={FormSubmit} disabled={isValidate} label={'登録する'} />
+          <FormSubmitButton onClick={FormSubmit} disabled={false} label={'登録する'} />
         </div>
       </div>
     </div>

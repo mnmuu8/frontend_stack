@@ -3,9 +3,7 @@ import TextInput from '@/components/ui-elements/TextInput';
 import { ApiOptions } from '@/common/types/api';
 import { TeamProps } from '@/features/teams/types/team';
 import { getSession } from '@/features/sessions/functions/session';
-
-import { hasValidationErrors, userValidationRules  } from '@/common/functions/validator';
-import { ErrorMessages } from '@/common/types/validator';
+import { ErrorMessagesState } from '@/common/types/validator';
 import ErrorMessage from '@/components/ui-elements/ErrorMessage';
 
 import axios from 'axios';
@@ -14,28 +12,17 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
-import { FormContext } from '@/context/FormContext';
-import { validationCheck } from '@/common/functions/form';
 import { UserFormContext } from '../contexts/UserFormContext';
-import { InitialUserErrorMessage } from '../functions/form';
 
-const UserFormGroup: FC = () => {
+const UserFormGroup: FC<ErrorMessagesState> = ({ errorMessages }) => {
   const [query, setQuery] = useState<string>('');
   const [results, setResults] = useState<TeamProps[]>([]);
   const [showResults, setShowResults] = useState<boolean>(false);
 
   const { userFormData, setUserFormData } = useContext(UserFormContext);
 
-  const formContext = useContext(FormContext);
-  const { setIsValidate } = formContext;
-
-  const [errorMessages, setErrorMessages] = useState<ErrorMessages>(InitialUserErrorMessage);
-
   const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-
-    const validationRules = userValidationRules;
-    validationCheck({ name, value, validationRules, errorMessages, setErrorMessages });
 
     setUserFormData({
       ...userFormData,
@@ -57,9 +44,6 @@ const UserFormGroup: FC = () => {
         name: value,
       },
     });
-
-    const validationRules = userValidationRules;
-    validationCheck({ name, value, validationRules, errorMessages, setErrorMessages });
   };
 
   const handleTeamClick = (team: TeamProps) => {
@@ -69,10 +53,6 @@ const UserFormGroup: FC = () => {
     });
     setShowResults(false);
   };
-
-  useEffect(() => {
-    setIsValidate(!hasValidationErrors(userFormData));
-  }, [userFormData]);
 
   useEffect(() => {
     const fetchUser = async () => {

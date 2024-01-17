@@ -33,17 +33,17 @@ export const introspectionSchema = z.object({
   keeps: z.array(z.object({
     content: z.string().min(1, 'keepの入力は必須です')
   })).refine(array => array.length > 0, {
-    message: "1つ以上は入力が必要です",
+    message: "1つ以上は追加してください",
   }),
   problems: z.array(z.object({
     content: z.string().min(1, 'problemの入力は必須です')
   })).refine(array => array.length > 0, {
-    message: "1つ以上は入力が必要です",
+    message: "1つ以上は追加してください",
   }),
   tries: z.array(z.object({
     content: z.string().min(1, 'tryの入力は必須です')
   })).refine(array => array.length > 0, {
-    message: "1つ以上は入力が必要です",
+    message: "1つ以上は追加してください",
   }),
 });
 
@@ -85,5 +85,5 @@ export const outputSchema = z.object({
 });
 
 export const outputCommentSchema = z.object({
-  content: z.string().min(1, 'アウトプット内容の入力は必須です'),
+  content: z.string().min(1, 'コメントの入力は必須です'),
 });

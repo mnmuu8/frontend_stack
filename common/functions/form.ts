@@ -6,6 +6,6 @@ export const dataConfirmAlert = (message: string) => {
 
 export const resetFormValue = ({setFormOpen, setIsRegisterEvent, setIsValidate}: ResetFormValueProps) => {
   setFormOpen(false);
-  setIsRegisterEvent(false)
+  setIsRegisterEvent(true)
   setIsValidate(true)
 }

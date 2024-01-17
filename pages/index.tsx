@@ -1,5 +1,5 @@
 import { NextPage } from 'next'
-import { useEffect, useMemo, useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
 import Layout from '@/components/layouts/Layout'
 import StackChart from '@/features/stacks/components/StackChart';
@@ -7,8 +7,11 @@ import RankTable from '@/features/skills/components/RankTable';
 import { StackProps } from '@/features/stacks/types/stack';
 import { getApiHeadersWithUserId } from '@/common/functions/api';
 import SkillChart from '@/features/skills/components/SkillChart';
+import { FormContext } from '@/context/FormContext';
 
 const Index: NextPage = () => {
+  const { isRegisterEvent } = useContext(FormContext);
+
   const [stacks, setStacks] = useState<StackProps[]>([]);
   const [barData, setBarData] = useState<number[]>([]);
   const [pieData, setPieData] = useState<number[]>([]);
@@ -60,7 +63,7 @@ const Index: NextPage = () => {
           throw new Error(`${JSON.stringify(error)}`);
         }
       });
-  }, []);
+  }, [isRegisterEvent]);
 
   useEffect(() => {
     if (!stacks.length) return;

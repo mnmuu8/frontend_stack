@@ -5,11 +5,12 @@ import OutputCard from './OutputCard';
 import AddIcon from '@mui/icons-material/Add';
 
 const OutputList: FC<OutputsProps> = ({ outputs }) => {
-  const { setFormOpen, setFormType } = useContext(FormContext);
+  const { setFormOpen, setFormType, setIsRegisterEvent } = useContext(FormContext);
 
   const handleNewFormOpen = () => {
     setFormType('createOutput');
     setFormOpen(true);
+    setIsRegisterEvent(false);
   };
 
   return (

@@ -15,11 +15,12 @@ import { USER_PROFILE_HEIGHT_SM, USER_PROFILE_WIDTH_SM } from '@/common/constans
 const Header: FC = () => {
   const { handleDrawerAreaToggle, handleMenuOpen } = useContext(AppContext);
   const { sessionUser } = useContext(SessionContext);
-  const { setFormOpen, setFormType } = useContext(FormContext);
+  const { setFormOpen, setFormType, setIsRegisterEvent } = useContext(FormContext);
 
   const handleFormOpen = (formType: FormType) => {
     setFormOpen(true);
     setFormType(formType);
+    setIsRegisterEvent(false)
   };
 
   const userProfileSrcPath =

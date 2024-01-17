@@ -24,7 +24,7 @@ const StackCard: FC<StackCardProps> = ({ stack }) => {
   const { sessionUser } = useContext(SessionContext);
 
   const formContext = useContext(FormContext);
-  const { setFormOpen, setFormType, isRegisterEvent } = formContext;
+  const { setFormOpen, setFormType, setIsRegisterEvent, isRegisterEvent } = formContext;
 
   const { setShowStackIntrospection } = useContext(StackIntrospectionContext);
 
@@ -33,6 +33,7 @@ const StackCard: FC<StackCardProps> = ({ stack }) => {
     introspectionValue && setShowStackIntrospection({ ...introspectionValue, stack_id });
     setFormType('updateStackIntrospection');
     setFormOpen(true);
+    setIsRegisterEvent(false);
   };
 
   const handleNewFormOpen = () => {
@@ -40,6 +41,7 @@ const StackCard: FC<StackCardProps> = ({ stack }) => {
     setShowStackIntrospection({ ...InitialIntrospectionFormData, stack_id });
     setFormType('createStackIntrospection');
     setFormOpen(true);
+    setIsRegisterEvent(false);
   };
 
   const handleDelete = () => {

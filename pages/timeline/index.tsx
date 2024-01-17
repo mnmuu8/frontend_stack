@@ -7,8 +7,10 @@ import { getSession } from '@/features/sessions/functions/session';
 import { ApiOptions } from '@/common/types/api';
 import { SessionContext } from '@/context/SessionContext';
 import axios from 'axios';
+import { FormContext } from '@/context/FormContext';
 
 const Index: NextPage = () => {
+  const { isRegisterEvent } = useContext(FormContext);
   const [stacks, setStacks] = useState<StackProps[]>([]);
 
   const { sessionUser } = useContext(SessionContext);
@@ -36,7 +38,7 @@ const Index: NextPage = () => {
     };
 
     fetchStacks().then((res) => { setStacks(res); });
-  }, []);
+  }, [isRegisterEvent]);
 
   return (
     <Layout>

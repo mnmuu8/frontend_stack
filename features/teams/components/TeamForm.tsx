@@ -1,4 +1,4 @@
-import React, { FC, useContext } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import { getSession } from '@/features/sessions/functions/session';
 import { FormContext } from '@/context/FormContext';
 import { resetFormValue } from '@/common/functions/form';
@@ -10,12 +10,14 @@ import TeamFormGroup from './TeamFormGroup';
 import { TeamFormContext } from '../contexts/TeamFormContext';
 import { callCreateTeam, callUpdateTeam } from '../functions/api';
 import { InitialTeamFormData } from '../functions/form';
+import { ErrorMessages } from '@/common/types/validator';
 
 const TeamForm: FC = () => {
   const { teamFormData, setTeamFormData } = useContext(TeamFormContext);
-  const { setFormOpen, setIsRegisterEvent, isValidate, setIsValidate } = useContext(FormContext);
-
+  const { setFormOpen, setIsRegisterEvent, setIsValidate } = useContext(FormContext);
   const { formType } = useContext(FormContext);
+
+  const [ errorMessages, setErrorMessages ] = useState<ErrorMessages>({});
 
   const FormCancel = () => {
     if (!dataConfirmAlert('入力した値が削除されます')) return;
@@ -27,7 +29,7 @@ const TeamForm: FC = () => {
     setTeamFormData(InitialTeamFormData)
   };
 
-  const FormSubmit = () => {
+  const FormSubmit = async () => {
     const sessionData = getSession();
     if (!sessionData) return;
 
@@ -35,19 +37,34 @@ const TeamForm: FC = () => {
     
     if (formType === 'createTeam') {
       if (!dataConfirmAlert('チームを作成しますか？')) return;
-      callCreateTeam({ options, teamFormData, setIsRegisterEvent });
+      await callCreateTeam({ options, teamFormData, setErrorMessages })
+        .then(() => {
+          resetFormValue({
+            setFormOpen,
+            setIsRegisterEvent,
+            setIsValidate,
+          });
+          setTeamFormData(InitialTeamFormData)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     }
     if (formType === 'updateTeam') {
       if (!dataConfirmAlert('チームを更新しますか？')) return;
-      callUpdateTeam({ options, teamFormData, setIsRegisterEvent });
+      await callUpdateTeam({ options, teamFormData, setErrorMessages })
+        .then(() => {
+          resetFormValue({
+            setFormOpen,
+            setIsRegisterEvent,
+            setIsValidate,
+          });
+          setTeamFormData(InitialTeamFormData)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     }
-
-    resetFormValue({
-      setFormOpen,
-      setIsRegisterEvent,
-      setIsValidate,
-    });
-    setTeamFormData(InitialTeamFormData)
   };
 
   return (
@@ -55,12 +72,12 @@ const TeamForm: FC = () => {
       <div className='flex-1'>
         <div className='FormHeading'>チームを作成</div>
         <div className='FormFieldGroup'>
-          <TeamFormGroup />
+          <TeamFormGroup errorMessages={errorMessages} setErrorMessages={setErrorMessages} />
         </div>
       </div>
       <div className='FormBtnGroup'>
         <FormCancelButton onClick={FormCancel} />
-        <FormSubmitButton onClick={FormSubmit} disabled={isValidate} label={'作成'} />
+        <FormSubmitButton onClick={FormSubmit} disabled={false} label={'作成'} />
       </div>
     </>
   );

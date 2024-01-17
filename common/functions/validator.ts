@@ -99,3 +99,11 @@ export const introspectionSchema = z.object({
     message: "1つ以上は入力が必要です",
   }),
 });
+
+export const teamSchema = z.object({
+  name: z.string().min(1, 'チーム名の入力は必須です'),
+});
+
+export const inviteTeamSchema = z.object({
+  email: z.string().min(1, 'Eメールアドレスの入力は必須です').email('有効なEメールアドレスを入力してください'),
+});

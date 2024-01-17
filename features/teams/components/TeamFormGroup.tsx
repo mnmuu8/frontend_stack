@@ -1,37 +1,20 @@
-import React, { FC, useContext, useState, useEffect } from 'react';
+import React, { FC, useContext } from 'react';
 import TextInput from '@/components/ui-elements/TextInput';
-
-import { hasValidationErrors, teamValidationRules } from '@/common/functions/validator';
-import { ErrorMessages } from '@/common/types/validator';
+import { ErrorMessagesState } from '@/common/types/validator';
 import ErrorMessage from '@/components/ui-elements/ErrorMessage';
-import { FormContext } from '@/context/FormContext';
-import { validationCheck } from '@/common/functions/form';
 import { TeamFormContext } from '../contexts/TeamFormContext';
-import { InitialTeamErrorMessage } from '../functions/form';
 
-const TeamFormGroup: FC = () => {
+const TeamFormGroup: FC<ErrorMessagesState> = ({ errorMessages }) => {
   const { teamFormData, setTeamFormData } = useContext(TeamFormContext);
-
-  const formContext = useContext(FormContext);
-  const { setIsValidate } = formContext;
-
-  const [errorMessages, setErrorMessages] = useState<ErrorMessages>(InitialTeamErrorMessage);
 
   const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-
-    const validationRules = teamValidationRules;
-    validationCheck({ name, value, validationRules, errorMessages, setErrorMessages });
 
     setTeamFormData({
       ...teamFormData,
       [name]: value,
     });
   };
-
-  useEffect(() => {
-    setIsValidate(!hasValidationErrors(teamFormData));
-  }, [teamFormData]);
 
   return (
     <>

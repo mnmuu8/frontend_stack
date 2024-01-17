@@ -61,15 +61,13 @@ export type callUserApiProps = ApiOptionsProps &
     userFormData: UserFormDataParams;
   };
 
-export type createTeamApiProps = ApiOptionsProps &
-  setIsRegisterEventProps & {
-    teamFormData: TeamFormDataParams;
-  };
+export type createTeamApiProps = ApiOptionsProps & SetErrorMessages & {
+  teamFormData: TeamFormDataParams;
+};
 
-export type inviteTeamApiProps = ApiOptionsProps &
-  routerProps & {
-    inviteTeamFormData: InviteTeamFormDataParams;
-  };
+export type inviteTeamApiProps = ApiOptionsProps & SetErrorMessages & {
+  inviteTeamFormData: InviteTeamFormDataParams;
+};
 
 export type createOutputApiProps = ApiOptionsProps &
   routerProps &

@@ -1,6 +1,5 @@
-import React, { FC, useContext } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import { getSession } from '@/features/sessions/functions/session';
-import { useRouter } from 'next/router';
 import { FormContext } from '@/context/FormContext';
 import { resetFormValue } from '@/common/functions/form';
 import { getApiHeaders } from '@/common/functions/api';
@@ -11,12 +10,13 @@ import InviteTeamFormGroup from './InviteTeamFormGroup';
 import { InviteTeamFormContext } from '../contexts/InviteTeamFormContext';
 import { callInviteTeam } from '../functions/api';
 import { InitialInviteTeamFormData } from '../functions/form';
+import { ErrorMessages } from '@/common/types/validator';
 
 const InviteTeamForm: FC = () => {
   const { inviteTeamFormData, setInviteTeamFormData } = useContext(InviteTeamFormContext);
   const { setFormOpen, setIsRegisterEvent, setIsValidate } = useContext(FormContext);
 
-  const router = useRouter();
+  const [ errorMessages, setErrorMessages ] = useState<ErrorMessages>({});
 
   const FormCancel = () => {
     if (!dataConfirmAlert('入力した値が削除されます')) return;
@@ -28,21 +28,25 @@ const InviteTeamForm: FC = () => {
     setInviteTeamFormData(InitialInviteTeamFormData)
   };
 
-  const FormSubmit = () => {
+  const FormSubmit = async () => {
     const sessionData = getSession();
     if (!sessionData) return;
 
     const options = getApiHeaders();
 
     if (!dataConfirmAlert('チームに招待しますか？')) return;
-    callInviteTeam({ options, inviteTeamFormData, router });
-
-    resetFormValue({
-      setFormOpen,
-      setIsRegisterEvent,
-      setIsValidate,
-    });
-    setInviteTeamFormData(InitialInviteTeamFormData)
+    await callInviteTeam({ options, inviteTeamFormData, setErrorMessages })
+      .then(() => {
+        resetFormValue({
+          setFormOpen,
+          setIsRegisterEvent,
+          setIsValidate,
+        });
+        setInviteTeamFormData(InitialInviteTeamFormData)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   };
 
   return (
@@ -50,7 +54,7 @@ const InviteTeamForm: FC = () => {
       <div className='flex-1'>
         <div className='FormHeading'>チームに招待</div>
         <div className='FormFieldGroup'>
-          <InviteTeamFormGroup />
+          <InviteTeamFormGroup errorMessages={errorMessages} setErrorMessages={setErrorMessages} />
         </div>
       </div>
       <div className='FormBtnGroup'>

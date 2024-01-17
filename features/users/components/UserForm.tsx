@@ -64,7 +64,7 @@ const UserForm: FC = () => {
       </div>
       <div className='FormBtnGroup'>
         <FormCancelButton onClick={FormCancel} />
-        <FormSubmitButton onClick={FormSubmit} disabled={false} label={'更新'} />
+        <FormSubmitButton onClick={FormSubmit} label={'更新'} />
       </div>
     </>
   );

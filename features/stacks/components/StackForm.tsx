@@ -63,7 +63,7 @@ const StackForm: FC = () => {
       </div>
       <div className='FormBtnGroup'>
         <FormCancelButton onClick={FormCancel} />
-        <FormSubmitButton onClick={FormSubmit} disabled={false} label={'作成'} />
+        <FormSubmitButton onClick={FormSubmit} label={'作成'} />
       </div>
     </>
   );

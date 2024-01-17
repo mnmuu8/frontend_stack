@@ -1,2 +1,1 @@
 export const InitialIntrospectionFormData = {evaluation: 0, reason: "", keeps: [], problems: [], tries: []}
-export const InitialIntrospectionErrorMessage = {reason: '', evaluation: '', keeps: '', problems: '', tries: ''}

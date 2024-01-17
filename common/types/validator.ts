@@ -1,10 +1,3 @@
-import { TeamFormDataParams } from './form';
-import { KeepAndProblemAndTryPoint } from '@/features/introspections/types/introspection';
-
-export type ValidationRules = {
-  [key: string]: (value: string) => boolean;
-};
-
 export type ErrorMessages = {
   [key: string]: string;
 };
@@ -20,12 +13,4 @@ export type ErrorMessagesProps = {
 
 export type ErrorMessagesState = SetErrorMessages & {
   errorMessages: ErrorMessages;
-};
-
-export type hasValidationErrorsProps = string | number | Date | TeamFormDataParams | KeepAndProblemAndTryPoint[];
-
-export type validationCheckProps = ErrorMessagesState & {
-  name: string;
-  value: string;
-  validationRules: ValidationRules;
 };

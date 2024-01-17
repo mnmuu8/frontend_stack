@@ -116,7 +116,7 @@ const Register: NextPage<UserRegisterProps> = ({ email, team_id }) => {
         <ErrorMessage errorMessages={errorMessages} errorKey={'password_confirmation'} />
 
         <div className='FormBtnGroup'>
-          <FormSubmitButton onClick={FormSubmit} disabled={false} label={'登録する'} />
+          <FormSubmitButton onClick={FormSubmit} label={'登録する'} />
         </div>
       </div>
     </div>

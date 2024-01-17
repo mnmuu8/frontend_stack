@@ -1,8 +1,12 @@
-import { createIntrospectionApiProps } from "@/common/types/api";
 import axios from "axios";
+import { z } from 'zod';
+import { introspectionSchema } from "@/common/functions/validator";
+import { createIntrospectionApiProps } from "@/common/types/api";
 
-export const callCreateIntrospection = ({options, introspectionFormData, setIsRegisterEvent, router}: createIntrospectionApiProps) => {
-  const createIntrospection = async () => {
+export const callCreateIntrospection = async ({options, introspectionFormData, setErrorMessages}: createIntrospectionApiProps) => {
+  try {
+    introspectionSchema.parse(introspectionFormData);
+
     const params = {
       evaluation: introspectionFormData.evaluation,
       reason: introspectionFormData.reason,
@@ -11,23 +15,26 @@ export const callCreateIntrospection = ({options, introspectionFormData, setIsRe
       try_contents: introspectionFormData.tries.map((tries: any) => tries.content),
     }
     const url: string = `${process.env.API_ROOT_URL}/api/v1/stacks/${introspectionFormData.stack_id}/introspection`;
+    await axios.post(url, params, options);
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      const newErrors: any = {};
+      error.errors.forEach((err) => {
+        newErrors[err.path[0]] = err.message;
+      });
+      setErrorMessages(newErrors);
 
-    try {
-      const response = await axios.post(url, params, options);
-      return response.data;
-    } catch (error) {
-      throw new Error(`${JSON.stringify(error)}`);
+      throw error;
+    } else {
+      console.error("APIリクエストエラー:", error);
     }
-  };
-
-  createIntrospection().then(res => {
-    setIsRegisterEvent(true);
-    router.push('/timeline');
-  });
+  }
 }
 
-export const callUpdateIntrospection = ({options, introspectionFormData, setIsRegisterEvent, router}: createIntrospectionApiProps) => {
-  const updateIntrospection = async () => {
+export const callUpdateIntrospection = async ({options, introspectionFormData, setErrorMessages}: createIntrospectionApiProps) => {
+  try {
+    introspectionSchema.parse(introspectionFormData);
+
     const params = {
       evaluation: introspectionFormData.evaluation,
       reason: introspectionFormData.reason,
@@ -36,17 +43,18 @@ export const callUpdateIntrospection = ({options, introspectionFormData, setIsRe
       try_contents: introspectionFormData.tries.map((tries: any) => tries.content),
     }
     const url: string = `${process.env.API_ROOT_URL}/api/v1/stacks/${introspectionFormData.stack_id}/introspection`;
+    await axios.patch(url, params, options);
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      const newErrors: any = {};
+      error.errors.forEach((err) => {
+        newErrors[err.path[0]] = err.message;
+      });
+      setErrorMessages(newErrors);
 
-    try {
-      const response = await axios.patch(url, params, options);
-      return response.data;
-    } catch (error) {
-      throw new Error(`${JSON.stringify(error)}`);
+      throw error;
+    } else {
+      console.error("APIリクエストエラー:", error);
     }
-  };
-
-  updateIntrospection().then(res => {
-    setIsRegisterEvent(true);
-    router.push('/timeline');
-  });
+  }
 }

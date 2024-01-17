@@ -79,3 +79,23 @@ export const stackSchema = z.object({
   title: z.string().min(1, 'タイトルの入力は必須です'),
   description: z.string().optional(),
 });
+
+export const introspectionSchema = z.object({
+  evaluation: z.number().min(0, '評価の入力は必須です'),
+  reason: z.string().min(1, '理由の入力は必須です'),
+  keeps: z.array(z.object({
+    content: z.string().min(1, 'keepの入力は必須です')
+  })).refine(array => array.length > 0, {
+    message: "1つ以上は入力が必要です",
+  }),
+  problems: z.array(z.object({
+    content: z.string().min(1, 'problemの入力は必須です')
+  })).refine(array => array.length > 0, {
+    message: "1つ以上は入力が必要です",
+  }),
+  tries: z.array(z.object({
+    content: z.string().min(1, 'tryの入力は必須です')
+  })).refine(array => array.length > 0, {
+    message: "1つ以上は入力が必要です",
+  }),
+});

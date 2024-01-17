@@ -46,11 +46,9 @@ export type callStackApiProps = ApiOptionsProps & SessionDataProps & SetErrorMes
   stackFormData: StackFormDataParams
 };
 
-export type createIntrospectionApiProps = ApiOptionsProps &
-  routerProps &
-  setIsRegisterEventProps & {
-    introspectionFormData: IntrospectionFormDataParams;
-  };
+export type createIntrospectionApiProps = ApiOptionsProps & SetErrorMessages & {
+  introspectionFormData: IntrospectionFormDataParams;
+};
 
 export type createUserApiProps = ApiOptionsProps &
   routerProps & {

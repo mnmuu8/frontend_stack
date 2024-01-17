@@ -92,6 +92,37 @@ paths:
           description: バリデーションエラー
 
   /api/v1/stacks/{stack_id}:
+    patch:
+      summary: 積み上げ更新API
+      operationId: api.v1.stacks.update
+      tags:
+        - Stack
+      security: []
+      parameters:
+        - name: stack_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Stacks_Stack_Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StacksUpdateRequestBody'
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stacks_Stack'
+        '401':
+          description: 認証エラー
+        '404':
+          description: 積み上げが存在しない
+        '422':
+          description: バリデーションエラー
     delete:
       summary: 積み上げ削除API
       operationId: api.v1.stacks.destroy
@@ -1496,6 +1527,36 @@ components:
         user_id:
           allOf:
             - $ref: '#/components/schemas/Users_User_Id'
+          nullable: false
+        description:
+          allOf:
+            - $ref: '#/components/schemas/Stacks_Stack_Description'
+          nullable: true
+        stacked_at:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+          nullable: false
+
+    StacksUpdateRequestBody:
+      type: object
+      required:
+        - title
+        - minutes
+        - skill_id
+        - description
+        - stacked_at
+      properties:
+        title:
+          allOf:
+            - $ref: '#/components/schemas/Stacks_Stack_Title'
+          nullable: false
+        minutes:
+          allOf:
+            - $ref: '#/components/schemas/Stacks_Stack_Minutes'
+          nullable: false
+        skill_id:
+          allOf:
+            - $ref: '#/components/schemas/Skills_Skill_Id'
           nullable: false
         description:
           allOf:

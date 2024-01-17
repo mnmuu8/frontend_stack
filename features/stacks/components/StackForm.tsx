@@ -15,7 +15,7 @@ import { ErrorMessages } from '@/common/types/validator';
 
 const StackForm: FC = () => {
   const { stackFormData, setStackFormData } = useContext(StackFormContext);
-  const { setFormOpen, setIsRegisterEvent, setIsValidate } = useContext(FormContext);
+  const { setFormOpen, setIsRegisterEvent } = useContext(FormContext);
   const [ errorMessages, setErrorMessages ] = useState<ErrorMessages>({});
 
   const router: NextRouter = useRouter();
@@ -25,7 +25,6 @@ const StackForm: FC = () => {
     resetFormValue({
       setFormOpen,
       setIsRegisterEvent,
-      setIsValidate,
     });
     setStackFormData(InitialStackFormData)
   };
@@ -42,7 +41,6 @@ const StackForm: FC = () => {
         resetFormValue({
           setFormOpen,
           setIsRegisterEvent,
-          setIsValidate,
         });
         setStackFormData(InitialStackFormData);
 

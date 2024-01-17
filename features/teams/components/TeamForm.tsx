@@ -14,7 +14,7 @@ import { ErrorMessages } from '@/common/types/validator';
 
 const TeamForm: FC = () => {
   const { teamFormData, setTeamFormData } = useContext(TeamFormContext);
-  const { setFormOpen, setIsRegisterEvent, setIsValidate } = useContext(FormContext);
+  const { setFormOpen, setIsRegisterEvent } = useContext(FormContext);
   const { formType } = useContext(FormContext);
 
   const [ errorMessages, setErrorMessages ] = useState<ErrorMessages>({});
@@ -24,7 +24,6 @@ const TeamForm: FC = () => {
     resetFormValue({
       setFormOpen,
       setIsRegisterEvent,
-      setIsValidate,
     });
     setTeamFormData(InitialTeamFormData)
   };
@@ -42,7 +41,6 @@ const TeamForm: FC = () => {
           resetFormValue({
             setFormOpen,
             setIsRegisterEvent,
-            setIsValidate,
           });
           setTeamFormData(InitialTeamFormData)
         })
@@ -57,7 +55,6 @@ const TeamForm: FC = () => {
           resetFormValue({
             setFormOpen,
             setIsRegisterEvent,
-            setIsValidate,
           });
           setTeamFormData(InitialTeamFormData)
         })

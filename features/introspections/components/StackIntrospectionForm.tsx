@@ -17,7 +17,7 @@ import { ErrorMessages } from '@/common/types/validator';
 const StackIntrospectionForm: FC = () => {
   const { introspectionFormData, setIntrospectionFormData } = useContext(IntrospectionFormContext);
   const { setShowStackIntrospection } = useContext(StackIntrospectionContext);
-  const { setFormOpen, setIsRegisterEvent, setIsValidate } = useContext(FormContext);
+  const { setFormOpen, setIsRegisterEvent } = useContext(FormContext);
   const { formType } = useContext(FormContext);
 
   const [ errorMessages, setErrorMessages ] = useState<ErrorMessages>({});
@@ -29,7 +29,6 @@ const StackIntrospectionForm: FC = () => {
     resetFormValue({
       setFormOpen,
       setIsRegisterEvent,
-      setIsValidate,
     });
     setIntrospectionFormData(InitialIntrospectionFormData);
     setShowStackIntrospection(undefined)
@@ -48,7 +47,6 @@ const StackIntrospectionForm: FC = () => {
           resetFormValue({
             setFormOpen,
             setIsRegisterEvent,
-            setIsValidate,
           });
           setIntrospectionFormData(InitialIntrospectionFormData);
           setShowStackIntrospection(undefined)
@@ -66,7 +64,6 @@ const StackIntrospectionForm: FC = () => {
           resetFormValue({
             setFormOpen,
             setIsRegisterEvent,
-            setIsValidate,
           });
           setIntrospectionFormData(InitialIntrospectionFormData);
           setShowStackIntrospection(undefined)

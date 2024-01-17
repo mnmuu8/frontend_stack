@@ -15,7 +15,7 @@ import { ErrorMessages } from '@/common/types/validator';
 
 const UserForm: FC = () => {
   const { userFormData, setUserFormData } = useContext(UserFormContext);
-  const { setFormOpen, setIsRegisterEvent, setIsValidate } = useContext(FormContext);
+  const { setFormOpen, setIsRegisterEvent } = useContext(FormContext);
 
   const [ errorMessages, setErrorMessages ] = useState<ErrorMessages>({});
 
@@ -26,7 +26,6 @@ const UserForm: FC = () => {
     resetFormValue({
       setFormOpen,
       setIsRegisterEvent,
-      setIsValidate,
     });
     setUserFormData(InitialUserFormData)
   };
@@ -43,7 +42,6 @@ const UserForm: FC = () => {
         resetFormValue({
           setFormOpen,
           setIsRegisterEvent,
-          setIsValidate,
         });
         setUserFormData(InitialUserFormData)
 

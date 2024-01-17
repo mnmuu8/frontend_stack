@@ -15,7 +15,7 @@ import { ErrorMessages } from '@/common/types/validator';
 
 const OutputCommentForm: FC = () => {
   const { outputCommentFormData, setOutputCommentFormData } = useContext(OutputCommentFormContext);
-  const { setFormOpen, setIsRegisterEvent, setIsValidate } = useContext(FormContext);
+  const { setFormOpen, setIsRegisterEvent } = useContext(FormContext);
 
   const [errorMessages, setErrorMessages] = useState<ErrorMessages>({});
 
@@ -26,7 +26,6 @@ const OutputCommentForm: FC = () => {
     resetFormValue({
       setFormOpen,
       setIsRegisterEvent,
-      setIsValidate,
     });
     setOutputCommentFormData(InitialOutputCommentFormData)
   };
@@ -43,7 +42,6 @@ const OutputCommentForm: FC = () => {
         resetFormValue({
           setFormOpen,
           setIsRegisterEvent,
-          setIsValidate,
         });
         setOutputCommentFormData(InitialOutputCommentFormData)
 

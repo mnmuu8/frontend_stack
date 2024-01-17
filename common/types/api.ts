@@ -12,6 +12,7 @@ import { SessionData, sessionUser } from '@/features/sessions/types/session';
 import { NextRouter } from 'next/router';
 import { StackRankings } from '@/features/skills/components/RankTable';
 import { OutputProps } from '@/features/outputs/types/output';
+import { SetErrorMessages } from './validator';
 
 export type routerProps = {
   router: NextRouter;
@@ -41,11 +42,9 @@ export type ApiOptionsProps = {
   options: ApiOptions;
 };
 
-export type callStackApiProps = ApiOptionsProps &
-  SessionDataProps &
-  routerProps & {
-    stackFormData: StackFormDataParams;
-  };
+export type callStackApiProps = ApiOptionsProps & SessionDataProps & SetErrorMessages & {
+  stackFormData: StackFormDataParams
+};
 
 export type createIntrospectionApiProps = ApiOptionsProps &
   routerProps &

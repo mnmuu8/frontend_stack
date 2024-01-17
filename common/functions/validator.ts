@@ -58,3 +58,24 @@ export const outputValidationRules: ValidationRules = {
 export const outputCommentValidationRules: ValidationRules = {
   content: (value) => isRequired(value),
 };
+
+import i18next from 'i18next'
+import { zodI18nMap } from "zod-i18n-map"
+import translation from 'zod-i18n-map/locales/ja/zod.json'
+import { z } from 'zod';
+
+i18next.init({
+  lng: 'ja',
+  resources: {
+    ja: { zod: translation },
+  },
+});
+z.setErrorMap(zodI18nMap);
+
+export const stackSchema = z.object({
+  skill: z.string().min(1, 'スキルの選択は必須です'),
+  stacked_at: z.date(),
+  minutes: z.number().min(1, '積み上げ時間の入力は必須です'),
+  title: z.string().min(1, 'タイトルの入力は必須です'),
+  description: z.string().optional(),
+});

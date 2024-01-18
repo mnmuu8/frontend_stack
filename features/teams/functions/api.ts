@@ -1,60 +1,77 @@
-import { createTeamApiProps, inviteTeamApiProps } from "@/common/types/api";
 import axios from "axios";
+import { z } from 'zod';
+import { inviteTeamSchema, teamSchema } from "@/common/functions/validator";
+import { createTeamApiProps, inviteTeamApiProps } from "@/common/types/api";
+import { ErrorMessages } from "@/common/types/validator";
 
-export const callCreateTeam = ({options, teamFormData, setIsRegisterEvent}: createTeamApiProps) => {
-  const createTeam = async () => {
+export const callCreateTeam = async ({options, teamFormData, setErrorMessages}: createTeamApiProps) => {
+  try {
+    teamSchema.parse(teamFormData);
+
     const params = {
       name: teamFormData.name
     }
     const url: string = `${process.env.API_ROOT_URL}/api/v1/teams`;
+    await axios.post(url, params, options);
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      const newErrors: ErrorMessages = {};
+      error.errors.forEach((err) => {
+        newErrors[err.path[0]] = err.message;
+      });
+      setErrorMessages(newErrors);
 
-    try {
-      const response = await axios.post(url, params, options);
-      return response.data;
-    } catch (error) {
-      throw new Error(`${JSON.stringify(error)}`);
+      throw error;
+    } else {
+      console.error("APIリクエストエラー:", error);
     }
-  };
-
-  createTeam().then(res => {
-    setIsRegisterEvent(true);
-  });
+  }
 }
 
-export const callUpdateTeam = ({options, teamFormData, setIsRegisterEvent}: createTeamApiProps) => {
-  const updateTeam = async () => {
+export const callUpdateTeam = async ({options, teamFormData, setErrorMessages}: createTeamApiProps) => {
+  try {
+    teamSchema.parse(teamFormData);
+  
     const params = {
       name: teamFormData.name
     }
     const url: string = `${process.env.API_ROOT_URL}/api/v1/teams/${teamFormData.id}`;
+    await axios.patch(url, params, options);
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      const newErrors: ErrorMessages = {};
+      error.errors.forEach((err) => {
+        newErrors[err.path[0]] = err.message;
+      });
+      setErrorMessages(newErrors);
 
-    try {
-      const response = await axios.patch(url, params, options);
-      return response.data;
-    } catch (error) {
-      throw new Error(`${JSON.stringify(error)}`);
+      throw error;
+    } else {
+      console.error("APIリクエストエラー:", error);
     }
-  };
-
-  updateTeam().then(res => {
-    setIsRegisterEvent(true);
-  });
+  }
 }
 
-export const callInviteTeam = ({options, inviteTeamFormData, router}: inviteTeamApiProps) => {
-  const inviteTeam = async () => {
+export const callInviteTeam = async ({options, inviteTeamFormData, setErrorMessages }: inviteTeamApiProps) => {
+  try {
+    inviteTeamSchema.parse(inviteTeamFormData);
+
     const params = {
       email: inviteTeamFormData.email
     }
     const url: string = `${process.env.API_ROOT_URL}/api/v1/teams/${inviteTeamFormData.id}/invite`;
+    await axios.put(url, params, options);
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      const newErrors: ErrorMessages = {};
+      error.errors.forEach((err) => {
+        newErrors[err.path[0]] = err.message;
+      });
+      setErrorMessages(newErrors);
 
-    try {
-      const response = await axios.put(url, params, options);
-      return response.data;
-    } catch (error) {
-      throw new Error(`${JSON.stringify(error)}`);
+      throw error;
+    } else {
+      console.error("APIリクエストエラー:", error);
     }
-  };
-
-  inviteTeam().then(res => {});
+  }
 }

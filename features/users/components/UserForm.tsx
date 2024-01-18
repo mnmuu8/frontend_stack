@@ -1,4 +1,4 @@
-import React, { FC, useContext } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import { getSession } from '@/features/sessions/functions/session';
 import { NextRouter, useRouter } from 'next/router';
 import { FormContext } from '@/context/FormContext';
@@ -11,10 +11,13 @@ import UserFormGroup from './UserFormGroup';
 import { UserFormContext } from '../contexts/UserFormContext';
 import { callUpdateUser } from '../functions/api';
 import { InitialUserFormData } from '../functions/form';
+import { ErrorMessages } from '@/common/types/validator';
 
 const UserForm: FC = () => {
   const { userFormData, setUserFormData } = useContext(UserFormContext);
-  const { setFormOpen, setIsRegisterEvent, isValidate, setIsValidate } = useContext(FormContext);
+  const { setFormOpen, setIsRegisterEvent } = useContext(FormContext);
+
+  const [ errorMessages, setErrorMessages ] = useState<ErrorMessages>({});
 
   const router: NextRouter = useRouter();
 
@@ -23,26 +26,30 @@ const UserForm: FC = () => {
     resetFormValue({
       setFormOpen,
       setIsRegisterEvent,
-      setIsValidate,
     });
     setUserFormData(InitialUserFormData)
   };
 
-  const FormSubmit = () => {
+  const FormSubmit = async () => {
     const sessionData = getSession();
     if (!sessionData) return;
 
     const options = getApiHeaders();
     
     if (!dataConfirmAlert('ユーザー情報を更新しますか？')) return;
-    callUpdateUser({ options, sessionData, userFormData, router });
+    await callUpdateUser({ options, sessionData, userFormData, setErrorMessages })
+      .then(() => {
+        resetFormValue({
+          setFormOpen,
+          setIsRegisterEvent,
+        });
+        setUserFormData(InitialUserFormData)
 
-    resetFormValue({
-      setFormOpen,
-      setIsRegisterEvent,
-      setIsValidate,
-    });
-    setUserFormData(InitialUserFormData)
+        router.push('/profile')
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   };
 
   return (
@@ -50,12 +57,12 @@ const UserForm: FC = () => {
       <div className='flex-1'>
         <div className='FormHeading'>ユーザー情報を更新</div>
         <div className='FormFieldGroup'>
-          <UserFormGroup />
+          <UserFormGroup errorMessages={errorMessages} setErrorMessages={setErrorMessages} />
         </div>
       </div>
       <div className='FormBtnGroup'>
         <FormCancelButton onClick={FormCancel} />
-        <FormSubmitButton onClick={FormSubmit} disabled={isValidate} label={'更新'} />
+        <FormSubmitButton onClick={FormSubmit} label={'更新'} />
       </div>
     </>
   );

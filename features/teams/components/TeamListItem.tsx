@@ -13,7 +13,7 @@ import { fetchDeleteTeam } from '@/features/teams/functions/delete';
 
 const TeamListItem: FC<TeamFormDataParams> = ({ id, name }) => {
   const formContext = useContext(FormContext);
-  const { setFormOpen, setFormType } = formContext;
+  const { setFormOpen, setFormType, setIsRegisterEvent } = formContext;
 
   const { setTeamFormData } = useContext(TeamFormContext);
   const { setInviteTeamFormData } = useContext(InviteTeamFormContext);
@@ -23,11 +23,14 @@ const TeamListItem: FC<TeamFormDataParams> = ({ id, name }) => {
   const handleFormOpen = () => {
     setFormOpen(true);
     setFormType('updateTeam');
+    setIsRegisterEvent(false);
     setTeamFormData({ id, name });
   };
+
   const handleInviteTeamFormOpen = () => {
     setFormOpen(true);
     setFormType('inviteTeam');
+    setIsRegisterEvent(false);
     if (id) {
       setInviteTeamFormData({ ...InitialInviteTeamFormData, id });
     }

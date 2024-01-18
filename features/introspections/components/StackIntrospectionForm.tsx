@@ -1,4 +1,4 @@
-import React, { FC, useContext } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import { getSession } from '@/features/sessions/functions/session';
 import { NextRouter, useRouter } from 'next/router';
 import { FormContext } from '@/context/FormContext';
@@ -12,13 +12,15 @@ import { IntrospectionFormContext } from '../contexts/IntrospectionFormContext';
 import { callCreateIntrospection, callUpdateIntrospection } from '../functions/api';
 import { InitialIntrospectionFormData } from '../functions/form';
 import { StackIntrospectionContext } from '../contexts/StackIntrospectionContext';
+import { ErrorMessages } from '@/common/types/validator';
 
 const StackIntrospectionForm: FC = () => {
   const { introspectionFormData, setIntrospectionFormData } = useContext(IntrospectionFormContext);
   const { setShowStackIntrospection } = useContext(StackIntrospectionContext);
-  const { setFormOpen, setIsRegisterEvent, isValidate, setIsValidate } = useContext(FormContext);
-
+  const { setFormOpen, setIsRegisterEvent } = useContext(FormContext);
   const { formType } = useContext(FormContext);
+
+  const [ errorMessages, setErrorMessages ] = useState<ErrorMessages>({});
 
   const router: NextRouter = useRouter();
 
@@ -27,13 +29,12 @@ const StackIntrospectionForm: FC = () => {
     resetFormValue({
       setFormOpen,
       setIsRegisterEvent,
-      setIsValidate,
     });
     setIntrospectionFormData(InitialIntrospectionFormData);
     setShowStackIntrospection(undefined)
   };
 
-  const FormSubmit = () => {
+  const FormSubmit = async () => {
     const sessionData = getSession();
     if (!sessionData) return;
 
@@ -41,20 +42,38 @@ const StackIntrospectionForm: FC = () => {
 
     if (formType === 'createStackIntrospection') {
       if (!dataConfirmAlert('反省を作成しますか？')) return;
-      callCreateIntrospection({ options, introspectionFormData, setIsRegisterEvent, router });
+      await callCreateIntrospection({ options, introspectionFormData, setErrorMessages })
+        .then(() => {
+          resetFormValue({
+            setFormOpen,
+            setIsRegisterEvent,
+          });
+          setIntrospectionFormData(InitialIntrospectionFormData);
+          setShowStackIntrospection(undefined)
+
+          router.push('/timeline');
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     }
     if (formType === 'updateStackIntrospection') {
       if (!dataConfirmAlert('反省情報を更新しますか？')) return;
-      callUpdateIntrospection({ options, introspectionFormData, setIsRegisterEvent, router });
-    }
+      await callUpdateIntrospection({ options, introspectionFormData, setErrorMessages })
+        .then(() => {
+          resetFormValue({
+            setFormOpen,
+            setIsRegisterEvent,
+          });
+          setIntrospectionFormData(InitialIntrospectionFormData);
+          setShowStackIntrospection(undefined)
 
-    resetFormValue({
-      setFormOpen,
-      setIsRegisterEvent,
-      setIsValidate,
-    });
-    setIntrospectionFormData(InitialIntrospectionFormData);
-    setShowStackIntrospection(undefined)
+          router.push('/timeline');
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
   };
 
   return (
@@ -62,12 +81,12 @@ const StackIntrospectionForm: FC = () => {
       <div className='flex-1'>
         <div className='FormHeading'>積み上げの反省を作成</div>
         <div className='FormFieldGroup'>
-          <StackInspectionFormGroup />
+          <StackInspectionFormGroup errorMessages={errorMessages} setErrorMessages={setErrorMessages} />
         </div>
       </div>
       <div className='FormBtnGroup'>
         <FormCancelButton onClick={FormCancel} />
-        <FormSubmitButton onClick={FormSubmit} disabled={isValidate} label={'作成'} />
+        <FormSubmitButton onClick={FormSubmit} label={'作成'} />
       </div>
     </>
   );

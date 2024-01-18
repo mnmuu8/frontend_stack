@@ -1,38 +1,22 @@
-import React, { FC, useContext, useState, useEffect } from 'react';
+import React, { FC, useContext } from 'react';
 import TextInput from '@/components/ui-elements/TextInput';
 
-import { hasValidationErrors, outputValidationRules } from '@/common/functions/validator';
-import { ErrorMessages } from '@/common/types/validator';
 import ErrorMessage from '@/components/ui-elements/ErrorMessage';
-import { FormContext } from '@/context/FormContext';
-import { validationCheck } from '@/common/functions/form';
 import RichTextEditor from '../rich_editors/components/RichTextEditor';
 import { OutputFormContext } from '../contexts/OutputFormContext';
-import { InitialOutputErrorMessage } from '../functions/form';
+import { ErrorMessagesState } from '@/common/types/validator';
 
-const OutputFormGroup: FC = () => {
+const OutputFormGroup: FC<ErrorMessagesState> = ({ errorMessages }) => {
   const { outputFormData, setOutputFormData } = useContext(OutputFormContext);
-
-  const formContext = useContext(FormContext);
-  const { setIsValidate } = formContext;
-
-  const [errorMessages, setErrorMessages] = useState<ErrorMessages>(InitialOutputErrorMessage);
 
   const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-
-    const validationRules = outputValidationRules;
-    validationCheck({ name, value, validationRules, errorMessages, setErrorMessages });
 
     setOutputFormData({
       ...outputFormData,
       [name]: value,
     });
   };
-
-  useEffect(() => {
-    setIsValidate(!hasValidationErrors(outputFormData));
-  }, [outputFormData]);
 
   return (
     <>

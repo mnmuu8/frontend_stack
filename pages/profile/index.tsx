@@ -8,6 +8,7 @@ import SkillRankChart from '@/features/skills/components/SkillRankChart'
 import { StackProps } from '@/features/stacks/types/stack'
 import { SessionContext } from '@/context/SessionContext'
 import { getApiHeadersWithUserId } from '@/common/functions/api'
+import { FormContext } from '@/context/FormContext'
 
 const Index: NextPage = () => {
   const [stacks, setStacks] = useState<StackProps[]>([]);
@@ -15,6 +16,7 @@ const Index: NextPage = () => {
   const [minutes, setMinutes] = useState<number[]>([]);
 
   const { sessionUser } = useContext(SessionContext);
+  const { isRegisterEvent } = useContext(FormContext);
 
   useEffect(() => {
     const options = getApiHeadersWithUserId();
@@ -48,7 +50,7 @@ const Index: NextPage = () => {
 
     setSkills(Object.keys(skillAccumulation));
     setMinutes(Object.values(skillAccumulation));
-  }, [stacks]);
+  }, [stacks, isRegisterEvent]);
 
   return (
     <Layout>

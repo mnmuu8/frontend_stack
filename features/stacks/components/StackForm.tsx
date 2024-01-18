@@ -1,4 +1,4 @@
-import React, { FC, useContext } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import StackFormGroup from '@/features/stacks/components/StackFormGroup';
 import { getSession } from '@/features/sessions/functions/session';
 import { NextRouter, useRouter } from 'next/router';
@@ -11,10 +11,12 @@ import FormCancelButton from '@/components/ui-elements/FormCancelButton';
 import { StackFormContext } from '@/features/stacks/contexts/StackFormContext';
 import { callCreateStack } from '../functions/api';
 import { InitialStackFormData } from '../functions/form';
+import { ErrorMessages } from '@/common/types/validator';
 
 const StackForm: FC = () => {
   const { stackFormData, setStackFormData } = useContext(StackFormContext);
-  const { setFormOpen, setIsRegisterEvent, isValidate, setIsValidate } = useContext(FormContext);
+  const { setFormOpen, setIsRegisterEvent } = useContext(FormContext);
+  const [ errorMessages, setErrorMessages ] = useState<ErrorMessages>({});
 
   const router: NextRouter = useRouter();
 
@@ -23,26 +25,30 @@ const StackForm: FC = () => {
     resetFormValue({
       setFormOpen,
       setIsRegisterEvent,
-      setIsValidate,
     });
     setStackFormData(InitialStackFormData)
   };
 
-  const FormSubmit = () => {
+  const FormSubmit = async () => {
     const sessionData = getSession();
     if (!sessionData) return;
 
     const options = getApiHeaders();
     
     if (!dataConfirmAlert('積み上げを作成しますか？')) return;
-    callCreateStack({ options, sessionData, stackFormData, router });
+    await callCreateStack({ options, sessionData, stackFormData, setErrorMessages })
+      .then(() => {
+        resetFormValue({
+          setFormOpen,
+          setIsRegisterEvent,
+        });
+        setStackFormData(InitialStackFormData);
 
-    resetFormValue({
-      setFormOpen,
-      setIsRegisterEvent,
-      setIsValidate,
-    });
-    setStackFormData(InitialStackFormData)
+        router.push('/timeline');
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   };
 
   return (
@@ -50,12 +56,12 @@ const StackForm: FC = () => {
       <div className='flex-1'>
         <div className='FormHeading'>積み上げを作成</div>
         <div className='FormFieldGroup'>
-          <StackFormGroup />
+          <StackFormGroup errorMessages={errorMessages} setErrorMessages={setErrorMessages} />
         </div>
       </div>
       <div className='FormBtnGroup'>
         <FormCancelButton onClick={FormCancel} />
-        <FormSubmitButton onClick={FormSubmit} disabled={isValidate} label={'作成'} />
+        <FormSubmitButton onClick={FormSubmit} label={'作成'} />
       </div>
     </>
   );

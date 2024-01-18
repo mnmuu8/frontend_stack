@@ -1,39 +1,29 @@
-import { createOutputApiProps, getOutputsApiProps } from "@/common/types/api";
 import axios from "axios";
+import { z } from 'zod';
+import { outputSchema } from "@/common/functions/validator";
+import { createOutputApiProps } from "@/common/types/api";
+import { ErrorMessages } from "@/common/types/validator";
 
-export const callCreateOutput = ({options, outputFormData, setIsRegisterEvent, router}: createOutputApiProps) => {
-  const createOutput = async () => {
+export const callCreateOutput = async ({options, outputFormData, setErrorMessages}: createOutputApiProps) => {
+  try {
+    outputSchema.parse(outputFormData);
+
     const params = {
       content: outputFormData.content,
     }
     const url: string = `${process.env.API_ROOT_URL}/api/v1/outputs`;
-  
-    try {
-      const response = await axios.post(url, params, options);
-      return response.data;
-    } catch (error) {
-      throw new Error(`${JSON.stringify(error)}`);
-    }
-  };
-  
-  createOutput().then(res => {
-    setIsRegisterEvent(true);
-    router.push('/outputs');
-  });
-}
+    await axios.post(url, params, options);
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      const newErrors: ErrorMessages = {};
+      error.errors.forEach((err) => {
+        newErrors[err.path[0]] = err.message;
+      });
+      setErrorMessages(newErrors);
 
-export const callGetOutpus = ({options, setOutputs}: getOutputsApiProps) => {
-  const getOutputs = async () => {
-
-    const url: string = `${process.env.API_ROOT_URL}/api/v1/outputs`;
-  
-    try {
-      const response = await axios.get(url, options);
-      return response.data;
-    } catch (error) {
-      throw new Error(`${JSON.stringify(error)}`);
+      throw error;
+    } else {
+      console.error("APIリクエストエラー:", error);
     }
-  };
-  
-  getOutputs().then(res => setOutputs(res.outputs));
+  }
 }

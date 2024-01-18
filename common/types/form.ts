@@ -93,13 +93,4 @@ export type OutputCommentFormDataParams = {
 export type ResetFormValueProps = {
   setFormOpen: Dispatch<SetStateAction<boolean>>;
   setIsRegisterEvent: Dispatch<SetStateAction<boolean>>;
-  setIsValidate: Dispatch<SetStateAction<boolean>>;
-  setStackFormData?: Dispatch<SetStateAction<StackFormDataParams>>;
-  setIntrospectionFormData?: Dispatch<SetStateAction<IntrospectionFormDataParams>>;
-  setUserFormData?: Dispatch<SetStateAction<UserFormDataParams>>;
-  setTeamFormData?: Dispatch<SetStateAction<TeamFormDataParams>>;
-  setInviteTeamFormData?: Dispatch<SetStateAction<InviteTeamFormDataParams>>;
-  setOutputFormData?: Dispatch<SetStateAction<OutputFormDataParams>>;
-  setOutputCommentFormData?: Dispatch<SetStateAction<OutputCommentFormDataParams>>;
-  setShowStackIntrospection?: Dispatch<SetStateAction<IntrospectionProps>>;
 };

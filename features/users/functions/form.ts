@@ -1,2 +1,1 @@
 export const InitialUserFormData = {role: "", name: "", email: "", profile_content: "", team: {name: ""}}
-export const InitialUserErrorMessage = {role: '',name: '',email: '',profile_content: '',team: ''}

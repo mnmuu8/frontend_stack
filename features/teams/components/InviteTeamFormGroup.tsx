@@ -1,37 +1,20 @@
-import React, { FC, useContext, useState, useEffect } from 'react';
+import React, { FC, useContext } from 'react';
 import TextInput from '@/components/ui-elements/TextInput';
-
-import { hasValidationErrors, inviteTeamValidationRules } from '@/common/functions/validator';
-import { ErrorMessages } from '@/common/types/validator';
 import ErrorMessage from '@/components/ui-elements/ErrorMessage';
-import { FormContext } from '@/context/FormContext';
-import { validationCheck } from '@/common/functions/form';
 import { InviteTeamFormContext } from '../contexts/InviteTeamFormContext';
-import { InitialTeamErrorMessage } from '../functions/form';
+import { ErrorMessagesState } from '@/common/types/validator';
 
-const InviteTeamFormGroup: FC = () => {
+const InviteTeamFormGroup: FC<ErrorMessagesState> = ({ errorMessages }) => {
   const { inviteTeamFormData, setInviteTeamFormData } = useContext(InviteTeamFormContext);
-
-  const formContext = useContext(FormContext);
-  const { setIsValidate } = formContext;
-
-  const [errorMessages, setErrorMessages] = useState<ErrorMessages>(InitialTeamErrorMessage);
 
   const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-
-    const validationRules = inviteTeamValidationRules;
-    validationCheck({ name, value, validationRules, errorMessages, setErrorMessages });
 
     setInviteTeamFormData({
       ...inviteTeamFormData,
       [name]: value,
     });
   };
-
-  useEffect(() => {
-    setIsValidate(!hasValidationErrors(inviteTeamFormData));
-  }, [inviteTeamFormData]);
 
   return (
     <>

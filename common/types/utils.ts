@@ -89,7 +89,6 @@ export type ChartProps = {
 
 export type FormSubmitButtonProps = {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
-  disabled?: boolean;
   label: string;
 };
 export type FormCancelButtonProps = {

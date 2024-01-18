@@ -25,7 +25,7 @@ import { OutputCommentFormContext } from '@/features/outputs/comments/contexts/O
 import { StackIntrospectionContext } from '@/features/introspections/contexts/StackIntrospectionContext';
 
 const FormModal: FC = () => {
-  const { formOpen, setFormOpen, formType, setIsRegisterEvent, setIsValidate } = useContext(FormContext);
+  const { formOpen, setFormOpen, formType, setIsRegisterEvent } = useContext(FormContext);
 
   const { setStackFormData } = useContext(StackFormContext);
   const { setIntrospectionFormData } = useContext(IntrospectionFormContext);
@@ -51,7 +51,6 @@ const FormModal: FC = () => {
     resetFormValue({
       setFormOpen,
       setIsRegisterEvent,
-      setIsValidate,
     });
     setStackFormData(InitialStackFormData);
     setIntrospectionFormData(InitialIntrospectionFormData);

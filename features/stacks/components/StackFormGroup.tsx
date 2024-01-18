@@ -1,42 +1,23 @@
-import React, { FC, useContext, useEffect, useState } from 'react';
-
+import React, { FC, useContext } from 'react';
 import DateInput from './DateInput';
 import TextInput from '@/components/ui-elements/TextInput';
 import SkillInput from '@/features/skills/components/SkillInput';
-import { FormContext } from '@/context/FormContext';
-
-import { hasValidationErrors, stackValidationRules } from '@/common/functions/validator';
-import { ErrorMessages } from '@/common/types/validator';
 import ErrorMessage from '@/components/ui-elements/ErrorMessage';
-import { validationCheck  } from '@/common/functions/form';
-
 import { StackFormContext } from '../contexts/StackFormContext';
-import { InitialStackErrorMessage } from '../functions/form';
+import { ErrorMessagesState } from '@/common/types/validator';
 
-const StackFormGroup: FC = () => {
-
+const StackFormGroup: FC<ErrorMessagesState> = ({ errorMessages, setErrorMessages }) => {
   const { stackFormData, setStackFormData } = useContext(StackFormContext);
-
-  const formContext = useContext(FormContext);
-  const { setIsValidate } = formContext;
-
-  const [errorMessages, setErrorMessages] = useState<ErrorMessages>(InitialStackErrorMessage);
 
   const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-
-    const validationRules = stackValidationRules;
-    validationCheck({ name, value, validationRules, errorMessages, setErrorMessages });
+    const updatedValue = name === 'minutes' ? parseInt(value, 10) : value;
 
     setStackFormData({
       ...stackFormData,
-      [name]: value,
+      [name]: updatedValue,
     });
   };
-
-  useEffect(() => {
-    setIsValidate(!hasValidationErrors(stackFormData));
-  }, [stackFormData]);
 
   return (
     <>

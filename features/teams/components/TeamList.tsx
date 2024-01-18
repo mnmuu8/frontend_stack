@@ -9,8 +9,7 @@ import { getApiHeaders } from '@/common/functions/api';
 
 const TeamList: FC = () => {
   const [teams, setTeams] = useState<TeamProps[]>([]);
-  const formContext = useContext(FormContext);
-  const { setFormOpen, setFormType, isRegisterEvent } = formContext;
+  const { setFormOpen, setFormType, setIsRegisterEvent, isRegisterEvent } = useContext(FormContext);
   const { isAdmin } = useContext(SessionContext);
 
   useEffect(() => {
@@ -25,11 +24,12 @@ const TeamList: FC = () => {
     };
 
     fetchTeams().then((res) => setTeams(res));
-  }, [isRegisterEvent, teams]);
+  }, [isRegisterEvent]);
 
   const handleFormOpen = () => {
     setFormOpen(true);
     setFormType('createTeam');
+    setIsRegisterEvent(false)
   };
 
   return (

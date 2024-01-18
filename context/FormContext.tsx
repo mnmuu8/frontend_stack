@@ -10,8 +10,6 @@ const InitialState: FormContextProps = {
   setFormOpen: () => {},
   isRegisterEvent: false,
   setIsRegisterEvent: () => {},
-  isValidate: true,
-  setIsValidate: () => {},
 };
 
 const FormContext = createContext<FormContextProps>(InitialState);
@@ -20,7 +18,6 @@ const FormProvider = ({ children }: ChildrenProps) => {
   const [formOpen, setFormOpen] = useState<boolean>(false);
   const [formType, setFormType] = useState<FormType>('createStack');
   const [isRegisterEvent, setIsRegisterEvent] = useState<boolean>(false);
-  const [isValidate, setIsValidate] = useState<boolean>(true);
 
   const providerValue = useMemo(
     () => ({
@@ -30,10 +27,8 @@ const FormProvider = ({ children }: ChildrenProps) => {
       setFormOpen,
       isRegisterEvent,
       setIsRegisterEvent,
-      isValidate,
-      setIsValidate,
     }),
-    [formType, formOpen, isRegisterEvent, isValidate],
+    [formType, formOpen, isRegisterEvent],
   );
 
   return <FormContext.Provider value={providerValue}>{children}</FormContext.Provider>;

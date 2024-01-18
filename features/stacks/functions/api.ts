@@ -1,8 +1,13 @@
-import { callStackApiProps } from "@/common/types/api";
 import axios from "axios";
+import { z } from 'zod';
+import { stackSchema } from "@/common/functions/validator";
+import { callStackApiProps } from "@/common/types/api";
+import { ErrorMessages } from "@/common/types/validator";
 
-export const callCreateStack = ({options, sessionData, stackFormData, router}: callStackApiProps) => {
-  const createStack = async () => {
+export const callCreateStack = async ({options, sessionData, stackFormData, setErrorMessages}: callStackApiProps) => {
+  try {
+    stackSchema.parse(stackFormData);
+
     const params = {
       title: stackFormData.title,
       description: stackFormData.description,
@@ -12,13 +17,18 @@ export const callCreateStack = ({options, sessionData, stackFormData, router}: c
       user_id: sessionData.userId
     }
     const url: string = `${process.env.API_ROOT_URL}/api/v1/stacks`;
-    try {
-      const response = await axios.post(url, params, options);
-      return response.data;
-    } catch (error) {
-      throw new Error(`${JSON.stringify(error)}`);
-    }
-  };
+    await axios.post(url, params, options);
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      const newErrors: ErrorMessages = {};
+      error.errors.forEach((err) => {
+        newErrors[err.path[0]] = err.message;
+      });
+      setErrorMessages(newErrors);
 
-  createStack().then(res => router.push('/timeline'));
+      throw error;
+    } else {
+      console.error("APIリクエストエラー:", error);
+    }
+  }
 }

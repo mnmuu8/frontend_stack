@@ -12,6 +12,7 @@ import { SessionData, sessionUser } from '@/features/sessions/types/session';
 import { NextRouter } from 'next/router';
 import { StackRankings } from '@/features/skills/components/RankTable';
 import { OutputProps } from '@/features/outputs/types/output';
+import { SetErrorMessages } from './validator';
 
 export type routerProps = {
   router: NextRouter;
@@ -41,49 +42,37 @@ export type ApiOptionsProps = {
   options: ApiOptions;
 };
 
-export type callStackApiProps = ApiOptionsProps &
-  SessionDataProps &
-  routerProps & {
-    stackFormData: StackFormDataParams;
-  };
+export type callStackApiProps = ApiOptionsProps & SessionDataProps & SetErrorMessages & {
+  stackFormData: StackFormDataParams
+};
 
-export type createIntrospectionApiProps = ApiOptionsProps &
-  routerProps &
-  setIsRegisterEventProps & {
-    introspectionFormData: IntrospectionFormDataParams;
-  };
+export type createIntrospectionApiProps = ApiOptionsProps & SetErrorMessages & {
+  introspectionFormData: IntrospectionFormDataParams;
+};
 
-export type createUserApiProps = ApiOptionsProps &
-  routerProps & {
-    userFormData: UserFormDataParams;
-  };
+export type createUserApiProps = ApiOptionsProps & SetErrorMessages & {
+  userFormData: UserFormDataParams;
+};
 
-export type callUserApiProps = ApiOptionsProps &
-  routerProps &
-  SessionDataProps & {
-    userFormData: UserFormDataParams;
-  };
+export type callUserApiProps = ApiOptionsProps & SessionDataProps & SetErrorMessages & {
+  userFormData: UserFormDataParams;
+};
 
-export type createTeamApiProps = ApiOptionsProps &
-  setIsRegisterEventProps & {
-    teamFormData: TeamFormDataParams;
-  };
+export type createTeamApiProps = ApiOptionsProps & SetErrorMessages & {
+  teamFormData: TeamFormDataParams;
+};
 
-export type inviteTeamApiProps = ApiOptionsProps &
-  routerProps & {
-    inviteTeamFormData: InviteTeamFormDataParams;
-  };
+export type inviteTeamApiProps = ApiOptionsProps & SetErrorMessages & {
+  inviteTeamFormData: InviteTeamFormDataParams;
+};
 
-export type createOutputApiProps = ApiOptionsProps &
-  routerProps &
-  setIsRegisterEventProps & {
-    outputFormData: OutputFormDataParams;
-  };
+export type createOutputApiProps = ApiOptionsProps & SetErrorMessages & {
+  outputFormData: OutputFormDataParams;
+};
 
-export type createOutputCommentApiProps = ApiOptionsProps &
-  routerProps & {
-    outputCommentFormData: OutputCommentFormDataParams;
-  };
+export type createOutputCommentApiProps = ApiOptionsProps & SessionDataProps & SetErrorMessages & {
+  outputCommentFormData: OutputCommentFormDataParams;
+};
 
 export type fetchStackRankingsProps = ApiOptionsProps &
   SessionUserProps & {

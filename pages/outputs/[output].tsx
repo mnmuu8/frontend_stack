@@ -30,7 +30,7 @@ const Output: NextPage<OutputCardProps> = ({ output, initialComments }) => {
   const userProfileName = 'example';
 
   const [comments, setComments] = useState(initialComments);
-  const { setFormOpen, setFormType } = useContext(FormContext);
+  const { setFormOpen, setFormType, setIsRegisterEvent } = useContext(FormContext);
   const { setOutputCommentFormData } = useContext(OutputCommentFormContext);
 
   const handleFormOpen = useCallback(() => {
@@ -38,6 +38,7 @@ const Output: NextPage<OutputCardProps> = ({ output, initialComments }) => {
     setOutputCommentFormData({ ...InitialOutputCommentFormData, outputId })
     setFormType('createOutputComment');
     setFormOpen(true);
+    setIsRegisterEvent(false);
   }, []);
 
   useEffect(() => {

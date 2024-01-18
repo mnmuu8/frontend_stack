@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useContext, useState } from 'react';
+import React, { FC, useEffect, useContext } from 'react';
 import TextInput from '@/components/ui-elements/TextInput';
 import Button from '@mui/material/Button';
 import { IntrospectionFormDataParams } from '@/common/types/form';
@@ -6,33 +6,22 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import ReportIcon from '@mui/icons-material/Report';
 
-import { hasValidationErrors, introspectionValidationRules, isRequiredArray } from '@/common/functions/validator';
-import { ErrorMessages } from '@/common/types/validator';
 import ErrorMessage from '@/components/ui-elements/ErrorMessage';
-import { FormContext } from '@/context/FormContext';
-import { validationCheck } from '@/common/functions/form';
+import { ErrorMessagesState } from '@/common/types/validator';
 import { IntrospectionFormContext } from '../contexts/IntrospectionFormContext';
 import { StackIntrospectionContext } from '../contexts/StackIntrospectionContext';
-import { InitialIntrospectionErrorMessage } from '../functions/form';
 
-const StackInspectionFormGroup: FC = () => {
+const StackInspectionFormGroup: FC<ErrorMessagesState> = ({ errorMessages }) => {
   const { introspectionFormData, setIntrospectionFormData } = useContext(IntrospectionFormContext);
   const { showStackIntrospection } = useContext(StackIntrospectionContext);
 
-  const formContext = useContext(FormContext);
-  const { setIsValidate } = formContext;
-
-  const [errorMessages, setErrorMessages] = useState<ErrorMessages>(InitialIntrospectionErrorMessage);
-
   const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-
-    const validationRules = introspectionValidationRules;
-    validationCheck({ name, value, validationRules, errorMessages, setErrorMessages });
+    const updatedValue = name === 'evaluation' ? parseInt(value, 10) : value;
 
     setIntrospectionFormData({
       ...introspectionFormData,
-      [name]: value,
+      [name]: updatedValue,
     });
   };
 
@@ -40,12 +29,6 @@ const StackInspectionFormGroup: FC = () => {
     setIntrospectionFormData((prevData: IntrospectionFormDataParams) => {
       const updatedField = [...prevData[fieldName]];
       updatedField[index].content = value;
-
-      const isValid = isRequiredArray(updatedField);
-      setErrorMessages({
-        ...errorMessages,
-        [fieldName]: isValid ? '' : '必須項目です',
-      });
 
       return {
         ...prevData,
@@ -93,10 +76,6 @@ const StackInspectionFormGroup: FC = () => {
       });
     }
   }, []);
-
-  useEffect(() => {
-    setIsValidate(!hasValidationErrors(introspectionFormData));
-  }, [introspectionFormData]);
 
   return (
     <>
@@ -152,7 +131,6 @@ const StackInspectionFormGroup: FC = () => {
             </div>
           </div>
         ))}
-        <ErrorMessage errorMessages={errorMessages} errorKey='keeps' />
         <Button
           onClick={() => handleAddPoint('keeps')}
           className='w-full border-indigo-200 border-2 text-white bg-[#000044] hover:bg-[#000066] mt-4 py-3'
@@ -167,6 +145,7 @@ const StackInspectionFormGroup: FC = () => {
             </IconButton>
           </Tooltip>
         </Button>
+        <ErrorMessage errorMessages={errorMessages} errorKey='keeps' />
       </div>
       <div>
         {introspectionFormData.problems.map((problem, index) => (
@@ -192,7 +171,6 @@ const StackInspectionFormGroup: FC = () => {
             </div>
           </div>
         ))}
-        <ErrorMessage errorMessages={errorMessages} errorKey='problems' />
         <Button
           onClick={() => handleAddPoint('problems')}
           className='w-full border-indigo-200 border-2 text-white bg-[#000044] hover:bg-[#000066] mt-4 py-3'
@@ -207,6 +185,7 @@ const StackInspectionFormGroup: FC = () => {
             </IconButton>
           </Tooltip>
         </Button>
+        <ErrorMessage errorMessages={errorMessages} errorKey='problems' />
       </div>
       <div>
         {introspectionFormData.tries.map((tries, index) => (
@@ -232,7 +211,6 @@ const StackInspectionFormGroup: FC = () => {
             </div>
           </div>
         ))}
-        <ErrorMessage errorMessages={errorMessages} errorKey='tries' />
         <Button
           onClick={() => handleAddPoint('tries')}
           className='w-full border-indigo-200 border-2 text-white bg-[#000044] hover:bg-[#000066] mt-4 py-3'
@@ -247,6 +225,7 @@ const StackInspectionFormGroup: FC = () => {
             </IconButton>
           </Tooltip>
         </Button>
+        <ErrorMessage errorMessages={errorMessages} errorKey='tries' />
       </div>
     </>
   );

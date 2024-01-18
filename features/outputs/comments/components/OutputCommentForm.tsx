@@ -1,4 +1,4 @@
-import React, { FC, useContext, useEffect } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import { getSession } from '@/features/sessions/functions/session';
 import { NextRouter, useRouter } from 'next/router';
 import { FormContext } from '@/context/FormContext';
@@ -11,10 +11,13 @@ import { OutputCommentFormContext } from '../contexts/OutputCommentFormContext';
 import OutputCommentFormGroup from './OutputCommentFormGroup';
 import { callCreateOutputComment } from '../functions/api';
 import { InitialOutputCommentFormData } from '../../functions/form';
+import { ErrorMessages } from '@/common/types/validator';
 
 const OutputCommentForm: FC = () => {
   const { outputCommentFormData, setOutputCommentFormData } = useContext(OutputCommentFormContext);
-  const { setFormOpen, setIsRegisterEvent, setIsValidate } = useContext(FormContext);
+  const { setFormOpen, setIsRegisterEvent } = useContext(FormContext);
+
+  const [errorMessages, setErrorMessages] = useState<ErrorMessages>({});
 
   const router: NextRouter = useRouter();
 
@@ -23,38 +26,39 @@ const OutputCommentForm: FC = () => {
     resetFormValue({
       setFormOpen,
       setIsRegisterEvent,
-      setIsValidate,
     });
     setOutputCommentFormData(InitialOutputCommentFormData)
   };
 
-  const FormSubmit = () => {
+  const FormSubmit = async () => {
     const sessionData = getSession();
     if (!sessionData) return;
 
     const options = getApiHeaders();
 
     if (!dataConfirmAlert('アウトプットに対してコメントしますか？')) return;
-    callCreateOutputComment({ options, outputCommentFormData, router });
+    await callCreateOutputComment({ options, sessionData, outputCommentFormData, setErrorMessages })
+      .then(() => {
+        resetFormValue({
+          setFormOpen,
+          setIsRegisterEvent,
+        });
+        setOutputCommentFormData(InitialOutputCommentFormData)
 
-    resetFormValue({
-      setFormOpen,
-      setIsRegisterEvent,
-      setIsValidate,
-    });
-    setOutputCommentFormData(InitialOutputCommentFormData)
+        const outputId = outputCommentFormData.outputId;
+        router.push(`/outputs/${outputId}`);
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   };
-
-  useEffect(() => {
-    console.log(outputCommentFormData)
-  }, [outputCommentFormData])
 
   return (
     <>
       <div className='flex-1'>
         <div className='FormHeading'>アウトプットに対してコメントする</div>
         <div className='FormFieldGroup'>
-          <OutputCommentFormGroup />
+          <OutputCommentFormGroup errorMessages={errorMessages} setErrorMessages={setErrorMessages} />
         </div>
       </div>
       <div className='FormBtnGroup'>

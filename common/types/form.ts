@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction } from 'react';
-import { KeepAndProblemAndTryPoint } from '@/features/introspections/types/introspection';
 
 export type FormType =
   | 'updateUser'
@@ -32,15 +31,6 @@ export type TextInputProps = {
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
   value?: string | number;
-};
-
-export type IntrospectionFormDataParams = {
-  reason: string;
-  evaluation: number;
-  keeps: KeepAndProblemAndTryPoint[];
-  problems: KeepAndProblemAndTryPoint[];
-  tries: KeepAndProblemAndTryPoint[];
-  stack_id?: number;
 };
 
 export type ResetFormValueProps = {

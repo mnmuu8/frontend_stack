@@ -1,15 +1,15 @@
 import React, { FC, useContext, useEffect, useMemo } from 'react';
 import Header from './Header';
 import Sidebar from './Sidebar';
-import { LayoutProps } from '@/common/types/utils';
 import { AppContext } from '@/context/AppContext';
 import { useRouter } from 'next/router';
 import { getSession } from '@/features/sessions/functions/session';
 import axios from 'axios';
 import { SessionContext } from '@/context/SessionContext';
 import { getApiHeaders } from '@/common/functions/api';
+import { ChildrenProps } from '@/common/types/ui-parts/layout';
 
-const Layout: FC<LayoutProps> = ({ children }) => {
+const Layout: FC<ChildrenProps> = ({ children }) => {
   const router = useRouter();
 
   const { drawerArea } = useContext(AppContext);

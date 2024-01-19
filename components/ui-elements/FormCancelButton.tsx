@@ -1,6 +1,6 @@
-import { FormCancelButtonProps } from '@/common/types/utils';
-import { Button } from '@mui/material';
 import React, { FC } from 'react';
+import { Button } from '@mui/material';
+import { FormCancelButtonProps } from '@/common/types/ui-elements/button';
 
 const FormCancelButton: FC<FormCancelButtonProps> = ({ onClick }) => {
   return (

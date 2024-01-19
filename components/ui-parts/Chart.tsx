@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect } from 'react';
-import { ChartProps, ChartData, ChartOption } from '@/common/types/utils';
 import { Bar, Pie } from 'react-chartjs-2';
 import Annotation from 'chartjs-plugin-annotation';
+import { ChartDataState, ChartOptionState, ChartProps } from '@/common/types/ui-parts/chart';
 
 import {
   Chart as ChartJS,
@@ -30,8 +30,8 @@ ChartJS.register(
 );
 
 const Chart: FC<ChartProps> = ({ data, type, option }) => {
-  const [chartData, setChartData] = useState<ChartData | null>(null);
-  const [chartOption, setChartOption] = useState<ChartOption | null>(null);
+  const [chartData, setChartData] = useState<ChartDataState | null>(null);
+  const [chartOption, setChartOption] = useState<ChartOptionState | null>(null);
   const [chartType, setChartType] = useState<'bar' | 'pie' | null>(null);
 
   useEffect(() => {

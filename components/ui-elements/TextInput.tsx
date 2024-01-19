@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { TextInputProps } from '@/common/types/form';
+import { TextInputProps } from '@/common/types/ui-elements/field';
 
 const TextInput: FC<TextInputProps> = ({
   name,

@@ -1,6 +1,6 @@
 import { TeamProps } from "@/features/teams/types/team";
 
-export type sessionUser =
+export type SessionUser =
   | {
       id: number;
       role: string;

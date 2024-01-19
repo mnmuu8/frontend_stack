@@ -1,28 +1,12 @@
-import { ReactNode } from 'react';
-import { StaticImageData } from 'next/image';
-import { TooltipItem } from 'chart.js';
+import { TooltipItem } from "chart.js";
 
-export type ChildrenProps = {
-  children: ReactNode;
-};
-export type LayoutProps = ChildrenProps;
-
-export type ImageWrapperProps = {
-  src: string | StaticImageData;
-  alt: string;
-  width: number;
-  height: number;
-  className?: string;
+export type ChartProps = {
+  data: any;
+  option: any;
+  type: 'bar' | 'pie';
 };
 
-export type sidebarMenus = {
-  id: string;
-  label: string;
-  value: string;
-  icon: React.JSX.Element;
-};
-
-export type ChartData = {
+export type ChartDataState = {
   labels: string[];
   datasets: {
     label: string;
@@ -41,7 +25,7 @@ export type AnnotationLine = {
   borderWidth: number;
 };
 
-export type ChartOption = {
+export type ChartOptionState = {
   responsive: boolean;
   plugins: {
     title: {
@@ -81,16 +65,11 @@ export type ChartOption = {
   };
 };
 
-export type ChartProps = {
-  data: any;
-  option: any;
-  type: 'bar' | 'pie';
-};
-
-export type FormSubmitButtonProps = {
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
+export type ChartDataProps = {
+  labels: string[];
   label: string;
-};
-export type FormCancelButtonProps = {
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
-};
+  data: number[];
+  bgColor: string[];
+  bdColor: string[];
+  bdWidth: number;
+}

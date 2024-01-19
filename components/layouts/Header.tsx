@@ -5,7 +5,7 @@ import { SessionContext } from '@/context/SessionContext';
 import HeaderMenu from './HeaderMenu';
 import ImageWrapper from '../ui-elements/ImageWrapper';
 import FormModal from '../ui-parts/FormModal';
-import { FormType } from '@/common/types/form';
+import { FormType } from '@/common/types/ui-parts/form';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import AddIcon from '@mui/icons-material/Add';
@@ -20,7 +20,7 @@ const Header: FC = () => {
   const handleFormOpen = (formType: FormType) => {
     setFormOpen(true);
     setFormType(formType);
-    setIsRegisterEvent(false)
+    setIsRegisterEvent(false);
   };
 
   const userProfileSrcPath =

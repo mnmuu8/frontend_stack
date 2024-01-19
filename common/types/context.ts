@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
-import { sessionUser } from '@/features/sessions/types/session';
-import { FormType } from './form';
+import { SessionUser } from '@/features/sessions/types/session';
+import { FormType } from './ui-parts/form';
 
 export type AppContextProps = {
   drawerArea: boolean;
@@ -13,8 +13,8 @@ export type AppContextProps = {
 };
 
 export type SessionContextProps = {
-  sessionUser: sessionUser;
-  setSessionUser: Dispatch<SetStateAction<sessionUser>>;
+  sessionUser: SessionUser;
+  setSessionUser: Dispatch<SetStateAction<SessionUser>>;
   isAdmin: boolean;
   setIsAdmin: Dispatch<React.SetStateAction<boolean>>;
 };

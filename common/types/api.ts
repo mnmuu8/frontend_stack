@@ -1,5 +1,4 @@
 import {
-  IntrospectionFormDataParams,
   OutputFormDataParams,
   UserFormDataParams,
   OutputCommentFormDataParams,
@@ -26,10 +25,6 @@ export type ApiOptions<T extends Record<string, string | number> = {}> = {
 
 export type ApiOptionsProps = {
   options: ApiOptions;
-};
-
-export type createIntrospectionApiProps = ApiOptionsProps & SetErrorMessages & {
-  introspectionFormData: IntrospectionFormDataParams;
 };
 
 export type createUserApiProps = ApiOptionsProps & SetErrorMessages & {

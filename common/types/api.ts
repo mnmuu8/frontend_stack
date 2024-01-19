@@ -1,22 +1,14 @@
-import { Dispatch, SetStateAction } from 'react';
 import {
   IntrospectionFormDataParams,
   OutputFormDataParams,
-  StackFormDataParams,
   TeamFormDataParams,
   InviteTeamFormDataParams,
   UserFormDataParams,
   OutputCommentFormDataParams,
 } from './form';
 import { SessionData, sessionUser } from '@/features/sessions/types/session';
-import { NextRouter } from 'next/router';
 import { StackRankings } from '@/features/skills/components/RankTable';
-import { OutputProps } from '@/features/outputs/types/output';
 import { SetErrorMessages } from './validator';
-
-export type routerProps = {
-  router: NextRouter;
-};
 
 export type SessionDataProps = {
   sessionData: SessionData;
@@ -24,10 +16,6 @@ export type SessionDataProps = {
 
 export type SessionUserProps = {
   sessionUser: sessionUser;
-};
-
-export type setIsRegisterEventProps = {
-  setIsRegisterEvent: Dispatch<SetStateAction<boolean>>;
 };
 
 export type ApiOptions<T extends Record<string, string | number> = {}> = {
@@ -40,10 +28,6 @@ export type ApiOptions<T extends Record<string, string | number> = {}> = {
 
 export type ApiOptionsProps = {
   options: ApiOptions;
-};
-
-export type callStackApiProps = ApiOptionsProps & SessionDataProps & SetErrorMessages & {
-  stackFormData: StackFormDataParams
 };
 
 export type createIntrospectionApiProps = ApiOptionsProps & SetErrorMessages & {
@@ -78,7 +62,3 @@ export type fetchStackRankingsProps = ApiOptionsProps &
   SessionUserProps & {
     setStackRankings: React.Dispatch<React.SetStateAction<StackRankings[]>>;
   };
-
-export type getOutputsApiProps = ApiOptionsProps & {
-  setOutputs: Dispatch<SetStateAction<OutputProps[]>>;
-};

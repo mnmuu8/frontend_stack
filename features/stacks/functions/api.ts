@@ -1,10 +1,10 @@
 import axios from "axios";
 import { z } from 'zod';
 import { stackSchema } from "@/common/functions/validator";
-import { callStackApiProps } from "@/common/types/api";
 import { ErrorMessages } from "@/common/types/validator";
+import { callCreateStackProps } from "../types/api";
 
-export const callCreateStack = async ({options, sessionData, stackFormData, setErrorMessages}: callStackApiProps) => {
+export const callCreateStack = async ({options, sessionData, stackFormData, setErrorMessages}: callCreateStackProps) => {
   try {
     stackSchema.parse(stackFormData);
 

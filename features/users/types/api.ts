@@ -1,5 +1,5 @@
 import { ApiOptions } from "@/common/types/api";
-import { UserFormDataParams } from "@/common/types/form";
+import { UserFormDataParams } from "./context";
 import { SetErrorMessages } from "@/common/types/validator";
 import { SessionData } from "@/features/sessions/types/session";
 

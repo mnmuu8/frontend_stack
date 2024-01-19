@@ -1,6 +1,5 @@
-import { KeepAndProblemAndTryPoint } from '@/features/introspections/types/introspection';
-import { TeamFormDataParams } from '@/features/teams/types/context';
 import { Dispatch, SetStateAction } from 'react';
+import { KeepAndProblemAndTryPoint } from '@/features/introspections/types/introspection';
 
 export type FormType =
   | 'updateUser'
@@ -33,16 +32,6 @@ export type TextInputProps = {
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
   value?: string | number;
-};
-
-export type UserFormDataParams = {
-  role: string;
-  name: string;
-  email: string;
-  profile_content: string;
-  password?: string;
-  password_confirmation?: string;
-  team: TeamFormDataParams;
 };
 
 export type IntrospectionFormDataParams = {

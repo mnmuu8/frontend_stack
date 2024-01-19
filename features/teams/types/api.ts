@@ -1,6 +1,6 @@
 import { ApiOptions } from "@/common/types/api";
 import { SetErrorMessages } from "@/common/types/validator";
-import { InviteTeamFormDataParams, TeamFormDataParams } from "@/common/types/form";
+import { InviteTeamFormDataParams, TeamFormDataParams } from "./context";
 
 export type TeamApiProps = SetErrorMessages & {
   options: ApiOptions;

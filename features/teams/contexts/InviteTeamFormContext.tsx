@@ -1,8 +1,7 @@
 import React, { createContext, useState, useMemo } from 'react';
 import { ChildrenProps } from '@/common/types/utils';
-import { InviteTeamFormDataParams } from '@/common/types/form';
 import { InitialInviteTeamFormData } from '../functions/form';
-import { InviteTeamFormContextProps } from '../types/context';
+import { InviteTeamFormContextProps, InviteTeamFormDataParams } from '../types/context';
 
 const InitialState: InviteTeamFormContextProps = {
   inviteTeamFormData: InitialInviteTeamFormData,

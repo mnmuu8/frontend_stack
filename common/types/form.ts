@@ -1,5 +1,5 @@
-import { SelectChangeEvent } from '@mui/material/Select';
 import { KeepAndProblemAndTryPoint } from '@/features/introspections/types/introspection';
+import { TeamFormDataParams } from '@/features/teams/types/context';
 import { Dispatch, SetStateAction } from 'react';
 
 export type FormType =
@@ -33,16 +33,6 @@ export type TextInputProps = {
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
   value?: string | number;
-};
-
-export type TeamFormDataParams = {
-  id?: number;
-  name: string;
-};
-
-export type InviteTeamFormDataParams = {
-  id: number;
-  email: string;
 };
 
 export type UserFormDataParams = {

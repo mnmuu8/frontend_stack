@@ -1,10 +1,10 @@
 import axios from "axios";
 import { z } from 'zod';
-import { outputSchema } from "@/common/functions/validator";
-import { createOutputApiProps } from "@/common/types/api";
+import { callCreateOutputProps } from "../types/api";
 import { ErrorMessages } from "@/common/types/validator";
+import { outputSchema } from "@/common/functions/validator";
 
-export const callCreateOutput = async ({options, outputFormData, setErrorMessages}: createOutputApiProps) => {
+export const callCreateOutput = async ({options, outputFormData, setErrorMessages}: callCreateOutputProps) => {
   try {
     outputSchema.parse(outputFormData);
 

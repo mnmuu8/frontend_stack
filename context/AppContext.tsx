@@ -1,6 +1,6 @@
 import React, { MouseEvent, createContext, useState, useCallback, useMemo } from 'react';
-import { ChildrenProps } from '@/common/types/utils';
 import { AppContextProps } from '@/common/types/context';
+import { ChildrenProps } from '@/common/types/ui-parts/layout';
 
 const InitialState: AppContextProps = {
   drawerArea: true,

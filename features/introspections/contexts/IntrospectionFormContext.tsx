@@ -1,7 +1,7 @@
 import React, { createContext, useState, useMemo } from 'react';
-import { ChildrenProps } from '@/common/types/utils';
 import { InitialIntrospectionFormData } from '../functions/form';
 import { IntrospectionFormContextProps, IntrospectionFormDataParams } from '../types/context';
+import { ChildrenProps } from '@/common/types/ui-parts/layout';
 
 const InitialState: IntrospectionFormContextProps = {
   introspectionFormData: InitialIntrospectionFormData,

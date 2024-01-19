@@ -1,4 +1,4 @@
-import { sessionUser } from "@/features/sessions/types/session";
+import { SessionUser } from "@/features/sessions/types/session";
 
 export type UserProps = {
   id: number;
@@ -10,7 +10,7 @@ export type UserProps = {
 };
 
 export type UserProfileProps = {
-  user: sessionUser;
+  user: SessionUser;
   height: number;
   width: number;
   isHeader: boolean;

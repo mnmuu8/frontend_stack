@@ -1,6 +1,6 @@
-import { FormSubmitButtonProps } from '@/common/types/utils';
-import { Button } from '@mui/material';
 import React, { FC } from 'react';
+import { Button } from '@mui/material';
+import { FormSubmitButtonProps } from '@/common/types/ui-elements/button';
 
 const FormSubmitButton: FC<FormSubmitButtonProps> = ({ onClick, label }) => {
   return (

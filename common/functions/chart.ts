@@ -1,4 +1,4 @@
-import { ChartDataProps } from "../types/chart";
+import { ChartDataProps } from "../types/ui-parts/chart";
 
 export const getChartData = ({labels, label, data, bgColor, bdColor, bdWidth}: ChartDataProps) => {
   const chartData = {

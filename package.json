@@ -6,7 +6,7 @@
     "dev": "next dev -p 9000",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint --dir src",
+    "lint": "next lint --fix --ext .js,.jsx,.ts,.tsx",
     "format": "prettier --write './{page,components,styles,context,types}/**/*.{js,jsx,ts,tsx,json,css}'"
   },
   "dependencies": {

@@ -43,15 +43,6 @@ export type IntrospectionFormDataParams = {
   stack_id?: number;
 };
 
-export type OutputFormDataParams = {
-  content: string;
-};
-
-export type OutputCommentFormDataParams = {
-  content: string;
-  outputId: number;
-};
-
 export type ResetFormValueProps = {
   setFormOpen: Dispatch<SetStateAction<boolean>>;
   setIsRegisterEvent: Dispatch<SetStateAction<boolean>>;

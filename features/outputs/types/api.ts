@@ -1,6 +1,6 @@
 import { ApiOptions } from "@/common/types/api";
-import { OutputFormDataParams } from "@/common/types/form";
 import { SetErrorMessages } from "@/common/types/validator";
+import { OutputFormDataParams } from "./context";
 
 export type CreateOutputProps = SetErrorMessages & {
   options: ApiOptions;

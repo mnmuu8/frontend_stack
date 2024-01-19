@@ -1,5 +1,5 @@
 import React, { createContext, useState, useMemo } from 'react';
-import { sessionUser } from '@/features/sessions/types/session';
+import { SessionUser } from '@/features/sessions/types/session';
 import { SessionContextProps } from '@/common/types/context';
 import { ChildrenProps } from '@/common/types/ui-parts/layout';
 
@@ -13,7 +13,7 @@ const InitialState: SessionContextProps = {
 const SessionContext = createContext<SessionContextProps>(InitialState);
 
 const SessionProvider = ({ children }: ChildrenProps) => {
-  const [sessionUser, setSessionUser] = useState<sessionUser>(undefined);
+  const [sessionUser, setSessionUser] = useState<SessionUser>(undefined);
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
   const providerValue = useMemo(

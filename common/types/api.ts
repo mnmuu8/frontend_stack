@@ -1,6 +1,5 @@
 import {
   OutputFormDataParams,
-  UserFormDataParams,
   OutputCommentFormDataParams,
 } from './form';
 import { SessionData, sessionUser } from '@/features/sessions/types/session';
@@ -25,14 +24,6 @@ export type ApiOptions<T extends Record<string, string | number> = {}> = {
 
 export type ApiOptionsProps = {
   options: ApiOptions;
-};
-
-export type createUserApiProps = ApiOptionsProps & SetErrorMessages & {
-  userFormData: UserFormDataParams;
-};
-
-export type callUserApiProps = ApiOptionsProps & SessionDataProps & SetErrorMessages & {
-  userFormData: UserFormDataParams;
 };
 
 export type createOutputApiProps = ApiOptionsProps & SetErrorMessages & {

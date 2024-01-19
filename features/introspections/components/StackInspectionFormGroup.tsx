@@ -1,7 +1,6 @@
 import React, { FC, useEffect, useContext } from 'react';
 import TextInput from '@/components/ui-elements/TextInput';
 import Button from '@mui/material/Button';
-import { IntrospectionFormDataParams } from '@/common/types/form';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import ReportIcon from '@mui/icons-material/Report';
@@ -10,6 +9,7 @@ import ErrorMessage from '@/components/ui-elements/ErrorMessage';
 import { ErrorMessagesState } from '@/common/types/validator';
 import { IntrospectionFormContext } from '../contexts/IntrospectionFormContext';
 import { StackIntrospectionContext } from '../contexts/StackIntrospectionContext';
+import { IntrospectionFormDataParams } from '../types/context';
 
 const StackInspectionFormGroup: FC<ErrorMessagesState> = ({ errorMessages }) => {
   const { introspectionFormData, setIntrospectionFormData } = useContext(IntrospectionFormContext);

@@ -1,4 +1,4 @@
-import { ResetFormValueProps } from "../types/form"
+import { ResetFormValueProps } from "../types/ui-parts/form"
 
 export const dataConfirmAlert = (message: string) => {
   return window.confirm(message);

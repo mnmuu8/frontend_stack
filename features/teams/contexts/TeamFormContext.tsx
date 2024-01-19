@@ -1,8 +1,7 @@
 import React, { createContext, useState, useMemo } from 'react';
 import { ChildrenProps } from '@/common/types/utils';
-import { TeamFormDataParams } from '@/common/types/form';
 import { InitialTeamFormData } from '../functions/form';
-import { TeamFormContextProps } from '../types/context';
+import { TeamFormContextProps, TeamFormDataParams } from '../types/context';
 
 const InitialState: TeamFormContextProps = {
   teamFormData: InitialTeamFormData,

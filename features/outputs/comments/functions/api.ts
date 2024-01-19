@@ -1,10 +1,10 @@
 import axios from "axios";
 import { z } from 'zod';
 import { ErrorMessages } from "@/common/types/validator";
-import { callCreateOutputCommentProps } from "../types/api";
+import { CreateOutputCommentProps } from "../types/api";
 import { outputCommentSchema } from "@/common/functions/validator";
 
-export const callCreateOutputComment = async ({options, sessionData, outputCommentFormData, setErrorMessages}: callCreateOutputCommentProps) => {
+export const callCreateOutputComment = async ({options, sessionData, outputCommentFormData, setErrorMessages}: CreateOutputCommentProps) => {
   const outputId = outputCommentFormData.outputId;
 
   try {

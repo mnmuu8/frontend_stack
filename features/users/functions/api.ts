@@ -1,10 +1,10 @@
 import axios from "axios";
 import { z } from 'zod';
 import { ErrorMessages } from "@/common/types/validator";
-import { callCreateUserProps, callUpdateUserProps } from "../types/api";
+import { CreateUserProps, UpdateUserProps } from "../types/api";
 import { userRegisterSchema, userSchema } from "@/common/functions/validator";
 
-export const callCreateUser = async ({options, userFormData, setErrorMessages}: callCreateUserProps) => {
+export const callCreateUser = async ({options, userFormData, setErrorMessages}: CreateUserProps) => {
   try {
     userRegisterSchema.parse(userFormData)
 
@@ -34,7 +34,7 @@ export const callCreateUser = async ({options, userFormData, setErrorMessages}: 
   }
 }
 
-export const callUpdateUser = async ({options, sessionData, userFormData, setErrorMessages}: callUpdateUserProps) => {
+export const callUpdateUser = async ({options, sessionData, userFormData, setErrorMessages}: UpdateUserProps) => {
   try {
     userSchema.parse(userFormData)
   

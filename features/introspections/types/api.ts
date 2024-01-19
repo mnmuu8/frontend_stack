@@ -7,5 +7,5 @@ export type IntrospectionApiProps = SetErrorMessages & {
   introspectionFormData: IntrospectionFormDataParams;
 }
 
-export type callCreateIntrospectionProps = IntrospectionApiProps;
-export type callUpdateIntrospectionProps = IntrospectionApiProps;
+export type CreateIntrospectionProps = IntrospectionApiProps;
+export type UpdateIntrospectionProps = IntrospectionApiProps;

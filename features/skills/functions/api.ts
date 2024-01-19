@@ -1,7 +1,7 @@
 import axios from "axios";
-import { fetchStackRankingsProps } from "../types/api";
+import { FetchStackRankingsProps } from "../types/api";
 
-export const callFetchStackRankings = ({options, sessionUser ,setStackRankings}: fetchStackRankingsProps) => {
+export const callFetchStackRankings = ({options, sessionUser ,setStackRankings}: FetchStackRankingsProps) => {
   const fetchStackRanking = async () => {
     if (!sessionUser) return;
 

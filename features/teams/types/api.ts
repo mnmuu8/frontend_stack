@@ -7,10 +7,10 @@ export type TeamApiProps = SetErrorMessages & {
   teamFormData: TeamFormDataParams;
 }
 
-export type callCreateTeamProps = TeamApiProps;
-export type callUpdateTeamProps = TeamApiProps;
+export type CreateTeamProps = TeamApiProps;
+export type UpdateTeamProps = TeamApiProps;
 
-export type callInviteTeamProps = SetErrorMessages & {
+export type InviteTeamProps = SetErrorMessages & {
   options: ApiOptions;
   inviteTeamFormData: InviteTeamFormDataParams;
 }

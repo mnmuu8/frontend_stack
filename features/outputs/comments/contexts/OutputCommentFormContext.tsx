@@ -1,7 +1,7 @@
 import React, { createContext, useState, useMemo } from 'react';
-import { ChildrenProps } from '@/common/types/utils';
 import { InitialOutputCommentFormData } from '../../functions/form';
 import { OutputCommentFormContextProps, OutputCommentFormDataParams } from '../types/context';
+import { ChildrenProps } from '@/common/types/ui-parts/layout';
 
 const InitialState: OutputCommentFormContextProps = {
   outputCommentFormData: InitialOutputCommentFormData,

@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 import { sessionUser } from '@/features/sessions/types/session';
-import { FormType } from './form';
+import { FormType } from './ui-parts/form';
 
 export type AppContextProps = {
   drawerArea: boolean;

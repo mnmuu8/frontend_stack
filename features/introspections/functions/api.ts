@@ -1,10 +1,10 @@
 import axios from "axios";
 import { z } from 'zod';
-import { introspectionSchema } from "@/common/functions/validator";
-import { createIntrospectionApiProps } from "@/common/types/api";
 import { ErrorMessages } from "@/common/types/validator";
+import { introspectionSchema } from "@/common/functions/validator";
+import { CreateIntrospectionProps, UpdateIntrospectionProps } from "../types/api";
 
-export const callCreateIntrospection = async ({options, introspectionFormData, setErrorMessages}: createIntrospectionApiProps) => {
+export const callCreateIntrospection = async ({options, introspectionFormData, setErrorMessages}: CreateIntrospectionProps) => {
   try {
     introspectionSchema.parse(introspectionFormData);
 
@@ -32,7 +32,7 @@ export const callCreateIntrospection = async ({options, introspectionFormData, s
   }
 }
 
-export const callUpdateIntrospection = async ({options, introspectionFormData, setErrorMessages}: createIntrospectionApiProps) => {
+export const callUpdateIntrospection = async ({options, introspectionFormData, setErrorMessages}: UpdateIntrospectionProps) => {
   try {
     introspectionSchema.parse(introspectionFormData);
 

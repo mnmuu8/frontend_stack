@@ -20,7 +20,7 @@ const Header: FC = () => {
   const handleFormOpen = (formType: FormType) => {
     setFormOpen(true);
     setFormType(formType);
-    setIsRegisterEvent(false)
+    setIsRegisterEvent(false);
   };
 
   const userProfileSrcPath =

@@ -1,5 +1,5 @@
 import { SelectChangeEvent } from '@mui/material/Select';
-import { IntrospectionProps, KeepAndProblemAndTryPoint } from '@/features/introspections/types/introspection';
+import { KeepAndProblemAndTryPoint } from '@/features/introspections/types/introspection';
 import { Dispatch, SetStateAction } from 'react';
 
 export type FormType =
@@ -13,10 +13,6 @@ export type FormType =
   | 'updateTeam'
   | 'createOutput'
   | 'createOutputComment';
-
-export type FormTypeProps = {
-  formType: FormType;
-};
 
 export type setFormGroupProps = {
   label: string;
@@ -39,11 +35,6 @@ export type TextInputProps = {
   value?: string | number;
 };
 
-export type SelectBoxProps = {
-  selectedOption: string;
-  handleOptionChange: (event: SelectChangeEvent<string>) => void;
-};
-
 export type TeamFormDataParams = {
   id?: number;
   name: string;
@@ -62,14 +53,6 @@ export type UserFormDataParams = {
   password?: string;
   password_confirmation?: string;
   team: TeamFormDataParams;
-};
-
-export type StackFormDataParams = {
-  skill: string;
-  stacked_at: Date;
-  minutes: number;
-  title: string;
-  description: string;
 };
 
 export type IntrospectionFormDataParams = {

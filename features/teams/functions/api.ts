@@ -1,10 +1,10 @@
 import axios from "axios";
 import { z } from 'zod';
-import { inviteTeamSchema, teamSchema } from "@/common/functions/validator";
-import { createTeamApiProps, inviteTeamApiProps } from "@/common/types/api";
 import { ErrorMessages } from "@/common/types/validator";
+import { inviteTeamSchema, teamSchema } from "@/common/functions/validator";
+import { callCreateTeamProps, callInviteTeamProps, callUpdateTeamProps } from "../types/api";
 
-export const callCreateTeam = async ({options, teamFormData, setErrorMessages}: createTeamApiProps) => {
+export const callCreateTeam = async ({options, teamFormData, setErrorMessages}: callCreateTeamProps) => {
   try {
     teamSchema.parse(teamFormData);
 
@@ -28,7 +28,7 @@ export const callCreateTeam = async ({options, teamFormData, setErrorMessages}: 
   }
 }
 
-export const callUpdateTeam = async ({options, teamFormData, setErrorMessages}: createTeamApiProps) => {
+export const callUpdateTeam = async ({options, teamFormData, setErrorMessages}: callUpdateTeamProps) => {
   try {
     teamSchema.parse(teamFormData);
   
@@ -52,7 +52,7 @@ export const callUpdateTeam = async ({options, teamFormData, setErrorMessages}: 
   }
 }
 
-export const callInviteTeam = async ({options, inviteTeamFormData, setErrorMessages }: inviteTeamApiProps) => {
+export const callInviteTeam = async ({options, inviteTeamFormData, setErrorMessages }: callInviteTeamProps) => {
   try {
     inviteTeamSchema.parse(inviteTeamFormData);
 

@@ -1,8 +1,6 @@
 import {
   IntrospectionFormDataParams,
   OutputFormDataParams,
-  TeamFormDataParams,
-  InviteTeamFormDataParams,
   UserFormDataParams,
   OutputCommentFormDataParams,
 } from './form';
@@ -40,14 +38,6 @@ export type createUserApiProps = ApiOptionsProps & SetErrorMessages & {
 
 export type callUserApiProps = ApiOptionsProps & SessionDataProps & SetErrorMessages & {
   userFormData: UserFormDataParams;
-};
-
-export type createTeamApiProps = ApiOptionsProps & SetErrorMessages & {
-  teamFormData: TeamFormDataParams;
-};
-
-export type inviteTeamApiProps = ApiOptionsProps & SetErrorMessages & {
-  inviteTeamFormData: InviteTeamFormDataParams;
 };
 
 export type createOutputApiProps = ApiOptionsProps & SetErrorMessages & {

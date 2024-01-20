@@ -1,6 +1,7 @@
 import axios from "axios";
 import { z } from 'zod';
 import { CreateOutputProps } from "../types/api";
+import { getApiHeaders } from '@/common/functions/api';
 import { ErrorMessages } from "@/common/types/validator";
 import { outputSchema } from "@/common/functions/validator";
 
@@ -27,3 +28,14 @@ export const callCreateOutput = async ({options, outputFormData, setErrorMessage
     }
   }
 }
+
+export const callDeleteOutput = async (outputId: number) => {
+  const url = `${process.env.API_ROOT_URL}/api/v1/outputs/${outputId}`;
+  const options = getApiHeaders();
+  try {
+    const response = await axios.delete(url, options);
+    return response.data;
+  } catch (error) {
+    throw new Error(`${JSON.stringify(error)}`);
+  }
+};

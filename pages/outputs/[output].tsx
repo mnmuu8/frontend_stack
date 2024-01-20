@@ -15,6 +15,9 @@ import ImageWrapper from '@/components/ui-elements/ImageWrapper';
 import { SessionContext } from '@/context/SessionContext';
 import { formatDate } from '@/common/functions/dateUtils';
 import { USER_PROFILE_HEIGHT_SM, USER_PROFILE_WIDTH_SM } from '@/common/constans/sizes';
+import { dataConfirmAlert } from '@/common/functions/form';
+import { callDeleteOutput } from '@/features/outputs/functions/api';
+import DeleteIcon from '@mui/icons-material/DeleteForeverOutlined';
 
 const Output: NextPage<OutputCardProps> = ({ output, initialComments }) => {
   const router = useRouter();
@@ -41,6 +44,14 @@ const Output: NextPage<OutputCardProps> = ({ output, initialComments }) => {
     setIsRegisterEvent(false);
   }, []);
 
+  const handleDelete = async () => {
+    if (!dataConfirmAlert('削除したチームは復旧できません。本当に削除しますか？')) return;
+    await callDeleteOutput(output.id)
+      .then(() => {
+        router.push("/outputs");
+      });
+  }
+
   useEffect(() => {
     setComments(initialComments);
   }, [initialComments]);
@@ -51,6 +62,10 @@ const Output: NextPage<OutputCardProps> = ({ output, initialComments }) => {
         <div className='flex flex-col h-full bg-white border border-gray-300 rounded-md shadow-sm'>
           <div className='flex justify-between items-center border-b-gray-100 border-b-2 px-6 py-4'>
             <div className='border border-gray-300 cursor-pointer inline-block text-[10px] rounded-md py-2 px-3' onClick={handleBack}>＜ 戻る</div>
+            <div className='ActionBtn' onClick={handleDelete}>
+              <DeleteIcon className='DeleteActionBtnIcon' fontSize='small' />
+              <div className='BlackActionBtnLabel'>削除</div>
+            </div>
           </div>
           <div className='overflow-hidden flex-grow p-6'>
             <div className='overflow-scroll h-full'>

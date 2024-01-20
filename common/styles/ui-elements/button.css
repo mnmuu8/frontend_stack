@@ -18,6 +18,10 @@
   @apply ActionBtnIcon bg-green-500;
 }
 
+.DeleteActionBtnIcon {
+  @apply ActionBtnIcon bg-red-500;
+}
+
 .ActionBtnLabel {
   @apply text-sm ml-1;
 }

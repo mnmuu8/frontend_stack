@@ -16,7 +16,7 @@ import { SessionContext } from '@/context/SessionContext';
 import { formatDate } from '@/common/functions/dateUtils';
 import { USER_PROFILE_HEIGHT_SM, USER_PROFILE_WIDTH_SM } from '@/common/constans/sizes';
 import { dataConfirmAlert } from '@/common/functions/form';
-import { callDeleteOutput } from '@/features/outputs/functions/api';
+import { callDeleteOutput } from '@/features/outputs/functions/delete';
 import DeleteIcon from '@mui/icons-material/DeleteForeverOutlined';
 
 const Output: NextPage<OutputCardProps> = ({ output, initialComments }) => {

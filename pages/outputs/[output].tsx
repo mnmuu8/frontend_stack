@@ -108,7 +108,7 @@ const Output: NextPage<OutputCardProps> = ({ output, initialComments }) => {
             <div className='overflow-scroll max-h-[200px]'>
               {comments && comments.length > 0 ? (
                 comments.map((comment) => (
-                  <OutputCommentCard key={comment.id} comment={comment} />
+                  <OutputCommentCard key={comment.id} comment={comment} outputId={output.id} />
                 ))
               ) : (
                 <p className='text-sm text-gray-700'>コメントがありません</p>

@@ -1,12 +1,12 @@
 import React, { FC } from 'react'
-import { useRouter } from 'next/router';
-import { CommentProps } from '../../types/output';
 import ImageWrapper from '@/components/ui-elements/ImageWrapper';
 import { USER_PROFILE_HEIGHT_SM, USER_PROFILE_WIDTH_SM } from '@/common/constans/sizes';
 import { dataConfirmAlert } from '@/common/functions/form';
 import { callDeleteOutputComment } from '../functions/delete';
+import { OutputCommentCardProps } from '../../types/output';
+import DeleteIcon from '@mui/icons-material/DeleteForeverOutlined';
 
-const OutputCommentCard: FC<{ comment: CommentProps, outputId: number }> = ({ comment, outputId }) => {
+const OutputCommentCard: FC<OutputCommentCardProps> = ({ comment, outputId, setComments }) => {
   const formatTimeAgo = (dateString: string) => {
     const date = new Date(dateString);
     const diffInSeconds = (new Date().getTime() - date.getTime()) / 1000;
@@ -26,15 +26,16 @@ const OutputCommentCard: FC<{ comment: CommentProps, outputId: number }> = ({ co
   const userProfileSrcPath = '/no_image.png';
   const userProfileName = 'example';
 
-  const router = useRouter();
-
   const handleDelete = async () => {
     if (!dataConfirmAlert('削除したチームは復旧できません。本当に削除しますか？')) return;
     
     const commentId = comment.id
     await callDeleteOutputComment(outputId, commentId)
       .then(() => {
-        router.push(`/outputs/${outputId}/`);
+        setComments(prevComments => {
+          if (!prevComments) return [];
+          return prevComments.filter(comment => comment.id !== commentId);
+        });
       });
   }
 
@@ -50,7 +51,10 @@ const OutputCommentCard: FC<{ comment: CommentProps, outputId: number }> = ({ co
         />
         <div className='text-sm ml-1'>{comment.user.name}</div>
         <div className='text-gray-400 text-[10px] ml-2'>{timeAgo}</div>
-        <div className='bg-red-100 text-red-500 text-sm flex items-center justify-center rounded-full cursor-pointer ml-auto h-5 w-5' onClick={handleDelete}>×</div>
+        <div className='ActionBtn ml-[auto]' onClick={handleDelete}>
+          <DeleteIcon className='DeleteActionBtnIcon' fontSize='small' />
+          <div className='BlackActionBtnLabel'>削除</div>
+        </div>
       </div>
       <div className='text-sm mt-2'>{comment.content}</div>
     </div>

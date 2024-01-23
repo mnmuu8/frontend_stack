@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 export type OutputProps = {
   id: number;
   content: string;
@@ -26,4 +28,10 @@ export type OutputsProps = {
 export type OutputCardProps = {
   output: OutputProps;
   initialComments?: CommentProps[];
+};
+
+export type OutputCommentCardProps = {
+  comment: CommentProps;
+  outputId: number;
+  setComments: Dispatch<SetStateAction<CommentProps[]|undefined>>
 };

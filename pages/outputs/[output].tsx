@@ -4,7 +4,7 @@ import cookie from 'cookie';
 import { GetServerSideProps, NextPage } from 'next';
 import { getNextApiHeaders } from '@/common/functions/api';
 import { useRouter } from 'next/router';
-import { OutputCardProps } from '@/features/outputs/types/output';
+import { CommentProps, OutputCardProps } from '@/features/outputs/types/output';
 import { FormContext } from '@/context/FormContext';
 import { InitialOutputCommentFormData } from '@/features/outputs/functions/form';
 import { OutputCommentFormContext } from '@/features/outputs/comments/contexts/OutputCommentFormContext';
@@ -32,7 +32,7 @@ const Output: NextPage<OutputCardProps> = ({ output, initialComments }) => {
   const userProfileSrcPath = '/no_image.png';
   const userProfileName = 'example';
 
-  const [comments, setComments] = useState(initialComments);
+  const [comments, setComments] = useState<CommentProps[]|undefined>(initialComments);
   const { setFormOpen, setFormType, setIsRegisterEvent } = useContext(FormContext);
   const { setOutputCommentFormData } = useContext(OutputCommentFormContext);
 
@@ -108,7 +108,7 @@ const Output: NextPage<OutputCardProps> = ({ output, initialComments }) => {
             <div className='overflow-scroll max-h-[200px]'>
               {comments && comments.length > 0 ? (
                 comments.map((comment) => (
-                  <OutputCommentCard key={comment.id} comment={comment} />
+                  <OutputCommentCard key={comment.id} comment={comment} outputId={output.id} setComments={setComments} />
                 ))
               ) : (
                 <p className='text-sm text-gray-700'>コメントがありません</p>

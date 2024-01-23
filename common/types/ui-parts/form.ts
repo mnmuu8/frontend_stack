@@ -3,6 +3,7 @@ import { Dispatch, SetStateAction } from 'react';
 export type FormType =
   | 'updateUser'
   | 'createStack'
+  | 'updateStack'
   | 'createStackIntrospection'
   | 'showStackIntrospection'
   | 'updateStackIntrospection'

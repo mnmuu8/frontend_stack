@@ -92,6 +92,31 @@ paths:
           description: バリデーションエラー
 
   /api/v1/stacks/{stack_id}:
+    get:
+      summary: 積み上げ詳細API
+      operationId: api.v1.stacks.show
+      tags:
+        - Stack
+      security: []
+      parameters:
+        - name: stack_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Stacks_Stack_Id'
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stacks_Stack'
+        '401':
+          description: 認証エラー
+        '404':
+          description: 積み上げが存在しない
+        '422':
+          description: バリデーションエラー
     patch:
       summary: 積み上げ更新API
       operationId: api.v1.stacks.update

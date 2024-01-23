@@ -10,12 +10,13 @@ import FormSubmitButton from '@/components/ui-elements/FormSubmitButton';
 import FormCancelButton from '@/components/ui-elements/FormCancelButton';
 import { StackFormContext } from '@/features/stacks/contexts/StackFormContext';
 import { callCreateStack } from '../functions/api';
+import { callUpdateStack } from '../functions/update';
 import { InitialStackFormData } from '../functions/form';
 import { ErrorMessages } from '@/common/types/validator';
 
 const StackForm: FC = () => {
   const { stackFormData, setStackFormData } = useContext(StackFormContext);
-  const { setFormOpen, setIsRegisterEvent } = useContext(FormContext);
+  const { formType, setFormOpen, setIsRegisterEvent } = useContext(FormContext);
   const [ errorMessages, setErrorMessages ] = useState<ErrorMessages>({});
 
   const router: NextRouter = useRouter();
@@ -34,21 +35,40 @@ const StackForm: FC = () => {
     if (!sessionData) return;
 
     const options = getApiHeaders();
-    
-    if (!dataConfirmAlert('積み上げを作成しますか？')) return;
-    await callCreateStack({ options, sessionData, stackFormData, setErrorMessages })
-      .then(() => {
-        resetFormValue({
-          setFormOpen,
-          setIsRegisterEvent,
-        });
-        setStackFormData(InitialStackFormData);
 
-        router.push('/timeline');
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    if (formType === 'createStack') {
+      if (!dataConfirmAlert('積み上げを作成しますか？')) return;
+      await callCreateStack({ options, sessionData, stackFormData, setErrorMessages })
+        .then(() => {
+          resetFormValue({
+            setFormOpen,
+            setIsRegisterEvent,
+          });
+          setStackFormData(InitialStackFormData);
+
+          router.push('/timeline');
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
+
+    if (formType === 'updateStack') {
+      if (!dataConfirmAlert('チームを更新しますか？')) return;
+      await callUpdateStack({ options, sessionData, stackFormData, setErrorMessages })
+        .then(() => {
+          resetFormValue({
+            setFormOpen,
+            setIsRegisterEvent,
+          });
+          setStackFormData(InitialStackFormData);
+
+          router.push('/timeline');
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
   };
 
   return (

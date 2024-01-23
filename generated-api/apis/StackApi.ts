@@ -67,6 +67,10 @@ export interface ApiV1StacksIntrospectionsUpdateRequest {
     stacksIntrospectionUpdateRequestBody: StacksIntrospectionUpdateRequestBody;
 }
 
+export interface ApiV1StacksShowRequest {
+    stackId: number;
+}
+
 export interface ApiV1StacksUpdateRequest {
     stackId: number;
     stacksUpdateRequestBody: StacksUpdateRequestBody;
@@ -274,6 +278,36 @@ export class StackApi extends runtime.BaseAPI {
      */
     async apiV1StacksIntrospectionsUpdate(requestParameters: ApiV1StacksIntrospectionsUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<StacksIntrospectionsIntrospection> {
         const response = await this.apiV1StacksIntrospectionsUpdateRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * 積み上げ詳細API
+     */
+    async apiV1StacksShowRaw(requestParameters: ApiV1StacksShowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<StacksStack>> {
+        if (requestParameters.stackId === null || requestParameters.stackId === undefined) {
+            throw new runtime.RequiredError('stackId','Required parameter requestParameters.stackId was null or undefined when calling apiV1StacksShow.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/api/v1/stacks/{stack_id}`.replace(`{${"stack_id"}}`, encodeURIComponent(String(requestParameters.stackId))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => StacksStackFromJSON(jsonValue));
+    }
+
+    /**
+     * 積み上げ詳細API
+     */
+    async apiV1StacksShow(requestParameters: ApiV1StacksShowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<StacksStack> {
+        const response = await this.apiV1StacksShowRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

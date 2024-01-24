@@ -16,19 +16,35 @@ import { IntrospectionProps } from '@/features/introspections/types/introspectio
 import { StackIntrospectionContext } from '@/features/introspections/contexts/StackIntrospectionContext';
 import { InitialIntrospectionFormData } from '@/features/introspections/functions/form';
 import ImageWrapper from '@/components/ui-elements/ImageWrapper';
+import { StackFormContext } from '../contexts/StackFormContext';
 
 const StackCard: FC<StackCardProps> = ({ stack }) => {
   const stackedAt = stack.stacked_at;
   const formattedStackedDate = formatDate(stackedAt);
 
   const { sessionUser } = useContext(SessionContext);
+  const { stackFormData, setStackFormData } = useContext(StackFormContext);
 
-  const formContext = useContext(FormContext);
-  const { setFormOpen, setFormType, setIsRegisterEvent, isRegisterEvent } = formContext;
+  const { setFormOpen, setFormType, setIsRegisterEvent, isRegisterEvent } = useContext(FormContext);
 
   const { setShowStackIntrospection } = useContext(StackIntrospectionContext);
 
   const handleEditFormOpen = () => {
+    stackFormData && setStackFormData({
+      id: stack.id,
+      title: stack.title,
+      minutes: stack.minutes,
+      stacked_at: new Date(stack.stacked_at),
+      skill: stack.skill.id.toString(),
+      description: stack.description,
+    });
+
+    setFormType('updateStack');
+    setFormOpen(true);
+    setIsRegisterEvent(false);
+  };
+
+  const handleEditIntrospectionFormOpen = () => {
     const stack_id = stack.id;
     introspectionValue && setShowStackIntrospection({ ...introspectionValue, stack_id });
     setFormType('updateStackIntrospection');
@@ -36,7 +52,7 @@ const StackCard: FC<StackCardProps> = ({ stack }) => {
     setIsRegisterEvent(false);
   };
 
-  const handleNewFormOpen = () => {
+  const handleNewIntrospectionFormOpen = () => {
     const stack_id = stack.id;
     setShowStackIntrospection({ ...InitialIntrospectionFormData, stack_id });
     setFormType('createStackIntrospection');
@@ -95,10 +111,17 @@ const StackCard: FC<StackCardProps> = ({ stack }) => {
               <div>{stack.skill.name}</div>
             </div>
           </div>
+          <div
+            className='ActionBtn mr-2'
+            onClick={handleEditFormOpen}
+          >
+            <EditIcon className='EditActionBtnIcon' fontSize='small' />
+            <div className='BlackActionBtnLabel'>編集</div>
+          </div>
           {introspectionValue ? (
             <div
               className='ActionBtn mr-2'
-              onClick={handleEditFormOpen}
+              onClick={handleEditIntrospectionFormOpen}
             >
               <EditIcon className='EditActionBtnIcon' fontSize='small' />
               <div className='BlackActionBtnLabel'>反省詳細</div>
@@ -106,7 +129,7 @@ const StackCard: FC<StackCardProps> = ({ stack }) => {
           ) : (
             <div
               className='ActionBtn mr-2'
-              onClick={handleNewFormOpen}
+              onClick={handleNewIntrospectionFormOpen}
             >
               <AddIcon className='AddActionBtnIcon' fontSize='small' />
               <div className='BlackActionBtnLabel'>反省追加</div>

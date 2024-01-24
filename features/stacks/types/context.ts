@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 
 export type StackFormDataParams = {
+  id?: number;
   skill: string;
   stacked_at: Date;
   minutes: number;

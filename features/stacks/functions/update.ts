@@ -4,7 +4,7 @@ import { stackSchema } from "@/common/functions/validator";
 import { ErrorMessages } from "@/common/types/validator";
 import { StackProps } from "../types/api";
 
-export const callCreateStack = async ({options, sessionData, stackFormData, setErrorMessages}: StackProps) => {
+export const callUpdateStack = async ({options, sessionData, stackFormData, setErrorMessages}: StackProps) => {
   try {
     stackSchema.parse(stackFormData);
 
@@ -16,8 +16,8 @@ export const callCreateStack = async ({options, sessionData, stackFormData, setE
       stacked_at: stackFormData.stacked_at,
       user_id: sessionData.userId
     }
-    const url: string = `${process.env.API_ROOT_URL}/api/v1/stacks`;
-    await axios.post(url, params, options);
+    const url: string = `${process.env.API_ROOT_URL}/api/v1/stacks/${stackFormData.id}`;
+    await axios.patch(url, params, options);
   } catch (error) {
     if (error instanceof z.ZodError) {
       const newErrors: ErrorMessages = {};

@@ -64,6 +64,7 @@ const FormModal: FC = () => {
 
   const SelectForm = () => {
     if (formType == 'createStack') return <StackForm />;
+    if (formType == 'updateStack') return <StackForm />;
     if (formType == 'updateUser') return <UserForm />;
     if (formType == 'createTeam') return <TeamForm />;
     if (formType == 'updateTeam') return <TeamForm />;

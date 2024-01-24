@@ -35,7 +35,7 @@ const StackCard: FC<StackCardProps> = ({ stack }) => {
       title: stack.title,
       minutes: stack.minutes,
       stacked_at: new Date(stack.stacked_at),
-      skill: stack.skill.name,
+      skill: stack.skill.id,
       description: stack.description,
     });
 

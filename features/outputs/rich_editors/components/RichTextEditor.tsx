@@ -1,25 +1,13 @@
-import React, { FC, useState, useMemo, useContext, useEffect, useRef } from 'react';
+import React, { FC, useState, useMemo, useContext, useEffect } from 'react';
 
 import Editor from '@draft-js-plugins/editor';
-import { AtomicBlockUtils, EditorState, RichUtils } from 'draft-js';
+import { EditorState } from 'draft-js';
 import 'draft-js/dist/Draft.css';
 import '@draft-js-plugins/inline-toolbar/lib/plugin.css';
 
 import createInlineToolbarPlugin from '@draft-js-plugins/inline-toolbar';
 import createLinkifyPlugin from '@draft-js-plugins/linkify';
 import createImagePlugin from '@draft-js-plugins/image';
-
-import {
-  FormatBold,
-  FormatItalic,
-  FormatUnderlined,
-  FormatListBulleted,
-  FormatListNumbered,
-  FormatQuote,
-  Code,
-  Terminal,
-  InsertPhoto,
-} from '@mui/icons-material/';
 
 import { blockStyleFn } from '../functions/blockStyleClasses';
 import { styleMap } from '../functions/InlineStyleClasses';
@@ -31,39 +19,12 @@ import { handleBeforeInput,
 } from '../functions/editorOptions';
 import { stateToHTML } from 'draft-js-export-html';
 import { OutputFormContext } from '../../contexts/OutputFormContext';
+import ToolbarButtons from './ToolbarButtons';
 
 const RichTextEditor: FC = () => {
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
 
   const { setOutputFormData } = useContext(OutputFormContext);
-
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const handleFileOpen = () => {
-    if (fileInputRef.current) fileInputRef.current.click();
-  };
-
-  const insertImage = (file: any) => {
-    const imageUrl = URL.createObjectURL(file);
-    const contentState = editorState.getCurrentContent();
-    const contentStateWithEntity = contentState.createEntity(
-      'IMAGE',
-      'IMMUTABLE',
-      { src: imageUrl }
-    );
-    const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
-    const newEditorState = EditorState.set(editorState, { currentContent: contentStateWithEntity });
-    const newState = AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, ' ');
-    setEditorState(newState);
-  };
-
-  const handleFileInput = (e: any) => {
-    const file = e.target.files[0];
-    if (file) {
-      insertImage(file);
-    }
-    e.target.value = '';
-  };
 
   const [plugins] = useMemo(() => {
     const linkifyPlugin = createLinkifyPlugin({
@@ -78,24 +39,6 @@ const RichTextEditor: FC = () => {
 
     return [[inlineToolbarPlugin, linkifyPlugin, imagePlugin]];
   }, []);
-
-  const applyCustomInlineStyle = (style: string) => {
-    setEditorState(RichUtils.toggleInlineStyle(editorState, style));
-  };
-  const applyCustomBlockType = (type: string) => {
-    setEditorState(RichUtils.toggleBlockType(editorState, type));
-  };
-
-  const toolbarButtons = [
-    { action: applyCustomInlineStyle, styleType: 'BOLD', IconComponent: FormatBold },
-    { action: applyCustomInlineStyle, styleType: 'ITALIC', IconComponent: FormatItalic },
-    { action: applyCustomInlineStyle, styleType: 'UNDERLINE', IconComponent: FormatUnderlined },
-    { action: applyCustomInlineStyle, styleType: 'CODE', IconComponent: Code },
-    { action: applyCustomBlockType, styleType: 'unordered-list-item', IconComponent: FormatListBulleted },
-    { action: applyCustomBlockType, styleType: 'ordered-list-item', IconComponent: FormatListNumbered },
-    { action: applyCustomBlockType, styleType: 'blockquote', IconComponent: FormatQuote },
-    { action: applyCustomBlockType, styleType: 'code-block', IconComponent: Terminal },
-  ];
 
   const cleanEditorContent = (htmlContent: string) => {
     if (htmlContent.trim() === '<p><br></p>') return '';
@@ -112,23 +55,7 @@ const RichTextEditor: FC = () => {
 
   return (
     <div className='mt-4'>
-      <div className='flex items-center px-2 py-1 rounded-t-md border-t border-l border-r border-gray-300 bg-gray-100 space-x-1 w-full'>
-        {toolbarButtons.map(({ action, styleType, IconComponent }) => (
-          <button key={styleType} onClick={() => action(styleType)} className='hover:bg-gray-200 px-1 rounded-sm'>
-            <IconComponent fontSize='small' />
-          </button>
-        ))}
-        <button onClick={handleFileOpen} className='hover:bg-gray-200 px-1 rounded-sm'>
-          <InsertPhoto fontSize='small' />
-          <input
-            type="file"
-            onChange={handleFileInput}
-            accept="image/png, image/jpeg"
-            className='hidden'
-            ref={fileInputRef} 
-          />
-        </button>
-      </div>
+      <ToolbarButtons editorState={editorState} setEditorState={setEditorState} />
       <div className='shadow-sm border-b border-l border-r border-gray-300 rounded-b-md text-md overflow-scroll h-[420px] p-3 prose prose-stone'>
         <Editor
           editorState={editorState}

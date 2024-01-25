@@ -15,6 +15,7 @@ import { handleBeforeInput,
   handleKeyCommand,
   handlePastedText,
   handleReturn,
+  insertImageToEditor,
   keyBindingFn,
 } from '../functions/editorOptions';
 import { stateToHTML } from 'draft-js-export-html';
@@ -25,6 +26,21 @@ const RichTextEditor: FC = () => {
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
 
   const { setOutputFormData } = useContext(OutputFormContext);
+
+  const handleFileDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    const dataTransferItems = e.dataTransfer.items;
+    if (dataTransferItems) {
+      for (let i = 0; i < dataTransferItems.length; i++) {
+        if (dataTransferItems[i].kind === 'file') {
+          const file = dataTransferItems[i].getAsFile();
+          if (file) {
+            insertImageToEditor({file, editorState, setEditorState})
+          }
+        }
+      }
+    }
+  };
 
   const [plugins] = useMemo(() => {
     const linkifyPlugin = createLinkifyPlugin({
@@ -56,7 +72,11 @@ const RichTextEditor: FC = () => {
   return (
     <div className='mt-4'>
       <ToolbarButtons editorState={editorState} setEditorState={setEditorState} />
-      <div className='shadow-sm border-b border-l border-r border-gray-300 rounded-b-md text-md overflow-scroll h-[420px] p-3 prose prose-stone'>
+      <div
+        onDrop={handleFileDrop}
+        onDragOver={(e) => e.preventDefault()}
+        className='shadow-sm border-b border-l border-r border-gray-300 rounded-b-md text-md overflow-scroll h-[420px] p-3 prose prose-stone'
+      >
         <Editor
           editorState={editorState}
           onChange={setEditorState}

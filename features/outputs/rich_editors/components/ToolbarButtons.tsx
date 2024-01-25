@@ -1,5 +1,5 @@
-import React, { Dispatch, FC, SetStateAction, useRef } from 'react'
-import { AtomicBlockUtils, EditorState, RichUtils } from 'draft-js';
+import React, { FC, useRef } from 'react'
+import { RichUtils } from 'draft-js';
 
 import {
   FormatBold,
@@ -12,11 +12,8 @@ import {
   Terminal,
   InsertPhoto,
 } from '@mui/icons-material/';
-
-type ToolbarButtonsProps = {
-  editorState: EditorState;
-  setEditorState: Dispatch<SetStateAction<EditorState>>;
-};
+import { ToolbarButtonsProps } from '../../types/editor';
+import { insertImageToEditor } from '../functions/editorOptions';
 
 const ToolbarButtons: FC<ToolbarButtonsProps> = ({ setEditorState, editorState }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -24,23 +21,10 @@ const ToolbarButtons: FC<ToolbarButtonsProps> = ({ setEditorState, editorState }
     if (fileInputRef.current) fileInputRef.current.click();
   };
 
-  const insertImage = (file: File) => {
-    const imageUrl = URL.createObjectURL(file);
-    const contentState = editorState.getCurrentContent();
-    const contentStateWithEntity = contentState.createEntity(
-      'IMAGE',
-      'IMMUTABLE',
-      { src: imageUrl }
-    );
-    const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
-    const newEditorState = EditorState.set(editorState, { currentContent: contentStateWithEntity });
-    const newState = AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, ' ');
-    setEditorState(newState);
-  };
-
   const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     if ( e.target.files ) {
-      insertImage(e.target.files[0]);
+      const file = e.target.files[0];
+      insertImageToEditor({file, editorState, setEditorState});
       e.target.value = '';
     }
   };

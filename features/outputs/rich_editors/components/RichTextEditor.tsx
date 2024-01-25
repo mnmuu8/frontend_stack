@@ -1,12 +1,13 @@
-import React, { FC, useState, useMemo, useContext, useEffect } from 'react';
+import React, { FC, useState, useMemo, useContext, useEffect, useRef } from 'react';
 
 import Editor from '@draft-js-plugins/editor';
-import { EditorState, RichUtils } from 'draft-js';
+import { AtomicBlockUtils, EditorState, RichUtils } from 'draft-js';
 import 'draft-js/dist/Draft.css';
 import '@draft-js-plugins/inline-toolbar/lib/plugin.css';
 
 import createInlineToolbarPlugin from '@draft-js-plugins/inline-toolbar';
 import createLinkifyPlugin from '@draft-js-plugins/linkify';
+import createImagePlugin from '@draft-js-plugins/image';
 
 import {
   FormatBold,
@@ -17,6 +18,7 @@ import {
   FormatQuote,
   Code,
   Terminal,
+  InsertPhoto,
 } from '@mui/icons-material/';
 
 import { blockStyleFn } from '../functions/blockStyleClasses';
@@ -35,6 +37,34 @@ const RichTextEditor: FC = () => {
 
   const { setOutputFormData } = useContext(OutputFormContext);
 
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileOpen = () => {
+    if (fileInputRef.current) fileInputRef.current.click();
+  };
+
+  const insertImage = (file: any) => {
+    const imageUrl = URL.createObjectURL(file);
+    const contentState = editorState.getCurrentContent();
+    const contentStateWithEntity = contentState.createEntity(
+      'IMAGE',
+      'IMMUTABLE',
+      { src: imageUrl }
+    );
+    const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
+    const newEditorState = EditorState.set(editorState, { currentContent: contentStateWithEntity });
+    const newState = AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, ' ');
+    setEditorState(newState);
+  };
+
+  const handleFileInput = (e: any) => {
+    const file = e.target.files[0];
+    if (file) {
+      insertImage(file);
+    }
+    e.target.value = '';
+  };
+
   const [plugins] = useMemo(() => {
     const linkifyPlugin = createLinkifyPlugin({
       component: (props) => (
@@ -44,8 +74,9 @@ const RichTextEditor: FC = () => {
       ),
     });
     const inlineToolbarPlugin = createInlineToolbarPlugin();
+    const imagePlugin = createImagePlugin();
 
-    return [[inlineToolbarPlugin, linkifyPlugin]];
+    return [[inlineToolbarPlugin, linkifyPlugin, imagePlugin]];
   }, []);
 
   const applyCustomInlineStyle = (style: string) => {
@@ -87,6 +118,16 @@ const RichTextEditor: FC = () => {
             <IconComponent fontSize='small' />
           </button>
         ))}
+        <button onClick={handleFileOpen} className='hover:bg-gray-200 px-1 rounded-sm'>
+          <InsertPhoto fontSize='small' />
+          <input
+            type="file"
+            onChange={handleFileInput}
+            accept="image/png, image/jpeg"
+            className='hidden'
+            ref={fileInputRef} 
+          />
+        </button>
       </div>
       <div className='shadow-sm border-b border-l border-r border-gray-300 rounded-b-md text-md overflow-scroll h-[420px] p-3 prose prose-stone'>
         <Editor

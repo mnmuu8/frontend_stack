@@ -17,6 +17,7 @@ models/OutputsCommentsComment.ts
 models/OutputsCommentsCommentListInner.ts
 models/OutputsOutput.ts
 models/OutputsOutputListInner.ts
+models/OutputsOutputUser.ts
 models/SkillRanksSkillRank.ts
 models/SkillRanksSkillRankName.ts
 models/SkillsSkill.ts

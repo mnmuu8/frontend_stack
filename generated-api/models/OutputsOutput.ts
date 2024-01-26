@@ -13,6 +13,13 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { OutputsOutputUser } from './OutputsOutputUser';
+import {
+    OutputsOutputUserFromJSON,
+    OutputsOutputUserFromJSONTyped,
+    OutputsOutputUserToJSON,
+} from './OutputsOutputUser';
+
 /**
  * 
  * @export
@@ -31,6 +38,12 @@ export interface OutputsOutput {
      * @memberof OutputsOutput
      */
     content: string;
+    /**
+     * 
+     * @type {OutputsOutputUser}
+     * @memberof OutputsOutput
+     */
+    user: OutputsOutputUser;
     /**
      * 
      * @type {Date}
@@ -52,6 +65,7 @@ export function instanceOfOutputsOutput(value: object): boolean {
     let isInstance = true;
     isInstance = isInstance && "id" in value;
     isInstance = isInstance && "content" in value;
+    isInstance = isInstance && "user" in value;
     isInstance = isInstance && "createdAt" in value;
     isInstance = isInstance && "updatedAt" in value;
 
@@ -70,6 +84,7 @@ export function OutputsOutputFromJSONTyped(json: any, ignoreDiscriminator: boole
         
         'id': json['id'],
         'content': json['content'],
+        'user': OutputsOutputUserFromJSON(json['user']),
         'createdAt': (new Date(json['created_at'])),
         'updatedAt': (new Date(json['updated_at'])),
     };
@@ -86,6 +101,7 @@ export function OutputsOutputToJSON(value?: OutputsOutput | null): any {
         
         'id': value.id,
         'content': value.content,
+        'user': OutputsOutputUserToJSON(value.user),
         'created_at': (value.createdAt.toISOString()),
         'updated_at': (value.updatedAt.toISOString()),
     };

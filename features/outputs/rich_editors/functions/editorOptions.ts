@@ -1,5 +1,5 @@
-import { EditorState, Modifier, SelectionState, getDefaultKeyBinding } from "draft-js";
-import { HandleBeforeInputProps, handleKeyCommandProps, handlePastedTextProps, handleReturnProps, keyBindingFnProps } from "../../types/editor";
+import { AtomicBlockUtils, EditorState, Modifier, SelectionState, getDefaultKeyBinding } from "draft-js";
+import { HandleBeforeInputProps, InsertImageToEditorProps, handleKeyCommandProps, handlePastedTextProps, handleReturnProps, keyBindingFnProps } from "../../types/editor";
 
 export const handleReturn = ({ editorState, setEditorState }: handleReturnProps) => {
   const selection = editorState.getSelection();
@@ -118,4 +118,14 @@ export const handleBeforeInput = ({ chars, editorState, setEditorState}: HandleB
   }
 
   return 'not-handled';
+};
+
+export const insertImageToEditor = ({ file, editorState, setEditorState} :InsertImageToEditorProps) => {
+  const imageUrl = URL.createObjectURL(file);
+  const contentState = editorState.getCurrentContent();
+  const contentStateWithEntity = contentState.createEntity('IMAGE', 'IMMUTABLE', { src: imageUrl });
+  const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
+  const newEditorState = EditorState.set(editorState, { currentContent: contentStateWithEntity });
+  const newState = AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, ' ');
+  setEditorState(newState);
 };

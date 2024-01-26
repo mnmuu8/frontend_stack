@@ -28,3 +28,13 @@ export type HandleBeforeInputProps = EditorStateProps &
   SetEditorStateProps & {
     chars: string;
   };
+
+export type ToolbarButtonsProps = EditorStateProps & SetEditorStateProps;
+
+export type InsertImageToEditorProps = EditorStateProps & SetEditorStateProps & {
+  file: File;
+};
+
+export type ProcessFileDropEventProps = EditorStateProps & SetEditorStateProps & {
+  item: DataTransferItem;
+};

@@ -1,23 +1,13 @@
 import React, { FC, useState, useMemo, useContext, useEffect } from 'react';
 
 import Editor from '@draft-js-plugins/editor';
-import { EditorState, RichUtils } from 'draft-js';
+import { EditorState } from 'draft-js';
 import 'draft-js/dist/Draft.css';
 import '@draft-js-plugins/inline-toolbar/lib/plugin.css';
 
 import createInlineToolbarPlugin from '@draft-js-plugins/inline-toolbar';
 import createLinkifyPlugin from '@draft-js-plugins/linkify';
-
-import {
-  FormatBold,
-  FormatItalic,
-  FormatUnderlined,
-  FormatListBulleted,
-  FormatListNumbered,
-  FormatQuote,
-  Code,
-  Terminal,
-} from '@mui/icons-material/';
+import createImagePlugin from '@draft-js-plugins/image';
 
 import { blockStyleFn } from '../functions/blockStyleClasses';
 import { styleMap } from '../functions/InlineStyleClasses';
@@ -25,15 +15,36 @@ import { handleBeforeInput,
   handleKeyCommand,
   handlePastedText,
   handleReturn,
+  insertImageToEditor,
   keyBindingFn,
 } from '../functions/editorOptions';
 import { stateToHTML } from 'draft-js-export-html';
 import { OutputFormContext } from '../../contexts/OutputFormContext';
+import ToolbarButtons from './ToolbarButtons';
+import { ProcessFileDropEventProps } from '../../types/editor';
 
 const RichTextEditor: FC = () => {
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
 
   const { setOutputFormData } = useContext(OutputFormContext);
+
+  const processFileDropEvent = ({ item, editorState, setEditorState }: ProcessFileDropEventProps) => {
+    if (item.kind !== 'file') return;
+  
+    const file = item.getAsFile();
+    if (file) insertImageToEditor({ file, editorState, setEditorState });
+  };
+
+  const handleFileDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    const dataTransferItems = e.dataTransfer.items;
+    if ( !dataTransferItems ) return;
+
+    for (let i = 0; i < dataTransferItems.length; i++) {
+      const item = dataTransferItems[i];
+      processFileDropEvent({item, editorState, setEditorState})
+    }
+  };
 
   const [plugins] = useMemo(() => {
     const linkifyPlugin = createLinkifyPlugin({
@@ -44,27 +55,10 @@ const RichTextEditor: FC = () => {
       ),
     });
     const inlineToolbarPlugin = createInlineToolbarPlugin();
+    const imagePlugin = createImagePlugin();
 
-    return [[inlineToolbarPlugin, linkifyPlugin]];
+    return [[inlineToolbarPlugin, linkifyPlugin, imagePlugin]];
   }, []);
-
-  const applyCustomInlineStyle = (style: string) => {
-    setEditorState(RichUtils.toggleInlineStyle(editorState, style));
-  };
-  const applyCustomBlockType = (type: string) => {
-    setEditorState(RichUtils.toggleBlockType(editorState, type));
-  };
-
-  const toolbarButtons = [
-    { action: applyCustomInlineStyle, styleType: 'BOLD', IconComponent: FormatBold },
-    { action: applyCustomInlineStyle, styleType: 'ITALIC', IconComponent: FormatItalic },
-    { action: applyCustomInlineStyle, styleType: 'UNDERLINE', IconComponent: FormatUnderlined },
-    { action: applyCustomInlineStyle, styleType: 'CODE', IconComponent: Code },
-    { action: applyCustomBlockType, styleType: 'unordered-list-item', IconComponent: FormatListBulleted },
-    { action: applyCustomBlockType, styleType: 'ordered-list-item', IconComponent: FormatListNumbered },
-    { action: applyCustomBlockType, styleType: 'blockquote', IconComponent: FormatQuote },
-    { action: applyCustomBlockType, styleType: 'code-block', IconComponent: Terminal },
-  ];
 
   const cleanEditorContent = (htmlContent: string) => {
     if (htmlContent.trim() === '<p><br></p>') return '';
@@ -81,14 +75,12 @@ const RichTextEditor: FC = () => {
 
   return (
     <div className='mt-4'>
-      <div className='flex items-center px-2 py-1 rounded-t-md border-t border-l border-r border-gray-300 bg-gray-100 space-x-1 w-full'>
-        {toolbarButtons.map(({ action, styleType, IconComponent }) => (
-          <button key={styleType} onClick={() => action(styleType)} className='hover:bg-gray-200 px-1 rounded-sm'>
-            <IconComponent fontSize='small' />
-          </button>
-        ))}
-      </div>
-      <div className='shadow-sm border-b border-l border-r border-gray-300 rounded-b-md text-md overflow-scroll h-[420px] p-3 prose prose-stone'>
+      <ToolbarButtons editorState={editorState} setEditorState={setEditorState} />
+      <div
+        onDrop={handleFileDrop}
+        onDragOver={(e) => e.preventDefault()}
+        className='shadow-sm border-b border-l border-r border-gray-300 rounded-b-md text-md overflow-scroll h-[420px] p-3 prose prose-stone'
+      >
         <Editor
           editorState={editorState}
           onChange={setEditorState}

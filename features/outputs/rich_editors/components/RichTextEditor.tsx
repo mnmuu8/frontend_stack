@@ -21,24 +21,28 @@ import { handleBeforeInput,
 import { stateToHTML } from 'draft-js-export-html';
 import { OutputFormContext } from '../../contexts/OutputFormContext';
 import ToolbarButtons from './ToolbarButtons';
+import { ProcessFileDropEventProps } from '../../types/editor';
 
 const RichTextEditor: FC = () => {
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
 
   const { setOutputFormData } = useContext(OutputFormContext);
 
+  const processFileDropEvent = ({ item, editorState, setEditorState }: ProcessFileDropEventProps) => {
+    if (item.kind !== 'file') return;
+  
+    const file = item.getAsFile();
+    if (file) insertImageToEditor({ file, editorState, setEditorState });
+  };
+
   const handleFileDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     const dataTransferItems = e.dataTransfer.items;
-    if (dataTransferItems) {
-      for (let i = 0; i < dataTransferItems.length; i++) {
-        if (dataTransferItems[i].kind === 'file') {
-          const file = dataTransferItems[i].getAsFile();
-          if (file) {
-            insertImageToEditor({file, editorState, setEditorState})
-          }
-        }
-      }
+    if ( !dataTransferItems ) return;
+
+    for (let i = 0; i < dataTransferItems.length; i++) {
+      const item = dataTransferItems[i];
+      processFileDropEvent({item, editorState, setEditorState})
     }
   };
 

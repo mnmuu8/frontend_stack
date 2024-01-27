@@ -8,6 +8,7 @@ export * from './OutputsCommentsComment';
 export * from './OutputsCommentsCommentListInner';
 export * from './OutputsOutput';
 export * from './OutputsOutputListInner';
+export * from './OutputsOutputUser';
 export * from './SkillRanksSkillRank';
 export * from './SkillRanksSkillRankName';
 export * from './SkillsSkill';

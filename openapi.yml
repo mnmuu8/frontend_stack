@@ -1406,6 +1406,7 @@ components:
       required:
         - id
         - content
+        - user
         - created_at
         - updated_at
       properties:
@@ -1416,6 +1417,10 @@ components:
         content:
           allOf:
             - $ref: '#/components/schemas/Outputs_Output_Content'
+          nullable: false
+        user:
+          allOf:
+            - $ref: '#/components/schemas/Users_User'
           nullable: false
         created_at:
           allOf:

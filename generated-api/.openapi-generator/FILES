@@ -14,6 +14,7 @@ index.ts
 models/AuthLogin.ts
 models/AuthLoginRequestBody.ts
 models/OutputCommentCreateRequestBody.ts
+models/OutputCommentImagesAttachRequestBody.ts
 models/OutputCreateRequestBody.ts
 models/OutputImagesAttachRequestBody.ts
 models/OutputsCommentsComment.ts

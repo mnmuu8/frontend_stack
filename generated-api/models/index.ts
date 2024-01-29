@@ -3,6 +3,7 @@
 export * from './AuthLogin';
 export * from './AuthLoginRequestBody';
 export * from './OutputCommentCreateRequestBody';
+export * from './OutputCommentImagesAttachRequestBody';
 export * from './OutputCreateRequestBody';
 export * from './OutputImagesAttachRequestBody';
 export * from './OutputsCommentsComment';

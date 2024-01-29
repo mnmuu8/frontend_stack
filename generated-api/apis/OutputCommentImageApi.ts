@@ -15,12 +15,24 @@
 
 import * as runtime from '../runtime';
 import type {
+  OutputCommentImagesAttachRequestBody,
+  OutputsCommentsComment,
   OutputsCommentsImagesUploadUrl,
 } from '../models';
 import {
+    OutputCommentImagesAttachRequestBodyFromJSON,
+    OutputCommentImagesAttachRequestBodyToJSON,
+    OutputsCommentsCommentFromJSON,
+    OutputsCommentsCommentToJSON,
     OutputsCommentsImagesUploadUrlFromJSON,
     OutputsCommentsImagesUploadUrlToJSON,
 } from '../models';
+
+export interface ApiV1OutputsCommentsImagesAttachRequest {
+    outputId: number;
+    outputCommentId: number;
+    outputCommentImagesAttachRequestBody: OutputCommentImagesAttachRequestBody;
+}
 
 export interface ApiV1OutputsCommentsImagesUploadUrlRequest {
     outputId: number;
@@ -34,6 +46,47 @@ export interface ApiV1OutputsCommentsImagesUploadUrlRequest {
  * 
  */
 export class OutputCommentImageApi extends runtime.BaseAPI {
+
+    /**
+     * アウトプットコメント画像登録
+     */
+    async apiV1OutputsCommentsImagesAttachRaw(requestParameters: ApiV1OutputsCommentsImagesAttachRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OutputsCommentsComment>> {
+        if (requestParameters.outputId === null || requestParameters.outputId === undefined) {
+            throw new runtime.RequiredError('outputId','Required parameter requestParameters.outputId was null or undefined when calling apiV1OutputsCommentsImagesAttach.');
+        }
+
+        if (requestParameters.outputCommentId === null || requestParameters.outputCommentId === undefined) {
+            throw new runtime.RequiredError('outputCommentId','Required parameter requestParameters.outputCommentId was null or undefined when calling apiV1OutputsCommentsImagesAttach.');
+        }
+
+        if (requestParameters.outputCommentImagesAttachRequestBody === null || requestParameters.outputCommentImagesAttachRequestBody === undefined) {
+            throw new runtime.RequiredError('outputCommentImagesAttachRequestBody','Required parameter requestParameters.outputCommentImagesAttachRequestBody was null or undefined when calling apiV1OutputsCommentsImagesAttach.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/api/v1/outputs/{output_id}/comments/{output_comment_id}/images/attach`.replace(`{${"output_id"}}`, encodeURIComponent(String(requestParameters.outputId))).replace(`{${"output_comment_id"}}`, encodeURIComponent(String(requestParameters.outputCommentId))),
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: OutputCommentImagesAttachRequestBodyToJSON(requestParameters.outputCommentImagesAttachRequestBody),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => OutputsCommentsCommentFromJSON(jsonValue));
+    }
+
+    /**
+     * アウトプットコメント画像登録
+     */
+    async apiV1OutputsCommentsImagesAttach(requestParameters: ApiV1OutputsCommentsImagesAttachRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OutputsCommentsComment> {
+        const response = await this.apiV1OutputsCommentsImagesAttachRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
 
     /**
      * アウトプットコメント画像アップロードURL取得

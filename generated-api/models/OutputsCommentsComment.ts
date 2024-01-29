@@ -13,6 +13,13 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { OutputsOutputUser } from './OutputsOutputUser';
+import {
+    OutputsOutputUserFromJSON,
+    OutputsOutputUserFromJSONTyped,
+    OutputsOutputUserToJSON,
+} from './OutputsOutputUser';
+
 /**
  * 
  * @export
@@ -32,11 +39,17 @@ export interface OutputsCommentsComment {
      */
     content: string;
     /**
-     * ユーザーID
-     * @type {number}
+     * 
+     * @type {OutputsOutputUser}
      * @memberof OutputsCommentsComment
      */
-    userId: number;
+    user: OutputsOutputUser;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof OutputsCommentsComment
+     */
+    images: Array<string>;
     /**
      * 
      * @type {Date}
@@ -58,7 +71,8 @@ export function instanceOfOutputsCommentsComment(value: object): boolean {
     let isInstance = true;
     isInstance = isInstance && "id" in value;
     isInstance = isInstance && "content" in value;
-    isInstance = isInstance && "userId" in value;
+    isInstance = isInstance && "user" in value;
+    isInstance = isInstance && "images" in value;
     isInstance = isInstance && "createdAt" in value;
     isInstance = isInstance && "updatedAt" in value;
 
@@ -77,7 +91,8 @@ export function OutputsCommentsCommentFromJSONTyped(json: any, ignoreDiscriminat
         
         'id': json['id'],
         'content': json['content'],
-        'userId': json['user_id'],
+        'user': OutputsOutputUserFromJSON(json['user']),
+        'images': json['images'],
         'createdAt': (new Date(json['created_at'])),
         'updatedAt': (new Date(json['updated_at'])),
     };
@@ -94,7 +109,8 @@ export function OutputsCommentsCommentToJSON(value?: OutputsCommentsComment | nu
         
         'id': value.id,
         'content': value.content,
-        'user_id': value.userId,
+        'user': OutputsOutputUserToJSON(value.user),
+        'images': value.images,
         'created_at': (value.createdAt.toISOString()),
         'updated_at': (value.updatedAt.toISOString()),
     };

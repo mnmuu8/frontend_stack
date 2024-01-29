@@ -15,12 +15,23 @@
 
 import * as runtime from '../runtime';
 import type {
+  OutputImagesAttachRequestBody,
   OutputsImagesUploadUrl,
+  OutputsOutput,
 } from '../models';
 import {
+    OutputImagesAttachRequestBodyFromJSON,
+    OutputImagesAttachRequestBodyToJSON,
     OutputsImagesUploadUrlFromJSON,
     OutputsImagesUploadUrlToJSON,
+    OutputsOutputFromJSON,
+    OutputsOutputToJSON,
 } from '../models';
+
+export interface ApiV1OutputsImagesAttachRequest {
+    outputId: number;
+    outputImagesAttachRequestBody: OutputImagesAttachRequestBody;
+}
 
 export interface ApiV1OutputsImagesUploadUrlRequest {
     outputId: number;
@@ -33,6 +44,43 @@ export interface ApiV1OutputsImagesUploadUrlRequest {
  * 
  */
 export class OutputImageApi extends runtime.BaseAPI {
+
+    /**
+     * アウトプット画像登録
+     */
+    async apiV1OutputsImagesAttachRaw(requestParameters: ApiV1OutputsImagesAttachRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OutputsOutput>> {
+        if (requestParameters.outputId === null || requestParameters.outputId === undefined) {
+            throw new runtime.RequiredError('outputId','Required parameter requestParameters.outputId was null or undefined when calling apiV1OutputsImagesAttach.');
+        }
+
+        if (requestParameters.outputImagesAttachRequestBody === null || requestParameters.outputImagesAttachRequestBody === undefined) {
+            throw new runtime.RequiredError('outputImagesAttachRequestBody','Required parameter requestParameters.outputImagesAttachRequestBody was null or undefined when calling apiV1OutputsImagesAttach.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/api/v1/outputs/{output_id}/images/attach`.replace(`{${"output_id"}}`, encodeURIComponent(String(requestParameters.outputId))),
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: OutputImagesAttachRequestBodyToJSON(requestParameters.outputImagesAttachRequestBody),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => OutputsOutputFromJSON(jsonValue));
+    }
+
+    /**
+     * アウトプット画像登録
+     */
+    async apiV1OutputsImagesAttach(requestParameters: ApiV1OutputsImagesAttachRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OutputsOutput> {
+        const response = await this.apiV1OutputsImagesAttachRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
 
     /**
      * アウトプット画像アップロードURL取得

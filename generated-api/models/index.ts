@@ -4,6 +4,7 @@ export * from './AuthLogin';
 export * from './AuthLoginRequestBody';
 export * from './OutputCommentCreateRequestBody';
 export * from './OutputCreateRequestBody';
+export * from './OutputImagesAttachRequestBody';
 export * from './OutputsCommentsComment';
 export * from './OutputsCommentsCommentListInner';
 export * from './OutputsImagesUploadUrl';

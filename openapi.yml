@@ -829,6 +829,41 @@ paths:
         '422':
           description: バリデーションエラー
 
+  /api/v1/outputs/{output_id}/images/attach:
+    put:
+      summary: アウトプット画像登録
+      operationId: api.v1.outputs.images.attach
+      tags:
+        - OutputImage
+      security: []
+      parameters:
+        - name: output_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Outputs_Output_Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OutputImagesAttachRequestBody'
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Outputs_Output'
+        '401':
+          description: 認証エラー
+        '404':
+          description: アウトプットが存在しない
+        '409':
+          description: プロフィール画像の登録に失敗
+        '422':
+          description: バリデーションエラー
+
 components:
   schemas:
     Auth_Login:
@@ -1449,6 +1484,7 @@ components:
         - id
         - content
         - user
+        - images
         - created_at
         - updated_at
       properties:
@@ -1463,6 +1499,12 @@ components:
         user:
           allOf:
             - $ref: '#/components/schemas/Users_User'
+          nullable: false
+        images:
+          type: array
+          items:
+            allOf:
+              - $ref: '#/components/schemas/Outputs_Output_ImagePath'
           nullable: false
         created_at:
           allOf:
@@ -1482,6 +1524,11 @@ components:
       type: string
       description: アウトプット内容
       example: アウトプットします
+
+    Outputs_Output_ImagePath:
+      type: string
+      description: アウトプット画像のS3ファイルパス
+      example: path/to/file.jpg
 
     Outputs_Comments_CommentList:
       type: array
@@ -1844,3 +1891,14 @@ components:
           allOf:
             - $ref: '#/components/schemas/Users_User_Id'
           nullable: false
+
+    OutputImagesAttachRequestBody:
+      type: object
+      required:
+        - s3_file_path
+      properties:
+        s3_file_path:
+          allOf:
+            - $ref: '#/components/schemas/Outputs_Output_ImagePath'
+          nullable: false
+

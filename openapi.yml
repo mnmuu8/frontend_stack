@@ -787,6 +787,48 @@ paths:
         '422':
           description: バリデーションエラー
 
+  /api/v1/outputs/{output_id}/images/upload_url:
+    get:
+      summary: アウトプット画像アップロードURL取得
+      operationId: api.v1.outputs.images.upload_url
+      tags:
+        - OutputImage
+      security: []
+      parameters:
+        - name: output_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Outputs_Output_Id'
+        - name: filename
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/Outputs_Images_Filename'
+        - name: byte_size
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/Outputs_Images_ByteSize'
+        - name: content_type
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/Outputs_Images_ContentType'
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Outputs_Images_UploadUrl'
+        '401':
+          description: 認証エラー
+        '404':
+          description: アウトプットが存在しない
+        '422':
+          description: バリデーションエラー
+
 components:
   schemas:
     Auth_Login:
@@ -1486,6 +1528,36 @@ components:
       type: string
       description: アウトプットへのコメント内容
       example: Good!
+
+    Outputs_Images_Filename:
+      type: string
+      description: ファイル名
+      example: test.jpg
+
+    Outputs_Images_ByteSize:
+      type: integer
+      description: ファイルサイズ
+      example: 12345
+
+    Outputs_Images_ContentType:
+      type: string
+      description: コンテンツタイプ
+      example: image/jpg
+
+    Outputs_Images_Url:
+      type: string
+      description: 署名付きURL
+      example: https://s3.ap-northeast-1.amazonaws.com/
+
+    Outputs_Images_UploadUrl:
+      type: object
+      required:
+        - url
+      properties:
+        url:
+          allOf:
+            - $ref: '#/components/schemas/Outputs_Images_Url'
+          nullable: false
 
     DateTime:
       type: string

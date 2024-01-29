@@ -6,6 +6,7 @@ export * from './OutputCommentCreateRequestBody';
 export * from './OutputCreateRequestBody';
 export * from './OutputsCommentsComment';
 export * from './OutputsCommentsCommentListInner';
+export * from './OutputsImagesUploadUrl';
 export * from './OutputsOutput';
 export * from './OutputsOutputListInner';
 export * from './OutputsOutputUser';

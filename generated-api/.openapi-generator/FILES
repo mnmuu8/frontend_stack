@@ -2,6 +2,7 @@ apis/AuthApi.ts
 apis/IntrospectionApi.ts
 apis/OutputApi.ts
 apis/OutputCommentApi.ts
+apis/OutputImageApi.ts
 apis/SkillApi.ts
 apis/StackApi.ts
 apis/TeamApi.ts
@@ -15,6 +16,7 @@ models/OutputCommentCreateRequestBody.ts
 models/OutputCreateRequestBody.ts
 models/OutputsCommentsComment.ts
 models/OutputsCommentsCommentListInner.ts
+models/OutputsImagesUploadUrl.ts
 models/OutputsOutput.ts
 models/OutputsOutputListInner.ts
 models/OutputsOutputUser.ts

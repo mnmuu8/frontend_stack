@@ -20,6 +20,7 @@ models/OutputImagesAttachRequestBody.ts
 models/OutputsCommentsComment.ts
 models/OutputsCommentsCommentListInner.ts
 models/OutputsCommentsImagesUploadUrl.ts
+models/OutputsImagesImage.ts
 models/OutputsImagesUploadUrl.ts
 models/OutputsOutput.ts
 models/OutputsOutputListInner.ts

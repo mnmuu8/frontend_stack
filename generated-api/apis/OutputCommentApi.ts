@@ -48,7 +48,7 @@ export interface ApiV1OutputsCommentsIndexRequest {
 export class OutputCommentApi extends runtime.BaseAPI {
 
     /**
-     * アウトプット作成
+     * アウトプットコメント作成
      */
     async apiV1OutputsCommentsCreateRaw(requestParameters: ApiV1OutputsCommentsCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OutputsCommentsComment>> {
         if (requestParameters.outputId === null || requestParameters.outputId === undefined) {
@@ -77,7 +77,7 @@ export class OutputCommentApi extends runtime.BaseAPI {
     }
 
     /**
-     * アウトプット作成
+     * アウトプットコメント作成
      */
     async apiV1OutputsCommentsCreate(requestParameters: ApiV1OutputsCommentsCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OutputsCommentsComment> {
         const response = await this.apiV1OutputsCommentsCreateRaw(requestParameters, initOverrides);

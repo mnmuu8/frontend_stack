@@ -2007,6 +2007,11 @@ components:
           allOf:
             - $ref: '#/components/schemas/Outputs_Output_Content'
           nullable: false
+        image_ids:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/Outputs_Images_Image_Id'
 
     OutputCommentCreateRequestBody:
       type: object

@@ -16,25 +16,23 @@
 import * as runtime from '../runtime';
 import type {
   OutputImagesAttachRequestBody,
+  OutputsImagesImage,
   OutputsImagesUploadUrl,
-  OutputsOutput,
 } from '../models';
 import {
     OutputImagesAttachRequestBodyFromJSON,
     OutputImagesAttachRequestBodyToJSON,
+    OutputsImagesImageFromJSON,
+    OutputsImagesImageToJSON,
     OutputsImagesUploadUrlFromJSON,
     OutputsImagesUploadUrlToJSON,
-    OutputsOutputFromJSON,
-    OutputsOutputToJSON,
 } from '../models';
 
 export interface ApiV1OutputsImagesAttachRequest {
-    outputId: number;
     outputImagesAttachRequestBody: OutputImagesAttachRequestBody;
 }
 
 export interface ApiV1OutputsImagesUploadUrlRequest {
-    outputId: number;
     filename: string;
     byteSize: number;
     contentType: string;
@@ -48,11 +46,7 @@ export class OutputImageApi extends runtime.BaseAPI {
     /**
      * アウトプット画像登録
      */
-    async apiV1OutputsImagesAttachRaw(requestParameters: ApiV1OutputsImagesAttachRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OutputsOutput>> {
-        if (requestParameters.outputId === null || requestParameters.outputId === undefined) {
-            throw new runtime.RequiredError('outputId','Required parameter requestParameters.outputId was null or undefined when calling apiV1OutputsImagesAttach.');
-        }
-
+    async apiV1OutputsImagesAttachRaw(requestParameters: ApiV1OutputsImagesAttachRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OutputsImagesImage>> {
         if (requestParameters.outputImagesAttachRequestBody === null || requestParameters.outputImagesAttachRequestBody === undefined) {
             throw new runtime.RequiredError('outputImagesAttachRequestBody','Required parameter requestParameters.outputImagesAttachRequestBody was null or undefined when calling apiV1OutputsImagesAttach.');
         }
@@ -64,20 +58,20 @@ export class OutputImageApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/api/v1/outputs/{output_id}/images/attach`.replace(`{${"output_id"}}`, encodeURIComponent(String(requestParameters.outputId))),
+            path: `/api/v1/outputs/images/attach`,
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
             body: OutputImagesAttachRequestBodyToJSON(requestParameters.outputImagesAttachRequestBody),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => OutputsOutputFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => OutputsImagesImageFromJSON(jsonValue));
     }
 
     /**
      * アウトプット画像登録
      */
-    async apiV1OutputsImagesAttach(requestParameters: ApiV1OutputsImagesAttachRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OutputsOutput> {
+    async apiV1OutputsImagesAttach(requestParameters: ApiV1OutputsImagesAttachRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OutputsImagesImage> {
         const response = await this.apiV1OutputsImagesAttachRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -86,10 +80,6 @@ export class OutputImageApi extends runtime.BaseAPI {
      * アウトプット画像アップロードURL取得
      */
     async apiV1OutputsImagesUploadUrlRaw(requestParameters: ApiV1OutputsImagesUploadUrlRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OutputsImagesUploadUrl>> {
-        if (requestParameters.outputId === null || requestParameters.outputId === undefined) {
-            throw new runtime.RequiredError('outputId','Required parameter requestParameters.outputId was null or undefined when calling apiV1OutputsImagesUploadUrl.');
-        }
-
         if (requestParameters.filename === null || requestParameters.filename === undefined) {
             throw new runtime.RequiredError('filename','Required parameter requestParameters.filename was null or undefined when calling apiV1OutputsImagesUploadUrl.');
         }
@@ -119,7 +109,7 @@ export class OutputImageApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/v1/outputs/{output_id}/images/upload_url`.replace(`{${"output_id"}}`, encodeURIComponent(String(requestParameters.outputId))),
+            path: `/api/v1/outputs/images/upload_url`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,

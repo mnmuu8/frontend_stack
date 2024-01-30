@@ -9,6 +9,7 @@ export * from './OutputImagesAttachRequestBody';
 export * from './OutputsCommentsComment';
 export * from './OutputsCommentsCommentListInner';
 export * from './OutputsCommentsImagesUploadUrl';
+export * from './OutputsImagesImage';
 export * from './OutputsImagesUploadUrl';
 export * from './OutputsOutput';
 export * from './OutputsOutputListInner';

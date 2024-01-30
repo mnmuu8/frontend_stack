@@ -849,7 +849,7 @@ paths:
         '422':
           description: バリデーションエラー
 
-  /api/v1/outputs/{output_id}/comments/{output_comment_id}/images/upload_url:
+  /api/v1/outputs/{output_id}/comments/images/upload_url:
     get:
       summary: アウトプットコメント画像アップロードURL取得
       operationId: api.v1.outputs.comments.images.upload_url
@@ -862,11 +862,6 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/Outputs_Output_Id'
-        - name: output_comment_id
-          in: path
-          required: true
-          schema:
-            $ref: '#/components/schemas/Outputs_Comments_Comment_Id'
         - name: filename
           in: query
           required: true
@@ -892,11 +887,11 @@ paths:
         '401':
           description: 認証エラー
         '404':
-          description: アウトプット/アウトプットコメントが存在しない
+          description: アウトプットが存在しない
         '422':
           description: バリデーションエラー
 
-  /api/v1/outputs/{output_id}/comments/{output_comment_id}/images/attach:
+  /api/v1/outputs/{output_id}/comments/images/attach:
     put:
       summary: アウトプットコメント画像登録
       operationId: api.v1.outputs.comments.images.attach
@@ -909,11 +904,6 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/Outputs_Output_Id'
-        - name: output_comment_id
-          in: path
-          required: true
-          schema:
-            $ref: '#/components/schemas/Outputs_Comments_Comment_Id'
       requestBody:
         required: true
         content:
@@ -926,11 +916,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Outputs_Comments_Comment'
+                $ref: '#/components/schemas/Outputs_Images_Image'
         '401':
           description: 認証エラー
         '404':
-          description: アウトプット/アウトプットコメントが存在しない
+          description: アウトプットが存在しない
         '409':
           description: 画像を4枚以上登録している
         '422':
@@ -2052,4 +2042,3 @@ components:
           allOf:
             - $ref: '#/components/schemas/Outputs_Comments_Comment_ImagePath'
           nullable: false
-

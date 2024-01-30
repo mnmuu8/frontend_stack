@@ -31,6 +31,12 @@ export interface OutputCommentCreateRequestBody {
      * @memberof OutputCommentCreateRequestBody
      */
     userId: number;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof OutputCommentCreateRequestBody
+     */
+    imageIds?: Array<number>;
 }
 
 /**
@@ -56,6 +62,7 @@ export function OutputCommentCreateRequestBodyFromJSONTyped(json: any, ignoreDis
         
         'content': json['content'],
         'userId': json['user_id'],
+        'imageIds': !exists(json, 'image_ids') ? undefined : json['image_ids'],
     };
 }
 
@@ -70,6 +77,7 @@ export function OutputCommentCreateRequestBodyToJSON(value?: OutputCommentCreate
         
         'content': value.content,
         'user_id': value.userId,
+        'image_ids': value.imageIds,
     };
 }
 

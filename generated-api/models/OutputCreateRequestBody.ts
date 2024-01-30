@@ -25,6 +25,12 @@ export interface OutputCreateRequestBody {
      * @memberof OutputCreateRequestBody
      */
     content: string;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof OutputCreateRequestBody
+     */
+    imageIds?: Array<number>;
 }
 
 /**
@@ -48,6 +54,7 @@ export function OutputCreateRequestBodyFromJSONTyped(json: any, ignoreDiscrimina
     return {
         
         'content': json['content'],
+        'imageIds': !exists(json, 'image_ids') ? undefined : json['image_ids'],
     };
 }
 
@@ -61,6 +68,7 @@ export function OutputCreateRequestBodyToJSON(value?: OutputCreateRequestBody | 
     return {
         
         'content': value.content,
+        'image_ids': value.imageIds,
     };
 }
 

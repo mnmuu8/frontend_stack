@@ -726,7 +726,7 @@ paths:
         '422':
           description: バリデーションエラー
     post:
-      summary: アウトプット作成
+      summary: アウトプットコメント作成
       operationId: api.v1.outputs.comments.create
       tags:
         - OutputComment
@@ -2027,6 +2027,11 @@ components:
           allOf:
             - $ref: '#/components/schemas/Users_User_Id'
           nullable: false
+        image_ids:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/Outputs_Images_Image_Id'
 
     OutputImagesAttachRequestBody:
       type: object

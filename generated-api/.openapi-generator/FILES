@@ -2,6 +2,8 @@ apis/AuthApi.ts
 apis/IntrospectionApi.ts
 apis/OutputApi.ts
 apis/OutputCommentApi.ts
+apis/OutputCommentImageApi.ts
+apis/OutputImageApi.ts
 apis/SkillApi.ts
 apis/StackApi.ts
 apis/TeamApi.ts
@@ -12,9 +14,13 @@ index.ts
 models/AuthLogin.ts
 models/AuthLoginRequestBody.ts
 models/OutputCommentCreateRequestBody.ts
+models/OutputCommentImagesAttachRequestBody.ts
 models/OutputCreateRequestBody.ts
+models/OutputImagesAttachRequestBody.ts
 models/OutputsCommentsComment.ts
 models/OutputsCommentsCommentListInner.ts
+models/OutputsCommentsImagesUploadUrl.ts
+models/OutputsImagesUploadUrl.ts
 models/OutputsOutput.ts
 models/OutputsOutputListInner.ts
 models/OutputsOutputUser.ts

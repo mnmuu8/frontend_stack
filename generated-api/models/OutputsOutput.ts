@@ -46,6 +46,12 @@ export interface OutputsOutput {
     user: OutputsOutputUser;
     /**
      * 
+     * @type {Array<string>}
+     * @memberof OutputsOutput
+     */
+    images: Array<string>;
+    /**
+     * 
      * @type {Date}
      * @memberof OutputsOutput
      */
@@ -66,6 +72,7 @@ export function instanceOfOutputsOutput(value: object): boolean {
     isInstance = isInstance && "id" in value;
     isInstance = isInstance && "content" in value;
     isInstance = isInstance && "user" in value;
+    isInstance = isInstance && "images" in value;
     isInstance = isInstance && "createdAt" in value;
     isInstance = isInstance && "updatedAt" in value;
 
@@ -85,6 +92,7 @@ export function OutputsOutputFromJSONTyped(json: any, ignoreDiscriminator: boole
         'id': json['id'],
         'content': json['content'],
         'user': OutputsOutputUserFromJSON(json['user']),
+        'images': json['images'],
         'createdAt': (new Date(json['created_at'])),
         'updatedAt': (new Date(json['updated_at'])),
     };
@@ -102,6 +110,7 @@ export function OutputsOutputToJSON(value?: OutputsOutput | null): any {
         'id': value.id,
         'content': value.content,
         'user': OutputsOutputUserToJSON(value.user),
+        'images': value.images,
         'created_at': (value.createdAt.toISOString()),
         'updated_at': (value.updatedAt.toISOString()),
     };

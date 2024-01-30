@@ -787,6 +787,170 @@ paths:
         '422':
           description: バリデーションエラー
 
+  /api/v1/outputs/{output_id}/images/upload_url:
+    get:
+      summary: アウトプット画像アップロードURL取得
+      operationId: api.v1.outputs.images.upload_url
+      tags:
+        - OutputImage
+      security: []
+      parameters:
+        - name: output_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Outputs_Output_Id'
+        - name: filename
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/Outputs_Images_Filename'
+        - name: byte_size
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/Outputs_Images_ByteSize'
+        - name: content_type
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/Outputs_Images_ContentType'
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Outputs_Images_UploadUrl'
+        '401':
+          description: 認証エラー
+        '404':
+          description: アウトプットが存在しない
+        '422':
+          description: バリデーションエラー
+
+  /api/v1/outputs/{output_id}/images/attach:
+    put:
+      summary: アウトプット画像登録
+      operationId: api.v1.outputs.images.attach
+      tags:
+        - OutputImage
+      security: []
+      parameters:
+        - name: output_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Outputs_Output_Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OutputImagesAttachRequestBody'
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Outputs_Output'
+        '401':
+          description: 認証エラー
+        '404':
+          description: アウトプットが存在しない
+        '409':
+          description: プロフィール画像の登録に失敗
+        '422':
+          description: バリデーションエラー
+
+  /api/v1/outputs/{output_id}/comments/{output_comment_id}/images/upload_url:
+    get:
+      summary: アウトプットコメント画像アップロードURL取得
+      operationId: api.v1.outputs.comments.images.upload_url
+      tags:
+        - OutputCommentImage
+      security: []
+      parameters:
+        - name: output_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Outputs_Output_Id'
+        - name: output_comment_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Outputs_Comments_Comment_Id'
+        - name: filename
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/Outputs_Comments_Images_Filename'
+        - name: byte_size
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/Outputs_Comments_Images_ByteSize'
+        - name: content_type
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/Outputs_Comments_Images_ContentType'
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Outputs_Comments_Images_UploadUrl'
+        '401':
+          description: 認証エラー
+        '404':
+          description: アウトプット/アウトプットコメントが存在しない
+        '422':
+          description: バリデーションエラー
+
+  /api/v1/outputs/{output_id}/comments/{output_comment_id}/images/attach:
+    put:
+      summary: アウトプットコメント画像登録
+      operationId: api.v1.outputs.comments.images.attach
+      tags:
+        - OutputCommentImage
+      security: []
+      parameters:
+        - name: output_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Outputs_Output_Id'
+        - name: output_comment_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Outputs_Comments_Comment_Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OutputCommentImagesAttachRequestBody'
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Outputs_Comments_Comment'
+        '401':
+          description: 認証エラー
+        '404':
+          description: アウトプット/アウトプットコメントが存在しない
+        '409':
+          description: 画像を4枚以上登録している
+        '422':
+          description: バリデーションエラー
+
 components:
   schemas:
     Auth_Login:
@@ -1407,6 +1571,7 @@ components:
         - id
         - content
         - user
+        - images
         - created_at
         - updated_at
       properties:
@@ -1421,6 +1586,12 @@ components:
         user:
           allOf:
             - $ref: '#/components/schemas/Users_User'
+          nullable: false
+        images:
+          type: array
+          items:
+            allOf:
+              - $ref: '#/components/schemas/Outputs_Output_ImagePath'
           nullable: false
         created_at:
           allOf:
@@ -1441,6 +1612,11 @@ components:
       description: アウトプット内容
       example: アウトプットします
 
+    Outputs_Output_ImagePath:
+      type: string
+      description: アウトプット画像のS3ファイルパス
+      example: path/to/file.jpg
+
     Outputs_Comments_CommentList:
       type: array
       items:
@@ -1452,7 +1628,8 @@ components:
       required:
         - id
         - content
-        - user_id
+        - user
+        - images
         - created_at
         - updated_at
       properties:
@@ -1464,9 +1641,15 @@ components:
           allOf:
             - $ref: '#/components/schemas/Outputs_Comments_Comment_Content'
           nullable: false
-        user_id:
+        user:
           allOf:
-            - $ref: '#/components/schemas/Users_User_Id'
+            - $ref: '#/components/schemas/Users_User'
+          nullable: false
+        images:
+          type: array
+          items:
+            allOf:
+              - $ref: '#/components/schemas/Outputs_Comments_Comment_ImagePath'
           nullable: false
         created_at:
           allOf:
@@ -1486,6 +1669,71 @@ components:
       type: string
       description: アウトプットへのコメント内容
       example: Good!
+
+    Outputs_Comments_Comment_ImagePath:
+      type: string
+      description: アウトプットコメント画像のS3ファイルパス
+      example: path/to/file.jpg
+
+    Outputs_Images_Filename:
+      type: string
+      description: ファイル名
+      example: test.jpg
+
+    Outputs_Images_ByteSize:
+      type: integer
+      description: ファイルサイズ
+      example: 12345
+
+    Outputs_Images_ContentType:
+      type: string
+      description: コンテンツタイプ
+      example: image/jpg
+
+    Outputs_Images_Url:
+      type: string
+      description: 署名付きURL
+      example: https://s3.ap-northeast-1.amazonaws.com/
+
+    Outputs_Images_UploadUrl:
+      type: object
+      required:
+        - url
+      properties:
+        url:
+          allOf:
+            - $ref: '#/components/schemas/Outputs_Images_Url'
+          nullable: false
+
+    Outputs_Comments_Images_Filename:
+      type: string
+      description: ファイル名
+      example: test.jpg
+
+    Outputs_Comments_Images_ByteSize:
+      type: integer
+      description: ファイルサイズ
+      example: 12345
+
+    Outputs_Comments_Images_ContentType:
+      type: string
+      description: コンテンツタイプ
+      example: image/jpg
+
+    Outputs_Comments_Images_Url:
+      type: string
+      description: 署名付きURL
+      example: https://s3.ap-northeast-1.amazonaws.com/
+
+    Outputs_Comments_Images_UploadUrl:
+      type: object
+      required:
+        - url
+      properties:
+        url:
+          allOf:
+            - $ref: '#/components/schemas/Outputs_Comments_Images_Url'
+          nullable: false
 
     DateTime:
       type: string
@@ -1772,3 +2020,24 @@ components:
           allOf:
             - $ref: '#/components/schemas/Users_User_Id'
           nullable: false
+
+    OutputImagesAttachRequestBody:
+      type: object
+      required:
+        - s3_file_path
+      properties:
+        s3_file_path:
+          allOf:
+            - $ref: '#/components/schemas/Outputs_Output_ImagePath'
+          nullable: false
+
+    OutputCommentImagesAttachRequestBody:
+      type: object
+      required:
+        - s3_file_path
+      properties:
+        s3_file_path:
+          allOf:
+            - $ref: '#/components/schemas/Outputs_Comments_Comment_ImagePath'
+          nullable: false
+

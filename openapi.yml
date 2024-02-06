@@ -152,7 +152,6 @@ paths:
       summary: 積み上げの反省詳細API
       operationId: api.v1.stacks.introspections.show
       tags:
-        - Stack
         - Introspection
       security: []
       parameters:
@@ -176,7 +175,6 @@ paths:
       summary: 積み上げの反省更新API
       operationId: api.v1.stacks.introspections.update
       tags:
-        - Stack
         - Introspection
       security: []
       parameters:
@@ -210,7 +208,6 @@ paths:
       summary: 積み上げの反省登録API
       operationId: api.v1.stacks.introspections.create
       tags:
-        - Stack
         - Introspection
       security: []
       parameters:

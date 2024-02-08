@@ -23,7 +23,7 @@ export type UserRegisterProps = {
 };
 
 export type GetUploadUrl = {
-  userId: number;
+  userId?: number;
   filename: string;
   byteSize: number;
   contentType: string;

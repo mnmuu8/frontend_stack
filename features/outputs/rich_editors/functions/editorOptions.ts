@@ -120,8 +120,7 @@ export const handleBeforeInput = ({ chars, editorState, setEditorState}: HandleB
   return 'not-handled';
 };
 
-export const insertImageToEditor = ({ file, editorState, setEditorState} :InsertImageToEditorProps) => {
-  const imageUrl = URL.createObjectURL(file);
+export const insertImageToEditor = ({ imageUrl, editorState, setEditorState} :InsertImageToEditorProps) => {
   const contentState = editorState.getCurrentContent();
   const contentStateWithEntity = contentState.createEntity('IMAGE', 'IMMUTABLE', { src: imageUrl });
   const entityKey = contentStateWithEntity.getLastCreatedEntityKey();

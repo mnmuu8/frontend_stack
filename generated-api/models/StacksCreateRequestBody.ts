@@ -55,6 +55,12 @@ export interface StacksCreateRequestBody {
      * @memberof StacksCreateRequestBody
      */
     stackedAt: Date;
+    /**
+     * 完了したかどうか
+     * @type {boolean}
+     * @memberof StacksCreateRequestBody
+     */
+    completed: boolean;
 }
 
 /**
@@ -68,6 +74,7 @@ export function instanceOfStacksCreateRequestBody(value: object): boolean {
     isInstance = isInstance && "userId" in value;
     isInstance = isInstance && "description" in value;
     isInstance = isInstance && "stackedAt" in value;
+    isInstance = isInstance && "completed" in value;
 
     return isInstance;
 }
@@ -88,6 +95,7 @@ export function StacksCreateRequestBodyFromJSONTyped(json: any, ignoreDiscrimina
         'userId': json['user_id'],
         'description': json['description'],
         'stackedAt': (new Date(json['stacked_at'])),
+        'completed': json['completed'],
     };
 }
 
@@ -106,6 +114,7 @@ export function StacksCreateRequestBodyToJSON(value?: StacksCreateRequestBody | 
         'user_id': value.userId,
         'description': value.description,
         'stacked_at': (value.stackedAt.toISOString()),
+        'completed': value.completed,
     };
 }
 

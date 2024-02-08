@@ -75,6 +75,12 @@ export interface StacksStack {
      */
     stackedAt: Date;
     /**
+     * 完了したかどうか
+     * @type {boolean}
+     * @memberof StacksStack
+     */
+    completed: boolean;
+    /**
      * 
      * @type {Date}
      * @memberof StacksStack
@@ -100,6 +106,7 @@ export function instanceOfStacksStack(value: object): boolean {
     isInstance = isInstance && "skill" in value;
     isInstance = isInstance && "user" in value;
     isInstance = isInstance && "stackedAt" in value;
+    isInstance = isInstance && "completed" in value;
     isInstance = isInstance && "createdAt" in value;
     isInstance = isInstance && "updatedAt" in value;
 
@@ -123,6 +130,7 @@ export function StacksStackFromJSONTyped(json: any, ignoreDiscriminator: boolean
         'skill': StacksStackSkillFromJSON(json['skill']),
         'user': StacksStackUserFromJSON(json['user']),
         'stackedAt': (new Date(json['stacked_at'])),
+        'completed': json['completed'],
         'createdAt': (new Date(json['created_at'])),
         'updatedAt': (new Date(json['updated_at'])),
     };
@@ -144,6 +152,7 @@ export function StacksStackToJSON(value?: StacksStack | null): any {
         'skill': StacksStackSkillToJSON(value.skill),
         'user': StacksStackUserToJSON(value.user),
         'stacked_at': (value.stackedAt.toISOString()),
+        'completed': value.completed,
         'created_at': (value.createdAt.toISOString()),
         'updated_at': (value.updatedAt.toISOString()),
     };

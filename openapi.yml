@@ -152,7 +152,6 @@ paths:
       summary: 積み上げの反省詳細API
       operationId: api.v1.stacks.introspections.show
       tags:
-        - Stack
         - Introspection
       security: []
       parameters:
@@ -176,7 +175,6 @@ paths:
       summary: 積み上げの反省更新API
       operationId: api.v1.stacks.introspections.update
       tags:
-        - Stack
         - Introspection
       security: []
       parameters:
@@ -210,7 +208,6 @@ paths:
       summary: 積み上げの反省登録API
       operationId: api.v1.stacks.introspections.create
       tags:
-        - Stack
         - Introspection
       security: []
       parameters:
@@ -989,6 +986,7 @@ components:
         - skill
         - user
         - stacked_at
+        - completed
         - created_at
         - updated_at
       properties:
@@ -1019,6 +1017,10 @@ components:
         stacked_at:
           allOf:
             - $ref: '#/components/schemas/DateTime'
+          nullable: false
+        completed:
+          allOf:
+            - $ref: '#/components/schemas/Stacks_Stack_Completed'
           nullable: false
         created_at:
           allOf:
@@ -1213,6 +1215,11 @@ components:
       type: string
       description: 積み上げ内容
       example: 積み上げ内容
+
+    Stacks_Stack_Completed:
+      type: boolean
+      description: 完了したかどうか
+      example: false
 
     Skills_SkillList:
       type: array
@@ -1766,6 +1773,7 @@ components:
         - user_id
         - description
         - stacked_at
+        - completed
       properties:
         title:
           allOf:
@@ -1791,6 +1799,10 @@ components:
           allOf:
             - $ref: '#/components/schemas/DateTime'
           nullable: false
+        completed:
+          allOf:
+            - $ref: '#/components/schemas/Stacks_Stack_Completed'
+          nullable: false
 
     StacksUpdateRequestBody:
       type: object
@@ -1800,6 +1812,7 @@ components:
         - skill_id
         - description
         - stacked_at
+        - completed
       properties:
         title:
           allOf:
@@ -1820,6 +1833,10 @@ components:
         stacked_at:
           allOf:
             - $ref: '#/components/schemas/DateTime'
+          nullable: false
+        completed:
+          allOf:
+            - $ref: '#/components/schemas/Stacks_Stack_Completed'
           nullable: false
 
     Stacks_IntrospectionCreateRequestBody:

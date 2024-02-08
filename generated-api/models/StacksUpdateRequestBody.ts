@@ -49,6 +49,12 @@ export interface StacksUpdateRequestBody {
      * @memberof StacksUpdateRequestBody
      */
     stackedAt: Date;
+    /**
+     * 完了したかどうか
+     * @type {boolean}
+     * @memberof StacksUpdateRequestBody
+     */
+    completed: boolean;
 }
 
 /**
@@ -61,6 +67,7 @@ export function instanceOfStacksUpdateRequestBody(value: object): boolean {
     isInstance = isInstance && "skillId" in value;
     isInstance = isInstance && "description" in value;
     isInstance = isInstance && "stackedAt" in value;
+    isInstance = isInstance && "completed" in value;
 
     return isInstance;
 }
@@ -80,6 +87,7 @@ export function StacksUpdateRequestBodyFromJSONTyped(json: any, ignoreDiscrimina
         'skillId': json['skill_id'],
         'description': json['description'],
         'stackedAt': (new Date(json['stacked_at'])),
+        'completed': json['completed'],
     };
 }
 
@@ -97,6 +105,7 @@ export function StacksUpdateRequestBodyToJSON(value?: StacksUpdateRequestBody | 
         'skill_id': value.skillId,
         'description': value.description,
         'stacked_at': (value.stackedAt.toISOString()),
+        'completed': value.completed,
     };
 }
 

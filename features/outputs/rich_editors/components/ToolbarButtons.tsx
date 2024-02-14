@@ -14,18 +14,40 @@ import {
 } from '@mui/icons-material/';
 import { ToolbarButtonsProps } from '../../types/editor';
 import { insertImageToEditor } from '../functions/editorOptions';
+import { getSession } from '@/features/sessions/functions/session';
+import { attachImage, getUploadUrl, uploadFile } from '../functions/insertImage';
 
-const ToolbarButtons: FC<ToolbarButtonsProps> = ({ setEditorState, editorState }) => {
+const ToolbarButtons: FC<ToolbarButtonsProps> = ({ setEditorState, editorState, uploadUrl, attachUrl })  => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const handleFileOpen = () => {
     if (fileInputRef.current) fileInputRef.current.click();
   };
 
-  const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileInput = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if ( e.target.files ) {
+
       const file = e.target.files[0];
-      insertImageToEditor({file, editorState, setEditorState});
-      e.target.value = '';
+      if (!file) return;
+
+      try {
+        const sessionData = getSession();
+        if (!sessionData) return;
+
+        const imageUrl = await getUploadUrl(file.name, file.size, file.type, uploadUrl);
+        await uploadFile(file, imageUrl);
+
+        const imagePath = imageUrl.split('?')[0];
+        await attachImage(sessionData, imagePath, attachUrl);
+
+        insertImageToEditor({
+          imagePath,
+          editorState,
+          setEditorState
+        });
+        e.target.value = '';
+      } catch (error) {
+        console.error('ファイルのアップロードに失敗しました', error);
+      }
     }
   };
 

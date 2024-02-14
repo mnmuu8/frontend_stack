@@ -95,7 +95,7 @@ const RichTextEditor = <FormData extends {}> ({ setFormData, formData, uploadUrl
 
   return (
     <div className='mt-4'>
-      <ToolbarButtons editorState={editorState} setEditorState={setEditorState} />
+      <ToolbarButtons editorState={editorState} setEditorState={setEditorState} uploadUrl={uploadUrl} attachUrl={attachUrl} />
       <div
         onDrop={handleFileDrop}
         onDragOver={(e) => e.preventDefault()}

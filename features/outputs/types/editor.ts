@@ -29,7 +29,10 @@ export type HandleBeforeInputProps = EditorStateProps &
     chars: string;
   };
 
-export type ToolbarButtonsProps = EditorStateProps & SetEditorStateProps;
+export type ToolbarButtonsProps = EditorStateProps & SetEditorStateProps & {
+  uploadUrl: string;
+  attachUrl: string;
+};
 
 export type InsertImageToEditorProps = EditorStateProps & SetEditorStateProps & {
   imagePath: File;

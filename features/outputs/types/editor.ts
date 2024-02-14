@@ -32,9 +32,16 @@ export type HandleBeforeInputProps = EditorStateProps &
 export type ToolbarButtonsProps = EditorStateProps & SetEditorStateProps;
 
 export type InsertImageToEditorProps = EditorStateProps & SetEditorStateProps & {
-  file: File;
+  imagePath: File;
 };
 
 export type ProcessFileDropEventProps = EditorStateProps & SetEditorStateProps & {
-  item: DataTransferItem;
+  file: File;
+};
+
+export type RichTextEditorProps<FormData> = {
+  setFormData: (data: FormData) => void;
+  formData: FormData;
+  uploadUrl: string;
+  attachUrl: string;
 };

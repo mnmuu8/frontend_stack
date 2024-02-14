@@ -1,4 +1,4 @@
-import React, { FC, useState, useMemo, useContext, useEffect } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 
 import Editor from '@draft-js-plugins/editor';
 import { EditorState } from 'draft-js';
@@ -18,31 +18,50 @@ import { handleBeforeInput,
   insertImageToEditor,
   keyBindingFn,
 } from '../functions/editorOptions';
-import { stateToHTML } from 'draft-js-export-html';
-import { OutputFormContext } from '../../contexts/OutputFormContext';
-import ToolbarButtons from './ToolbarButtons';
-import { ProcessFileDropEventProps } from '../../types/editor';
 
-const RichTextEditor: FC = () => {
+import { stateToHTML } from 'draft-js-export-html';
+import { getSession } from '@/features/sessions/functions/session';
+import { attachImage, getUploadUrl, uploadFile } from '../functions/insertImage';
+import { ProcessFileDropEventProps, RichTextEditorProps } from '../../types/editor';
+import ToolbarButtons from './ToolbarButtons';
+
+const RichTextEditor = <FormData extends {}> ({ setFormData, formData, uploadUrl, attachUrl }: RichTextEditorProps<FormData>) => {
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
 
-  const { setOutputFormData } = useContext(OutputFormContext);
-
-  const processFileDropEvent = ({ item, editorState, setEditorState }: ProcessFileDropEventProps) => {
-    if (item.kind !== 'file') return;
+  const fileDropEvent = async ({ file, editorState, setEditorState }: ProcessFileDropEventProps) => {
+    try {
+      const sessionData = getSession();
+      if (!sessionData) return;
   
-    const file = item.getAsFile();
-    if (file) insertImageToEditor({ file, editorState, setEditorState });
+      const imageUrl = await getUploadUrl(file.name, file.size, file.type, uploadUrl);
+      await uploadFile(file, imageUrl);
+
+      const imagePath = imageUrl.split('?')[0];
+      await attachImage(sessionData, imagePath, attachUrl);
+
+      insertImageToEditor({
+        imagePath,
+        editorState,
+        setEditorState
+      });
+    } catch (error) {
+      console.error('ファイルのアップロードに失敗しました', error);
+    }
   };
 
-  const handleFileDrop = (e: React.DragEvent<HTMLDivElement>) => {
+  const handleFileDrop = async (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     const dataTransferItems = e.dataTransfer.items;
     if ( !dataTransferItems ) return;
 
     for (let i = 0; i < dataTransferItems.length; i++) {
       const item = dataTransferItems[i];
-      processFileDropEvent({item, editorState, setEditorState})
+      if (item.kind !== 'file') return;
+      
+      const file = item.getAsFile();
+      if (!file) return;
+
+      await fileDropEvent({file, editorState, setEditorState})
     }
   };
 
@@ -66,11 +85,12 @@ const RichTextEditor: FC = () => {
   };
 
   useEffect(() => {
+    if ( !formData ) return;
     const currentContent = editorState.getCurrentContent();
     const htmlContent = stateToHTML(currentContent);
     const newHtmlContent = cleanEditorContent(htmlContent);
 
-    setOutputFormData({ content: newHtmlContent });
+    setFormData({ ...formData, content: newHtmlContent });
   }, [editorState]);
 
   return (

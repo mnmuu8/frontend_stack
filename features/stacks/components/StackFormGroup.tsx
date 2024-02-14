@@ -1,10 +1,13 @@
-import React, { FC, useContext } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import DateInput from './DateInput';
 import TextInput from '@/components/ui-elements/TextInput';
 import SkillInput from '@/features/skills/components/SkillInput';
 import ErrorMessage from '@/components/ui-elements/ErrorMessage';
 import { StackFormContext } from '../contexts/StackFormContext';
 import { ErrorMessagesState } from '@/common/types/validator';
+import FormGroup from '@mui/material/FormGroup';
+import Switch from '@mui/material/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 const StackFormGroup: FC<ErrorMessagesState> = ({ errorMessages, setErrorMessages }) => {
   const { stackFormData, setStackFormData } = useContext(StackFormContext);
@@ -19,8 +22,26 @@ const StackFormGroup: FC<ErrorMessagesState> = ({ errorMessages, setErrorMessage
     });
   };
 
+  const [isChecked, setIsChecked] = useState(stackFormData.completed);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newChecked = e.target.checked;
+
+    setIsChecked(newChecked);
+    setStackFormData(prevFormData => ({
+      ...prevFormData,
+      completed: newChecked,
+    }));
+  };
+
   return (
     <>
+      <FormGroup>
+        <FormControlLabel
+          required
+          control={<Switch name='completed' checked={isChecked} onChange={handleChange} />}
+          label={isChecked ? '完了済み' : '未完了'}
+        />
+      </FormGroup>
       <SkillInput />
       <ErrorMessage errorMessages={errorMessages} errorKey={'skill'} />
       <div className='flex'>

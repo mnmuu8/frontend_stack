@@ -20,11 +20,9 @@ import { handleBeforeInput,
 } from '../functions/editorOptions';
 import ToolbarButtons from './ToolbarButtons';
 import { stateToHTML } from 'draft-js-export-html';
-import { GetUploadUrl } from '@/features/users/types/user';
-import { SessionData } from '@/features/sessions/types/session';
 import { getSession } from '@/features/sessions/functions/session';
 import { ProcessFileDropEventProps, RichTextEditorProps } from '../../types/editor';
-import axios from 'axios';
+import { attachImage, getUploadUrl, uploadFile } from '@/common/functions/insertImage';
 
 const MAX_FILE_SIZE = 10485760;
 const MAX_IMAGES = 4;
@@ -33,68 +31,25 @@ const RichTextEditor = <FormData extends {}> ({ setFormData, formData, uploadUrl
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
   const [uploadedImagesCount, setUploadedImagesCount] = useState<number>(0);
 
-  const uploadFile = async (file: File, uploadUrl: string) => {
-    await axios.put(uploadUrl, file, {
-      headers: {
-        'Content-Type': file.type,
-      },
-    });
-  };
-
-  const attachOutputImage = async (sessionData: SessionData, outputCommentImagePath: string) => {
-    await axios.put(
-      attachUrl,
-      outputCommentImagePath,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${sessionData.token}`,
-        },
-        params: {
-          s3_file_path: outputCommentImagePath,
-        },
-      },
-    );
-  };
-
-  const getUploadUrl = async ({ filename, byteSize, contentType }: GetUploadUrl) => {
-    const sessionData = getSession();
-    if (!sessionData) return;
-
-    const options = {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${sessionData.token}`,
-      },
-      params: {
-        filename: filename,
-        byte_size: byteSize,
-        content_type: contentType,
-      },
-    };
-
-    const response = await axios.get(uploadUrl, options);
-    return response.data.url;
-  };
-
   const fileDropEvent = async ({ file, editorState, setEditorState }: ProcessFileDropEventProps) => {
     try {
       const sessionData = getSession();
       if (!sessionData) return;
   
-      const uploadUrl = await getUploadUrl({
+      const fileUrl = await getUploadUrl({
         filename: file.name,
         byteSize: file.size,
-        contentType: file.type
+        contentType: file.type,
+        uploadUrl: uploadUrl
       });
 
-      await uploadFile(file, uploadUrl);
+      await uploadFile(file, fileUrl);
 
-      const imageUrl = uploadUrl.split('?')[0];
-      await attachOutputImage(sessionData, imageUrl);
+      const imagePath = fileUrl.split('?')[0];
+      await attachImage(sessionData, imagePath, attachUrl);
 
       insertImageToEditor({
-        imageUrl,
+        imagePath,
         editorState,
         setEditorState
       });
@@ -158,7 +113,7 @@ const RichTextEditor = <FormData extends {}> ({ setFormData, formData, uploadUrl
 
   return (
     <div className='mt-4'>
-      <ToolbarButtons editorState={editorState} setEditorState={setEditorState} />
+      <ToolbarButtons editorState={editorState} setEditorState={setEditorState} uploadUrl={uploadUrl} attachUrl={attachUrl} setUploadedImagesCount={setUploadedImagesCount} uploadedImagesCount={uploadedImagesCount} />
       <div
         onDrop={handleFileDrop}
         onDragOver={(e) => e.preventDefault()}

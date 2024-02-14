@@ -24,6 +24,7 @@ export type UserRegisterProps = {
 
 export type GetUploadUrl = {
   userId?: number;
+  uploadUrl?: string
   filename: string;
   byteSize: number;
   contentType: string;

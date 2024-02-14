@@ -29,10 +29,15 @@ export type HandleBeforeInputProps = EditorStateProps &
     chars: string;
   };
 
-export type ToolbarButtonsProps = EditorStateProps & SetEditorStateProps;
+export type ToolbarButtonsProps = EditorStateProps & SetEditorStateProps & {
+  uploadUrl: string;
+  attachUrl: string;
+  uploadedImagesCount: number;
+  setUploadedImagesCount: React.Dispatch<React.SetStateAction<number>>;
+};
 
 export type InsertImageToEditorProps = EditorStateProps & SetEditorStateProps & {
-  imageUrl: File;
+  imagePath: File | string;
 };
 
 export type ProcessFileDropEventProps = EditorStateProps & SetEditorStateProps & {

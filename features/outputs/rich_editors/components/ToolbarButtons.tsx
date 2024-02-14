@@ -14,18 +14,59 @@ import {
 } from '@mui/icons-material/';
 import { ToolbarButtonsProps } from '../../types/editor';
 import { insertImageToEditor } from '../functions/editorOptions';
+import { getSession } from '@/features/sessions/functions/session';
+import { attachImage, getUploadUrl, uploadFile } from '@/common/functions/insertImage';
 
-const ToolbarButtons: FC<ToolbarButtonsProps> = ({ setEditorState, editorState }) => {
+const MAX_FILE_SIZE = 10485760;
+const MAX_IMAGES = 4;
+
+const ToolbarButtons: FC<ToolbarButtonsProps> = ({ setEditorState, editorState, uploadUrl, attachUrl, setUploadedImagesCount, uploadedImagesCount }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const handleFileOpen = () => {
     if (fileInputRef.current) fileInputRef.current.click();
   };
 
-  const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileInput = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if ( e.target.files ) {
       const file = e.target.files[0];
-      insertImageToEditor({file, editorState, setEditorState});
-      e.target.value = '';
+
+      if (!file || file.size >= MAX_FILE_SIZE) {
+        alert('10MB以上の画像は登録できません');
+        return;
+      }
+
+      if (uploadedImagesCount >= MAX_IMAGES) {
+        alert('4枚以上は登録できません')
+        return;
+      }
+
+      try {
+        const sessionData = getSession();
+        if (!sessionData) return;
+        
+        const fileUrl = await getUploadUrl({
+          filename: file.name,
+          byteSize: file.size,
+          contentType: file.type,
+          uploadUrl: uploadUrl
+        });
+
+        await uploadFile(file, fileUrl);
+
+        const imagePath = fileUrl.split('?')[0];
+        await attachImage(sessionData, imagePath, attachUrl);
+  
+        insertImageToEditor({
+          imagePath,
+          editorState,
+          setEditorState
+        });
+
+        e.target.value = '';
+        setUploadedImagesCount((prev) => prev + 1);
+      } catch (error) {
+        console.error('ファイルのアップロードに失敗しました', error);
+      }
     }
   };
 

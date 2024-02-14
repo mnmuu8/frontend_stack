@@ -11,7 +11,9 @@ import createImagePlugin from '@draft-js-plugins/image';
 
 import { blockStyleFn } from '../functions/blockStyleClasses';
 import { styleMap } from '../functions/InlineStyleClasses';
-import { handleBeforeInput,
+import { 
+  countImageBlocks,
+  handleBeforeInput,
   handleKeyCommand,
   handlePastedText,
   handleReturn,
@@ -45,7 +47,6 @@ const RichTextEditor = <FormData extends {}> ({ setFormData, formData, uploadUrl
         imagePath,
         editorState,
         setEditorState,
-        setUploadedImagesCount,
       });
     } catch (error) {
       console.error('ファイルのアップロードに失敗しました', error);
@@ -74,6 +75,17 @@ const RichTextEditor = <FormData extends {}> ({ setFormData, formData, uploadUrl
 
       await fileDropEvent({file, editorState, setEditorState})
     }
+  };
+
+  const onChange = (newEditorState: EditorState) => {
+    const newContent = newEditorState.getCurrentContent();
+    const newImageCount = countImageBlocks(newContent);
+
+    if (newImageCount !== uploadedImagesCount) {
+      setUploadedImagesCount(newImageCount);
+    }
+
+    setEditorState(newEditorState);
   };
 
   const [plugins] = useMemo(() => {
@@ -112,7 +124,6 @@ const RichTextEditor = <FormData extends {}> ({ setFormData, formData, uploadUrl
         uploadUrl={uploadUrl}
         attachUrl={attachUrl}
         uploadedImagesCount={uploadedImagesCount}
-        setUploadedImagesCount={setUploadedImagesCount}
       />
       <div
         onDrop={handleFileDrop}
@@ -121,7 +132,7 @@ const RichTextEditor = <FormData extends {}> ({ setFormData, formData, uploadUrl
       >
         <Editor
           editorState={editorState}
-          onChange={setEditorState}
+          onChange={onChange}
           handleReturn={() => handleReturn({ editorState, setEditorState })}
           keyBindingFn={(e) => keyBindingFn({ e, editorState })}
           handleKeyCommand={(command) => handleKeyCommand({ command, editorState, setEditorState })}

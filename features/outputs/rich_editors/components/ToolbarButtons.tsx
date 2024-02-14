@@ -18,7 +18,7 @@ import { getSession } from '@/features/sessions/functions/session';
 import { attachImage, getUploadUrl, uploadFile } from '../functions/insertImage';
 import { MAX_FILE_SIZE, MAX_IMAGES } from '@/common/constans/insertImage';
 
-const ToolbarButtons: FC<ToolbarButtonsProps> = ({ setEditorState, editorState, uploadUrl, attachUrl, setUploadedImagesCount, uploadedImagesCount })  => {
+const ToolbarButtons: FC<ToolbarButtonsProps> = ({ setEditorState, editorState, uploadUrl, attachUrl, uploadedImagesCount })  => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const handleFileOpen = () => {
     if (fileInputRef.current) fileInputRef.current.click();
@@ -51,7 +51,6 @@ const ToolbarButtons: FC<ToolbarButtonsProps> = ({ setEditorState, editorState, 
           imagePath,
           editorState,
           setEditorState,
-          setUploadedImagesCount,
         });
         e.target.value = '';
       } catch (error) {

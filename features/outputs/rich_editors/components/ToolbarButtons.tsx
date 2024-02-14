@@ -16,16 +16,21 @@ import { ToolbarButtonsProps } from '../../types/editor';
 import { insertImageToEditor } from '../functions/editorOptions';
 import { getSession } from '@/features/sessions/functions/session';
 import { attachImage, getUploadUrl, uploadFile } from '../functions/insertImage';
+import { MAX_IMAGES } from '@/common/constans/insertImage';
 
-const ToolbarButtons: FC<ToolbarButtonsProps> = ({ setEditorState, editorState, uploadUrl, attachUrl })  => {
+const ToolbarButtons: FC<ToolbarButtonsProps> = ({ setEditorState, editorState, uploadUrl, attachUrl, setUploadedImagesCount, uploadedImagesCount })  => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const handleFileOpen = () => {
     if (fileInputRef.current) fileInputRef.current.click();
   };
 
   const handleFileInput = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if ( e.target.files ) {
+    if (uploadedImagesCount >= MAX_IMAGES) {
+      alert('4枚以上は挿入できません')
+      return;
+    }
 
+    if ( e.target.files ) {
       const file = e.target.files[0];
       if (!file) return;
 
@@ -42,7 +47,8 @@ const ToolbarButtons: FC<ToolbarButtonsProps> = ({ setEditorState, editorState, 
         insertImageToEditor({
           imagePath,
           editorState,
-          setEditorState
+          setEditorState,
+          setUploadedImagesCount,
         });
         e.target.value = '';
       } catch (error) {

@@ -24,9 +24,11 @@ import { getSession } from '@/features/sessions/functions/session';
 import { attachImage, getUploadUrl, uploadFile } from '../functions/insertImage';
 import { ProcessFileDropEventProps, RichTextEditorProps } from '../../types/editor';
 import ToolbarButtons from './ToolbarButtons';
+import { MAX_IMAGES } from '@/common/constans/insertImage';
 
 const RichTextEditor = <FormData extends {}> ({ setFormData, formData, uploadUrl, attachUrl }: RichTextEditorProps<FormData>) => {
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
+  const [uploadedImagesCount, setUploadedImagesCount] = useState<number>(0);
 
   const fileDropEvent = async ({ file, editorState, setEditorState }: ProcessFileDropEventProps) => {
     try {
@@ -42,7 +44,8 @@ const RichTextEditor = <FormData extends {}> ({ setFormData, formData, uploadUrl
       insertImageToEditor({
         imagePath,
         editorState,
-        setEditorState
+        setEditorState,
+        setUploadedImagesCount,
       });
     } catch (error) {
       console.error('ファイルのアップロードに失敗しました', error);
@@ -55,6 +58,11 @@ const RichTextEditor = <FormData extends {}> ({ setFormData, formData, uploadUrl
     if ( !dataTransferItems ) return;
 
     for (let i = 0; i < dataTransferItems.length; i++) {
+      if (uploadedImagesCount >= MAX_IMAGES) {
+        alert('4枚以上は挿入できません')
+        break;
+      }
+
       const item = dataTransferItems[i];
       if (item.kind !== 'file') return;
       
@@ -95,7 +103,14 @@ const RichTextEditor = <FormData extends {}> ({ setFormData, formData, uploadUrl
 
   return (
     <div className='mt-4'>
-      <ToolbarButtons editorState={editorState} setEditorState={setEditorState} uploadUrl={uploadUrl} attachUrl={attachUrl} />
+      <ToolbarButtons
+        editorState={editorState}
+        setEditorState={setEditorState}
+        uploadUrl={uploadUrl}
+        attachUrl={attachUrl}
+        uploadedImagesCount={uploadedImagesCount}
+        setUploadedImagesCount={setUploadedImagesCount}
+      />
       <div
         onDrop={handleFileDrop}
         onDragOver={(e) => e.preventDefault()}

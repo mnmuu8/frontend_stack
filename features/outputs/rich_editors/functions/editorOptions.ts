@@ -120,11 +120,12 @@ export const handleBeforeInput = ({ chars, editorState, setEditorState}: HandleB
   return 'not-handled';
 };
 
-export const insertImageToEditor = ({ imagePath, editorState, setEditorState} :InsertImageToEditorProps) => {
+export const insertImageToEditor = ({ imagePath, editorState, setEditorState, setUploadedImagesCount} :InsertImageToEditorProps) => {
   const contentState = editorState.getCurrentContent();
   const contentStateWithEntity = contentState.createEntity('IMAGE', 'IMMUTABLE', { src: imagePath });
   const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
   const newEditorState = EditorState.set(editorState, { currentContent: contentStateWithEntity });
   const newState = AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, ' ');
   setEditorState(newState);
+  setUploadedImagesCount(prev => prev + 1)
 };

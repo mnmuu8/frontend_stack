@@ -16,7 +16,7 @@ import { ToolbarButtonsProps } from '../../types/editor';
 import { insertImageToEditor } from '../functions/editorOptions';
 import { getSession } from '@/features/sessions/functions/session';
 import { attachImage, getUploadUrl, uploadFile } from '../functions/insertImage';
-import { MAX_IMAGES } from '@/common/constans/insertImage';
+import { MAX_FILE_SIZE, MAX_IMAGES } from '@/common/constans/insertImage';
 
 const ToolbarButtons: FC<ToolbarButtonsProps> = ({ setEditorState, editorState, uploadUrl, attachUrl, setUploadedImagesCount, uploadedImagesCount })  => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -32,7 +32,10 @@ const ToolbarButtons: FC<ToolbarButtonsProps> = ({ setEditorState, editorState, 
 
     if ( e.target.files ) {
       const file = e.target.files[0];
-      if (!file) return;
+      if (!file || file.size >= MAX_FILE_SIZE) {
+        alert('10MB以上の画像は挿入できません')
+        return;
+      }
 
       try {
         const sessionData = getSession();

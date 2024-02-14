@@ -23,8 +23,8 @@ import { stateToHTML } from 'draft-js-export-html';
 import { getSession } from '@/features/sessions/functions/session';
 import { attachImage, getUploadUrl, uploadFile } from '../functions/insertImage';
 import { ProcessFileDropEventProps, RichTextEditorProps } from '../../types/editor';
+import { MAX_FILE_SIZE, MAX_IMAGES } from '@/common/constans/insertImage';
 import ToolbarButtons from './ToolbarButtons';
-import { MAX_IMAGES } from '@/common/constans/insertImage';
 
 const RichTextEditor = <FormData extends {}> ({ setFormData, formData, uploadUrl, attachUrl }: RichTextEditorProps<FormData>) => {
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
@@ -67,7 +67,10 @@ const RichTextEditor = <FormData extends {}> ({ setFormData, formData, uploadUrl
       if (item.kind !== 'file') return;
       
       const file = item.getAsFile();
-      if (!file) return;
+      if (!file || file.size >= MAX_FILE_SIZE) {
+        alert('10MB以上の画像は挿入できません')
+        break;
+      }
 
       await fileDropEvent({file, editorState, setEditorState})
     }

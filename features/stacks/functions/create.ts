@@ -9,6 +9,7 @@ export const callCreateStack = async ({options, sessionData, stackFormData, setE
     stackSchema.parse(stackFormData);
 
     const params = {
+      completed: stackFormData.completed,
       title: stackFormData.title,
       description: stackFormData.description,
       minutes: stackFormData.minutes,

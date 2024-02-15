@@ -12,11 +12,11 @@ import createImagePlugin from '@draft-js-plugins/image';
 import { blockStyleFn } from '../functions/blockStyleClasses';
 import { styleMap } from '../functions/InlineStyleClasses';
 import { 
-  countImageBlocks,
   handleBeforeInput,
   handleKeyCommand,
   handlePastedText,
   handleReturn,
+  imageBlockLength,
   insertImageToEditor,
   keyBindingFn,
 } from '../functions/editorOptions';
@@ -80,7 +80,7 @@ const RichTextEditor = <FormData extends {}> ({ setFormData, formData, uploadUrl
 
   const onChange = (newEditorState: EditorState) => {
     const newContent = newEditorState.getCurrentContent();
-    const newImageCount = countImageBlocks(newContent);
+    const newImageCount = imageBlockLength(newContent);
 
     if (newImageCount !== uploadedImagesCount) {
       setUploadedImagesCount(newImageCount);

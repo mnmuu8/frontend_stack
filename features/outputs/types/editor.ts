@@ -49,3 +49,10 @@ export type RichTextEditorProps<FormData> = {
   uploadUrl: string;
   attachUrl: string;
 };
+
+export type PostImageModalProps = {
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>
+  setIsZoomed: React.Dispatch<React.SetStateAction<boolean>>
+  isZoomed: boolean
+  selectedImageUrl: string
+};

@@ -18,6 +18,7 @@ import { USER_PROFILE_HEIGHT_SM, USER_PROFILE_WIDTH_SM } from '@/common/constans
 import { dataConfirmAlert } from '@/common/functions/form';
 import { callDeleteOutput } from '@/features/outputs/functions/delete';
 import DeleteIcon from '@mui/icons-material/DeleteForeverOutlined';
+import PostImageModal from '@/features/outputs/rich_editors/components/PostImageModal';
 
 const Output: NextPage<OutputCardProps> = ({ output, initialComments }) => {
   const router = useRouter();
@@ -35,6 +36,19 @@ const Output: NextPage<OutputCardProps> = ({ output, initialComments }) => {
   const [comments, setComments] = useState<CommentProps[]|undefined>(initialComments);
   const { setFormOpen, setFormType, setIsRegisterEvent } = useContext(FormContext);
   const { setOutputCommentFormData } = useContext(OutputCommentFormContext);
+
+  const [isZoomed, setIsZoomed] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [selectedImageUrl, setSelectedImageUrl] = useState<string>('');
+
+  const handleImageClick = (e: MouseEvent) => {
+    const target = e.target as HTMLElement;
+    if (target.tagName === 'IMG' && target.classList.contains('post-img')) {
+      const imgElement = target as HTMLImageElement;
+      setSelectedImageUrl(imgElement.src);
+      setIsModalOpen(true);
+    }
+  };
 
   const handleFormOpen = useCallback(() => {
     const outputId = output.id
@@ -55,6 +69,13 @@ const Output: NextPage<OutputCardProps> = ({ output, initialComments }) => {
   useEffect(() => {
     setComments(initialComments);
   }, [initialComments]);
+
+  useEffect(() => {
+    document.addEventListener('click', handleImageClick);
+    return () => {
+      document.removeEventListener('click', handleImageClick);
+    };
+  }, []);
 
   return (
     <Layout>
@@ -117,6 +138,10 @@ const Output: NextPage<OutputCardProps> = ({ output, initialComments }) => {
           </div>
         </div>
       </div>
+
+      {isModalOpen && (
+        <PostImageModal setIsModalOpen={setIsModalOpen} selectedImageUrl={selectedImageUrl} setIsZoomed={setIsZoomed} isZoomed={isZoomed} />
+      )}
     </Layout>
   );
 };

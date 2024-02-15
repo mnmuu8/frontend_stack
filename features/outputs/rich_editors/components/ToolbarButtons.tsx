@@ -15,8 +15,9 @@ import {
 import { ToolbarButtonsProps } from '../../types/editor';
 import { insertImageToEditor } from '../functions/editorOptions';
 import { getSession } from '@/features/sessions/functions/session';
-import { attachImage, getUploadUrl, uploadFile } from '../functions/insertImage';
 import { MAX_FILE_SIZE, MAX_IMAGES } from '@/common/constans/insertImage';
+import { getUploadUrl } from '../functions/read';
+import { attachImage, setImageUrl } from '../functions/update';
 
 const ToolbarButtons: FC<ToolbarButtonsProps> = ({ setEditorState, editorState, uploadUrl, attachUrl, uploadedImagesCount })  => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -42,8 +43,8 @@ const ToolbarButtons: FC<ToolbarButtonsProps> = ({ setEditorState, editorState, 
         if (!sessionData) return;
 
         const imageUrl = await getUploadUrl(file.name, file.size, file.type, uploadUrl);
-        await uploadFile(file, imageUrl);
-
+        await setImageUrl(file, imageUrl);
+  
         const imagePath = imageUrl.split('?')[0];
         await attachImage(sessionData, imagePath, attachUrl);
 

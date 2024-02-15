@@ -23,10 +23,11 @@ import {
 
 import { stateToHTML } from 'draft-js-export-html';
 import { getSession } from '@/features/sessions/functions/session';
-import { attachImage, getUploadUrl, uploadFile } from '../functions/insertImage';
 import { ProcessFileDropEventProps, RichTextEditorProps } from '../../types/editor';
 import { MAX_FILE_SIZE, MAX_IMAGES } from '@/common/constans/insertImage';
 import ToolbarButtons from './ToolbarButtons';
+import { getUploadUrl } from '../functions/read';
+import { attachImage, setImageUrl } from '../functions/update';
 
 const RichTextEditor = <FormData extends {}> ({ setFormData, formData, uploadUrl, attachUrl }: RichTextEditorProps<FormData>) => {
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
@@ -38,7 +39,7 @@ const RichTextEditor = <FormData extends {}> ({ setFormData, formData, uploadUrl
       if (!sessionData) return;
   
       const imageUrl = await getUploadUrl(file.name, file.size, file.type, uploadUrl);
-      await uploadFile(file, imageUrl);
+      await setImageUrl(file, imageUrl);
 
       const imagePath = imageUrl.split('?')[0];
       await attachImage(sessionData, imagePath, attachUrl);

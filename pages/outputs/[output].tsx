@@ -37,8 +37,8 @@ const Output: NextPage<OutputCardProps> = ({ output, initialComments }) => {
   const { setFormOpen, setFormType, setIsRegisterEvent } = useContext(FormContext);
   const { setOutputCommentFormData } = useContext(OutputCommentFormContext);
 
-  const [isZoomed, setIsZoomed] = useState<boolean>(false);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [zoomed, setZoomed] = useState<boolean>(false);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [selectedImageUrl, setSelectedImageUrl] = useState<string>('');
 
   const handleImageClick = (e: MouseEvent) => {
@@ -46,7 +46,7 @@ const Output: NextPage<OutputCardProps> = ({ output, initialComments }) => {
     if (target.tagName === 'IMG' && target.classList.contains('post-img')) {
       const imgElement = target as HTMLImageElement;
       setSelectedImageUrl(imgElement.src);
-      setIsModalOpen(true);
+      setModalOpen(true);
     }
   };
 
@@ -139,8 +139,8 @@ const Output: NextPage<OutputCardProps> = ({ output, initialComments }) => {
         </div>
       </div>
 
-      {isModalOpen && (
-        <PostImageModal setIsModalOpen={setIsModalOpen} selectedImageUrl={selectedImageUrl} setIsZoomed={setIsZoomed} isZoomed={isZoomed} />
+      {modalOpen && (
+        <PostImageModal setModalOpen={setModalOpen} selectedImageUrl={selectedImageUrl} setZoomed={setZoomed} zoomed={zoomed} />
       )}
     </Layout>
   );

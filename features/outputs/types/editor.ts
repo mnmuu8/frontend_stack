@@ -51,8 +51,8 @@ export type RichTextEditorProps<FormData> = {
 };
 
 export type PostImageModalProps = {
-  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>
-  setIsZoomed: React.Dispatch<React.SetStateAction<boolean>>
-  isZoomed: boolean
+  setModalOpen: React.Dispatch<React.SetStateAction<boolean>>
+  setZoomed: React.Dispatch<React.SetStateAction<boolean>>
+  zoomed: boolean
   selectedImageUrl: string
 };

@@ -5,10 +5,10 @@ import { OutputCommentFormDataParams } from '../types/context';
 
 const OutputCommentEditor: FC = () => {
   const { outputCommentFormData, setOutputCommentFormData } = useContext(OutputCommentFormContext);
-  const output_id = outputCommentFormData.outputId
+  const outputId = outputCommentFormData.outputId
 
-  const uploadUrl = `${process.env.API_ROOT_URL}/api/v1/outputs/${output_id}/comments/images/upload_url`;
-  const attachUrl = `${process.env.API_ROOT_URL}/api/v1/outputs/${output_id}/comments/images/attach`;
+  const uploadUrl = `${process.env.API_ROOT_URL}/api/v1/outputs/${outputId}/comments/images/upload_url`;
+  const attachUrl = `${process.env.API_ROOT_URL}/api/v1/outputs/${outputId}/comments/images/attach`;
 
   return (
     <RichTextEditor<OutputCommentFormDataParams> 

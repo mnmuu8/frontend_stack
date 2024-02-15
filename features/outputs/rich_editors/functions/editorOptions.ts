@@ -129,15 +129,18 @@ export const insertImageToEditor = ({ imagePath, editorState, setEditorState} :I
   setEditorState(newState);
 };
 
-export const countImageBlocks = (contentState: ContentState) => {
+export const imageBlockLength = (contentState: ContentState) => {
   const blockMap = contentState.getBlockMap();
+
   return blockMap.filter((block) => {
     if (!block) return false;
+
     const entityKey = block.getEntityAt(0);
     if (entityKey) {
       const entity = contentState.getEntity(entityKey);
       return entity.getType() === 'IMAGE';
     }
+
     return false;
   }).size;
 };

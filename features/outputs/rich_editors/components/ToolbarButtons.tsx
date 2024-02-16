@@ -1,4 +1,4 @@
-import React, { FC, useRef } from 'react'
+import React, { FC, useContext, useRef } from 'react'
 import { RichUtils } from 'draft-js';
 
 import {
@@ -14,18 +14,48 @@ import {
 } from '@mui/icons-material/';
 import { ToolbarButtonsProps } from '../../types/editor';
 import { insertImageToEditor } from '../functions/editorOptions';
+import { getSession } from '@/features/sessions/functions/session';
+import { MAX_FILE_SIZE, MAX_IMAGES } from '@/common/constans/insertImage';
+import { getUploadUrl } from '../functions/uploadUrl';
+import { attachImage } from '../functions/attach';
+import { uploadS3 } from '../functions/uploadS3';
+import { FormContext } from '@/context/FormContext';
+import { validateFileSize, validateImageCount } from '../functions/vaildator';
 
-const ToolbarButtons: FC<ToolbarButtonsProps> = ({ setEditorState, editorState }) => {
+const ToolbarButtons: FC<ToolbarButtonsProps> = ({ setEditorState, editorState, uploadUrl, attachUrl, uploadedImagesCount })  => {
+  const { formType } = useContext(FormContext);
+
   const fileInputRef = useRef<HTMLInputElement>(null);
   const handleFileOpen = () => {
     if (fileInputRef.current) fileInputRef.current.click();
   };
 
-  const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileInput = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (formType == 'createOutputComment' && !validateImageCount(uploadedImagesCount, MAX_IMAGES)) return;
+
     if ( e.target.files ) {
       const file = e.target.files[0];
-      insertImageToEditor({file, editorState, setEditorState});
-      e.target.value = '';
+      if (!validateFileSize(file, MAX_FILE_SIZE)) return;
+
+      try {
+        const sessionData = getSession();
+        if (!sessionData) return;
+
+        const imageUrl = await getUploadUrl(file.name, file.size, file.type, uploadUrl);
+        await uploadS3(file, imageUrl);
+  
+        const imagePath = imageUrl.split('?')[0];
+        await attachImage(sessionData, imagePath, attachUrl);
+
+        insertImageToEditor({
+          imagePath,
+          editorState,
+          setEditorState,
+        });
+        e.target.value = '';
+      } catch (error) {
+        console.error('ファイルのアップロードに失敗しました', error);
+      }
     }
   };
 

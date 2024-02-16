@@ -1,4 +1,4 @@
-import { AtomicBlockUtils, EditorState, Modifier, SelectionState, getDefaultKeyBinding } from "draft-js";
+import { AtomicBlockUtils, ContentState, EditorState, Modifier, SelectionState, getDefaultKeyBinding } from "draft-js";
 import { HandleBeforeInputProps, InsertImageToEditorProps, handleKeyCommandProps, handlePastedTextProps, handleReturnProps, keyBindingFnProps } from "../../types/editor";
 
 export const handleReturn = ({ editorState, setEditorState }: handleReturnProps) => {
@@ -120,12 +120,27 @@ export const handleBeforeInput = ({ chars, editorState, setEditorState}: HandleB
   return 'not-handled';
 };
 
-export const insertImageToEditor = ({ file, editorState, setEditorState} :InsertImageToEditorProps) => {
-  const imageUrl = URL.createObjectURL(file);
+export const insertImageToEditor = ({ imagePath, editorState, setEditorState} :InsertImageToEditorProps) => {
   const contentState = editorState.getCurrentContent();
-  const contentStateWithEntity = contentState.createEntity('IMAGE', 'IMMUTABLE', { src: imageUrl });
+  const contentStateWithEntity = contentState.createEntity('IMAGE', 'IMMUTABLE', { src: imagePath, className: 'post-img' });
   const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
   const newEditorState = EditorState.set(editorState, { currentContent: contentStateWithEntity });
   const newState = AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, ' ');
   setEditorState(newState);
+};
+
+export const imageBlockLength = (contentState: ContentState) => {
+  const blockMap = contentState.getBlockMap();
+
+  return blockMap.filter((block) => {
+    if (!block) return false;
+
+    const entityKey = block.getEntityAt(0);
+    if (entityKey) {
+      const entity = contentState.getEntity(entityKey);
+      return entity.getType() === 'IMAGE';
+    }
+
+    return false;
+  }).size;
 };

@@ -29,12 +29,30 @@ export type HandleBeforeInputProps = EditorStateProps &
     chars: string;
   };
 
-export type ToolbarButtonsProps = EditorStateProps & SetEditorStateProps;
+export type ToolbarButtonsProps = EditorStateProps & SetEditorStateProps & {
+  uploadUrl: string;
+  attachUrl: string;
+  uploadedImagesCount: number;
+};
 
 export type InsertImageToEditorProps = EditorStateProps & SetEditorStateProps & {
-  file: File;
+  imagePath: File;
 };
 
 export type ProcessFileDropEventProps = EditorStateProps & SetEditorStateProps & {
-  item: DataTransferItem;
+  file: File;
+};
+
+export type RichTextEditorProps<FormData> = {
+  setFormData: (data: FormData) => void;
+  formData: FormData;
+  uploadUrl: string;
+  attachUrl: string;
+};
+
+export type PostImageModalProps = {
+  setModalOpen: React.Dispatch<React.SetStateAction<boolean>>
+  setZoomed: React.Dispatch<React.SetStateAction<boolean>>
+  zoomed: boolean
+  selectedImageUrl: string
 };

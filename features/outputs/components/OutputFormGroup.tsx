@@ -2,9 +2,9 @@ import React, { FC, useContext } from 'react';
 import TextInput from '@/components/ui-elements/TextInput';
 
 import ErrorMessage from '@/components/ui-elements/ErrorMessage';
-import RichTextEditor from '../rich_editors/components/RichTextEditor';
 import { OutputFormContext } from '../contexts/OutputFormContext';
 import { ErrorMessagesState } from '@/common/types/validator';
+import OutputEditor from './OutputEditor';
 
 const OutputFormGroup: FC<ErrorMessagesState> = ({ errorMessages }) => {
   const { outputFormData, setOutputFormData } = useContext(OutputFormContext);
@@ -35,7 +35,7 @@ const OutputFormGroup: FC<ErrorMessagesState> = ({ errorMessages }) => {
           value={outputFormData.content}
         />
       </div>
-      <RichTextEditor />
+      <OutputEditor />
       <ErrorMessage errorMessages={errorMessages} errorKey={'content'} />
     </>
   );

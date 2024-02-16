@@ -1,4 +1,4 @@
-import React, { FC, useRef } from 'react'
+import React, { FC, useContext, useRef } from 'react'
 import { RichUtils } from 'draft-js';
 
 import {
@@ -18,25 +18,23 @@ import { getSession } from '@/features/sessions/functions/session';
 import { MAX_FILE_SIZE, MAX_IMAGES } from '@/common/constans/insertImage';
 import { getUploadUrl } from '../functions/read';
 import { attachImage, setImageUrl } from '../functions/update';
+import { FormContext } from '@/context/FormContext';
+import { validateFileSize, validateImageCount } from '../functions/vaildator';
 
 const ToolbarButtons: FC<ToolbarButtonsProps> = ({ setEditorState, editorState, uploadUrl, attachUrl, uploadedImagesCount })  => {
+  const { formType } = useContext(FormContext);
+
   const fileInputRef = useRef<HTMLInputElement>(null);
   const handleFileOpen = () => {
     if (fileInputRef.current) fileInputRef.current.click();
   };
 
   const handleFileInput = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (uploadedImagesCount >= MAX_IMAGES) {
-      alert('4枚以上は挿入できません')
-      return;
-    }
+    if (formType == 'createOutputComment' && !validateImageCount(uploadedImagesCount, MAX_IMAGES)) return;
 
     if ( e.target.files ) {
       const file = e.target.files[0];
-      if (!file || file.size >= MAX_FILE_SIZE) {
-        alert('10MB以上の画像は挿入できません')
-        return;
-      }
+      if (!validateFileSize(file, MAX_FILE_SIZE)) return;
 
       try {
         const sessionData = getSession();

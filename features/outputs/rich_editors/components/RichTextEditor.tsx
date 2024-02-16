@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useContext } from 'react';
 
 import Editor from '@draft-js-plugins/editor';
 import { EditorState } from 'draft-js';
@@ -28,10 +28,13 @@ import { MAX_FILE_SIZE, MAX_IMAGES } from '@/common/constans/insertImage';
 import ToolbarButtons from './ToolbarButtons';
 import { getUploadUrl } from '../functions/read';
 import { attachImage, setImageUrl } from '../functions/update';
+import { validateFileSize, validateImageCount } from '../functions/vaildator';
+import { FormContext } from '@/context/FormContext';
 
 const RichTextEditor = <FormData extends {}> ({ setFormData, formData, uploadUrl, attachUrl }: RichTextEditorProps<FormData>) => {
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
   const [uploadedImagesCount, setUploadedImagesCount] = useState<number>(0);
+  const { formType } = useContext(FormContext);
 
   const fileDropEvent = async ({ file, editorState, setEditorState }: ProcessFileDropEventProps) => {
     try {
@@ -60,19 +63,13 @@ const RichTextEditor = <FormData extends {}> ({ setFormData, formData, uploadUrl
     if ( !dataTransferItems ) return;
 
     for (let i = 0; i < dataTransferItems.length; i++) {
-      if (uploadedImagesCount >= MAX_IMAGES) {
-        alert('4枚以上は挿入できません')
-        break;
-      }
+      if (formType == 'createOutputComment' && !validateImageCount(uploadedImagesCount, MAX_IMAGES)) return;
 
       const item = dataTransferItems[i];
       if (item.kind !== 'file') return;
       
       const file = item.getAsFile();
-      if (!file || file.size >= MAX_FILE_SIZE) {
-        alert('10MB以上の画像は挿入できません')
-        break;
-      }
+      if (!file || !validateFileSize(file, MAX_FILE_SIZE)) return;
 
       await fileDropEvent({file, editorState, setEditorState})
     }

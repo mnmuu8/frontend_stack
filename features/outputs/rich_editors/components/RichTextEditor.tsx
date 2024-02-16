@@ -26,8 +26,9 @@ import { getSession } from '@/features/sessions/functions/session';
 import { ProcessFileDropEventProps, RichTextEditorProps } from '../../types/editor';
 import { MAX_FILE_SIZE, MAX_IMAGES } from '@/common/constans/insertImage';
 import ToolbarButtons from './ToolbarButtons';
-import { getUploadUrl } from '../functions/read';
-import { attachImage, setImageUrl } from '../functions/update';
+import { getUploadUrl } from '../functions/uploadUrl';
+import { attachImage } from '../functions/attach';
+import { uploadS3 } from '../functions/uploadS3';
 import { validateFileSize, validateImageCount } from '../functions/vaildator';
 import { FormContext } from '@/context/FormContext';
 
@@ -42,7 +43,7 @@ const RichTextEditor = <FormData extends {}> ({ setFormData, formData, uploadUrl
       if (!sessionData) return;
   
       const imageUrl = await getUploadUrl(file.name, file.size, file.type, uploadUrl);
-      await setImageUrl(file, imageUrl);
+      await uploadS3(file, imageUrl);
 
       const imagePath = imageUrl.split('?')[0];
       await attachImage(sessionData, imagePath, attachUrl);

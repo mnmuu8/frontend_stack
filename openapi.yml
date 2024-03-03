@@ -418,6 +418,50 @@ paths:
         '422':
           description: バリデーションエラー
 
+  /api/v1/users/{user_id}/plans:
+    get:
+      summary: 計画一覧
+      operationId: api.v1.users.plans.index
+      tags:
+        - UserPlan
+      security: []
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Users_User_Id'
+        - name: date_from
+          in: query
+          required: false
+          description: "2024-03-01"
+          schema:
+            $ref: '#/components/schemas/DateTime'
+        - name: date_to
+          in: query
+          required: false
+          description: "2024-03-02"
+          schema:
+            $ref: '#/components/schemas/DateTime'
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                description: "Keyは日付の文字列（例：'2024-03-01': []）"
+                additionalProperties:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Users_PlanList'
+        '401':
+          description: 認証エラー
+        '404':
+          description: ユーザーが存在しない
+        '422':
+          description: バリデーションエラー
+
   /api/v1/teams:
     get:
       summary: チーム一覧
@@ -549,6 +593,7 @@ paths:
           description: 管理者ではない
         '422':
           description: バリデーションエラー
+
   /api/v1/teams/{team_id}/stack_ranking:
     get:
       summary: チーム内積み上げ時間ランキング
@@ -1363,6 +1408,12 @@ components:
             - $ref: '#/components/schemas/Users_ProfileImages_Url'
           nullable: false
 
+    Users_PlanList:
+      type: array
+      items:
+        allOf:
+          - $ref: '#/components/schemas/Users_Plans_Plan'
+
     Users_User_Id:
       type: integer
       description: ユーザーID
@@ -1420,6 +1471,79 @@ components:
       type: string
       description: 署名付きURL
       example: https://s3.ap-northeast-1.amazonaws.com/
+
+    Users_Plans_Plan:
+      type: object
+      required:
+        - id
+        - title
+        - description
+        - start_time
+        - end_time
+        - user
+        - created_at
+        - updated_at
+      properties:
+        id:
+          allOf:
+            - $ref: '#/components/schemas/Users_Plans_Plan_Id'
+          nullable: false
+        title:
+          allOf:
+            - $ref: '#/components/schemas/Users_Plans_Plan_Title'
+          nullable: false
+        description:
+          allOf:
+            - $ref: '#/components/schemas/Users_Plans_Plan_Description'
+        start_time:
+          allOf:
+            - $ref: '#/components/schemas/Users_Plans_Plan_StartTime'
+          nullable: false
+        end_time:
+          allOf:
+            - $ref: '#/components/schemas/Users_Plans_Plan_EndTime'
+          nullable: false
+        skill:
+          allOf:
+            - $ref: '#/components/schemas/Skills_Skill'
+          nullable: false
+        user:
+          allOf:
+            - $ref: '#/components/schemas/Users_MinimumUser'
+          nullable: false
+        created_at:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+          nullable: false
+        updated_at:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+          nullable: false
+
+    Users_Plans_Plan_Id:
+      type: integer
+      description: ユーザーの計画ID
+      example: 1
+
+    Users_Plans_Plan_Title:
+      type: string
+      description: ユーザーの計画タイトル
+      example: 学習
+
+    Users_Plans_Plan_Description:
+      type: string
+      description: ユーザーの計画詳細
+      example: プログラミング学習
+
+    Users_Plans_Plan_StartTime:
+      description: 計画開始時間
+      allOf:
+        - $ref: '#/components/schemas/DateTime'
+
+    Users_Plans_Plan_EndTime:
+      description: 計画終了時間
+      allOf:
+        - $ref: '#/components/schemas/DateTime'
 
     SkillRanks_SkillRank:
       type: object

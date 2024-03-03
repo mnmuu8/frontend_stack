@@ -36,6 +36,11 @@ export interface ApiV1UsersPlansCreateRequest {
     userPlanCreateRequestBody: UserPlanCreateRequestBody;
 }
 
+export interface ApiV1UsersPlansDestroyRequest {
+    userId: number;
+    planId: number;
+}
+
 export interface ApiV1UsersPlansIndexRequest {
     userId: number;
     dateFrom?: Date;
@@ -88,6 +93,39 @@ export class UserPlanApi extends runtime.BaseAPI {
     async apiV1UsersPlansCreate(requestParameters: ApiV1UsersPlansCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UsersPlansPlan> {
         const response = await this.apiV1UsersPlansCreateRaw(requestParameters, initOverrides);
         return await response.value();
+    }
+
+    /**
+     * 計画削除
+     */
+    async apiV1UsersPlansDestroyRaw(requestParameters: ApiV1UsersPlansDestroyRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.userId === null || requestParameters.userId === undefined) {
+            throw new runtime.RequiredError('userId','Required parameter requestParameters.userId was null or undefined when calling apiV1UsersPlansDestroy.');
+        }
+
+        if (requestParameters.planId === null || requestParameters.planId === undefined) {
+            throw new runtime.RequiredError('planId','Required parameter requestParameters.planId was null or undefined when calling apiV1UsersPlansDestroy.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/api/v1/users/{user_id}/plans/{plan_id}`.replace(`{${"user_id"}}`, encodeURIComponent(String(requestParameters.userId))).replace(`{${"plan_id"}}`, encodeURIComponent(String(requestParameters.planId))),
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * 計画削除
+     */
+    async apiV1UsersPlansDestroy(requestParameters: ApiV1UsersPlansDestroyRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.apiV1UsersPlansDestroyRaw(requestParameters, initOverrides);
     }
 
     /**

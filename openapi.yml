@@ -454,7 +454,38 @@ paths:
                 additionalProperties:
                   type: array
                   items:
-                    $ref: '#/components/schemas/Users_PlanList'
+                    $ref: '#/components/schemas/Users_Plans_PlanList'
+        '401':
+          description: 認証エラー
+        '404':
+          description: ユーザーが存在しない
+        '422':
+          description: バリデーションエラー
+    post:
+      summary: 計画作成
+      operationId: api.v1.users.plans.create
+      tags:
+        - UserPlan
+      security: []
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Users_User_Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserPlanCreateRequestBody'
+      responses:
+        '201':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users_Plans_Plan'
         '401':
           description: 認証エラー
         '404':
@@ -1408,7 +1439,7 @@ components:
             - $ref: '#/components/schemas/Users_ProfileImages_Url'
           nullable: false
 
-    Users_PlanList:
+    Users_Plans_PlanList:
       type: array
       items:
         allOf:
@@ -1480,6 +1511,7 @@ components:
         - description
         - start_time
         - end_time
+        - skill
         - user
         - created_at
         - updated_at
@@ -2107,6 +2139,36 @@ components:
         s3_file_path:
           allOf:
             - $ref: '#/components/schemas/Users_User_ProfileImagePath'
+          nullable: false
+
+    UserPlanCreateRequestBody:
+      type: object
+      required:
+        - title
+        - description
+        - start_time
+        - end_time
+        - skill_id
+      properties:
+        title:
+          allOf:
+            - $ref: '#/components/schemas/Users_Plans_Plan_Title'
+          nullable: false
+        description:
+          allOf:
+            - $ref: '#/components/schemas/Users_Plans_Plan_Description'
+          nullable: true
+        start_time:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+          nullable: false
+        end_time:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+          nullable: false
+        skill_id:
+          allOf:
+            - $ref: '#/components/schemas/Skills_Skill_Id'
           nullable: false
 
     TeamCreateRequestBody:

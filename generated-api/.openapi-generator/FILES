@@ -54,12 +54,13 @@ models/TeamsStackRankingListStackRankingsInner.ts
 models/TeamsTeam.ts
 models/TeamsTeamListInner.ts
 models/UserCreateRequestBody.ts
+models/UserPlanCreateRequestBody.ts
 models/UserProfileImagesAttachRequestBody.ts
 models/UserUpdateRequestBody.ts
 models/UsersMinimumUser.ts
-models/UsersPlanListInner.ts
 models/UsersPlansPlan.ts
 models/UsersPlansPlanEndTime.ts
+models/UsersPlansPlanListInner.ts
 models/UsersPlansPlanStartTime.ts
 models/UsersProfileImagesUploadUrl.ts
 models/UsersUser.ts

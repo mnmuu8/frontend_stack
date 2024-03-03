@@ -15,12 +15,23 @@
 
 import * as runtime from '../runtime';
 import type {
-  UsersPlanListInner,
+  UserPlanCreateRequestBody,
+  UsersPlansPlan,
+  UsersPlansPlanListInner,
 } from '../models';
 import {
-    UsersPlanListInnerFromJSON,
-    UsersPlanListInnerToJSON,
+    UserPlanCreateRequestBodyFromJSON,
+    UserPlanCreateRequestBodyToJSON,
+    UsersPlansPlanFromJSON,
+    UsersPlansPlanToJSON,
+    UsersPlansPlanListInnerFromJSON,
+    UsersPlansPlanListInnerToJSON,
 } from '../models';
+
+export interface ApiV1UsersPlansCreateRequest {
+    userId: number;
+    userPlanCreateRequestBody: UserPlanCreateRequestBody;
+}
 
 export interface ApiV1UsersPlansIndexRequest {
     userId: number;
@@ -34,9 +45,46 @@ export interface ApiV1UsersPlansIndexRequest {
 export class UserPlanApi extends runtime.BaseAPI {
 
     /**
+     * 計画作成
+     */
+    async apiV1UsersPlansCreateRaw(requestParameters: ApiV1UsersPlansCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UsersPlansPlan>> {
+        if (requestParameters.userId === null || requestParameters.userId === undefined) {
+            throw new runtime.RequiredError('userId','Required parameter requestParameters.userId was null or undefined when calling apiV1UsersPlansCreate.');
+        }
+
+        if (requestParameters.userPlanCreateRequestBody === null || requestParameters.userPlanCreateRequestBody === undefined) {
+            throw new runtime.RequiredError('userPlanCreateRequestBody','Required parameter requestParameters.userPlanCreateRequestBody was null or undefined when calling apiV1UsersPlansCreate.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/api/v1/users/{user_id}/plans`.replace(`{${"user_id"}}`, encodeURIComponent(String(requestParameters.userId))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: UserPlanCreateRequestBodyToJSON(requestParameters.userPlanCreateRequestBody),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => UsersPlansPlanFromJSON(jsonValue));
+    }
+
+    /**
+     * 計画作成
+     */
+    async apiV1UsersPlansCreate(requestParameters: ApiV1UsersPlansCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UsersPlansPlan> {
+        const response = await this.apiV1UsersPlansCreateRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * 計画一覧
      */
-    async apiV1UsersPlansIndexRaw(requestParameters: ApiV1UsersPlansIndexRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<{ [key: string]: Array<Array<UsersPlanListInner>>; }>> {
+    async apiV1UsersPlansIndexRaw(requestParameters: ApiV1UsersPlansIndexRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<{ [key: string]: Array<Array<UsersPlansPlanListInner>>; }>> {
         if (requestParameters.userId === null || requestParameters.userId === undefined) {
             throw new runtime.RequiredError('userId','Required parameter requestParameters.userId was null or undefined when calling apiV1UsersPlansIndex.');
         }
@@ -66,7 +114,7 @@ export class UserPlanApi extends runtime.BaseAPI {
     /**
      * 計画一覧
      */
-    async apiV1UsersPlansIndex(requestParameters: ApiV1UsersPlansIndexRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<{ [key: string]: Array<Array<UsersPlanListInner>>; }> {
+    async apiV1UsersPlansIndex(requestParameters: ApiV1UsersPlansIndexRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<{ [key: string]: Array<Array<UsersPlansPlanListInner>>; }> {
         const response = await this.apiV1UsersPlansIndexRaw(requestParameters, initOverrides);
         return await response.value();
     }

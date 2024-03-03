@@ -41,69 +41,69 @@ import {
 /**
  * 
  * @export
- * @interface UsersPlansPlan
+ * @interface UsersPlansPlanListInner
  */
-export interface UsersPlansPlan {
+export interface UsersPlansPlanListInner {
     /**
      * ユーザーの計画ID
      * @type {number}
-     * @memberof UsersPlansPlan
+     * @memberof UsersPlansPlanListInner
      */
     id: number;
     /**
      * ユーザーの計画タイトル
      * @type {string}
-     * @memberof UsersPlansPlan
+     * @memberof UsersPlansPlanListInner
      */
     title: string;
     /**
      * ユーザーの計画詳細
      * @type {string}
-     * @memberof UsersPlansPlan
+     * @memberof UsersPlansPlanListInner
      */
     description: string;
     /**
      * 
      * @type {UsersPlansPlanStartTime}
-     * @memberof UsersPlansPlan
+     * @memberof UsersPlansPlanListInner
      */
     startTime: UsersPlansPlanStartTime;
     /**
      * 
      * @type {UsersPlansPlanEndTime}
-     * @memberof UsersPlansPlan
+     * @memberof UsersPlansPlanListInner
      */
     endTime: UsersPlansPlanEndTime;
     /**
      * 
      * @type {StacksStackSkill}
-     * @memberof UsersPlansPlan
+     * @memberof UsersPlansPlanListInner
      */
     skill: StacksStackSkill;
     /**
      * 
      * @type {StacksStackUser}
-     * @memberof UsersPlansPlan
+     * @memberof UsersPlansPlanListInner
      */
     user: StacksStackUser;
     /**
      * 
      * @type {Date}
-     * @memberof UsersPlansPlan
+     * @memberof UsersPlansPlanListInner
      */
     createdAt: Date;
     /**
      * 
      * @type {Date}
-     * @memberof UsersPlansPlan
+     * @memberof UsersPlansPlanListInner
      */
     updatedAt: Date;
 }
 
 /**
- * Check if a given object implements the UsersPlansPlan interface.
+ * Check if a given object implements the UsersPlansPlanListInner interface.
  */
-export function instanceOfUsersPlansPlan(value: object): boolean {
+export function instanceOfUsersPlansPlanListInner(value: object): boolean {
     let isInstance = true;
     isInstance = isInstance && "id" in value;
     isInstance = isInstance && "title" in value;
@@ -118,11 +118,11 @@ export function instanceOfUsersPlansPlan(value: object): boolean {
     return isInstance;
 }
 
-export function UsersPlansPlanFromJSON(json: any): UsersPlansPlan {
-    return UsersPlansPlanFromJSONTyped(json, false);
+export function UsersPlansPlanListInnerFromJSON(json: any): UsersPlansPlanListInner {
+    return UsersPlansPlanListInnerFromJSONTyped(json, false);
 }
 
-export function UsersPlansPlanFromJSONTyped(json: any, ignoreDiscriminator: boolean): UsersPlansPlan {
+export function UsersPlansPlanListInnerFromJSONTyped(json: any, ignoreDiscriminator: boolean): UsersPlansPlanListInner {
     if ((json === undefined) || (json === null)) {
         return json;
     }
@@ -140,7 +140,7 @@ export function UsersPlansPlanFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function UsersPlansPlanToJSON(value?: UsersPlansPlan | null): any {
+export function UsersPlansPlanListInnerToJSON(value?: UsersPlansPlanListInner | null): any {
     if (value === undefined) {
         return undefined;
     }

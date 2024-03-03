@@ -493,6 +493,44 @@ paths:
         '422':
           description: バリデーションエラー
 
+  /api/v1/users/{user_id}/plans/{plan_id}:
+    patch:
+      summary: 計画更新
+      operationId: api.v1.users.plans.update
+      tags:
+        - UserPlan
+      security: []
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Users_User_Id'
+        - name: plan_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Users_Plans_Plan_Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserPlanUpdateRequestBody'
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users_Plans_Plan'
+        '401':
+          description: 認証エラー
+        '404':
+          description: ユーザー/計画が存在しない
+        '422':
+          description: バリデーションエラー
+
   /api/v1/teams:
     get:
       summary: チーム一覧
@@ -2142,6 +2180,36 @@ components:
           nullable: false
 
     UserPlanCreateRequestBody:
+      type: object
+      required:
+        - title
+        - description
+        - start_time
+        - end_time
+        - skill_id
+      properties:
+        title:
+          allOf:
+            - $ref: '#/components/schemas/Users_Plans_Plan_Title'
+          nullable: false
+        description:
+          allOf:
+            - $ref: '#/components/schemas/Users_Plans_Plan_Description'
+          nullable: true
+        start_time:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+          nullable: false
+        end_time:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+          nullable: false
+        skill_id:
+          allOf:
+            - $ref: '#/components/schemas/Skills_Skill_Id'
+          nullable: false
+
+    UserPlanUpdateRequestBody:
       type: object
       required:
         - title

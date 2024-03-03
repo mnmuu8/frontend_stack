@@ -16,12 +16,15 @@
 import * as runtime from '../runtime';
 import type {
   UserPlanCreateRequestBody,
+  UserPlanUpdateRequestBody,
   UsersPlansPlan,
   UsersPlansPlanListInner,
 } from '../models';
 import {
     UserPlanCreateRequestBodyFromJSON,
     UserPlanCreateRequestBodyToJSON,
+    UserPlanUpdateRequestBodyFromJSON,
+    UserPlanUpdateRequestBodyToJSON,
     UsersPlansPlanFromJSON,
     UsersPlansPlanToJSON,
     UsersPlansPlanListInnerFromJSON,
@@ -37,6 +40,12 @@ export interface ApiV1UsersPlansIndexRequest {
     userId: number;
     dateFrom?: Date;
     dateTo?: Date;
+}
+
+export interface ApiV1UsersPlansUpdateRequest {
+    userId: number;
+    planId: number;
+    userPlanUpdateRequestBody: UserPlanUpdateRequestBody;
 }
 
 /**
@@ -116,6 +125,47 @@ export class UserPlanApi extends runtime.BaseAPI {
      */
     async apiV1UsersPlansIndex(requestParameters: ApiV1UsersPlansIndexRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<{ [key: string]: Array<Array<UsersPlansPlanListInner>>; }> {
         const response = await this.apiV1UsersPlansIndexRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * 計画更新
+     */
+    async apiV1UsersPlansUpdateRaw(requestParameters: ApiV1UsersPlansUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UsersPlansPlan>> {
+        if (requestParameters.userId === null || requestParameters.userId === undefined) {
+            throw new runtime.RequiredError('userId','Required parameter requestParameters.userId was null or undefined when calling apiV1UsersPlansUpdate.');
+        }
+
+        if (requestParameters.planId === null || requestParameters.planId === undefined) {
+            throw new runtime.RequiredError('planId','Required parameter requestParameters.planId was null or undefined when calling apiV1UsersPlansUpdate.');
+        }
+
+        if (requestParameters.userPlanUpdateRequestBody === null || requestParameters.userPlanUpdateRequestBody === undefined) {
+            throw new runtime.RequiredError('userPlanUpdateRequestBody','Required parameter requestParameters.userPlanUpdateRequestBody was null or undefined when calling apiV1UsersPlansUpdate.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/api/v1/users/{user_id}/plans/{plan_id}`.replace(`{${"user_id"}}`, encodeURIComponent(String(requestParameters.userId))).replace(`{${"plan_id"}}`, encodeURIComponent(String(requestParameters.planId))),
+            method: 'PATCH',
+            headers: headerParameters,
+            query: queryParameters,
+            body: UserPlanUpdateRequestBodyToJSON(requestParameters.userPlanUpdateRequestBody),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => UsersPlansPlanFromJSON(jsonValue));
+    }
+
+    /**
+     * 計画更新
+     */
+    async apiV1UsersPlansUpdate(requestParameters: ApiV1UsersPlansUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UsersPlansPlan> {
+        const response = await this.apiV1UsersPlansUpdateRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

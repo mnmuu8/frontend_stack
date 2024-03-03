@@ -55,6 +55,7 @@ models/TeamsTeam.ts
 models/TeamsTeamListInner.ts
 models/UserCreateRequestBody.ts
 models/UserPlanCreateRequestBody.ts
+models/UserPlanUpdateRequestBody.ts
 models/UserProfileImagesAttachRequestBody.ts
 models/UserUpdateRequestBody.ts
 models/UsersMinimumUser.ts

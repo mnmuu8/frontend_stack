@@ -43,6 +43,7 @@ export * from './TeamsTeam';
 export * from './TeamsTeamListInner';
 export * from './UserCreateRequestBody';
 export * from './UserPlanCreateRequestBody';
+export * from './UserPlanUpdateRequestBody';
 export * from './UserProfileImagesAttachRequestBody';
 export * from './UserUpdateRequestBody';
 export * from './UsersMinimumUser';

@@ -530,6 +530,32 @@ paths:
           description: ユーザー/計画が存在しない
         '422':
           description: バリデーションエラー
+    delete:
+      summary: 計画削除
+      operationId: api.v1.users.plans.destroy
+      tags:
+        - UserPlan
+      security: []
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Users_User_Id'
+        - name: plan_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Users_Plans_Plan_Id'
+      responses:
+        '204':
+          description: 成功
+        '401':
+          description: 認証エラー
+        '404':
+          description: ユーザー/計画が存在しない
+        '422':
+          description: バリデーションエラー
 
   /api/v1/teams:
     get:

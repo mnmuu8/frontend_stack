@@ -10,4 +10,5 @@ export * from './SkillApi';
 export * from './StackApi';
 export * from './TeamApi';
 export * from './UserApi';
+export * from './UserPlanApi';
 export * from './UserProfileImageApi';

@@ -36,10 +36,12 @@
 3. Dockerネットワークの作成
   - 以下コマンドを実行する。
     - `docker network create stack_shared_network`
-4. Dockerコンテナを立ち上げる
+4. パッケージ群をインストールする。
+   - `npm install`
+5. Dockerコンテナを立ち上げる。
   - 以下コマンドを実行する。
     - `make up`
-5. NextJSが立ち上がっているか確認する
+6. NextJSが立ち上がっているか確認する
   - 以下にアクセスする。
     - http://localhost:9000
 

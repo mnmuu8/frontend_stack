@@ -15,6 +15,7 @@ import MessageIcon from '@mui/icons-material/Message';
 import CastForEducationIcon from '@mui/icons-material/CastForEducation';
 import TeamList from '@/features/teams/components/TeamList';
 import OutputIcon from '@mui/icons-material/Output';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 const ACTIVE_STYLE = {
   backgroundColor: '#222222',
@@ -44,6 +45,7 @@ const Sidebar: FC = () => {
     },
     { id: 'message', label: 'メッセージ', value: '/message', icon: <MessageIcon sx={SX} fontSize={FONT_SIZE} /> },
     { id: 'outputs', label: 'アウトプット', value: '/outputs', icon: <OutputIcon sx={SX} fontSize={FONT_SIZE} /> },
+    { id: 'plan', label: '計画表', value: '/plan', icon: <CalendarMonthIcon sx={SX} fontSize={FONT_SIZE} /> },
   ];
   const router = useRouter();
   const isActive = (path: string) => router.pathname === path;

@@ -1,4 +1,4 @@
-import React, { FC, useState, useMemo, useContext, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useContext } from 'react';
 
 import Editor from '@draft-js-plugins/editor';
 import { EditorState } from 'draft-js';
@@ -11,39 +11,80 @@ import createImagePlugin from '@draft-js-plugins/image';
 
 import { blockStyleFn } from '../functions/blockStyleClasses';
 import { styleMap } from '../functions/InlineStyleClasses';
-import { handleBeforeInput,
+import { 
+  handleBeforeInput,
   handleKeyCommand,
   handlePastedText,
   handleReturn,
+  imageBlockLength,
   insertImageToEditor,
   keyBindingFn,
 } from '../functions/editorOptions';
+
 import { stateToHTML } from 'draft-js-export-html';
-import { OutputFormContext } from '../../contexts/OutputFormContext';
+import { getSession } from '@/features/sessions/functions/session';
+import { ProcessFileDropEventProps, RichTextEditorProps } from '../../types/editor';
+import { MAX_FILE_SIZE, MAX_IMAGES } from '@/common/constans/insertImage';
 import ToolbarButtons from './ToolbarButtons';
-import { ProcessFileDropEventProps } from '../../types/editor';
+import { getUploadUrl } from '../functions/uploadUrl';
+import { attachImage } from '../functions/attach';
+import { uploadS3 } from '../functions/uploadS3';
+import { validateFileSize, validateImageCount } from '../functions/vaildator';
+import { FormContext } from '@/context/FormContext';
 
-const RichTextEditor: FC = () => {
+const RichTextEditor = <FormData extends {}> ({ setFormData, formData, uploadUrl, attachUrl }: RichTextEditorProps<FormData>) => {
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
+  const [uploadedImagesCount, setUploadedImagesCount] = useState<number>(0);
+  const { formType } = useContext(FormContext);
 
-  const { setOutputFormData } = useContext(OutputFormContext);
-
-  const processFileDropEvent = ({ item, editorState, setEditorState }: ProcessFileDropEventProps) => {
-    if (item.kind !== 'file') return;
+  const fileDropEvent = async ({ file, editorState, setEditorState }: ProcessFileDropEventProps) => {
+    try {
+      const sessionData = getSession();
+      if (!sessionData) return;
   
-    const file = item.getAsFile();
-    if (file) insertImageToEditor({ file, editorState, setEditorState });
+      const imageUrl = await getUploadUrl(file.name, file.size, file.type, uploadUrl);
+      await uploadS3(file, imageUrl);
+
+      const imagePath = imageUrl.split('?')[0];
+      await attachImage(sessionData, imagePath, attachUrl);
+
+      insertImageToEditor({
+        imagePath,
+        editorState,
+        setEditorState,
+      });
+    } catch (error) {
+      console.error('ファイルのアップロードに失敗しました', error);
+    }
   };
 
-  const handleFileDrop = (e: React.DragEvent<HTMLDivElement>) => {
+  const handleFileDrop = async (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     const dataTransferItems = e.dataTransfer.items;
     if ( !dataTransferItems ) return;
 
     for (let i = 0; i < dataTransferItems.length; i++) {
+      if (formType == 'createOutputComment' && !validateImageCount(uploadedImagesCount, MAX_IMAGES)) return;
+
       const item = dataTransferItems[i];
-      processFileDropEvent({item, editorState, setEditorState})
+      if (item.kind !== 'file') return;
+      
+      const file = item.getAsFile();
+      if (!file || !validateFileSize(file, MAX_FILE_SIZE)) return;
+
+      await fileDropEvent({file, editorState, setEditorState})
     }
+  };
+
+  const onChange = (newEditorState: EditorState) => {
+    const newContent = newEditorState.getCurrentContent();
+    const newImageCount = imageBlockLength(newContent);
+
+    if (newImageCount !== uploadedImagesCount) {
+      setUploadedImagesCount(newImageCount);
+    }
+
+    setEditorState(newEditorState);
   };
 
   const [plugins] = useMemo(() => {
@@ -66,16 +107,23 @@ const RichTextEditor: FC = () => {
   };
 
   useEffect(() => {
+    if ( !formData ) return;
     const currentContent = editorState.getCurrentContent();
     const htmlContent = stateToHTML(currentContent);
     const newHtmlContent = cleanEditorContent(htmlContent);
 
-    setOutputFormData({ content: newHtmlContent });
+    setFormData({ ...formData, content: newHtmlContent });
   }, [editorState]);
 
   return (
     <div className='mt-4'>
-      <ToolbarButtons editorState={editorState} setEditorState={setEditorState} />
+      <ToolbarButtons
+        editorState={editorState}
+        setEditorState={setEditorState}
+        uploadUrl={uploadUrl}
+        attachUrl={attachUrl}
+        uploadedImagesCount={uploadedImagesCount}
+      />
       <div
         onDrop={handleFileDrop}
         onDragOver={(e) => e.preventDefault()}
@@ -83,7 +131,7 @@ const RichTextEditor: FC = () => {
       >
         <Editor
           editorState={editorState}
-          onChange={setEditorState}
+          onChange={onChange}
           handleReturn={() => handleReturn({ editorState, setEditorState })}
           keyBindingFn={(e) => keyBindingFn({ e, editorState })}
           handleKeyCommand={(command) => handleKeyCommand({ command, editorState, setEditorState })}

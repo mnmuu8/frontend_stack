@@ -56,7 +56,10 @@ const OutputCommentCard: FC<OutputCommentCardProps> = ({ comment, outputId, setC
           <div className='BlackActionBtnLabel'>削除</div>
         </div>
       </div>
-      <div className='text-sm mt-2'>{comment.content}</div>
+      <div
+        className='text-sm mt-2'
+        dangerouslySetInnerHTML={{ __html: comment.content }}
+      />
     </div>
   )
 }

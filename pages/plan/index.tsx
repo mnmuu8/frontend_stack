@@ -7,8 +7,8 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction'
 import jaLocale from '@fullcalendar/core/locales/ja';
-import { EventsProps } from '@/features/plan/types/plan';
-import { getHoliday } from '@/features/plan/functions/holiday';
+import { EventsProps } from '@/features/plans/types/plan';
+import { getHoliday } from '@/features/plans/functions/holiday';
 
 const Index: NextPage = () => {
   // TODO: 一旦仮データ挿入、予定作成のタイミングで改修

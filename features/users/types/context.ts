@@ -8,6 +8,9 @@ export type UserFormDataParams = {
   profile_content: string;
   password?: string;
   password_confirmation?: string;
+  current_password?: string;
+  new_password?: string;
+  new_password_confirmation?: string;
   team: TeamFormDataParams;
 };
 

@@ -29,9 +29,9 @@ const Output: NextPage<OutputCardProps> = ({ output, initialComments }) => {
 
   const { sessionUser } = useContext(SessionContext);
 
-  // TODO: 現状は仮情報を使用しており、アウトプットにユーザー紐づけたら更新
-  const userProfileSrcPath = '/no_image.png';
-  const userProfileName = 'example';
+  const user = output.user;
+  const userProfileSrcPath = user.profile_image_path || '/no_image.png';
+  const userProfileName = user.name || 'example';
 
   const [comments, setComments] = useState<CommentProps[]|undefined>(initialComments);
   const { setFormOpen, setFormType, setIsRegisterEvent } = useContext(FormContext);

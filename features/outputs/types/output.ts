@@ -1,8 +1,10 @@
 import { Dispatch, SetStateAction } from "react";
+import { UserProps } from "@/features/users/types/user";
 
 export type OutputProps = {
   id: number;
   content: string;
+  user: UserProps;
   created_at: string;
   updated_at: string;
 };
@@ -10,13 +12,7 @@ export type OutputProps = {
 export type CommentProps = {
   id: number;
   content: string;
-  user: {
-    id: number;
-    name: string;
-    email: string;
-    created_at: string;
-    updated_at: string;
-  };
+  user: UserProps;
   created_at: string;
   updated_at: string;
 };

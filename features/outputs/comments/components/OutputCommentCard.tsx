@@ -10,9 +10,9 @@ const OutputCommentCard: FC<OutputCommentCardProps> = ({ comment, outputId, setC
   const formatTimeAgo = (dateString: string) => {
     const date = new Date(dateString);
     const diffInSeconds = (new Date().getTime() - date.getTime()) / 1000;
-  
+
     if (diffInSeconds < 60) return 'たった今';
-  
+
     return new Intl.DateTimeFormat('ja-JP', {
       timeZone: 'Asia/Tokyo',
       year: 'numeric', month: '2-digit', day: '2-digit',
@@ -22,13 +22,13 @@ const OutputCommentCard: FC<OutputCommentCardProps> = ({ comment, outputId, setC
 
   const timeAgo = formatTimeAgo(comment.created_at);
 
-  // TODO: 現状は仮情報を使用しており、アウトプットのコメントにユーザー紐づけたら更新
-  const userProfileSrcPath = '/no_image.png';
-  const userProfileName = 'example';
+  const user = comment.user;
+  const userProfileSrcPath = user.profile_image_path || '/no_image.png';
+  const userProfileName = user.name || 'example';
 
   const handleDelete = async () => {
     if (!dataConfirmAlert('削除したチームは復旧できません。本当に削除しますか？')) return;
-    
+
     const commentId = comment.id
     await callDeleteOutputComment(outputId, commentId)
       .then(() => {

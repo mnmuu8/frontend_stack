@@ -162,6 +162,45 @@ const UserFormGroup: FC<ErrorMessagesState> = ({ errorMessages }) => {
       />
       <ErrorMessage errorMessages={errorMessages} errorKey={'profile_content'} />
       <TextInput
+        name={'current_password'}
+        fullWidth={true}
+        multiline={false}
+        minRows={1}
+        required={false}
+        label={'現在のパスワード'}
+        placeholder={'現在のパスワードを入力してください'}
+        type='password'
+        onChange={handleFieldChange}
+        value={userFormData.current_password}
+      />
+      <ErrorMessage errorMessages={errorMessages} errorKey={'current_password'} />
+      <TextInput
+        name={'new_password'}
+        fullWidth={true}
+        multiline={false}
+        minRows={1}
+        required={false}
+        label={'新しいパスワード'}
+        placeholder={'新しいパスワードを入力してください'}
+        type='password'
+        onChange={handleFieldChange}
+        value={userFormData.new_password}
+      />
+      <ErrorMessage errorMessages={errorMessages} errorKey={'new_password'} />
+      <TextInput
+        name={'new_password_confirmation'}
+        fullWidth={true}
+        multiline={false}
+        minRows={1}
+        required={false}
+        label={'新しいパスワード（確認）'}
+        placeholder={'新しいパスワードを再度入力してください'}
+        type='password'
+        onChange={handleFieldChange}
+        value={userFormData.new_password_confirmation}
+      />
+      <ErrorMessage errorMessages={errorMessages} errorKey={'new_password_confirmation'} />
+      <TextInput
         name={'team'}
         fullWidth={true}
         multiline={false}

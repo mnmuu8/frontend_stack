@@ -60,6 +60,9 @@ export const userSchema = z.object({
   name: z.string().min(1, 'ユーザー名の入力は必須です'),
   email: emailSchema,
   profile_content: z.string().optional(),
+  current_password: passwordSchema.optional(),
+  new_password: passwordSchema.optional(),
+  new_password_confirmation: passwordSchema.optional(),
   team: z.object({
     name: z.string().min(1, 'チームの選択は必須です')
   }),

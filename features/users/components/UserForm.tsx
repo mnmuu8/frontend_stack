@@ -9,7 +9,7 @@ import FormSubmitButton from '@/components/ui-elements/FormSubmitButton';
 import FormCancelButton from '@/components/ui-elements/FormCancelButton';
 import UserFormGroup from './UserFormGroup';
 import { UserFormContext } from '../contexts/UserFormContext';
-import { callUpdateUser } from '../functions/api';
+import { callUpdateUser } from '../functions/update';
 import { InitialUserFormData } from '../functions/form';
 import { ErrorMessages } from '@/common/types/validator';
 
@@ -35,7 +35,7 @@ const UserForm: FC = () => {
     if (!sessionData) return;
 
     const options = getApiHeaders();
-    
+
     if (!dataConfirmAlert('ユーザー情報を更新しますか？')) return;
     await callUpdateUser({ options, sessionData, userFormData, setErrorMessages })
       .then(() => {

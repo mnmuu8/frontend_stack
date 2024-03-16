@@ -1935,6 +1935,9 @@ components:
         - email
         - profile_content
         - role
+        - current_password
+        - new_password
+        - new_password_confirmation
         - team_id
       properties:
         name:
@@ -1953,6 +1956,18 @@ components:
           allOf:
             - $ref: '#/components/schemas/Users_User_Role'
           nullable: false
+        current_password:
+          allOf:
+            - $ref: '#/components/schemas/Users_User_Password'
+          nullable: true
+        new_password:
+          allOf:
+            - $ref: '#/components/schemas/Users_User_Password'
+          nullable: true
+        new_password_confirmation:
+          allOf:
+            - $ref: '#/components/schemas/Users_User_Password'
+          nullable: true
         team_id:
           allOf:
             - $ref: '#/components/schemas/Teams_Team_Id'

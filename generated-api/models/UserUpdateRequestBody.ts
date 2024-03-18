@@ -51,6 +51,24 @@ export interface UserUpdateRequestBody {
      */
     role: UsersUserRole;
     /**
+     * ユーザーのパスワード
+     * @type {string}
+     * @memberof UserUpdateRequestBody
+     */
+    currentPassword: string | null;
+    /**
+     * ユーザーのパスワード
+     * @type {string}
+     * @memberof UserUpdateRequestBody
+     */
+    newPassword: string | null;
+    /**
+     * ユーザーのパスワード
+     * @type {string}
+     * @memberof UserUpdateRequestBody
+     */
+    newPasswordConfirmation: string | null;
+    /**
      * チームID
      * @type {number}
      * @memberof UserUpdateRequestBody
@@ -67,6 +85,9 @@ export function instanceOfUserUpdateRequestBody(value: object): boolean {
     isInstance = isInstance && "email" in value;
     isInstance = isInstance && "profileContent" in value;
     isInstance = isInstance && "role" in value;
+    isInstance = isInstance && "currentPassword" in value;
+    isInstance = isInstance && "newPassword" in value;
+    isInstance = isInstance && "newPasswordConfirmation" in value;
     isInstance = isInstance && "teamId" in value;
 
     return isInstance;
@@ -86,6 +107,9 @@ export function UserUpdateRequestBodyFromJSONTyped(json: any, ignoreDiscriminato
         'email': json['email'],
         'profileContent': json['profile_content'],
         'role': UsersUserRoleFromJSON(json['role']),
+        'currentPassword': json['current_password'],
+        'newPassword': json['new_password'],
+        'newPasswordConfirmation': json['new_password_confirmation'],
         'teamId': json['team_id'],
     };
 }
@@ -103,6 +127,9 @@ export function UserUpdateRequestBodyToJSON(value?: UserUpdateRequestBody | null
         'email': value.email,
         'profile_content': value.profileContent,
         'role': UsersUserRoleToJSON(value.role),
+        'current_password': value.currentPassword,
+        'new_password': value.newPassword,
+        'new_password_confirmation': value.newPasswordConfirmation,
         'team_id': value.teamId,
     };
 }

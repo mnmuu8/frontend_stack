@@ -1,17 +1,19 @@
 import { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
-import Layout from '@/components/layouts/Layout'
+
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction'
 import jaLocale from '@fullcalendar/core/locales/ja';
+import { EventClickArg } from '@fullcalendar/core';
+
+import Layout from '@/components/layouts/Layout'
+import FormDrawer from '@/components/ui-parts/FormDrawer';
 import { EventsProps } from '@/features/plans/types/plan';
 import { getHoliday } from '@/features/plans/functions/holiday';
-import { EventClickArg } from '@fullcalendar/core';
 import { initialPlanData } from '@/features/plans/constants/plan';
-import FormDrawer from '@/components/ui-parts/FormDrawer';
 
 const Index: NextPage = () => {
   // TODO: 一旦仮データ挿入、予定作成のタイミングで改修

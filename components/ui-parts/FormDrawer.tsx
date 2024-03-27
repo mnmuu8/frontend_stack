@@ -1,9 +1,10 @@
-import React, { FC } from 'react'
+import React, { FC } from 'react';
+
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
+import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 
 import ImageWrapper from '@/components/ui-elements/ImageWrapper';
-import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import { FormDrawerProps } from '@/features/plans/types/plan';
 import { USER_PROFILE_HEIGHT_SM, USER_PROFILE_WIDTH_SM } from '@/common/constans/sizes';
 

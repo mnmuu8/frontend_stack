@@ -12,7 +12,6 @@ const userProfileSrcPath = '/no_image.png';
 const userProfileName = 'noname';
 
 const FormDrawer: FC<FormDrawerProps> = ({ planInfo, drawerOpen, setDrawerOpen }) => {
-
   const handleContentClick = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
   }

@@ -42,8 +42,10 @@ const Index: NextPage = () => {
   }, []);
 
   const handleEventClick = (clickInfo: EventClickArg) => {
-    const startTime = clickInfo.event.start && clickInfo.event.start.toLocaleString() || new Date().toLocaleString();
-    const endTime = clickInfo.event.end && clickInfo.event.end.toLocaleString() || new Date().toLocaleString();
+    const event = clickInfo.event;
+    const today = new Date().toLocaleString();
+    const startTime = event.start && event.start.toLocaleString() || today;
+    const endTime = event.end && event.end.toLocaleString() || today;
 
     setDrawerOpen(true)
     setPlanInfo({

@@ -34,6 +34,7 @@ const FormDrawer: FC<FormDrawerProps> = ({ planInfo, drawerOpen, setDrawerOpen }
       open={drawerOpen}
       onClose={toggleDrawer(false)}
     >
+      {/* TODO: Drawerの幅が確定していないので確定しだい定数化する */}
       <Box
         sx={{ width: 500 }}
         onClick={toggleDrawer(false)}

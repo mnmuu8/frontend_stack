@@ -1,10 +1,11 @@
-import React, { FC, useContext } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import DateInput from './DateInput';
 import TextInput from '@/components/ui-elements/TextInput';
 import SkillInput from '@/features/skills/components/SkillInput';
 import ErrorMessage from '@/components/ui-elements/ErrorMessage';
 import { StackFormContext } from '../contexts/StackFormContext';
 import { ErrorMessagesState } from '@/common/types/validator';
+import CompletedButton from './CompletedButton';
 
 const StackFormGroup: FC<ErrorMessagesState> = ({ errorMessages, setErrorMessages }) => {
   const { stackFormData, setStackFormData } = useContext(StackFormContext);
@@ -21,6 +22,7 @@ const StackFormGroup: FC<ErrorMessagesState> = ({ errorMessages, setErrorMessage
 
   return (
     <>
+      <CompletedButton />
       <SkillInput />
       <ErrorMessage errorMessages={errorMessages} errorKey={'skill'} />
       <div className='flex'>

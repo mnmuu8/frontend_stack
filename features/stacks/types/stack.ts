@@ -4,6 +4,7 @@ import { UserProps } from '@/features/users/types/user';
 
 export type StackProps = {
   id: number;
+  completed: boolean;
   title: string;
   minutes: number;
   skill: SkillProps;

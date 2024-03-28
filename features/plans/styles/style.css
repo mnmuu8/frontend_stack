@@ -1,0 +1,59 @@
+.fc-col-header-cell,
+.fc-timegrid-slot-label-cushion,
+.fc-timegrid-axis-cushion,
+.fc-daygrid-day-number,
+.fc-event-title-container {
+  @apply text-xs font-normal;
+}
+.fc-header-toolbar .fc-button {
+  @apply text-sm;
+}
+.fc-header-toolbar .fc-toolbar-title {
+  @apply text-lg;
+}
+.fc-event-main-frame {
+  @apply p-[2px];
+}
+
+.fc-timegrid-slot-label[data-time='00:30:00'] .fc-timegrid-slot-label-cushion,
+.fc-timegrid-slot-label[data-time='01:30:00'] .fc-timegrid-slot-label-cushion,
+.fc-timegrid-slot-label[data-time='02:30:00'] .fc-timegrid-slot-label-cushion,
+.fc-timegrid-slot-label[data-time='03:30:00'] .fc-timegrid-slot-label-cushion,
+.fc-timegrid-slot-label[data-time='04:30:00'] .fc-timegrid-slot-label-cushion,
+.fc-timegrid-slot-label[data-time='05:30:00'] .fc-timegrid-slot-label-cushion,
+.fc-timegrid-slot-label[data-time='06:30:00'] .fc-timegrid-slot-label-cushion,
+.fc-timegrid-slot-label[data-time='07:30:00'] .fc-timegrid-slot-label-cushion,
+.fc-timegrid-slot-label[data-time='08:30:00'] .fc-timegrid-slot-label-cushion,
+.fc-timegrid-slot-label[data-time='09:30:00'] .fc-timegrid-slot-label-cushion,
+.fc-timegrid-slot-label[data-time='10:30:00'] .fc-timegrid-slot-label-cushion,
+.fc-timegrid-slot-label[data-time='11:30:00'] .fc-timegrid-slot-label-cushion,
+.fc-timegrid-slot-label[data-time='12:30:00'] .fc-timegrid-slot-label-cushion,
+.fc-timegrid-slot-label[data-time='13:30:00'] .fc-timegrid-slot-label-cushion,
+.fc-timegrid-slot-label[data-time='14:30:00'] .fc-timegrid-slot-label-cushion,
+.fc-timegrid-slot-label[data-time='15:30:00'] .fc-timegrid-slot-label-cushion,
+.fc-timegrid-slot-label[data-time='16:30:00'] .fc-timegrid-slot-label-cushion,
+.fc-timegrid-slot-label[data-time='17:30:00'] .fc-timegrid-slot-label-cushion,
+.fc-timegrid-slot-label[data-time='18:30:00'] .fc-timegrid-slot-label-cushion,
+.fc-timegrid-slot-label[data-time='19:30:00'] .fc-timegrid-slot-label-cushion,
+.fc-timegrid-slot-label[data-time='20:30:00'] .fc-timegrid-slot-label-cushion,
+.fc-timegrid-slot-label[data-time='21:30:00'] .fc-timegrid-slot-label-cushion,
+.fc-timegrid-slot-label[data-time='22:30:00'] .fc-timegrid-slot-label-cushion,
+.fc-timegrid-slot-label[data-time='23:30:00'] .fc-timegrid-slot-label-cushion {
+  @apply hidden;
+}
+
+.fc-event-main:hover {
+  background-color: #e4f5ff;
+  transition: .2s all;
+}
+
+.MuiBackdrop-root {
+  background-color: transparent;
+}
+
+.MuiPaper-root {
+  height: calc(100vh - 60px);
+  top: auto;
+  bottom: 0;
+  z-index: 9999;
+}

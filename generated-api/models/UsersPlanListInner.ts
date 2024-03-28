@@ -25,99 +25,103 @@ import {
     StacksStackUserFromJSONTyped,
     StacksStackUserToJSON,
 } from './StacksStackUser';
+import type { UsersPlansPlanEndTime } from './UsersPlansPlanEndTime';
+import {
+    UsersPlansPlanEndTimeFromJSON,
+    UsersPlansPlanEndTimeFromJSONTyped,
+    UsersPlansPlanEndTimeToJSON,
+} from './UsersPlansPlanEndTime';
+import type { UsersPlansPlanStartTime } from './UsersPlansPlanStartTime';
+import {
+    UsersPlansPlanStartTimeFromJSON,
+    UsersPlansPlanStartTimeFromJSONTyped,
+    UsersPlansPlanStartTimeToJSON,
+} from './UsersPlansPlanStartTime';
 
 /**
  * 
  * @export
- * @interface StacksStack
+ * @interface UsersPlanListInner
  */
-export interface StacksStack {
+export interface UsersPlanListInner {
     /**
-     * 積み上げID
+     * ユーザーの計画ID
      * @type {number}
-     * @memberof StacksStack
+     * @memberof UsersPlanListInner
      */
     id: number;
     /**
-     * 積み上げタイトル
+     * ユーザーの計画タイトル
      * @type {string}
-     * @memberof StacksStack
+     * @memberof UsersPlanListInner
      */
     title: string;
     /**
-     * 積み上げ時間
-     * @type {number}
-     * @memberof StacksStack
-     */
-    minutes: number;
-    /**
-     * 積み上げ内容
+     * ユーザーの計画詳細
      * @type {string}
-     * @memberof StacksStack
+     * @memberof UsersPlanListInner
      */
-    description: string | null;
+    description: string;
+    /**
+     * 
+     * @type {UsersPlansPlanStartTime}
+     * @memberof UsersPlanListInner
+     */
+    startTime: UsersPlansPlanStartTime;
+    /**
+     * 
+     * @type {UsersPlansPlanEndTime}
+     * @memberof UsersPlanListInner
+     */
+    endTime: UsersPlansPlanEndTime;
     /**
      * 
      * @type {StacksStackSkill}
-     * @memberof StacksStack
+     * @memberof UsersPlanListInner
      */
-    skill: StacksStackSkill;
+    skill?: StacksStackSkill;
     /**
      * 
      * @type {StacksStackUser}
-     * @memberof StacksStack
+     * @memberof UsersPlanListInner
      */
     user: StacksStackUser;
     /**
      * 
      * @type {Date}
-     * @memberof StacksStack
-     */
-    stackedAt: Date;
-    /**
-     * 完了したかどうか
-     * @type {boolean}
-     * @memberof StacksStack
-     */
-    completed: boolean;
-    /**
-     * 
-     * @type {Date}
-     * @memberof StacksStack
+     * @memberof UsersPlanListInner
      */
     createdAt: Date;
     /**
      * 
      * @type {Date}
-     * @memberof StacksStack
+     * @memberof UsersPlanListInner
      */
     updatedAt: Date;
 }
 
 /**
- * Check if a given object implements the StacksStack interface.
+ * Check if a given object implements the UsersPlanListInner interface.
  */
-export function instanceOfStacksStack(value: object): boolean {
+export function instanceOfUsersPlanListInner(value: object): boolean {
     let isInstance = true;
     isInstance = isInstance && "id" in value;
     isInstance = isInstance && "title" in value;
-    isInstance = isInstance && "minutes" in value;
     isInstance = isInstance && "description" in value;
-    isInstance = isInstance && "skill" in value;
+    isInstance = isInstance && "startTime" in value;
+    isInstance = isInstance && "endTime" in value;
     isInstance = isInstance && "user" in value;
-    isInstance = isInstance && "stackedAt" in value;
-    isInstance = isInstance && "completed" in value;
     isInstance = isInstance && "createdAt" in value;
     isInstance = isInstance && "updatedAt" in value;
 
     return isInstance;
 }
 
-export function StacksStackFromJSON(json: any): StacksStack {
-    return StacksStackFromJSONTyped(json, false);
+export function UsersPlanListInnerFromJSON(json: any): UsersPlanListInner {
+    return UsersPlanListInnerFromJSONTyped(json, false);
 }
 
-export function StacksStackFromJSONTyped(json: any, ignoreDiscriminator: boolean): StacksStack {
+export function UsersPlanListInnerFromJSONTyped(json: any, ignoreDiscriminator: boolean): UsersPlanListInner {
     if ((json === undefined) || (json === null)) {
         return json;
     }
@@ -125,18 +129,17 @@ export function StacksStackFromJSONTyped(json: any, ignoreDiscriminator: boolean
         
         'id': json['id'],
         'title': json['title'],
-        'minutes': json['minutes'],
         'description': json['description'],
-        'skill': StacksStackSkillFromJSON(json['skill']),
+        'startTime': UsersPlansPlanStartTimeFromJSON(json['start_time']),
+        'endTime': UsersPlansPlanEndTimeFromJSON(json['end_time']),
+        'skill': !exists(json, 'skill') ? undefined : StacksStackSkillFromJSON(json['skill']),
         'user': StacksStackUserFromJSON(json['user']),
-        'stackedAt': (new Date(json['stacked_at'])),
-        'completed': json['completed'],
         'createdAt': (new Date(json['created_at'])),
         'updatedAt': (new Date(json['updated_at'])),
     };
 }
 
-export function StacksStackToJSON(value?: StacksStack | null): any {
+export function UsersPlanListInnerToJSON(value?: UsersPlanListInner | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -147,12 +150,11 @@ export function StacksStackToJSON(value?: StacksStack | null): any {
         
         'id': value.id,
         'title': value.title,
-        'minutes': value.minutes,
         'description': value.description,
+        'start_time': UsersPlansPlanStartTimeToJSON(value.startTime),
+        'end_time': UsersPlansPlanEndTimeToJSON(value.endTime),
         'skill': StacksStackSkillToJSON(value.skill),
         'user': StacksStackUserToJSON(value.user),
-        'stacked_at': (value.stackedAt.toISOString()),
-        'completed': value.completed,
         'created_at': (value.createdAt.toISOString()),
         'updated_at': (value.updatedAt.toISOString()),
     };

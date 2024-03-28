@@ -46,3 +46,14 @@
   background-color: #e4f5ff;
   transition: .2s all;
 }
+
+.MuiBackdrop-root {
+  background-color: transparent;
+}
+
+.MuiPaper-root {
+  height: calc(100vh - 60px);
+  top: auto;
+  bottom: 0;
+  z-index: 9999;
+}

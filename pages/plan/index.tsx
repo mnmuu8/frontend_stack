@@ -1,25 +1,61 @@
 import { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
-import Layout from '@/components/layouts/Layout'
+
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction'
 import jaLocale from '@fullcalendar/core/locales/ja';
+import { EventClickArg } from '@fullcalendar/core';
+
+import Layout from '@/components/layouts/Layout'
+import FormDrawer from '@/components/ui-parts/FormDrawer';
 import { EventsProps } from '@/features/plans/types/plan';
 import { getHoliday } from '@/features/plans/functions/holiday';
+import { initialPlanData } from '@/features/plans/constants/plan';
 
 const Index: NextPage = () => {
   // TODO: 一旦仮データ挿入、予定作成のタイミングで改修
   const [events, setEvents] = useState<EventsProps[]>([
-    { title: '午前中のミーティング', start: '2024-03-11T09:00:00', end: '2024-03-11T12:00:00' },
-    { title: '午後の作業時間', start: '2024-03-11T13:00:00', end: '2024-03-11T17:00:00' }
+    {
+      title: '午前中のミーティング',
+      start: '2024-03-26T09:00',
+      end: '2024-03-26T12:00',
+      description: 'このミーティングではプロジェクトの進行状況を確認します。このミーティングではプロジェクトの進行状況を確認します。このミーティングではプロジェクトの進行状況を確認します。',
+      skill: 'プログラミング'
+    },
+    {
+      title: '午後の作業時間',
+      start: '2024-03-26T13:00',
+      end: '2024-03-26T17:00',
+      description: 'このミーティングではプロジェクトの進行状況を確認します。このミーティングではプロジェクトの進行状況を確認します。このミーティングではプロジェクトの進行状況を確認します。',
+      skill: '読書'
+    }
   ]);
+
+  const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
+  const [planInfo, setPlanInfo] = useState<EventsProps>(initialPlanData)
 
   useEffect(() => {
     getHoliday(setEvents);
   }, []);
+
+  const handleEventClick = (clickInfo: EventClickArg) => {
+    const event = clickInfo.event;
+    const today = new Date().toLocaleString();
+    const startTime = event.start && event.start.toLocaleString() || today;
+    const endTime = event.end && event.end.toLocaleString() || today;
+
+    setDrawerOpen(true)
+    setPlanInfo({
+      title: clickInfo.event.title,
+      description: clickInfo.event.extendedProps.description,
+      skill: clickInfo.event.extendedProps.skill,
+      start: startTime,
+      end: endTime,
+    })
+  };
 
   return (
     <Layout>
@@ -45,11 +81,13 @@ const Index: NextPage = () => {
             right: 'timeGridDay,timeGridWeek,dayGridMonth listWeek',
           }}
           events={events}
+          eventClick={handleEventClick}
           eventBackgroundColor={'#FFFFFF'}
           eventBorderColor={'#acaba9'}
           eventTextColor={'#37362f'}
         />
       </div>
+      <FormDrawer drawerOpen={drawerOpen} planInfo={planInfo} setDrawerOpen={setDrawerOpen} />
     </Layout>
   )
 }
